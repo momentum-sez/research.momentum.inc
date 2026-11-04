@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Recourse preserves authority from legal claim to execution - Raeez Lorgat</title>
+<title>Recourse: Preserving Authority from Legal Claim to Execution - Raeez Lorgat</title>
 <meta name="description" content="Practitioner engagement, court and arbitration routes, evidence, payment and execution records, with their guarantees and implementation limits.">
 <meta name="author" content="Raeez Lorgat">
-<meta property="og:title" content="Recourse preserves authority from legal claim to execution">
+<meta property="og:title" content="Recourse: Preserving Authority from Legal Claim to Execution">
 <meta property="og:description" content="Practitioner engagement, court and arbitration routes, evidence, payment and execution records, with their guarantees and implementation limits.">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://research.momentum.inc/og-image.png">
@@ -18,9 +18,9 @@
 {
     "@context": "https://schema.org",
     "@type": "ScholarlyArticle",
-    "headline": "Recourse preserves authority from legal claim to execution",
+    "headline": "Recourse: Preserving Authority from Legal Claim to Execution",
     "author": { "@type": "Person", "name": "Raeez Lorgat", "url": "https://research.momentum.inc" },
-    "datePublished": "2026-11-03",
+    "datePublished": "2026-11-04",
     "description": "Practitioner engagement, court and arbitration routes, evidence, payment and execution records, with their guarantees and implementation limits."
 }
 </script>
@@ -432,6 +432,11 @@ a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; bord
 .katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
 .katex-display::-webkit-scrollbar { height: 6px; }
 table { display: block; overflow-x: auto; max-width: 100%; }
+/* Paper figures: one column wide, scaled to the reading measure, never wider than the viewport. */
+.paper-figure { margin: var(--space-4) 0; max-width: var(--measure); }
+.paper-figure a { display: block; }
+.paper-figure img { display: block; width: 100%; height: auto; }
+@media print { .paper-figure { break-inside: avoid; } }
 @media (max-width: 600px) {
   .paper-nav-title { display: none; }
 }
@@ -445,27 +450,27 @@ table { display: block; overflow-x: auto; max-width: 100%; }
     </nav>
     <article>
         <header class="article-header">
-            <h1 class="article-title">Recourse preserves authority from legal claim to execution</h1>
-                        <p class="article-meta">3 November 2026 · Raeez Lorgat · <a href="https://research.momentum.inc">Momentum Research</a> · <a href="mailto:raeez@momentum.inc">raeez@momentum.inc</a></p>
+            <h1 class="article-title">Recourse: Preserving Authority from Legal Claim to Execution</h1>
+                        <p class="article-meta">4 November 2026 · Raeez Lorgat · <a href="https://research.momentum.inc">Momentum Research</a> · <a href="mailto:raeez@momentum.inc">raeez@momentum.inc</a> · <a href="/papers/recourse-authority.pdf">PDF</a></p>
                     </header>
 
         
         <div class="article-body">
-        <section id="recourse-preserves-authority-from-legal-claim-to-execution" class="level1">
-        <h1>Recourse preserves authority from legal claim to execution</h1>
+        <section id="recourse-preserving-authority-from-legal-claim-to-execution" class="level1">
+        <h1>Recourse: Preserving Authority from Legal Claim to Execution</h1>
         <p>Raeez Lorgat<br />
         <a href="https://research.momentum.inc">Momentum Research</a><br />
         <a href="mailto:raeez@momentum.inc">raeez@momentum.inc</a><br />
-        3 November 2026</p>
-        <section id="abstract-each-action-requires-its-own-authority." class="level2">
-        <h2>Abstract: each action requires its own authority.</h2>
+        4 November 2026</p>
+        <section id="abstract" class="level2">
+        <h2>Abstract</h2>
         <p>A person asserting a legal right needs a competent decision and a way to give it effect. Evidence, professional work and execution powers often sit with different institutions. Electronic filing leaves the connections between these responsibilities unresolved.</p>
         <p>We introduce Recourse, a protocol connecting dispute-resolution centres, practitioners and systems that hold records or assets. Recourse runs dispute resolution and carries outcomes into execution. Each recorded action identifies its authority, evidence and procedural dependencies.</p>
         <p>The design covers agreed arbitration and assistance with proceedings before competent courts. Artificial intelligence assists preparation and analysis. People exercise adjudicative authority. Under stated authentication, storage and evidence assumptions, the record distinguishes a decision, permission to act and observed performance.</p>
         <p>We specify practitioner engagement, packages of prepared evidence and analysis, and records linking service payments to their recipients. We analyse integrity, uncertainty after dispatch and institutional independence, then assess the implementation evidence. Legal effect and recovery retain their separate institutional and evidentiary conditions.</p>
         </section>
-        <section id="a-legal-claim-crosses-several-independent-authorities." class="level2">
-        <h2>1. A legal claim crosses several independent authorities.</h2>
+        <section id="introduction" class="level2">
+        <h2>1. Introduction</h2>
         <p>A business disputing a maintenance charge must establish what happened and present its case to someone entitled to decide. A service report may show when an engineer recorded completed work. Whether that work satisfied the contract can require further evidence and legal judgment.</p>
         <p>If a tribunal orders payment, someone must still identify the entitled recipient, authorize payment and establish what arrived. A later order may suspend further action while leaving an earlier payment intact. The agreement, decision and receipt therefore answer different questions.</p>
         <p>The same problem arises outside an agreed contractual procedure. A person whose digital assets were stolen may have no agreement with the alleged wrongdoer. A transaction history can identify transfers while leaving identity, ownership, jurisdiction and the available remedy unresolved.</p>
@@ -474,6 +479,9 @@ table { display: block; overflow-x: auto; max-width: 100%; }
         <p>Transmission creates another difficulty. A provider may perform an instruction before the sender learns its result. Repeating the instruction can duplicate performance. Treating silence as failure can therefore corrupt both the execution process and the account of what remains owed.</p>
         <p>Professional capacity also has to exist when a case arrives. An available name in a directory supplies neither an engagement nor an independent appointment. The institution needs qualified practitioners, funded service commitments and procedures for replacing people who cannot continue.</p>
         <p>We introduce Recourse as a protocol for administering legal claims through independently authorized institutions. A legal claim asserts entitlement to a remedy or determination. The protocol connects preparation, proceedings, review and execution through records that identify the authority required for each action.</p>
+        <figure id="figure-1" class="paper-figure">
+        <a href="/figures/recourse-authority-figure-1.svg"><img src="/figures/recourse-authority-figure-1.svg" alt="We introduce Recourse as a protocol for administering legal claims through independently authorized institutions." /></a>
+        </figure>
         <p>Under authenticated signing identities, correct authority configuration, durable local transactions and adequate external evidence, admitted records preserve their required dependencies. This is a guarantee about the recorded process. Competent institutions determine legal effect, and providers supply evidence of performance.</p>
         <p>Recourse is at research and design, and its company is not yet formed. Throughout the design sections, present-tense statements specify the architecture. Section 6 confines implementation statements to their evidence and scope.</p>
         <p>The formal Recourse research supplies the authority-and-effect model, procedural tiers and independence requirements used here. Signed events, retained histories and conditional state changes are established techniques. Our contribution specifies the connections needed between professional work, proceedings and payment. <a href="https://research.momentum.inc/papers/recourse.html">Recourse, §§5–12</a></p>
@@ -486,18 +494,18 @@ table { display: block; overflow-x: auto; max-width: 100%; }
         </ol>
         <p>Section 2 defines the model. Section 3 identifies the participating institutions and system interfaces. Section 4 specifies the protocol. Sections 5 and 6 analyse its guarantees and implementation evidence. Section 7 compares related work, and Section 8 concludes.</p>
         </section>
-        <section id="each-case-records-the-basis-for-every-permitted-action." class="level2">
-        <h2>2. Each case records the basis for every permitted action.</h2>
-        <section id="legal-claims-identify-the-rights-under-dispute." class="level3">
-        <h3>2.1 Legal claims identify the rights under dispute.</h3>
+        <section id="model" class="level2">
+        <h2>2. Model</h2>
+        <section id="legal-claims" class="level3">
+        <h3>2.1 Legal claims</h3>
         <p>A legal-claim record identifies the parties, asserted basis, relevant facts and requested relief. Recording the assertion preserves what someone claims. The competent proceeding determines its merits.</p>
         <p>An economic claim records a right or obligation and the conditions that determine its outcome. It can concern money, assets, ownership, delivery, performance or events. A legal claim can contest that right, seek performance or concern conduct outside an existing contract.</p>
         <p>The two records can refer to each other while retaining their meanings. Assignment of an economic right requires its own legal basis. Representation powers, control of proceedings and appointment rights require separate authority.</p>
         <p>A case groups identified legal claims under a procedural basis. Its actors include parties, representatives, software agents, administrators, decision-makers, reviewers and execution providers. An execution provider performs an identified action on records, assets or payments under its own authority.</p>
         <p>Authentication establishes who signed a message. Authority specifies which actor may take which action, for which claims and during which period. An agreement, appointment, delegation or applicable legal power supplies that authority.</p>
         </section>
-        <section id="each-proceeding-identifies-its-jurisdictional-basis." class="level3">
-        <h3>2.2 Each proceeding identifies its jurisdictional basis.</h3>
+        <section id="jurisdictional-basis" class="level3">
+        <h3>2.2 Jurisdictional basis</h3>
         <p>Jurisdiction is the authority to hear and decide the identified claims. Recourse records the basis asserted for that authority and the competent determination of any dispute about it. Intake can precede that determination.</p>
         <p>For arbitration, the record binds the parties and covered claims to a valid agreement and its applicable law. It identifies the rules, administering institution, appointment route and seat. The seat determines the legal system supervising the arbitration, separately from the hearing location.</p>
         <p>A court route derives authority from applicable law and the competent court’s decisions. Its record identifies the forum, the claimed basis of jurisdiction, the parties or legally permitted descriptions, requested relief and required notices.</p>
@@ -505,16 +513,16 @@ table { display: block; overflow-x: auto; max-width: 100%; }
         <p>For stolen digital assets, transaction identifiers support tracing. Evidence must separately connect relevant addresses, persons, ownership claims and requested remedies. Unknown identity remains explicit. Proceedings against an unidentified defendant, or alternative service, require a route permitted by the competent court’s law.</p>
         <p>Interim protection, such as preserving assets pending a decision, requires its own authority and conditions. A final judgment follows the court’s procedure. Recognition elsewhere and execution against particular assets require their respective legal bases. Network membership creates none of these powers.</p>
         </section>
-        <section id="technical-checks-depend-on-authenticated-records-and-external-evidence." class="level3">
-        <h3>2.3 Technical checks depend on authenticated records and external evidence.</h3>
+        <section id="assumptions-and-threat-model" class="level3">
+        <h3>2.3 Assumptions and threat model</h3>
         <p>We assume that signatures authenticate their stated messages and that content digests resist substitution. A content digest is a value computed from document bytes to identify their expected content. Each institution maintains its trusted keys, authority records and adopted rules.</p>
         <p>Local transactions preserve the case revision, accepted action and response to a repeated request together. Validity periods and deadlines use a trustworthy local clock. Identifiers continue to refer to the same parties, claims, documents and economic effects.</p>
         <p>These assumptions support technical checks. Consent, jurisdiction, procedural fairness, recognition and execution require determinations under applicable law. A valid signature can accompany a false statement or an act outside its signer’s powers.</p>
         <p>Participants can submit false evidence, exceed delegated powers, conceal a later event or repeat a message. Communications can fail after a recipient acts. Artificial intelligence can omit relevant material, invent a citation or mistake instructions embedded in evidence for authorized directions.</p>
         <p>Each institution controls its records and acceptance decisions. The design assumes no global clock, database or superior network authority. A disclosed history establishes its stated contents and coverage. Evidence of later events requires an appropriate source.</p>
         </section>
-        <section id="admission-checks-preserve-each-actions-dependencies." class="level3">
-        <h3>2.4 Admission checks preserve each action’s dependencies.</h3>
+        <section id="admission-conditions" class="level3">
+        <h3>2.4 Admission conditions</h3>
         <p>For institution <span class="math inline">i</span>, let <span class="math inline">S</span> denote the recorded case state and <span class="math inline">a</span> a requested action. Admission means accepting that action into the institution’s record. We specify:</p>
         <p><span class="math display">
         \begin{aligned}
@@ -532,30 +540,30 @@ table { display: block; overflow-x: auto; max-width: 100%; }
         <p>Recovery adds a quantity constraint. Each credited amount must identify the effect at the entitled recipient and its allocation to an obligation. Repeated reports add no quantity. A correction preserves history while changing the amount currently supported and the obligation still outstanding.</p>
         </section>
         </section>
-        <section id="institutions-exchange-records-under-separate-powers." class="level2">
-        <h2>3. Institutions exchange records under separate powers.</h2>
-        <section id="each-centre-retains-its-institutional-responsibilities." class="level3">
-        <h3>3.1 Each centre retains its institutional responsibilities.</h3>
+        <section id="institutions-and-interfaces" class="level2">
+        <h2>3. Institutions and interfaces</h2>
+        <section id="institutional-responsibilities" class="level3">
+        <h3>3.1 Institutional responsibilities</h3>
         <p>A dispute-resolution centre administers proceedings under its effective authority and adopted rules. It maintains case records, appointments, disclosure permissions and service commitments. Shared interfaces support practitioner discovery, referrals and authenticated outcome exchange.</p>
         <p>The network connects case administration to the evidence and authority behind each act. Execution coordination carries eligible outcomes and exact instructions to actors entitled to perform them. Those actors return evidence of what occurred.</p>
         <p>Sovereign courts remain institutions owned by their country. Their constituting law governs judicial power, appointments and administration. A contract with a service company can specify technology, support and service payments. That contract conveys only the rights it actually grants.</p>
         <p>The same separation governs arbitration centres and independent providers. Receiving institutions establish their own basis for accepting cases, relying on outcomes or requesting action. Common record formats reduce interpretation work without transferring institutional powers.</p>
         <p>Participation terms specify the relationships they cover, permitted disclosures, procedures and service duties. Qualified people and funded capacity perform the work. Two separate participation relationships create no additional relationship merely because they share a participant.</p>
         </section>
-        <section id="operating-systems-supply-evidence-through-defined-interfaces." class="level3">
-        <h3>3.2 Operating systems supply evidence through defined interfaces.</h3>
-        <p>Cases concerning company operations require records of the relevant acts. Mass runs companies, institutions, and deployments. Its interface supplies permitted operating records and accepts competent outcomes for the corresponding operational response.</p>
+        <section id="system-interfaces" class="level3">
+        <h3>3.2 System interfaces</h3>
+        <p>Cases concerning company operations require records of the relevant acts. The Mass interface supplies permitted operating records to Recourse and accepts competent outcomes for the corresponding operational response.</p>
         <p>Mass connects sovereign execution environments for artificial-intelligence agents in a decentralized network. Each environment determines whether operations may run under its governing authority’s rules and records their results.</p>
         <p>Each environment learns the correct, safe interpretation of applicable policy, law and regulation. Fraud is the main learning priority. The Recourse interface preserves the acting authority, rule version, evidence and disclosure permission.</p>
-        <p>Moxie prices and clears claims. Its interface identifies the economic claim whose pricing or clearing depends on a dispute. It must carry that claim’s identity, restrictions and outcome while preserving the distinction between an asserted entitlement and an established right.</p>
+        <p>The interface with Moxie identifies the economic claim whose pricing or clearing depends on a dispute and supplies its status for those operations. It must carry that claim’s identity, restrictions and outcome while preserving the distinction between an asserted entitlement and an established right.</p>
         <p>Mass and Moxie perform complementary functions. Records from either system enter Recourse under the same evidence requirements as other records. Assets held elsewhere require their own identifiers, custody evidence and execution contracts.</p>
         <p>A transfer of an associated economic right changes only the rights that its legal instrument transfers. Case representation and procedural control remain governed by their own instruments. This distinction also applies when a legal claim produces an economic right that can be transferred.</p>
         </section>
         </section>
-        <section id="the-protocol-binds-each-act-to-its-authority." class="level2">
-        <h2>4. The protocol binds each act to its authority.</h2>
-        <section id="intake-preserves-a-claim-while-its-legal-route-is-established." class="level3">
-        <h3>4.1 Intake preserves a claim while its legal route is established.</h3>
+        <section id="protocol" class="level2">
+        <h2>4. Protocol</h2>
+        <section id="intake-and-jurisdiction" class="level3">
+        <h3>4.1 Intake and jurisdiction</h3>
         <p>Intake preserves the submitted claim and source material before procedural decisions. The filing identifies requested remedies and the asserted jurisdictional basis. Missing authority remains visible while a practitioner assesses the available route.</p>
         <p>For arbitration, the agreement record binds exact agreement bytes, party identities, covered claims, rules, institution, seat and governing law. The filing refers to that record. A replacement agreement identifies its predecessor and requires reassessment of dependent jurisdiction and procedure findings.</p>
         <p>An existing agreement may bind a respondent who declines further participation. The competent process must determine that agreement’s applicability and the conditions for proceeding without renewed consent. Default has the effect prescribed by the adopted rules and applicable law.</p>
@@ -563,19 +571,25 @@ table { display: block; overflow-x: auto; max-width: 100%; }
         <p>A service record links the notice, recipient, method, dates and delivery evidence to the applicable requirement. A competent finding determines procedural effect. Invalidated service requires reassessment of the acts that depended on it.</p>
         <p>An urgent application can seek interim protection where the law permits it. The record retains the order, issuing authority, property or persons covered, notice conditions, expiry and review obligations. Any action before notice requires the specific legal authority for that exception.</p>
         </section>
-        <section id="professional-engagement-authorizes-specific-case-work." class="level3">
-        <h3>4.2 Professional engagement authorizes specific case work.</h3>
+        <section id="professional-engagement-and-case-preparation" class="level3">
+        <h3>4.2 Professional engagement and case preparation</h3>
         <p>Practitioner discovery precedes disclosure, engagement and appointment. A directory profile identifies declared jurisdiction, language, specialty and availability. Qualification evidence and its verification status remain explicit.</p>
+        <figure id="figure-2" class="paper-figure">
+        <a href="/figures/recourse-authority-figure-2.svg"><img src="/figures/recourse-authority-figure-2.svg" alt="Practitioner discovery precedes disclosure, engagement and appointment." /></a>
+        </figure>
         <p>The client selects an identified profile revision and permits disclosure of a defined private summary. Acceptance establishes contact. A professional engagement separately records the client, work, fees, applicable duties and conflicts clearance.</p>
         <p>A representation mandate identifies the claims and actions entrusted to the practitioner. A separate disclosure grant identifies the information that practitioner may receive and use. Tribunal appointment follows its own competent process.</p>
         <p>A prepared case package contains the requested relief, chronology, source documents, disputed facts, relevant legal authorities and unresolved evidentiary questions. Analysis identifies its sources and distinguishes assertions, interpretations and recommendations. Contrary evidence remains accessible.</p>
+        <figure id="figure-3" class="paper-figure">
+        <a href="/figures/recourse-authority-figure-3.svg"><img src="/figures/recourse-authority-figure-3.svg" alt="A prepared case package contains the requested relief, chronology, source documents, disputed facts, relevant legal authorities and unresolved evidentiary questions." /></a>
+        </figure>
         <p>The practitioner can inspect the underlying material and correct the analysis. Each cited decision retains its source and relevance. A search reporting no result identifies the material searched and its cutoff.</p>
         <p>A linking record connects the private contact matter to the case, covered claims, selected profile and engagement. It binds conflicts clearance, representation powers and disclosure permission. Each package version identifies its recipient, purpose, source revisions, exact contents and receipt.</p>
         <p>The responsible practitioner reviews the package before using it. Changed evidence or authority requires reassessment before submission. Review records preserve the practitioner’s corrections and responsibility for the material used.</p>
         <p>An artificial-intelligence agent assists under an explicit delegation. Its work record identifies the actor, inputs, outputs, model and tool versions, and permitted purpose. Source documents remain evidence even when they contain instructions. Authority to submit or act comes from the delegation.</p>
         </section>
-        <section id="human-decision-makers-exercise-the-authority-of-their-proceeding." class="level3">
-        <h3>4.3 Human decision-makers exercise the authority of their proceeding.</h3>
+        <section id="procedure-and-adjudication" class="level3">
+        <h3>4.3 Procedure and adjudication</h3>
         <p>The arbitration design distinguishes record resolution, expedited tribunal proceedings and full tribunal proceedings. Record resolution answers bounded questions about identified evidence. In the maintenance example, it can establish a signature or recorded time while leaving contractual performance for legal judgment.</p>
         <p>Missing evidence produces an unresolved result. A challenge to record integrity requires independent examination. Under the agreed record procedure, either party can require tribunal consideration without giving reasons or obtaining leave.</p>
         <p>Procedure selection records reasons, notice, objections and adoption authority. A grouped case must accommodate its most demanding claim or separate the claims appropriately. Referral to another centre remains a separate institutional act.</p>
@@ -583,8 +597,8 @@ table { display: block; overflow-x: auto; max-width: 100%; }
         <p>An advisory extract supplies information. An authorized professional can make a determination under the adopted record procedure, with the contractual effect that applicable law permits. A tribunal issues an award through its own proceeding. A court issues its judgment or order.</p>
         <p>A settlement records the parties’ agreement. Each outcome retains its type, reasons, claims, obligations and selected evidence. Its authentication binds that evidence’s identity and provenance. Artificial-intelligence analysis remains material for human consideration.</p>
         </section>
-        <section id="evidence-custody-binds-decisions-to-exact-content." class="level3">
-        <h3>4.4 Evidence custody binds decisions to exact content.</h3>
+        <section id="evidence-custody-and-authentication" class="level3">
+        <h3>4.4 Evidence custody and authentication</h3>
         <p>Document custody records link exact bytes to their declared digest algorithms. A reference identifies expected content. Receipt and verification record possession and integrity of those bytes. The competent process determines evidentiary weight.</p>
         <p>Signed actions bind their purpose, institution, case, payload and preceding state. Expected revisions prevent incompatible accepted changes against the same local state. The design requires atomic storage: the accepted action, resulting state and repeat-request response commit together.</p>
         <p>Outcome signatures also bind the selected evidence records. Retaining an identifier while changing the document’s description or provenance would change the signed material. Such a change requires renewed authentication.</p>
@@ -592,8 +606,8 @@ table { display: block; overflow-x: auto; max-width: 100%; }
         <p>Each disclosure identifies the recipient, content, purpose and authority. Institutions apply their rules on privilege, retention and legal holds. Revocation can restrict future access. Previously disclosed bytes remain with recipients, subject to their legal duties.</p>
         <p>Later decisions preserve the history they affect. An upheld challenge can invalidate reliance without deleting the evidence. A replacement outcome identifies its predecessor. The record can therefore reconstruct both the earlier act and its current legal treatment.</p>
         </section>
-        <section id="receiving-institutions-decide-how-to-rely-on-an-exchanged-record." class="level3">
-        <h3>4.5 Receiving institutions decide how to rely on an exchanged record.</h3>
+        <section id="referral-and-recognition" class="level3">
+        <h3>4.5 Referral and recognition</h3>
         <p>A referral identifies its recipient and permitted metadata. The relevant parties or other competent authority authorize disclosure, and the source institution authorizes referral. The receiving institution separately accepts the matter. A transport receipt records delivery to an interface.</p>
         <p>Opening a receiving case requires an explicit local filing and its required authority. Source, referral and receiving-case identifiers remain distinct. The receiving institution establishes the applicable jurisdiction, procedure and appointments for its own acts.</p>
         <p>An exchanged outcome retains exact content, source authority, signatures or certification, procedural dependencies and disclosure scope. The recipient checks it against independently configured trust and the requirements for the intended use.</p>
@@ -601,128 +615,140 @@ table { display: block; overflow-x: auto; max-width: 100%; }
         <p>Recognition records identify the forum, relief covered, conditions, time and subsequent review. Acceptance in one forum cannot substitute for acceptance in another. A received snapshot also needs evidence of relevant later challenges, stays or corrections before further action.</p>
         <p>Disclosure must fit the recipient’s lawful need. A mechanism requiring the whole case can serve only matters permitting that disclosure. A narrower exchange requires a specified account of what it proves and which omitted dependencies the recipient still needs.</p>
         </section>
-        <section id="review-changes-current-permission-while-preserving-past-events." class="level3">
-        <h3>4.6 Review changes current permission while preserving past events.</h3>
+        <section id="review-and-stays" class="level3">
+        <h3>4.6 Review and stays</h3>
         <p>A challenge identifies its target, scope, grounds and requested relief. The reviewer holds the required authority and is independent of the challenged act. Pending challenges restrict affected claims according to the applicable rules.</p>
         <p>A stay identifies restricted actions and its effective period. Suspending proceedings differs from suspending execution. Orders varying or lifting a stay identify their predecessors. A contested lifting order cannot silently remove the restriction under review.</p>
         <p>Before execution, the responsible participants establish current authority and restrictions using evidence from competent sources. Evidence must state its cutoff and coverage. An older snapshot leaves later events unresolved.</p>
         <p>A stay issued after performance changes future permission. The earlier event remains recorded. Return, restitution or corrective performance requires a separate authorized act and evidence of its result.</p>
         </section>
-        <section id="execution-requires-an-exact-instruction-and-current-authority." class="level3">
-        <h3>4.7 Execution requires an exact instruction and current authority.</h3>
+        <section id="execution-and-recovery" class="level3">
+        <h3>4.7 Execution and recovery</h3>
         <p>An outcome can create an obligation while leaving performance outstanding. The execution record identifies the obligation, destination, requested action and legal basis. A monetary instruction also identifies the asset, amount, unit, entitled recipient and account mapping.</p>
         <p>Voluntary performance relies on the relevant person’s instruction. Custody release relies on an effective mandate covering the property and action. Compulsory execution relies on competent legal authority. The required signers and conditions follow that route.</p>
+        <figure id="figure-4" class="paper-figure">
+        <a href="/figures/recourse-authority-figure-4.svg"><img src="/figures/recourse-authority-figure-4.svg" alt="Compulsory execution relies on competent legal authority." /></a>
+        </figure>
         <p>For court execution, the record includes recognition where required and the executing authority’s determination that the requested act may proceed. Asset availability, priority, insolvency, exemptions, sanctions and immunity can affect that determination.</p>
         <p>An interim preservation order retains its own conditions. It does not become a final entitlement to distribute the protected property. A custodian acts within its mandate or applicable court order.</p>
         <p>The design records an instruction durably before transmission and binds exact request bytes to a stable identity. Dispatch checks current authority and restrictions. A local stay committed before the final dispatch check prevents transmission.</p>
         <p>An instruction already transmitted requires destination controls. A timeout can follow successful performance, so uncertainty remains explicit. The sender must not automatically repeat an attempted economic instruction merely because confirmation failed.</p>
+        <figure id="figure-5" class="paper-figure">
+        <a href="/figures/recourse-authority-figure-5.svg"><img src="/figures/recourse-authority-figure-5.svg" alt="The sender must not automatically repeat an attempted economic instruction merely because confirmation failed." /></a>
+        </figure>
         <p>Replacement requires evidence that the original cannot produce further performance, or a destination mechanism transferring its remaining permitted capacity. A report that no effect has been observed leaves possible delayed performance unresolved.</p>
         <p>Recovery requires evidence of the recipient-side effect and authorized reconciliation, which assigns that effect to the obligation. A reported credit, usable funds and collected value are separate states. Collection requires recipient evidence, legal finality and closure of applicable reversal windows.</p>
         <p>A reversal window is a period during which the provider or legal route permits a relevant reversal. The evidence must cover every applicable window. Missing information about a window cannot establish collection.</p>
         <p>Amounts use exact units. Partial performance leaves a balance. Repeated evidence and alternate provider identifiers add no credit for the same effect. Preventing reuse across claims requires an authoritative allocation record covering those claims.</p>
         <p>Conflicting evidence can invalidate a current completion finding while preserving historical acts. Closing a case leaves unpaid obligations and uncertain instructions visible. Non-monetary relief requires evidence appropriate to the ordered act, such as a corrected register or completed delivery.</p>
         </section>
-        <section id="protected-remuneration-is-fixed-before-case-assignment." class="level3">
-        <h3>4.8 Protected remuneration is fixed before case assignment.</h3>
+        <section id="protected-remuneration" class="level3">
+        <h3>4.8 Protected remuneration</h3>
         <p>The network needs sustained professional work with distinct responsibilities for representation, adjudication, administration and public research. Each engagement identifies its client, role, duties and authority.</p>
         <p>We adopt the funded compensation model in the Recourse research. Protected roles include decision-makers, appointment and challenge authorities, case administrators and people controlling material case records. Their remuneration covers related payments and benefits. <a href="https://research.momentum.inc/papers/recourse.html">Recourse, §10</a></p>
         <p>Before assignment, a contract fixes each protected person’s total remuneration, payment dates, service capacity and term. A separate mandate reserves the full cash obligation. Outcomes, recovery, hours, workload, appeals and assignment counts cannot increase that term’s entitlement.</p>
+        <figure id="figure-6" class="paper-figure">
+        <a href="/figures/recourse-authority-figure-6.svg"><img src="/figures/recourse-authority-figure-6.svg" alt="Before assignment, a contract fixes each protected person&#x27;s total remuneration, payment dates, service capacity and term." /></a>
+        </figure>
         <p>Ownership, control, repeat appointments, future employment and referral relationships require separate conflict examination. Decisions use sourced relationships and an authorized independent process. Fixed remuneration addresses a defined incentive while leaving these other influences subject to scrutiny.</p>
         <p>Bounded public research can use defined engagements or controlled bounties with objective acceptance tests. Such work creates no appointment right or authority over a case. Confidential preparation requires a professional engagement with its corresponding duties.</p>
         <p>The administering centre receives no share of a party representative’s fee and no referral fee. Collection on another recipient’s behalf retains that recipient’s entitlement. Payment for a service creates no appointment right. Service-company contracts preserve these independence requirements.</p>
         </section>
-        <section id="service-payments-follow-identified-obligations." class="level3">
-        <h3>4.9 Service payments follow identified obligations.</h3>
+        <section id="service-payments" class="level3">
+        <h3>4.9 Service payments</h3>
         <p>A client pays through Recourse for requested services using an appointed payment provider. The collection mandate identifies the payer, service, recipient entitlements and permitted use of funds. Practitioner charges link to engagements. Filing charges link to the receiving institution’s requirements.</p>
         <p>A service-payment record connects the accepted request, collection evidence, recipient obligations, disbursement instructions and receipts under a stable identifier. The provider’s collection receipt records payment against that request.</p>
+        <figure id="figure-7" class="paper-figure">
+        <a href="/figures/recourse-authority-figure-7.svg"><img src="/figures/recourse-authority-figure-7.svg" alt="A service-payment record connects the accepted request, collection evidence, recipient obligations, disbursement instructions and receipts under a stable identifier." /></a>
+        </figure>
         <p>Available funds can support disbursement under current mandates and service conditions. Each instruction identifies the funds used, recipient and obligation paid. Recipient-payment evidence records delivery to the practitioner or filing institution. Failed or uncertain instructions remain open for reconciliation.</p>
         <p>Collection and recipient payment therefore require separate evidence. The provider contract specifies custody, authorization, permitted deductions, refunds, reconciliation and treatment of failed instructions. Applicable professional and client-money rules govern the arrangement.</p>
         <p>Client money, security, filing payments and sums owed to practitioners retain their ownership and permitted purpose. Earned service income has separate accounting. Service receipts also remain separate from evidence that an award or judgment obligation has been performed.</p>
         <p>Service payments do not increase a protected person’s fixed entitlement or automatically release its funding reserve. A transfer into that reserve requires separate authority and accounting. Funds held for another person cannot serve as the institution’s unrestricted operating funds.</p>
         </section>
-        <section id="continuity-preserves-outstanding-work-and-payment-exposure." class="level3">
-        <h3>4.10 Continuity preserves outstanding work and payment exposure.</h3>
+        <section id="continuity" class="level3">
+        <h3>4.10 Continuity</h3>
         <p>Before accepting matters, a centre needs funded administration, qualified replacement capacity and a lawful custody-transfer route. A successor requires current authority for future acts.</p>
         <p>Transfer preserves the case history, unfinished work, disclosure duties, outstanding obligations and reserved funds. It also preserves original identities and uncertain instructions. Restoring a database cannot resolve whether a destination already received or performed an omitted instruction.</p>
         <p>Existing exposure constrains new instructions. A successor must account for performance already completed and performance still possible under an outstanding command. Transfer of administration neither discharges the obligation nor supplies new payment capacity.</p>
         </section>
-        <section id="institutional-learning-retains-the-source-and-status-of-each-finding." class="level3">
-        <h3>4.11 Institutional learning retains the source and status of each finding.</h3>
+        <section id="institutional-learning" class="level3">
+        <h3>4.11 Institutional learning</h3>
         <p>Outcomes can inform later preparation and operational decisions. The feedback record identifies the deciding authority, supporting evidence, applicable rule version and permitted use.</p>
         <p>Allegations, investigations, findings and reversals remain distinct. A later ruling can require revision of dependent analysis while preserving what previously occurred. Further use of confidential material requires its own authority.</p>
         <p>For Mass, relevant learning concerns fraud and wider operating practice, including required checks, consents, useful evidence and procedural delay. Shared learning carries supporting proofs. Each receiving institution checks those proofs and decides what to adopt.</p>
         <p>A proof supports its specified calculation or relationship under stated assumptions. Label accuracy and future predictive performance require separate evidence. Distribution gives an outcome no universal precedential force.</p>
         </section>
         </section>
-        <section id="the-guarantees-concern-recorded-dependencies." class="level2">
-        <h2>5. The guarantees concern recorded dependencies.</h2>
-        <section id="the-integrity-argument-depends-on-explicit-assumptions." class="level3">
-        <h3>5.1 The integrity argument depends on explicit assumptions.</h3>
+        <section id="guarantees" class="level2">
+        <h2>5. Guarantees</h2>
+        <section id="integrity-assumptions-and-argument" class="level3">
+        <h3>5.1 Integrity assumptions and argument</h3>
         <p>An admitted action identifies its predecessor and satisfies the checks for its type. Atomic recording preserves the action and resulting state together. Induction over admitted actions therefore preserves those local dependencies under the model’s authentication, authority and storage assumptions.</p>
         <p>Replaying the recorded history checks those dependencies without issuing another economic instruction. An incorrectly configured authority can still admit an improper act. A disclosed history can also omit events outside its coverage.</p>
         <p>An allocation journal records how identified quantities are reserved or applied across claims. The formal Recourse paper proves historical integrity under authentication, identity, ordering, economic-evidence and allocation-journal assumptions. The legal conditions remain external. <a href="https://research.momentum.inc/papers/recourse.html">Recourse, §§9.6–9.7</a></p>
         <p>That theorem retains its own model and hypotheses. The court interface specified here requires a formal account of jurisdiction evidence, service findings and authenticated court orders before an equivalent theorem can cover it.</p>
         </section>
-        <section id="a-qualifying-decision-supplies-no-lower-bound-on-recovery." class="level3">
-        <h3>5.2 A qualifying decision supplies no lower bound on recovery.</h3>
+        <section id="recovery-bounds" class="level3">
+        <h3>5.2 Recovery bounds</h3>
         <p>A valid record can stop after an award, leaving recovery at zero. It can continue with unavailable property, refusal, a stay, insolvency or failed execution. The formal result therefore gives no positive lower bound on recovery from a qualifying award alone.</p>
         <p>The same obstruction applies to a court judgment whenever the assets or execution conditions needed for collection are absent. Legal entitlement, available property, execution authority and provider performance remain distinct premises.</p>
         <p>Quantity conservation requires stable effect identities and authoritative allocation journals covering the relevant claims. Repeated evidence creates no additional effect. Corrections can reduce current support for a historical credit, leaving an explicit deficit requiring an authorized adjustment.</p>
         <p>This accounting discipline preserves the difference between a debt’s legal treatment and the funds a recipient actually receives. It also prevents a payment attributed to one claim from silently becoming available for another.</p>
         </section>
-        <section id="safety-can-require-waiting-for-external-evidence." class="level3">
-        <h3>5.3 Safety can require waiting for external evidence.</h3>
+        <section id="safety-and-progress" class="level3">
+        <h3>5.3 Safety and progress</h3>
         <p>Withholding action during uncertainty can prevent duplicate or unauthorized performance. It also delays completion. Progress depends on responsive authorities, practitioners, funding and destination evidence. The design gives no unconditional completion time.</p>
         <p>Local serialization orders accepted transitions within one deployment. Independent institutions retain separate orders and acceptance decisions. Cross-institution quantity control requires shared effect identity and an authoritative allocation mechanism covering the affected records.</p>
         <p>A compromised key or dishonest provider can supply apparently valid evidence. Key custody, revocation records, independent authority configuration and review address particular risks. Their effectiveness depends on evidence coverage and timely action.</p>
         </section>
         </section>
-        <section id="implementation-evidence-covers-bounded-local-mechanisms." class="level2">
-        <h2>6. Implementation evidence covers bounded local mechanisms.</h2>
-        <section id="the-signed-case-protocol-covers-consensual-arbitration." class="level3">
-        <h3>6.1 The signed case protocol covers consensual arbitration.</h3>
+        <section id="implementation-evidence" class="level2">
+        <h2>6. Implementation evidence</h2>
+        <section id="signed-case-protocol" class="level3">
+        <h3>6.1 Signed case protocol</h3>
         <p>The evidence considered here comprises implementation source and September 2026 verification records. They cover case administration, signed actions, practitioner contact, configured institutional exchange and execution reconciliation. These records concern local implementations and synthetic proceedings.</p>
         <p>The case protocol checks consent, procedure, human appointments, outcomes, challenges and stays. Consent requires distinct signatures covering both parties and every case claim. Proceeding against a non-participating respondent under an earlier agreement requires additional specification and implementation.</p>
         <p>The court route in Sections 2 and 4 is a design extension. General court filing, service and compulsory execution are outside the demonstrated implementation scope.</p>
         <p>Accepted case changes and repeat-request records commit in one database transaction. Outcome checks bind the selected evidence records alongside the outcome document. Changing that evidence requires a new signature.</p>
         <p>The broader Recourse project remains at research and design. Moxie, the claim-pricing and clearing system identified in Section 3, is in testnet. Neither status supplies evidence that the court or payment interfaces specified here operate in a real proceeding.</p>
         </section>
-        <section id="contact-matching-stops-before-professional-engagement." class="level3">
-        <h3>6.2 Contact matching stops before professional engagement.</h3>
+        <section id="practitioner-contact" class="level3">
+        <h3>6.2 Practitioner contact</h3>
         <p>The directory matches declared jurisdiction, language, specialty and availability. Qualifications are self-declared and unverified. Selection identifies a profile revision and permits disclosure of a defined private summary. Acceptance records agreement to contact.</p>
         <p>Professional engagement, conflicts clearance, case delegation and tribunal appointment remain separate requirements. The directory remains separate from case evidence. Submitted artificial-intelligence work can carry delegation and provenance, while complete case-package generation and delivery remain unimplemented.</p>
         </section>
-        <section id="outcome-records-retain-two-distinct-verification-routes." class="level3">
-        <h3>6.3 Outcome records retain two distinct verification routes.</h3>
+        <section id="outcome-verification" class="level3">
+        <h3>6.3 Outcome verification</h3>
         <p>A submitted outcome record links a claimed determination, award or settlement to documents already in case custody. It starts unverified. A configured independent verifier can record an assessment linked to authority evidence and reasons.</p>
         <p>That path checks structure and custody. Recording the assessment does not perform the signed case protocol’s tribunal-signature checks.</p>
         <p>A protocol outcome records a decision issued through the signed case process. Acceptance checks signatures, case authority, evidence and procedural dependencies. An award requires the accepted human tribunal’s signatures. Verification of a submitted record neither creates nor authorizes this outcome.</p>
         </section>
-        <section id="exchange-tests-verify-disclosed-case-snapshots." class="level3">
-        <h3>6.4 Exchange tests verify disclosed case snapshots.</h3>
+        <section id="institutional-exchange" class="level3">
+        <h3>6.4 Institutional exchange</h3>
         <p>The implementation supports referral, explicit receiving-case creation and portable outcome recognition. The portable package discloses the complete source case and its document bytes with both parties’ authorization.</p>
         <p>The receiving service checks signatures, exact content and procedural history against independently configured source rules and keys. This mechanism has no selective cryptographic disclosure of a small proof concealing the remaining case. Its privacy scope is the complete authorized disclosure.</p>
         <p>The September verification record reports a test between two local services with separate databases and authority configuration. It covers referral, adjudication, recognition and recovery records using synthetic identities and provider evidence. Recognition concerns the disclosed snapshot.</p>
         <p>Typed subject references identify Mass and Moxie objects. General references for other asset systems require additional design and implementation. A document describing an external asset supplies neither its native identifier nor an execution contract.</p>
         </section>
-        <section id="recorded-receipts-leave-destination-performance-to-be-established." class="level3">
-        <h3>6.5 Recorded receipts leave destination performance to be established.</h3>
+        <section id="payments-and-execution" class="level3">
+        <h3>6.5 Payments and execution</h3>
         <p>Service-payment support records accepted charges and provider-reported receipts. It does not dispatch collection or disbursement instructions. The specified payment flow still requires provider contracts, collection mandates, recipient-payment evidence and implementation.</p>
         <p>The local execution path requires signatures from the designated executor, actual obligor and beneficiary. It covers specified voluntary transfers. General execution of awards by destination systems and involuntary recovery remain outside that scope.</p>
         <p>An attempted economic instruction retains uncertainty after dispatch and receives no automatic retry. General destination closure and safe replacement after uncertain delivery remain implementation obligations.</p>
         <p>Synthetic custodian evidence exercises the separation between dispatch, provider statements and reconciled recovery. The local test covers neither real asset recovery nor a deployed sovereign institution. It also leaves the complete collection and cross-claim allocation-journal assumptions of the research model unestablished.</p>
         <p>Further operational evidence must cover destination contracts, deployment operation, actual institutional authority and recipient effects. This paper reports no measured recovery rate, institutional adoption result or performance benchmark.</p>
         </section>
-        <section id="evaluation-must-test-the-boundaries-between-institutions." class="level3">
-        <h3>6.6 Evaluation must test the boundaries between institutions.</h3>
+        <section id="evaluation-requirements" class="level3">
+        <h3>6.6 Evaluation requirements</h3>
         <p>Technical evaluation should include substituted evidence, expired delegations, disputed appointments, omitted stays, conflicting receipts and failure after destination acceptance. Restoration tests must account for instructions that may have escaped the restored record.</p>
         <p>Legal evaluation must assess each route for its actual parties and forum. Professional evaluation must assess qualifications, conflicts, appointment independence and prepared-material accuracy. Court-route evaluation must include disputed identity, ineffective service and the conditions for interim relief.</p>
         <p>Service comparisons should measure preparation effort, practitioner waiting time, procedural delay, correction rates and cost. They must account for case difficulty, disclosure limits and procedure. Filing volume or faster analysis alone cannot establish better dispute resolution.</p>
         <p>Network participation remains a separate hypothesis. Useful preparation and reliable paid work may attract practitioners, while available practitioners may attract matters. The strength of these effects requires observation. The research supplies no universal participation threshold.</p>
         </section>
         </section>
-        <section id="existing-law-and-record-methods-supply-the-foundations." class="level2">
-        <h2>7. Existing law and record methods supply the foundations.</h2>
+        <section id="related-work" class="level2">
+        <h2>7. Related work</h2>
         <p>Arbitration supplies a contractual route to decisions capable of recognition across borders. The 1958 Convention on the Recognition and Enforcement of Foreign Arbitral Awards governs qualifying agreements and awards. Its conditions retain notice, scope, procedure, review and forum-specific limits.</p>
         <p>Recourse records the evidence relevant to successive actions under those conditions. A technical acceptance record cannot substitute for the competent court’s recognition or execution decision. <a href="https://treaties.un.org/doc/Publication/UNTS/Volume%20330/volume-330-I-4739-English.pdf">New York Convention, Articles II–VI</a></p>
         <p>The 2019 Convention on the Recognition and Enforcement of Foreign Judgments in Civil or Commercial Matters supplies a distinct recognition route between contracting states. It has subject-matter exclusions, eligibility requirements and refusal grounds. Interim measures fall outside its definition of a judgment.</p>
@@ -738,8 +764,8 @@ table { display: block; overflow-x: auto; max-width: 100%; }
         <p>The formal Recourse research develops professional supply, protected remuneration, review, continuity and the separation of authority from economic effects. Allocated Title provides related analysis of legal rights, custody records and provider performance. We use those results under their stated assumptions. <a href="https://research.momentum.inc/papers/recourse.html">Recourse</a>, <a href="https://research.momentum.inc/papers/allocated-title.html">Allocated Title</a></p>
         <p>The contribution here is the correspondence between contact, professional engagement, prepared material, proceedings and service payments. Separate court and arbitration routes preserve the legal basis of each proceeding. Their institutional and economic performance requires the evidence identified in Section 6.</p>
         </section>
-        <section id="shared-records-can-connect-legal-proceedings-without-merging-their-powers." class="level2">
-        <h2>8. Shared records can connect legal proceedings without merging their powers.</h2>
+        <section id="conclusion" class="level2">
+        <h2>8. Conclusion</h2>
         <p>Recourse specifies how independently authorized institutions can carry a legal claim from preparation through decisions and execution coordination. Engagement records authorize professional work. Case records preserve evidence and procedure. Execution records bind instructions to current authority and observed effects.</p>
         <p>The architecture covers agreed arbitration and assistance with competent court proceedings, including claims arising without prior agreement. Its integrity conditions preserve the difference between an assertion, a decision, permission to act and performance.</p>
         <p>A common protocol can make those responsibilities inspectable across institutions. Courts, tribunals, practitioners and providers retain their powers and duties while contributing to one account of the claim.</p>
