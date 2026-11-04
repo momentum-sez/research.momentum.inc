@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>One-Way Coupling of Prediction Markets to Automated Market Makers - Raeez Lorgat</title>
+<meta name="description" content="How prediction-market signals can adjust automated prices, and how fees and trade limits control manipulation.">
+<meta name="author" content="Raeez Lorgat">
+<meta property="og:title" content="One-Way Coupling of Prediction Markets to Automated Market Makers">
+<meta property="og:description" content="How prediction-market signals can adjust automated prices, and how fees and trade limits control manipulation.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://research.momentum.inc/og-image.png">
+<meta property="og:url" content="https://research.momentum.inc/papers/moxie/pwamm-coupling.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+<link rel="canonical" href="https://research.momentum.inc/papers/moxie/pwamm-coupling.html">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "One-Way Coupling of Prediction Markets to Automated Market Makers",
+    "author": { "@type": "Person", "name": "Raeez Lorgat", "url": "https://research.momentum.inc" },
+    "datePublished": "2026-09-06",
+    "description": "How prediction-market signals can adjust automated prices, and how fees and trade limits control manipulation."
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8T5J8M28"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JP8T5J8M28');
+</script>
+<link rel="stylesheet" href="https://use.typekit.net/zlu2quo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --font-text: 'garamond-premier-pro', 'EB Garamond', 'Hoefler Text', 'Baskerville', Garamond, serif;
+    --font-display: 'garamond-premier-pro-display', var(--font-text);
+    --font-caption: 'garamond-premier-pro-caption', var(--font-text);
+    --font-subhead: 'garamond-premier-pro-subhead', var(--font-text);
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    --text-base: clamp(18px, 1.125rem + 0.25vw, 21px);
+    --text-sm: calc(var(--text-base) / 1.333);
+    --text-xs: calc(var(--text-sm) / 1.333);
+    --text-lg: calc(var(--text-base) * 1.333);
+    --text-xl: calc(var(--text-lg) * 1.333);
+    --text-2xl: calc(var(--text-xl) * 1.333);
+    --baseline: 8px;
+    --leading-tight: 1.2;
+    --leading-snug: 1.35;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.618;
+    --leading-loose: 1.8;
+    --space-1: calc(var(--baseline) * 1);
+    --space-2: calc(var(--baseline) * 2);
+    --space-3: calc(var(--baseline) * 3);
+    --space-4: calc(var(--baseline) * 4);
+    --space-5: calc(var(--baseline) * 5);
+    --space-6: calc(var(--baseline) * 6);
+    --space-8: calc(var(--baseline) * 8);
+    --space-10: calc(var(--baseline) * 10);
+    --space-13: calc(var(--baseline) * 13);
+    --measure: 65ch;
+    --measure-narrow: 55ch;
+    --measure-wide: 75ch;
+    --gutter: clamp(16px, 4vw, 24px);
+    --ink: #1a1917;
+    --ink-muted: #4a4744;
+    --ink-subtle: #6a6662;
+    --ink-faint: #8a8580;
+    --ink-ghost: #b5b0ab;
+    --ink-whisper: #d4d0cc;
+    --ink-hint: #e8e5e2;
+    --paper: #fefdfb;
+    --paper-tint: #f5f3f0;
+    --kern-tight: -0.02em;
+    --kern-snug: -0.01em;
+    --kern-normal: 0;
+    --kern-loose: 0.015em;
+    --kern-wide: 0.04em;
+    --kern-caps: 0.08em;
+    --optical-margin: -0.03em;
+}
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    hanging-punctuation: first last;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body {
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-relaxed);
+    color: var(--ink);
+    background: var(--paper);
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1, "dlig" 1, "onum" 1, "pnum" 1;
+    font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    font-kerning: normal;
+}
+.container {
+    max-width: calc(var(--measure) + var(--space-8));
+    margin-inline: auto;
+    padding: var(--space-10) var(--gutter) var(--space-8);
+}
+.back-nav { margin-bottom: var(--space-8); }
+.back-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.back-nav a:hover { color: var(--ink); }
+.article-header {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--ink-hint);
+}
+.article-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-meta {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+    margin-top: var(--space-3);
+}
+.article-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+.article-meta a:hover {
+    color: var(--ink-muted);
+    text-decoration-color: var(--ink-ghost);
+}
+/* Companion open-source repository link — rendered when `repo` metadata is set.
+   Monochrome ink on warm paper to sit native to the typographic system;
+   the GitHub mark carries the recognition, the hairline frame the prominence. */
+.repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    max-width: 100%;
+    padding: 10px var(--space-3) 10px calc(var(--space-2) + 2px);
+    border: 1px solid var(--ink-whisper);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: border-color 200ms ease, color 200ms ease,
+                background 200ms ease, box-shadow 200ms ease;
+}
+.repo-link:hover {
+    border-color: var(--ink-faint);
+    color: var(--ink);
+    background: var(--paper-tint);
+    box-shadow: 0 2px 12px rgba(26, 25, 23, 0.07);
+}
+.repo-link:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; }
+.repo-link__mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    color: var(--ink);
+    transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.repo-link:hover .repo-link__mark { transform: rotate(-7deg) scale(1.06); }
+.repo-link__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; line-height: var(--leading-tight); }
+.repo-link__label {
+    font-family: var(--font-caption);
+    font-size: var(--text-xs);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    transition: color 200ms ease;
+}
+.repo-link:hover .repo-link__label { color: var(--ink-subtle); }
+.repo-link__url {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    letter-spacing: var(--kern-snug);
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.repo-link__arrow {
+    flex: none;
+    margin-left: var(--space-1);
+    color: var(--ink-ghost);
+    transition: transform 200ms ease, color 200ms ease;
+}
+.repo-link:hover .repo-link__arrow { transform: translateX(3px); color: var(--ink-faint); }
+@media (max-width: 400px) { .repo-link__arrow { display: none; } }
+/* TOC from pandoc */
+nav#TOC {
+    margin: 0 0 var(--space-8);
+    padding: var(--space-4) 0 var(--space-4) var(--space-4);
+    border-top: 1px solid var(--ink-hint);
+    border-bottom: 1px solid var(--ink-hint);
+}
+nav#TOC ul { list-style: none; padding: 0; }
+nav#TOC li { margin: 0.35rem 0; }
+nav#TOC a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-hint);
+    transition: border-color 0.2s;
+    font-size: var(--text-sm);
+}
+nav#TOC a:hover { border-color: var(--ink-muted); }
+.article-body { font-variant-ligatures: common-ligatures discretionary-ligatures contextual; }
+.article-body p {
+    margin-bottom: var(--space-3);
+    max-width: var(--measure);
+    line-height: var(--leading-loose);
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+    hyphenate-limit-lines: 2;
+}
+.article-body h1, .article-body .level1 > h2:first-child {
+    font-family: var(--font-subhead);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h2 {
+    font-family: var(--font-subhead);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: var(--kern-snug);
+    line-height: var(--leading-snug);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+}
+.article-body a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    text-decoration-skip-ink: auto;
+    transition: text-decoration-color 180ms ease;
+}
+.article-body a:hover { text-decoration-color: var(--ink-muted); }
+.article-body blockquote {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--ink-hint);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.article-body hr {
+    border: none;
+    height: 1px;
+    background: var(--ink-hint);
+    margin: var(--space-8) 0;
+    max-width: 4rem;
+}
+.article-body code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--paper-tint);
+    padding: 0.12em 0.35em;
+}
+.article-body pre {
+    background: #0d0d0c;
+    color: #c8c5b8;
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-4) 0;
+    font-size: var(--text-sm);
+}
+.article-body th {
+    text-align: left;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+    letter-spacing: var(--kern-loose);
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 2px solid var(--ink-hint);
+}
+.article-body td {
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 1px solid var(--ink-hint);
+    vertical-align: top;
+}
+.article-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.author-byline {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.author-byline strong { font-style: normal; font-weight: 600; }
+.footer-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.footer-nav a:hover { color: var(--ink); }
+.contact-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+}
+::selection { background: var(--ink); color: var(--paper); }
+a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; border-radius: 2px; }
+@media (max-width: 680px) {
+    :root { --text-base: clamp(17px, 1rem + 0.2vw, 19px); }
+    .container { padding: var(--space-6) var(--gutter) var(--space-5); }
+    .article-title { font-size: var(--text-xl); }
+    .article-body h1, .article-body .level1 > h2:first-child { font-size: var(--text-lg); }
+    .article-body h2 { font-size: calc(var(--text-base) * 1.1); }
+    .article-footer { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+@media (max-width: 400px) {
+    :root { --text-base: 16px; }
+    .container { padding: var(--space-5) var(--space-2) var(--space-4); }
+}
+@media (min-width: 1200px) { .container { padding-top: var(--space-13); } }
+@media print {
+    :root { --ink: #000; --paper: #fff; }
+    body { font-size: 11pt; line-height: 1.4; }
+    .container { max-width: 100%; padding: 0; }
+    .back-nav, .contact-footer { display: none; }
+    nav#TOC { display: none; }
+    a { text-decoration: none !important; color: var(--ink) !important; }
+    .article-body h1, .article-body h2 { page-break-after: avoid; }
+    p { orphans: 3; widows: 3; }
+}
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(var(--gutter), env(safe-area-inset-left));
+        padding-right: max(var(--gutter), env(safe-area-inset-right));
+    }
+}
+
+/* Wiring in a mathematics renderer made display equations set on one unwrappable
+   line, so a long equation pushed the page wider than the viewport and readers on
+   ordinary laptops lost the right-hand side. Let each equation scroll inside its own
+   box instead of widening the page. Wide tables get the same treatment. */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
+.katex-display::-webkit-scrollbar { height: 6px; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 600px) {
+  .paper-nav-title { display: none; }
+}
+</style>
+<link rel="stylesheet" href="/paper.css">
+</head>
+<body>
+<div class="container">
+    <nav class="back-nav">
+        <a href="/">← Research</a>
+    </nav>
+    <article>
+        <header class="article-header">
+            <h1 class="article-title">One-Way Coupling of Prediction Markets to Automated Market Makers</h1>
+            <p class="article-meta">September 2026 · Raeez Lorgat</p>
+                    </header>
+
+        
+        <div class="article-body">
+        <section id="one-way-coupling-of-prediction-markets-to-automated-market-makers" class="level1">
+        <h1>One-Way Coupling of Prediction Markets to Automated Market Makers</h1>
+        <section id="abstract" class="level2">
+        <h2>Abstract</h2>
+        <p>Can a prediction market improve an automated market maker’s prices without creating an uncontrolled source of trading profit? The forecast can convey information about an event that affects asset value, but a trader may also manipulate that forecast. We study a coupling in which the forecast changes spot prices while the prediction reward remains independent of spot trading. For added prediction payments independent of the event outcome, we characterize exactly when the reward for truthful reporting survives.</p>
+        <p>We then bound reporting distortion from finite outside positions and derive exact fees and trade limits for reversible trading cycles. The required protection depends on whether fees remain in the pool and whether traders can split their orders.</p>
+        <p>A sponsor account can fund price adjustments, with bounded net spending when trades and forecast changes restore the initial inventory and pricing rule. These constructions retain a nonzero response to the forecast. Under independent Gaussian signal errors, a bounded correction strictly reduces mean squared log-price error. A synthetic study measures its trading effects. Market usefulness and endogenous participation remain separate empirical and equilibrium questions.</p>
+        <p>The author has a commercial interest in systems of the kind this paper describes.</p>
+        </section>
+        <section id="pwamm:intro" class="level2">
+        <h2>1 Introduction</h2>
+        <p>An automated market maker (AMM) uses its asset and cash reserves to quote trades. Suppose an asset’s value depends on whether a binary event occurs. A prediction market trades claims on that event and supplies a forecast of its probability. When spot trading is too thin to update the price within the current trade window, the forecast may supply useful information. For an asset with two possible terminal values, a changed event probability changes the corresponding expected value. The question is how to make the AMM respond without giving traders an uncontrolled way to extract its reserves.</p>
+        <p>A trader active in both markets can benefit from manipulating the forecast. A trader can buy the asset, raise the forecast used in its quote, and sell the asset back at the changed price. The trader may then reverse the prediction trade as well. A charge recovered on reversal does not pay for the gain on the asset cycle. A reporter who already owns the asset can also benefit from an inflated forecast without completing such a cycle. These incentives arise even when the prediction market, considered alone, rewards truthful forecasts.</p>
+        <p>A strictly proper score gives a reporter the highest expected payment for stating the reporter’s actual belief. An outcome-independent payment preserves that property, for every belief, exactly when it stays constant along the states that a report can move. One-way coupling achieves it by allowing the forecast to change the AMM price while keeping spot state out of the prediction reward. Separate asset positions still create outside incentives, whose effect we bound for contracts held until the event resolves.</p>
+        <p>To bound trading gains, we limit the forecast’s effect on price and compute the exact cash transfers when that forecast changes between trades. The destination of the fees matters because fees retained in the pool change the reserves used for the next quote. Order splitting also matters: protection against two complete legs can fail across a longer sequence of partial fills. We derive fee thresholds for these cases and a finite-horizon alternative that limits total reserve movement.</p>
+        <p>A sponsor can fund changes to the pricing rule by transferring the required cash into or out of the pool at fixed inventory. Closed inventory and control sequences can then consume only the admitted sponsor balance. This construction keeps a nonzero response to the forecast, including coupling values below one. Its statistical value is conditional: a bounded correction reduces estimation error under the specified Gaussian signal law. The synthetic evaluation measures the resulting price error and trading outcomes under that law.</p>
+        <p>Proper scoring rules and cost-function prediction markets provide the base elicitation mechanism [<a href="#ref-hanson2003" style="overflow-wrap:anywhere;hyphens:none">1</a>, <a href="#ref-hanson2007" style="overflow-wrap:anywhere;hyphens:none">2</a>, <a href="#ref-gneiting2007" style="overflow-wrap:anywhere;hyphens:none">3</a>]. The failure caused by payoff feedback is related to decision markets and outside incentives [<a href="#ref-othman2010decision" style="overflow-wrap:anywhere;hyphens:none">4</a>, <a href="#ref-chenkash2011" style="overflow-wrap:anywhere;hyphens:none">5</a>, <a href="#ref-shi2009" style="overflow-wrap:anywhere;hyphens:none">6</a>]. The spot venue is a constant-function market maker of the type analysed by Angeris and co-authors [<a href="#ref-angeris2021" style="overflow-wrap:anywhere;hyphens:none">7</a>, <a href="#ref-angeris2020oracles" style="overflow-wrap:anywhere;hyphens:none">8</a>]. We study how these two mechanisms compose.</p>
+        <div class="assumption">
+        <p><strong>Assumption 1.1 (Trade-window boundary).</strong></p>
+        <p><span id="ass:trade-window"></span> The set of trades used in a price calculation is committed before the event result is revealed. This is a ledger-confirmation assumption for price formation. Ledger confirmation, legal finality, funding, and beneficiary receipt remain distinct events. The formulas below do not merge them.</p>
+        </div>
+        <p>This boundary follows the distinction between trade processing and settlement in the Principles for Financial Market Infrastructures [<a href="#ref-pfmi2012" style="overflow-wrap:anywhere;hyphens:none">9</a>]. Du’s payment-rail analysis also separates asset transfer from the liquidity, compliance, dispute, and service functions of a complete payment product [<a href="#ref-du2026myths" style="overflow-wrap:anywhere;hyphens:none">10</a>, <a href="#ref-du2026competing" style="overflow-wrap:anywhere;hyphens:none">11</a>].</p>
+        <p><em>Event-Collect BFT</em> defines the event-atomic ledger transition that fixes the trade window before plaintext is visible [<a href="#ref-lorgat2026eventcollect" style="overflow-wrap:anywhere;hyphens:none">12</a>]. <em>Parlay Identification of Ising Couplings in Correlated Binary Event Markets</em> studies pairwise prediction inputs and the observations needed to identify them [<a href="#ref-lorgat2026ising" style="overflow-wrap:anywhere;hyphens:none">13</a>].</p>
+        </section>
+        <section id="sec:path" class="level2">
+        <h2>2 When the Prediction Reward Remains Truthful</h2>
+        <p>A report can change both the prediction reward and the price of the underlying asset. We first hold the AMM reserves fixed and study only the prediction reward. The reporter may also trade the asset. We account for outside positions separately below.</p>
+        <p>Let <span class="math inline">Y\in\{0,1\}</span> be an event, <span class="math inline">p\in(0,1)</span> a trader’s belief, and <span class="math inline">r\in(0,1)</span> the trader’s report. A scoring rule <span class="math inline">S(r,Y)</span> is strictly proper when <span class="math display">\Phi_p(r):=pS(r,1)+(1-p)S(r,0)</span> has the unique maximum <span class="math inline">r=p</span> for every <span class="math inline">p</span>. We assume that <span class="math inline">\Phi_p</span> is continuously differentiable in <span class="math inline">r</span>.</p>
+        <p>Write <span class="math inline">R_{\!M}</span> for the AMM’s cash reserve and <span class="math inline">R_{\!B}</span> for its asset reserve. Cash uses a common unit of account, called the numeraire. The marginal price is the cash required per asset unit for an infinitesimal purchase. At fixed reserves <span class="math inline">(R_{\!M},R_{\!B})</span>, let <span class="math inline">G</span> be a positive continuously differentiable coupling factor. It sets the AMM marginal price <span id="eq:coupled-price"></span><span class="math display">P^c(r)=G(r)\frac{R_{\!M}}{R_{\!B}}. \tag{1}</span></p>
+        <p>An outcome-independent, continuously differentiable transfer <span class="math inline">H(r,P)</span> may also enter the prediction payoff. The report therefore traces the coupled path <span class="math display">r\longmapsto \bigl(r,P^c(r)\bigr), \qquad \gamma(r):=H\bigl(r,P^c(r)\bigr).</span> The scalar function <span class="math inline">\gamma</span> is the added prediction payoff along that path. Only this added payment must be constant. The proper score still depends on the report and the eventual outcome.</p>
+        <div class="theorem">
+        <p><strong>Theorem 2.1 (Coupled-path characterization).</strong></p>
+        <p><span id="thm:path-characterization"></span> At fixed reserves, the adjusted prediction payoff <span class="math display">S(r,Y)+H\bigl(r,P^c(r)\bigr)</span> preserves truthful reporting for every belief <span class="math inline">p\in(0,1)</span> if and only if <span class="math inline">\gamma</span> is constant on <span class="math inline">(0,1)</span>.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> The expected adjusted payoff is <span class="math inline">\Phi_p(r)+\gamma(r)</span>. If <span class="math inline">\gamma</span> is constant, its addition does not change the unique maximiser of <span class="math inline">\Phi_p</span>. Conversely, suppose <span class="math inline">r=p</span> remains optimal for every <span class="math inline">p</span>. The first-order condition at <span class="math inline">r=p</span> is <span class="math display">0=\Phi_p&#39;(p)+\gamma&#39;(p)=\gamma&#39;(p),</span> because strict properness gives <span class="math inline">\Phi_p&#39;(p)=0</span>. This holds for every <span class="math inline">p\in(0,1)</span>, so <span class="math inline">\gamma</span> is constant. ◻</p>
+        </div>
+        <p>Outcome-dependent changes to a scoring rule require the full proper-scoring-rule characterization. The theorem covers only outcome-independent transfers.</p>
+        <div class="corollary">
+        <p><strong>Corollary 2.2 (One-way coupling).</strong></p>
+        <p><span id="cor:one-way"></span> If the prediction payoff does not read spot state and carries no separate report-dependent transfer, then <span class="math inline">H</span> is constant and the coupling is admissible. The prediction signal may still move the AMM price through <span class="math inline">G</span>.</p>
+        </div>
+        <div class="corollary">
+        <p><strong>Corollary 2.3 (Admissible spot-state dependence).</strong></p>
+        <p><span id="cor:path-invariant"></span> The admissible class is larger than the one-way subclass. For any differentiable <span class="math inline">\psi</span>, the transfer <span id="eq:path-invariant-family"></span><span class="math display">H(r,P)=\psi\!\left(\frac{P}{G(r)}\right) \tag{2}</span> is constant along the path in <a href="#eq:coupled-price" style="overflow-wrap:anywhere;hyphens:none">(1)</a>, because <span class="math inline">P^c(r)/G(r)=R_{\!M}/R_{\!B}</span>.</p>
+        </div>
+        <p>Bidirectional dependence can therefore preserve truthful reporting. What matters is whether the added payoff varies along the path that the report can move.</p>
+        <section id="outside-positions" class="level3">
+        <h3>2.1 Outside positions</h3>
+        <p>Path invariance prevents report-induced changes in the added prediction payoff. A separate asset position can still make one report more valuable than another. We compare this incentive with the local cost of misstating a belief.</p>
+        <p>Odds express an event probability as the ratio of occurrence to nonoccurrence. The logit, the logarithm of those odds, converts probabilities into an unrestricted real coordinate. The logarithmic market scoring rule rewards probability reports through changes in a logarithmic score. Its depth scales those payments in the numeraire.</p>
+        <div class="proposition">
+        <p><strong>Proposition 2.4 (Local bias from a pre-existing spot position).</strong></p>
+        <p><span id="prop:outside-bias"></span> Let <span class="math inline">u=\mathop{\mathrm{logit}}r:=\log(r/(1-r))</span> and <span class="math inline">u_*=\mathop{\mathrm{logit}}p</span>. Suppose the prediction market uses a logarithmic market scoring rule (LMSR) with depth <span class="math inline">b</span>, the one-way factor is locally <span class="math display">\log G(r)=\alpha u+\text{constant},</span> and <span class="math inline">Q</span> is the signed numeraire value of the trader’s spot position at <span class="math inline">u_*</span>. If the prediction position is held to resolution, then, to first order, <span id="eq:outside-bias"></span><span class="math display">\hat u-u_*=\frac{\alpha Q}{b\,p(1-p)}, \qquad \hat p-p=\frac{\alpha Q}{b}. \tag{3}</span> Thus <span class="math inline">b\geq |\alpha|Q_{\max}/\varepsilon</span> bounds the first-order probability bias by <span class="math inline">\varepsilon</span> for <span class="math inline">|Q|\leq Q_{\max}</span>.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> In logit coordinates, the expected LMSR payoff has the local expansion <span class="math display">\Phi_p(u)=\Phi_p(u_*)-\frac12 b\,p(1-p)(u-u_*)^2 +O\bigl((u-u_*)^3\bigr).</span> A spot position of notional <span class="math inline">Q</span> has local derivative <span class="math inline">\alpha Q</span> with respect to <span class="math inline">u</span>. The first-order condition gives the first expression in <a href="#eq:outside-bias" style="overflow-wrap:anywhere;hyphens:none">(3)</a>. Write <span class="math inline">\sigma(u)=1/(1+e^{-u})</span>. Since <span class="math inline">d\sigma(u)/du=p(1-p)</span> at <span class="math inline">u_*</span>, the second expression follows. ◻</p>
+        </div>
+        <p>This is a local, held-to-resolution result. A complete cost-function round trip that restores the prediction-market share vector has zero path cost before fees. LMSR depth therefore supplies no corresponding friction for a reversible cross-venue cycle.</p>
+        </section>
+        </section>
+        <section id="sec:representative" class="level2">
+        <h2>3 Choosing a Price Response from Noisy Signals</h2>
+        <p>The AMM’s response should depend on how much information the forecast adds to the spot observation, even when the prediction reward is truthful. A logit factor follows from a model in which both observations measure the same underlying log value with independent Gaussian errors. Log value means the natural logarithm of asset value.</p>
+        <p>Let <span class="math inline">v</span> be latent log value. Suppose the spot venue and the prediction market provide independent unbiased Gaussian observations <span id="eq:signal-model"></span><span class="math display">X_A=v+\varepsilon_A, \qquad X_P=a+s u=v+\varepsilon_P, \tag{4}</span> with error variances <span class="math inline">\sigma_A^2</span> and <span class="math inline">\sigma_P^2</span>. Here <span class="math inline">u=\mathop{\mathrm{logit}}p</span>.</p>
+        <p>The constants <span class="math inline">a</span> and <span class="math inline">s</span> specify the intercept and slope that convert the logit observation into log-value units. The affine relation <span class="math inline">v=a+s u</span> describes the noiseless calibration, not a universal valuation law. In the observation model, <span class="math inline">a+s u</span> includes the error <span class="math inline">\varepsilon_P</span> shown in <a href="#eq:signal-model" style="overflow-wrap:anywhere;hyphens:none">(4)</a>. We weight the observations to minimize variance among unbiased linear estimates.</p>
+        <div class="proposition">
+        <p><strong>Proposition 3.1 (Prediction-side factor).</strong></p>
+        <p><span id="prop:blue"></span> Under <a href="#eq:signal-model" style="overflow-wrap:anywhere;hyphens:none">(4)</a>, the best linear unbiased estimate of <span class="math inline">v</span> is <span id="eq:blue"></span><span class="math display">\hat v=(1-\kappa)X_A+\kappa X_P, \qquad \kappa=\frac{\sigma_A^2}{\sigma_A^2+\sigma_P^2}. \tag{5}</span> After exponentiation, its prediction-side factor is <span id="eq:logit-factor"></span><span class="math display">\left(\frac{p}{1-p}\right)^{\alpha}, \qquad \alpha=\kappa s. \tag{6}</span></p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> Among linear unbiased estimators <span class="math inline">(1-w)X_A+wX_P</span>, independence gives variance <span class="math inline">(1-w)^2\sigma_A^2+w^2\sigma_P^2</span>. Differentiation gives the unique minimiser <span class="math inline">w=\kappa</span>. Substitution of <span class="math inline">X_P=a+s\mathop{\mathrm{logit}}p</span> into <span class="math inline">e^{\hat v}</span> yields <a href="#eq:logit-factor" style="overflow-wrap:anywhere;hyphens:none">(6)</a>. ◻</p>
+        </div>
+        <p>The full estimator is <span class="math display">e^{\hat v}=e^{\kappa a}\,e^{(1-\kappa)X_A} \left(\frac{p}{1-p}\right)^{\kappa s}.</span> The weight <span class="math inline">\kappa</span> increases as the spot observation becomes less precise relative to the prediction observation. This estimate changes both observation weights. An overlay that multiplies an unchanged spot price by the prediction-side factor does not inherit the minimum-variance claim.</p>
+        <p>For a binary asset, the event may determine one of two values directly. Their probability-weighted value determines the local sensitivity to the forecast. An operating probability is the point at which this linear approximation is fixed.</p>
+        <div class="proposition">
+        <p><strong>Proposition 3.2 (Fixed-operating-point binary map).</strong></p>
+        <p><span id="prop:ekf"></span> Let a binary event imply value <span class="math display">V(p)=V_0+(V_1-V_0)p&gt;0.</span> At an operating probability <span class="math inline">p_*</span>, define <span id="eq:local-slope"></span><span class="math display">s_*:=\left.\frac{d\log V(p)}{d\mathop{\mathrm{logit}}p}\right|_{p=p_*} =\frac{(V_1-V_0)p_*(1-p_*)}{V(p_*)}. \tag{7}</span> If logit noise has variance <span class="math inline">\sigma_u^2</span>, then its induced first-order log-value variance is <span class="math inline">s_*^2\sigma_u^2</span>. The fixed-operating-point prediction factor is <span id="eq:ekf-map"></span><span class="math display">G_*(p)=\exp\!\left(\alpha_*[\mathop{\mathrm{logit}}p-\mathop{\mathrm{logit}}p_*]\right), \quad \alpha_*=s_*\frac{\sigma_A^2} {\sigma_A^2+s_*^2\sigma_u^2}. \tag{8}</span></p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> Equation <a href="#eq:local-slope" style="overflow-wrap:anywhere;hyphens:none">(7)</a> is the chain rule. Linearising <span class="math inline">\log V(p)</span> in <span class="math inline">u=\mathop{\mathrm{logit}}p</span> gives a Gaussian observation with slope <span class="math inline">s_*</span> and variance <span class="math inline">s_*^2\sigma_u^2</span>. Proposition <a href="#prop:blue" style="overflow-wrap:anywhere;hyphens:none">3.1</a> then gives the weight and <a href="#eq:ekf-map" style="overflow-wrap:anywhere;hyphens:none">(8)</a>. The normalisation makes <span class="math inline">G_*(p_*)=1</span>. ◻</p>
+        </div>
+        <p>This fixed-operating-point extended-Kalman map in one dimension has a local interpretation [<a href="#ref-jazwinski1970" style="overflow-wrap:anywhere;hyphens:none">14</a>, <a href="#ref-andersonmoore1979" style="overflow-wrap:anywhere;hyphens:none">15</a>]. It does not establish global optimality for a nonlinear value function, a clipped factor, or an overlay on a different base price.</p>
+        </section>
+        <section id="sec:bounded" class="level2">
+        <h2>4 Bounded One-Way Coupling</h2>
+        <p>The logit factor in <a href="#eq:logit-factor" style="overflow-wrap:anywhere;hyphens:none">(6)</a> is unbounded as <span class="math inline">p</span> approaches zero or one. An extreme report could therefore move the quote by an arbitrarily large factor. Clipping keeps the central response and limits the price effect of extreme reports.</p>
+        <p>Write <span class="math inline">u</span> for the logit of the signal supplied to the AMM. When that signal is the report <span class="math inline">r</span>, the earlier factor is <span class="math inline">G(r)=g(\mathop{\mathrm{logit}}r)</span>. At truthful reporting it instead reads <span class="math inline">u=\mathop{\mathrm{logit}}p</span>. A factor of one gives the reserve-ratio price. At fixed reserves, a factor below or above one lowers or raises that price.</p>
+        <p>The centre <span class="math inline">u_0</span> specifies the neutral signal, <span class="math inline">\delta_{\max}</span> caps the logit adjustment, and <span class="math inline">w</span> sets the width of its smooth transition. The parameter <span class="math inline">\alpha</span> converts that bounded adjustment into a change in log price.</p>
+        <div class="definition">
+        <p><strong>Definition 4.1 (Continuously differentiable clipper).</strong></p>
+        <p><span id="def:clipper"></span> For <span class="math inline">0&lt;w&lt;\delta_{\max}</span>, define the odd function <span id="eq:clipper"></span><span class="math display">h(y)= \begin{cases} y, &amp; |y|\leq\delta_{\max}-w,\\ \mathop{\mathrm{sgn}}(y)\left[\delta_{\max}-\dfrac{(\delta_{\max}+w-|y|)^2}{4w}\right], &amp; \delta_{\max}-w&lt;|y|&lt;\delta_{\max}+w,\\ \mathop{\mathrm{sgn}}(y)\delta_{\max}, &amp; |y|\geq\delta_{\max}+w. \end{cases} \tag{9}</span> For a centre <span class="math inline">u_0</span>, set <span id="eq:bounded-factor"></span><span class="math display">g(u)=\exp\!\bigl(\alpha h(u-u_0)\bigr), \qquad \alpha&gt;0. \tag{10}</span></p>
+        </div>
+        <div class="lemma">
+        <p><strong>Lemma 4.2 (Smoothness).</strong></p>
+        <p><span id="lem:smoothness"></span> The function <span class="math inline">h</span> in <a href="#eq:clipper" style="overflow-wrap:anywhere;hyphens:none">(9)</a> is non-decreasing, takes values in <span class="math inline">[-\delta_{\max},\delta_{\max}]</span>, and belongs to <span class="math inline">C^1(\mathbb{R})</span>.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> Odd symmetry reduces the junction check to the positive side. At <span class="math inline">y=\delta_{\max}-w</span>, the linear and quadratic pieces both have value <span class="math inline">\delta_{\max}-w</span> and derivative one. At <span class="math inline">y=\delta_{\max}+w</span>, the quadratic and constant pieces both have value <span class="math inline">\delta_{\max}</span> and derivative zero. On the transition interval the derivative is <span class="math inline">(\delta_{\max}+w-y)/(2w)</span>, which lies in <span class="math inline">[0,1]</span>. ◻</p>
+        </div>
+        <div class="theorem">
+        <p><strong>Theorem 4.3 (Static impact bounds).</strong></p>
+        <p><span id="thm:impact"></span> At fixed reserves, let <span class="math inline">P(u)=g(u)R_{\!M}/R_{\!B}</span>. Relative to the centred state <span class="math inline">u=u_0</span>, <span id="eq:center-bound"></span><span class="math display">\left|\frac{P(u)-P(u_0)}{P(u_0)}\right| \leq e^{\alpha\delta_{\max}}-1. \tag{11}</span> Between any two clipped states <span class="math inline">u_0&#39;,u_1&#39;</span>, one has <span id="eq:two-state-bound"></span><span class="math display">e^{-2\alpha\delta_{\max}} \leq\frac{P(u_1&#39;)}{P(u_0&#39;)} \leq e^{2\alpha\delta_{\max}}. \tag{12}</span> The bound depends on the single product <span class="math inline">\alpha\delta_{\max}</span>.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> Since <span class="math inline">|h|\leq\delta_{\max}</span>, one has <span class="math inline">|\log g|\leq\alpha\delta_{\max}</span>. The centred bound follows from <span class="math inline">g(u_0)=1</span>. The difference between two clipped log factors has absolute value at most <span class="math inline">2\alpha\delta_{\max}</span>, which gives <a href="#eq:two-state-bound" style="overflow-wrap:anywhere;hyphens:none">(12)</a>. ◻</p>
+        </div>
+        <p>The product <span class="math inline">\alpha\delta_{\max}</span> is the maximum absolute change in log price from the centred state. A comparison of opposite saturation states uses twice that amount. This distinction will determine the uniform fee threshold.</p>
+        <p>The bound applies at every later trade window because coupling depends on the current signal level. Although reserves may change between windows, the factor does not accumulate earlier signal changes.</p>
+        <p>Inside <span class="math inline">|u-u_0|\leq\delta_{\max}-w</span>, the clipper is the identity. The statistical interpretation in Section <a href="#sec:representative" style="overflow-wrap:anywhere;hyphens:none">3</a> applies only when the same local signal model remains valid there. In the transition and saturated regions, clipping bounds the price without establishing estimator optimality. Without clipping, <span class="math inline">e^{\alpha u}</span> has no finite uniform impact bound.</p>
+        </section>
+        <section id="sec:finite-outside" class="level2">
+        <h2>5 Finite Outside Positions</h2>
+        <p>Clipping limits the price a report can induce, but an outside position can still reward a distorted report. The local calculation in Proposition <a href="#prop:outside-bias" style="overflow-wrap:anywhere;hyphens:none">2.4</a> applies to small changes near a truthful report. We now allow finite changes and any included payoff with specified size and sensitivity bounds.</p>
+        <p>A reporting contract and a trading cycle have different economic endpoints. Here the prediction position remains outstanding until the event resolves. Reports leave the distribution of the event outcome fixed. Let <span class="math inline">b&gt;0</span> be the logarithmic score scale, in units of numeraire. For belief <span class="math inline">p\in(0,1)</span>, its expected payment, up to a report-independent constant, is <span class="math display">\Phi_p(r)=b\{p\log r+(1-p)\log(1-r)\}.</span></p>
+        <p>Write <span class="math inline">U_p(r)</span> for the included portfolio’s expected additional payoff at that belief. This quantity includes every report-dependent benefit charged to the modeled actor. Both terms use the same numeraire, horizon, and risk-neutral objective. Risk neutrality means that the reporter maximizes expected payment in that unit.</p>
+        <p>Two quantities describe the outside incentive. Its oscillation, <span class="math inline">\operatorname{osc}(U_p)</span>, is the least upper bound on payoff differences between any two reports. An <span class="math inline">L</span>-Lipschitz payoff satisfies <span class="math inline">|U_p(r)-U_p(s)|\leq L|r-s|</span>, so <span class="math inline">L</span> bounds its change per unit change in report. The logarithmic score loss is expressed below through the binary relative entropy <span class="math inline">D(p\Vert r)</span>. It is zero at the truthful report and measures the expected logarithmic penalty for reporting <span class="math inline">r</span> instead of <span class="math inline">p</span>.</p>
+        <div class="theorem">
+        <p><strong>Theorem 5.1 (Global reporting bounds).</strong></p>
+        <p><span id="thm:global-reporting"></span> Suppose <span class="math inline">U_p</span> is continuous and bounded on <span class="math inline">(0,1)</span>. Every maximizer <span class="math inline">\widehat r</span> of <span class="math inline">\Phi_p+U_p</span> lies in the interior and satisfies <span id="eq:report-kl"></span><span class="math display">b D(p\Vert\widehat r)\leq U_p(\widehat r)-U_p(p),\qquad D(p\Vert r)=p\log\frac p r+(1-p)\log\frac{1-p}{1-r}. \tag{13}</span> If <span class="math inline">\operatorname{osc}(U_p)\leq M</span>, then <span class="math inline">|\widehat r-p|\leq\sqrt{M/(2b)}</span>. If <span class="math inline">U_p</span> is also <span class="math inline">L</span>-Lipschitz, then <span id="eq:sharp-report"></span><span class="math display">b|\widehat r-p|\leq L\widehat r(1-\widehat r),\qquad |\widehat r-p|\leq\min\left\{1,\sqrt{\frac M{2b}},\frac L{4b}\right\}. \tag{14}</span> Under the Lipschitz budget alone, the first inequality in <a href="#eq:sharp-report" style="overflow-wrap:anywhere;hyphens:none">(14)</a> is sharp for each belief and each <span class="math inline">L&gt;0</span>.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> Boundedness of <span class="math inline">U_p</span> and divergence of the logarithmic loss confine a maximizer to a compact interior interval. Continuity gives existence there. Comparison with <span class="math inline">r=p</span> gives <a href="#eq:report-kl" style="overflow-wrap:anywhere;hyphens:none">(13)</a>. At fixed <span class="math inline">r</span>, the function <span class="math inline">p\mapsto D(p\Vert r)</span> has second derivative <span class="math inline">1/[p(1-p)]\geq4</span>. Its value and first derivative vanish at <span class="math inline">p=r</span>. Integration therefore gives <span class="math inline">D(p\Vert r)\geq2(p-r)^2</span>.</p>
+        <p>Optimality and the Lipschitz bound imply <span class="math inline">\Phi_p(\widehat r+h)-\Phi_p(\widehat r)\leq L|h|</span> for both signs of small <span class="math inline">h</span>. Thus <span class="math inline">|\Phi_p&#39;(\widehat r)|\leq L</span>. Since <span class="math inline">\Phi_p&#39;(r)=b(p-r)/[r(1-r)]</span>, this proves <a href="#eq:sharp-report" style="overflow-wrap:anywhere;hyphens:none">(14)</a>. The affine payoffs <span class="math inline">U_p(r)=Lr</span> and <span class="math inline">U_p(r)=-Lr</span> have unique maximizers. Their first-order equations attain the upper and lower boundaries of that inequality. ◻</p>
+        </div>
+        <p>The oscillation budget bounds total score loss, while the sensitivity budget limits how far the optimal report can move.</p>
+        <p>For a belief-specific bound, set <span class="math inline">\ell=L/b&gt;0</span>. Under the Lipschitz budget alone, the exact permitted interval is <span id="eq:report-interval"></span><span class="math display">\frac{1+\ell-\sqrt{(1+\ell)^2-4\ell p}}{2\ell} \leq\widehat r\leq \frac{\ell-1+\sqrt{(1-\ell)^2+4\ell p}}{2\ell}. \tag{15}</span> This follows by solving the two quadratic inequalities in <a href="#eq:sharp-report" style="overflow-wrap:anywhere;hyphens:none">(14)</a>. At <span class="math inline">L=0</span>, the interval consists of <span class="math inline">p</span> alone.</p>
+        <p>An <span class="math inline">\eta</span>-optimal report achieves an expected objective within <span class="math inline">\eta\geq0</span> of the maximum. For an <span class="math inline">\eta</span>-optimal report, the same comparison gives <span class="math inline">bD(p\Vert r)\leq U_p(r)-U_p(p)+\eta</span>. In particular, <span class="math inline">|r-p|\leq\sqrt{(M+\eta)/(2b)}</span>. This last statement covers a solver with a certified objective error.</p>
+        <p>Imposing both budgets gives an exact region of attainable reports. Attainment permits ties because a payoff within the budgets may make several reports equally valuable.</p>
+        <div class="corollary">
+        <p><strong>Corollary 5.2 (Exact reporting region for finite incentive budgets).</strong></p>
+        <p><span id="cor:exact-report-region"></span> Fix <span class="math inline">p\in(0,1)</span> and <span class="math inline">M,L\geq0</span>. A report <span class="math inline">r\in(0,1)</span> maximizes the objective for some continuous outside payoff with oscillation at most <span class="math inline">M</span> and Lipschitz constant at most <span class="math inline">L</span> exactly when <span class="math display">bD(p\Vert r)\leq M,\qquad \frac{b|r-p|}{r(1-r)}\leq L.</span></p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> Necessity follows from Theorem <a href="#thm:global-reporting" style="overflow-wrap:anywhere;hyphens:none">5.1</a>. For <span class="math inline">r&gt;p</span>, set <span class="math inline">U(s)=0</span> for <span class="math inline">s\leq p</span>, <span class="math inline">U(s)=bD(p\Vert s)</span> on <span class="math inline">[p,r]</span>, and <span class="math inline">U(s)=bD(p\Vert r)</span> for <span class="math inline">s\geq r</span>. The derivative of <span class="math inline">D(p\Vert s)</span> increases from zero on <span class="math inline">[p,r]</span> because its second derivative is <span class="math inline">p/s^2+(1-p)/(1-s)^2&gt;0</span>. Thus the two proposed bounds control this payoff’s oscillation and Lipschitz constant. The objective is constant on <span class="math inline">[p,r]</span> and smaller elsewhere, so <span class="math inline">r</span> is a maximizer. For <span class="math inline">r&lt;p</span>, set <span class="math inline">U(s)=bD(p\Vert r)</span> below <span class="math inline">r</span>, <span class="math inline">U(s)=bD(p\Vert s)</span> on <span class="math inline">[r,p]</span>, and <span class="math inline">U(s)=0</span> above <span class="math inline">p</span>. The same derivative bound applies. At <span class="math inline">r=p</span>, take <span class="math inline">U=0</span>. ◻</p>
+        </div>
+        <p>The contract needs one aggregate outside-payoff bound for the reporter’s included positions. Signed quantities and clipped price factors give a certificate for long and short asset positions across all accounts assigned to the same beneficial owner.</p>
+        <div class="proposition">
+        <p><strong>Proposition 5.3 (An aggregate clipped-position certificate).</strong></p>
+        <p><span id="prop:portfolio-reporting"></span> Consider a fixed finite portfolio with marked payoff <span class="math display">U(r)=\sum_j q_jP_{j,0} \exp\{\alpha_j h_j(\mathop{\mathrm{logit}}r-u_{j,0})\}.</span> Here <span class="math inline">q_j</span> is a signed asset quantity, <span class="math inline">P_{j,0}&gt;0</span> is its base price, <span class="math inline">\alpha_j&gt;0</span>, and <span class="math inline">h_j</span> is the clipper of Definition <a href="#def:clipper" style="overflow-wrap:anywhere;hyphens:none">4.1</a> with cap <span class="math inline">d_j</span> and width <span class="math inline">w_j</span>. Let <span class="math inline">a_j=\alpha_jd_j</span> and let <span class="math inline">m_j</span> be the smaller of <span class="math inline">\sigma(u)(1-\sigma(u))</span> at <span class="math inline">u=u_{j,0}\pm(d_j+w_j)</span>, where <span class="math inline">\sigma(u)=(1+e^{-u})^{-1}</span>. Then <span class="math inline">m_j&gt;0</span>, and valid aggregate bounds are <span id="eq:portfolio-bounds"></span><span class="math display">M=\sum_j|q_j|P_{j,0}(e^{a_j}-e^{-a_j}),\qquad L=\sum_j\frac{|q_j|P_{j,0}\alpha_je^{a_j}}{m_j}. \tag{16}</span> These bounds hold with positive and negative positions and with <span class="math inline">g_j</span> below or above one.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> Each factor lies in <span class="math inline">[e^{-a_j},e^{a_j}]</span>, which bounds its oscillation. The derivative vanishes outside the clipper’s active interval. Inside that interval, <span class="math inline">0\leq h_j&#39;\leq1</span> and <span class="math inline">r(1-r)\geq m_j</span>. Differentiation therefore bounds its absolute derivative by <span class="math inline">\alpha_je^{a_j}/m_j</span>. Summation and the triangle inequality give <a href="#eq:portfolio-bounds" style="overflow-wrap:anywhere;hyphens:none">(16)</a>. ◻</p>
+        </div>
+        <p>The positive quantity <span class="math inline">m_j</span> keeps <span class="math inline">r(1-r)</span> away from zero throughout the factor’s active interval and makes its probability-coordinate sensitivity bound finite.</p>
+        <p>The contract fixes the included beneficial owner, positions, payoff rules, quantities, and common valuation time before accepting the report. All accounts of that owner consume one aggregate exposure allowance. A position change requires a new bound before a later reporting decision.</p>
+        <p>The certificate bounds the included payoff. Realizable liquidation proceeds require their own execution model. A mark, an external derivative, and a reversible trading cycle can produce different functions <span class="math inline">U_p</span>. The derivative bound can be tightened by maximizing the actual aggregate derivative, including genuine offsets, over the report interval.</p>
+        <p>For example, take one marked position of magnitude at most <span class="math inline">100</span>, with base price one. Set <span class="math inline">u_0=0</span>, <span class="math inline">d=1</span>, <span class="math inline">w=1/4</span>, and <span class="math inline">\alpha=0.01</span>. Then <span class="math inline">m&gt;0.17</span>, <span class="math inline">L&lt;5.95</span>, and score scale <span class="math inline">b=1000</span> gives probability distortion below <span class="math inline">0.00149</span>. The price ratio still ranges from <span class="math inline">e^{-0.01}</span> to <span class="math inline">e^{0.01}</span>. These quantities specify a synthetic contract and do not establish a market calibration.</p>
+        <p>When the complete included payoff is observable and enforceable, the contract can cancel its report-induced change with a separate transfer. The adjustment can pay either party, so both sides must fund it.</p>
+        <div class="proposition">
+        <p><strong>Proposition 5.4 (Truthful reporting with an included payoff adjustment).</strong></p>
+        <p><span id="prop:portfolio-adjustment"></span> Fix a baseline report <span class="math inline">r_0</span> and a publicly specified included payoff <span class="math inline">V(r,Y)</span>. Suppose the contract also settles the transfer <span class="math display">T(r,Y)=V(r_0,Y)-V(r,Y)</span> to the reporter, in the same unit and at the same economic endpoint. Adding <span class="math inline">T</span> to a strictly proper score and the included payoff preserves truthful reporting for every belief. If <span class="math inline">|V(r,Y)-V(r_0,Y)|\leq H</span>, reserves of <span class="math inline">H</span> on each side fund this adjustment.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> The total outcome payment is <span class="math inline">S(r,Y)+V(r_0,Y)</span>. Its second term is independent of the report, so strict properness applies. The transfer magnitude is at most <span class="math inline">H</span> in either direction. ◻</p>
+        </div>
+        <p>The contract preserves baseline ownership and requires a fixed observable payoff rule with enforceable transfers from both sides. The global distortion bound applies when the mechanism admits a bounded residual incentive instead. Neither construction identifies undisclosed positions or supplies external enforcement by itself. LMSR depth remains an elicitation parameter for the held-to-resolution contract. Reversing the prediction position instead requires the trading analysis below.</p>
+        </section>
+        <section id="sec:round-trip" class="level2">
+        <h2>6 The Exact Round Trip</h2>
+        <p>We calculate the cash paid by a trader who changes the forecast between opening and closing an asset position. For the cost-function prediction market used here, restoring its state contributes no cost before fees. This holds even when an intermediate forecast was expensive to obtain.</p>
+        <p>Let the AMM hold numeraire reserve <span class="math inline">R_{\!M}&gt;0</span> and asset reserve <span class="math inline">R_{\!B}&gt;0</span>. The executable price curve during each trade uses exponent <span class="math inline">g</span>, the bounded coupling factor already used in the marginal quote. At <span class="math inline">g=1</span>, it is the constant-product reserve rule. During one leg, fix <span class="math inline">g&gt;0</span> and preserve <span id="eq:invariant"></span><span class="math display">R_{\!M}R_{\!B}^{g}=k. \tag{17}</span> Implicit differentiation gives the marginal asset price in numeraire units: <span id="eq:marginal-price"></span><span class="math display">P=-\frac{dR_{\!M}}{dR_{\!B}}=g\frac{R_{\!M}}{R_{\!B}}. \tag{18}</span></p>
+        <p>The constant <span class="math inline">k</span> is fixed during a leg. In this construction, changing <span class="math inline">g</span> holds the reserves fixed and selects the corresponding new <span class="math inline">k</span> for the next leg. The funded construction in Section <a href="#sec:funded-control" style="overflow-wrap:anywhere;hyphens:none">8</a> uses a different update rule.</p>
+        <div class="proposition">
+        <p><strong>Proposition 6.1 (Finite-sale impact for every positive coupling).</strong></p>
+        <p><span id="prop:positive-exponent-impact"></span> Fix numeraire reserve <span class="math inline">R&gt;0</span>, asset reserve <span class="math inline">B&gt;0</span>, coupling exponent <span class="math inline">g&gt;0</span>, and sale quantity <span class="math inline">Q\geq0</span>. Put <span class="math inline">z=Q/B</span> and <span class="math inline">P_0=gR/B</span>. With the invariant fixed during the sale, gross proceeds and the execution loss measured at the initial marginal mark are <span class="math display">\Delta=R\bigl[1-(1+z)^{-g}\bigr],\qquad S=P_0Q-\Delta=R\bigl[gz-1+(1+z)^{-g}\bigr].</span> For every <span class="math inline">z\geq0</span>, <span id="eq:positive-exponent-impact"></span><span class="math display">0\leq S\leq\frac{g(g+1)}{2}Rz^2. \tag{19}</span> For <span class="math inline">Q&gt;0</span>, average-price slippage satisfies <span class="math display">0\leq\frac{S}{P_0Q} \leq\min\left\{1,\frac{g+1}{2}z\right\},</span> and the terminal marginal-price decline is <span class="math display">d_g(z)=1-(1+z)^{-g-1}, \qquad 0\leq d_g(z)\leq\min\{1,(g+1)z\}.</span> The statement is a fixed-window execution result; it does not extend the fee, reserve-flow, or multi-window results beyond their separate hypotheses.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> Set <span class="math inline">H(z)=gz-1+(1+z)^{-g}</span>. Then <span class="math inline">H(0)=H&#39;(0)=0</span> and <span class="math display">H&#39;&#39;(z)=g(g+1)(1+z)^{-g-2}, \qquad 0&lt;H&#39;&#39;(z)\leq g(g+1).</span> The integral remainder <span class="math inline">H(z)=\int_0^z(z-u)H&#39;&#39;(u)\,du</span> proves <a href="#eq:positive-exponent-impact" style="overflow-wrap:anywhere;hyphens:none">(19)</a>. Since <span class="math inline">\Delta\geq0</span>, one also has <span class="math inline">S\leq P_0Q</span>, giving the first average-price bound. The derivative <span class="math inline">d_g&#39;(z)=(g+1)(1+z)^{-g-2}</span> gives the terminal bound. Finally, average slippage divided by <span class="math inline">P_0</span> is <span class="math inline">z^{-1}\int_0^z d_g(u)\,du</span>, which gives the coefficient <span class="math inline">(g+1)/2</span> and its sharpness as <span class="math inline">z\downarrow0</span>. ◻</p>
+        </div>
+        <div class="example">
+        <p><strong>Example 6.2 (A negative-signal coupling).</strong></p>
+        <p>For <span class="math inline">g=1/2</span>, <span class="math inline">R=100</span>, and <span class="math inline">z=9/16</span>, the proceeds are <span class="math inline">20</span>, the initial marked sale value is <span class="math inline">P_0Q=225/8</span>, and <span class="math inline">S=65/8</span>. The bound in <a href="#eq:positive-exponent-impact" style="overflow-wrap:anywhere;hyphens:none">(19)</a> is <span class="math inline">6075/512</span>, and the terminal marginal price is <span class="math inline">64/125</span> of its initial value. Thus the negative tail of a positive clipped factor has a nonzero, bounded execution response; no <span class="math inline">g\geq1</span> assumption is used by this proposition.</p>
+        </div>
+        <div class="remark">
+        <p><strong>Remark 6.3 (Domain boundary for coupling and CCP composition).</strong></p>
+        <p>The proposition covers the full image <span class="math inline">g=\exp(\alpha h)\in[e^{-\alpha d},e^{\alpha d}]</span> whenever <span class="math inline">|h|\leq d</span> and <span class="math inline">\alpha&gt;0</span>, including <span class="math inline">0&lt;g&lt;1</span>. The endpoint <span class="math inline">g=0</span> and negative exponents are outside the reserve model: the marginal price is nonpositive or the proceeds rule ceases to be the stated monotone sale curve. Importing this fixed-window bound into a CCP model still requires the CCP’s own assumptions, including positive reserves, fixed exponent during the window, nonnegative holdings and funding-response matrices, and (for the contraction guarantee) <span class="math inline">\gamma_h&lt;1</span>. No claim here extends an unrelated constant-product identity (which has <span class="math inline">g=1</span>) or a statistical, legal, provider, or settlement guarantee.</p>
+        </div>
+        <p>Suppose a trader buys <span class="math inline">\Delta_B=xR_{\!B}</span> units, where <span class="math inline">0&lt;x&lt;1</span>, while the coupling is <span class="math inline">g_0</span>. The trader then changes the prediction signal so that the coupling is <span class="math inline">g_1</span> and sells the same units back. Define <span class="math display">\lambda=-\log(1-x)&gt;0.</span> The quantity <span class="math inline">\lambda</span> measures the proportional reserve movement in logarithmic units. Logarithmic movements add when a trade is split into successive fills at the same coupling. The numeraire paid and received before fees are <span id="eq:buy-in"></span><span id="eq:buy-out"></span><span class="math display">\begin{align*} N_{\mathrm{in}} &amp;=R_{\!M}\left[(1-x)^{-g_0}-1\right], \tag{20} \\ N_{\mathrm{out}} &amp;=R_{\!M}(1-x)^{-g_0}\left[1-(1-x)^{g_1}\right]. \tag{21} \end{align*}</span></p>
+        <div class="proposition">
+        <p><strong>Proposition 6.4 (Conservation identity).</strong></p>
+        <p><span id="prop:conservation"></span> The fee-free AMM profit of the purchase-first round trip is <span id="eq:conservation"></span><span class="math display">N_{\mathrm{out}}-N_{\mathrm{in}} =R_{\!M}\left[1-(1-x)^{g_1-g_0}\right]. \tag{22}</span> It is exactly zero when <span class="math inline">g_1=g_0</span>.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> Subtract <a href="#eq:buy-in" style="overflow-wrap:anywhere;hyphens:none">(20)</a> from <a href="#eq:buy-out" style="overflow-wrap:anywhere;hyphens:none">(21)</a> and collect the two terms containing <span class="math inline">(1-x)^{-g_0}</span>. ◻</p>
+        </div>
+        <p>At the same coupling level, the invariant returns the original numeraire reserve when the trader closes the asset position. Price impact alone therefore imposes no cost on this round trip.</p>
+        <section id="purchase-first" class="level3">
+        <h3>6.1 Purchase first</h3>
+        <p>First use segregated fees. The AMM charges <span class="math inline">f\in[0,1)</span> on each gross leg, so the trader pays <span class="math inline">(1+f)N_{\mathrm{in}}</span> and receives <span class="math inline">(1-f)N_{\mathrm{out}}</span>. A separate fee account receives each charge. The fee stays outside the reserves, so the pool prices the closing trade from its gross trading reserves. Write <span class="math display">\rho_f:=\frac{1+f}{1-f}.</span> When <span class="math inline">g_1&gt;g_0</span>, the gross leg ratio is <span id="eq:purchase-ratio"></span><span class="math display">\frac{N_{\mathrm{out}}}{N_{\mathrm{in}}} =\frac{1-e^{-g_1\lambda}}{1-e^{-g_0\lambda}}. \tag{23}</span></p>
+        <div class="theorem">
+        <p><strong>Theorem 6.5 (Exact purchase-first fee floor).</strong></p>
+        <p><span id="thm:fee-floor"></span> For fixed <span class="math inline">g_1\geq g_0</span>, every positive purchase-first round trip is unprofitable if and only if <span id="eq:fixed-fee-floor"></span><span class="math display">\rho_f\geq\frac{g_1}{g_0}. \tag{24}</span> For the clipped factor <a href="#eq:bounded-factor" style="overflow-wrap:anywhere;hyphens:none">(10)</a>, uniform deterrence between arbitrary clipped states is therefore equivalent to <span id="eq:uniform-fee-floor"></span><span class="math display">f\geq\tanh(\alpha\delta_{\max}). \tag{25}</span> From the centred state to one saturation tail, the corresponding condition is <span class="math inline">f\geq\tanh(\alpha\delta_{\max}/2)</span>.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> For <span class="math inline">a&gt;0</span>, the function <span class="math inline">(1-e^{-a\lambda})/a</span> decreases in <span class="math inline">a</span>. Hence the ratio in <a href="#eq:purchase-ratio" style="overflow-wrap:anywhere;hyphens:none">(23)</a> is at most <span class="math inline">g_1/g_0</span>, with equality in the limit <span class="math inline">\lambda\downarrow0</span>. This proves <a href="#eq:fixed-fee-floor" style="overflow-wrap:anywhere;hyphens:none">(24)</a> as a necessary and sufficient condition for all trade sizes. The clipped factor has <span class="math inline">g_1/g_0\leq e^{2\alpha\delta_{\max}}</span>. Solving <span class="math inline">\rho_f\geq e^{2\alpha\delta_{\max}}</span> for <span class="math inline">f</span> gives <a href="#eq:uniform-fee-floor" style="overflow-wrap:anywhere;hyphens:none">(25)</a>. A centred one-directional move has ratio at most <span class="math inline">e^{\alpha\delta_{\max}}</span>. ◻</p>
+        </div>
+        <p>Any non-recoverable prediction-side fee or exposure adds to the trader’s cost. Equation <a href="#eq:uniform-fee-floor" style="overflow-wrap:anywhere;hyphens:none">(25)</a> is the exact AMM-only threshold when that additional cost is zero. No LMSR-depth threshold follows for a reversible prediction-market cycle.</p>
+        </section>
+        <section id="sale-first" class="level3">
+        <h3>6.2 Sale first</h3>
+        <p>Now suppose the trader first sells <span class="math inline">yR_{\!B}</span> units, <span class="math inline">y&gt;0</span>, at <span class="math inline">g_0</span>, changes the coupling to <span class="math inline">g_1&lt;g_0</span>, and buys the same units back. Write <span class="math inline">S_{\mathrm{out}}</span> for cash received on the opening sale and <span class="math inline">S_{\mathrm{in}}</span> for cash paid on the closing purchase. With <span class="math inline">\lambda=\log(1+y)</span>, the gross leg ratio is <span id="eq:sale-ratio"></span><span class="math display">\frac{S_{\mathrm{out}}}{S_{\mathrm{in}}} =\frac{e^{g_0\lambda}-1}{e^{g_1\lambda}-1}. \tag{26}</span></p>
+        <div class="theorem">
+        <p><strong>Theorem 6.6 (Exact sale-first cap condition).</strong></p>
+        <p><span id="thm:sale-cap"></span> If <span class="math inline">g_0&gt;g_1</span>, no fee <span class="math inline">f&lt;1</span> deters every sale-first trade size. Under the cap <span class="math inline">0&lt;\lambda\leq\lambda_{\max}</span>, every permitted sale-first round trip is unprofitable if and only if <span id="eq:sale-cap"></span><span class="math display">\frac{e^{g_0\lambda_{\max}}-1} {e^{g_1\lambda_{\max}}-1} \leq\rho_f. \tag{27}</span> Uniformly over the clipped range, it is enough and necessary at the extreme states to impose <a href="#eq:sale-cap" style="overflow-wrap:anywhere;hyphens:none">(27)</a> with <span class="math inline">g_0=e^{\alpha\delta_{\max}}</span> and <span class="math inline">g_1=e^{-\alpha\delta_{\max}}</span>.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> For <span class="math inline">g_0&gt;g_1</span>, the ratio in <a href="#eq:sale-ratio" style="overflow-wrap:anywhere;hyphens:none">(26)</a> increases with <span class="math inline">\lambda</span> and diverges as <span class="math inline">\lambda\to\infty</span>. This rules out a universal <span class="math inline">f&lt;1</span>. Under a finite cap, the maximum occurs at <span class="math inline">\lambda_{\max}</span>, which proves <a href="#eq:sale-cap" style="overflow-wrap:anywhere;hyphens:none">(27)</a>. The ratio increases with <span class="math inline">g_0</span> and decreases with <span class="math inline">g_1</span>, so the clipped extreme states give the uniform condition. ◻</p>
+        </div>
+        <p>Uniform sale-first protection with positive trading capacity requires a segregated fee strictly above the limiting threshold. The corollary gives that condition and an explicit positive cap.</p>
+        <div class="corollary">
+        <p><strong>Corollary 6.7 (Strict slack and positive trading capacity).</strong></p>
+        <p><span id="cor:strict-slack"></span> Write <span class="math inline">a=\alpha\delta_{\max}&gt;0</span> and <span class="math display">H_a(\lambda)=\frac{\exp(e^a\lambda)-1}{\exp(e^{-a}\lambda)-1}.</span> A positive universal sale-first cap under segregated fees exists exactly when <span class="math inline">f&gt;\tanh a</span>. For such a fee there is one positive root <span class="math inline">H_a(\lambda_*)=\rho_f</span>, and every <span class="math inline">0&lt;\lambda_{\max}\leq\lambda_*</span> is admissible. A conservative explicit choice is <span id="eq:explicit-cap"></span><span class="math display">\lambda_{\mathrm{safe}} =\frac{\log\rho_f-2a}{2\sinh a}&gt;0. \tag{28}</span> At <span class="math inline">a=0</span>, a constant coupling admits every round-trip size under either fee convention.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> The continuous extension has <span class="math inline">H_a(0)=e^{2a}</span>. For <span class="math inline">\lambda&gt;0</span>, the derivative of <span class="math inline">\log H_a</span> is <span class="math display">\frac{e^a}{1-e^{-e^a\lambda}} -\frac{e^{-a}}{1-e^{-e^{-a}\lambda}}&gt;0,</span> because <span class="math inline">z/(1-e^{-z\lambda})</span> increases strictly in <span class="math inline">z&gt;0</span>. Thus <span class="math inline">H_a(\lambda)&gt;e^{2a}</span> at every positive size and tends to infinity. This proves the strict-slack and root statements. Writing each exponential difference as an integral gives <span class="math inline">H_a(\lambda)\leq e^{2a}\exp(2\sinh(a)\lambda)</span>. Substitute <a href="#eq:explicit-cap" style="overflow-wrap:anywhere;hyphens:none">(28)</a>. ◻</p>
+        </div>
+        <p>The cap applies to the aggregate log-reserve movement covered by the claim. Splitting one same-coupling leg preserves its cumulative displacement and fee. A signal reset or a second account supplies no additional capacity. Different coupling levels between partial fills require the sequential policy below.</p>
+        <p>For <span class="math inline">f=0.003</span> and <span class="math inline">a=0.0025</span>, the positive root is approximately <span class="math inline">\lambda_*=0.3764439626</span>. Rational Taylor bounds for each exponential certify a bracket of width <span class="math inline">2\cdot10^{-30}</span> containing the root. The explicit cap is smaller and needs no numerical root search.</p>
+        <p>When a permitted cycle remains profitable, reserve planning needs a bound on the cash it can extract. The forecast range and allowed trade size determine that bound.</p>
+        <div class="corollary">
+        <p><strong>Corollary 6.8 (Reserve extraction envelope).</strong></p>
+        <p><span id="cor:reserve-envelope"></span> In either profitable direction, a fee-free round trip with log-reserve displacement <span class="math inline">\lambda</span> and coupling change <span class="math inline">|g_1-g_0|</span> extracts <span id="eq:extraction"></span><span class="math display">R_{\!M}\left[1-e^{-|g_1-g_0|\lambda}\right]&lt;R_{\!M}. \tag{29}</span> For the clipped factor and a depth cap <span class="math inline">\lambda\leq\lambda_{\max}</span>, <span id="eq:extraction-cap"></span><span class="math display">\text{extraction} \leq R_{\!M}\left[1-e^{-2\sinh(\alpha\delta_{\max})\lambda_{\max}}\right] \leq2\lambda_{\max}\sinh(\alpha\delta_{\max})R_{\!M}. \tag{30}</span></p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> Equation <a href="#eq:extraction" style="overflow-wrap:anywhere;hyphens:none">(29)</a> is <a href="#eq:conservation" style="overflow-wrap:anywhere;hyphens:none">(22)</a> in the profitable direction, written in log-reserve coordinates. Across the clipped range, <span class="math inline">|g_1-g_0|\leq e^{\alpha\delta_{\max}}-e^{-\alpha\delta_{\max}} =2\sinh(\alpha\delta_{\max})</span>. Apply <span class="math inline">1-e^{-z}\leq z</span>. ◻</p>
+        </div>
+        <p>These formulas end with venue balances after the closing trade. They do not assert legal finality, completed funding, or beneficiary receipt.</p>
+        </section>
+        </section>
+        <section id="sec:sequential" class="level2">
+        <h2>7 Fee Routing and Sequential Execution</h2>
+        <p>The preceding cap concerns a complete two-leg trade under segregated fees. A venue also needs conservation across partial fills, signal changes, and repeated orders. Depositing each fee into the pool changes the cash reserve used to price the next fill. We compare that immediate retention with the segregated account above, then examine sequences with more than two trades.</p>
+        <p>In the execution ledger, <span class="math inline">M_t</span> and <span class="math inline">B_t</span> are the cash and asset reserves after step <span class="math inline">t</span>, and <span class="math inline">F_t</span> is the separate fee balance. A tilde marks the gross reserves before the current fee is routed.</p>
+        <div class="definition">
+        <p><strong>Definition 7.1 (Gross execution and fee routing).</strong></p>
+        <p><span id="def:routing"></span> At step <span class="math inline">t</span>, let <span class="math inline">M_t,B_t&gt;0</span> be the pool reserves and let <span class="math inline">F_t\geq0</span> be its fee account. Write <span class="math inline">d_t=\log(B_{t+1}/B_t)</span> for the gross log-reserve movement. A sale into the pool has <span class="math inline">d_t&gt;0</span>. A purchase has <span class="math inline">d_t&lt;0</span>. At a fixed <span class="math inline">g_t</span>, gross execution gives <span class="math display">\widetilde B_{t+1}=B_t e^{d_t},\qquad \widetilde M_{t+1}=M_t e^{-g_td_t},\qquad c_t=f|\widetilde M_{t+1}-M_t|.</span> The trader’s cash change is <span class="math inline">-(\widetilde M_{t+1}-M_t)-c_t</span>. Its asset change is <span class="math inline">-(\widetilde B_{t+1}-B_t)</span>. Segregated routing sets <span class="math inline">M_{t+1}=\widetilde M_{t+1}</span> and <span class="math inline">F_{t+1}=F_t+c_t</span>. Immediate retention deposits the current fee into the pool: <span class="math inline">M_{t+1}=\widetilde M_{t+1}+c_t</span> and <span class="math inline">F_{t+1}=F_t</span>. The deposit changes the invariant constant for the next leg. The invariant calculation itself uses the gross reserves.</p>
+        </div>
+        <p>With immediate retention, the fee increases the cash reserve used by the closing leg. The same threshold can then protect both complete two-leg directions at every size.</p>
+        <div class="theorem">
+        <p><strong>Theorem 7.2 (Retained fees deter both complete round-trip directions).</strong></p>
+        <p><span id="thm:retained-fees"></span> Use immediate retention and <span class="math inline">0\leq f&lt;1</span>. Let <span class="math inline">0&lt;g_\ell\leq g_h</span> and <span class="math inline">\lambda&gt;0</span>. A purchase at <span class="math inline">g_\ell</span> followed by its closing sale at <span class="math inline">g_h</span> has final reserve ratio <span id="eq:retained-multiplier"></span><span class="math display">K_f(\lambda)= \bigl[(1+f)e^{g_\ell\lambda}-f\bigr] \bigl[f+(1-f)e^{-g_h\lambda}\bigr]. \tag{31}</span> A sale at <span class="math inline">g_h</span> followed by its closing purchase at <span class="math inline">g_\ell</span> has the same ratio. The trader’s cash gain in either case is <span class="math inline">M_0[1-K_f(\lambda)]</span>. Every size is unprofitable exactly when <span class="math display">\rho_f\geq g_h/g_\ell.</span> Hence <span class="math inline">f\geq\tanh a</span> deters both directions between arbitrary clipped states.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> Apply Definition <a href="#def:routing" style="overflow-wrap:anywhere;hyphens:none">7.1</a> to the two legs. The asset reserve returns to its initial amount, while retained fees remain in <span class="math inline">M</span>. Cash conservation gives the stated trader gain. Both factors in <a href="#eq:retained-multiplier" style="overflow-wrap:anywhere;hyphens:none">(31)</a> are positive. After dividing its derivative by a positive factor, its sign equals the sign of <span class="math display">T(\lambda)=f g_\ell e^{g_h\lambda} +(1-f)(g_\ell-g_h)+\frac{f g_h}{\rho_f}e^{-g_\ell\lambda}.</span> At zero, <span class="math inline">T(0)=g_\ell-g_h/\rho_f</span>. The elementary exponential inequalities give <span class="math display">T(\lambda)-T(0) \geq f g_\ell g_h\lambda(1-1/\rho_f)\geq0.</span> Thus the fee condition gives <span class="math inline">K_f(\lambda)\geq K_f(0)=1</span>. If the condition fails, <span class="math inline">K_f&#39;(0)&lt;0</span>, so sufficiently small trades are profitable. Opposite coupling moves reduce the gross gain and satisfy the same bound. ◻</p>
+        </div>
+        <p>Retention changes the executable curve after every fee deposit, so the segregated-fee sale cap remains a separate theorem. An implementation records its routing choice before quoting either leg. Both mechanisms permit positive orders, and both two-leg statements assume that no other reserve-changing event occurs between the legs.</p>
+        <p>A trader may close one purchase through many smaller sales. Because each fee deposit changes the next execution curve, the two-leg theorem does not cover this sequence. A stronger threshold protects arbitrary finite sequences by making a reserve quantity nondecreasing.</p>
+        <div class="theorem">
+        <p><strong>Theorem 7.3 (Retained-fee protection across arbitrary trade sequences).</strong></p>
+        <p><span id="thm:retained-sequences"></span> Let every trade retain its fee immediately and let <span class="math inline">g_t\in[g_\ell,g_h]</span>. Assume positive reserves, fixed <span class="math inline">0\leq f&lt;1</span>, and no external reserve flows. If <span id="eq:retained-global-fee"></span><span class="math display">f\geq1-g_\ell/g_h, \tag{32}</span> then <span class="math inline">M_tB_t^{g_\ell}</span> is nondecreasing along every finite trade sequence. In particular, <span class="math inline">B_T=B_0</span> implies <span class="math inline">M_T\geq M_0</span>. For the clipped range, the sufficient fee is <span class="math inline">f\geq1-e^{-2a}</span>. This condition is also necessary for protection against every finite closed-inventory sequence when sizes are unrestricted.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> For a purchase, <span class="math inline">d&lt;0</span> and the retained reserve ratio is <span class="math inline">(1+f)e^{-gd}-f\geq e^{-gd}</span>. Multiplication by <span class="math inline">e^{g_\ell d}</span> gives a ratio at least one. For a sale, convexity of the exponential gives <span class="math display">f+(1-f)e^{-gd}\geq e^{-(1-f)gd}.</span> Condition <a href="#eq:retained-global-fee" style="overflow-wrap:anywhere;hyphens:none">(32)</a> gives <span class="math inline">g_\ell\geq(1-f)g</span>. Thus the same product ratio is at least one. Multiply these inequalities across all trades.</p>
+        <p>For necessity, buy a log amount <span class="math inline">L</span> at <span class="math inline">g_\ell</span> and close it through <span class="math inline">n</span> equal sales at <span class="math inline">g_h</span>. The final reserve ratio is <span class="math display">\bigl[(1+f)e^{g_\ell L}-f\bigr] \bigl[f+(1-f)e^{-g_hL/n}\bigr]^n.</span> As <span class="math inline">n</span> tends to infinity this approaches <span class="math inline">[(1+f)e^{g_\ell L}-f]e^{-(1-f)g_hL}</span>. If <span class="math inline">(1-f)g_h&gt;g_\ell</span>, this limit tends to zero as <span class="math inline">L</span> increases. Some finite <span class="math inline">L</span> and finite <span class="math inline">n</span> therefore produce a profitable closed sequence. ◻</p>
+        </div>
+        <p>The stronger arbitrary-sequence fee floor still permits, for fee <span class="math inline">f&gt;0</span>, the positive signal range <span class="math inline">0&lt;a\leq-\log(1-f)/2</span>. It supports repeated trading without a fixed cumulative turnover ceiling. A venue can accommodate larger signal ranges by bounding the total variation of log inventory over a fixed horizon. Total variation counts the absolute size of every movement, including movements that later reverse. It therefore records repeated trading even when the final inventory returns to its starting value. Pending orders must reserve that capacity before execution so that concurrent requests use the same allowance.</p>
+        <div class="definition">
+        <p><strong>Definition 7.4 (Persistent aggregate capacity).</strong></p>
+        <p><span id="def:persistent-budget"></span> A pool checkpoint fixes a finite horizon, reserve floors, and total variation budget <span class="math inline">V_{\max}&gt;0</span>. Every admitted command reserves its maximum possible absolute log movement before execution. Let <span class="math inline">V_t=\sum_{s&lt;t}|d_s|</span> and let <span class="math inline">P_t</span> be the sum of pending reservations. Admission requires <span class="math display">V_t+P_t+|d_{\mathrm{new}}|_{\max}\leq V_{\max}.</span> It also checks the post-trade cash and asset reserve floors. The same pool ledger serializes admission and execution across all accounts. Partial fills consume one command’s reservation cumulatively. A retry retains the same command identity and adds no effect. Cancellation releases only capacity proven unable to execute. Signal changes and account changes preserve <span class="math inline">V_t</span> and pending reservations.</p>
+        </div>
+        <div class="theorem">
+        <p><strong>Theorem 7.5 (Finite-horizon reserve accounting).</strong></p>
+        <p><span id="thm:sequential-reserves"></span> Under segregated fees and without external reserve flows, any finite admitted sequence satisfies <span id="eq:sequential-exact"></span><span class="math display">B_T=B_0\exp\Bigl(\sum_t d_t\Bigr),\qquad M_T=M_0\exp\Bigl(-\sum_tg_td_t\Bigr). \tag{33}</span> For <span class="math inline">g_t\in[e^{-a},e^a]</span>, define the constant-coupling reference <span class="math display">M_T^{\mathrm{ref}}=M_0\exp\Bigl(-\cosh(a)\sum_td_t\Bigr).</span> Then <span id="eq:sequential-bound"></span><span class="math display">e^{-\sinh(a)V_T}\leq M_T/M_T^{\mathrm{ref}} \leq e^{\sinh(a)V_T}. \tag{34}</span> For a closed inventory sequence, <span class="math inline">B_T=B_0</span>, so <span class="math inline">M_T\geq M_0e^{-\sinh(a)V_{\max}}</span>. For either fee route, cash and asset changes conserve <span class="math display">M_T+F_T+\sum_i C_{i,T},\qquad B_T+\sum_i A_{i,T},</span> where <span class="math inline">C_i,A_i</span> are trader balances and external flows are recorded separately.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> Multiply the gross reserve recursions to obtain <a href="#eq:sequential-exact" style="overflow-wrap:anywhere;hyphens:none">(33)</a>. Since <span class="math inline">|g_t-\cosh(a)|\leq\sinh(a)</span>, <span class="math inline">|\sum_t(g_t-\cosh(a))d_t|\leq\sinh(a)V_T</span>. Exponentiation gives <a href="#eq:sequential-bound" style="overflow-wrap:anywhere;hyphens:none">(34)</a>. Each executed transfer has equal and opposite ledger entries. Fee retention transfers existing fees into <span class="math inline">M</span> and creates no cash. ◻</p>
+        </div>
+        <p>This bound permits arbitrary order interleaving and signal changes within the stated horizon. The reference is a constant-coupling reserve path, not a forecast of asset value. Unclosed asset inventory retains its market risk. Immediate retention uses its exact fee-deposit recurrence and the same funded reserve floors. A fee reinvestment, deposit, withdrawal, or rebalance has its own signed cash and asset entries. Such an event does not by itself restart the cumulative capacity counter.</p>
+        <p>Here <span class="math inline">v</span> denotes a fixed external asset valuation in cash per unit, distinct from the earlier latent log value. The liquidity provider’s marked change is <span class="math display">\Delta W_{\mathrm{LP}}=\Delta M+\Delta F+v\Delta B.</span> Trader cash gain and this marked change are distinct measurements for an open inventory position. An empirical solvency assessment also needs the valuation path, external flows, and operational costs.</p>
+        </section>
+        <section id="sec:funded-control" class="level2">
+        <h2>8 Funding the Control Change</h2>
+        <p>The retained-fee and variation-budget constructions change the signal while holding reserves fixed. We now fund the reserve change that preserves a common state relation across trades and signal updates. Here a control is the pricing factor selected from the prediction signal. Changing the control changes the price available at the same asset inventory.</p>
+        <p>A potential is a function of the current state whose differences can price inventory and control movements. When charges equal these differences, their sum depends only on the endpoints, and every fully closed sequence has zero total charge. A price that responds to control conflicts with a control charge independent of inventory, as the following proposition shows. Its generic coordinates <span class="math inline">x</span> and <span class="math inline">z</span> denote inventory and control. The funded AMM will then use explicit reserve coordinates.</p>
+        <div class="proposition">
+        <p><strong>Proposition 8.1 (The one-way potential obstruction).</strong></p>
+        <p><span id="prop:potential-obstruction"></span> On an open rectangle of inventory and control states <span class="math inline">(x,z)</span>, let the marginal charges be <span class="math inline">P(x,z)</span> and <span class="math inline">S(z)</span>. Assume both functions are continuously differentiable. A <span class="math inline">C^2</span> function <span class="math inline">\Psi</span> with <span class="math inline">\Psi_x=P</span> and <span class="math inline">\Psi_z=S</span> exists only if <span class="math inline">P_z=0</span> throughout the rectangle. For a rectangular path, the total charge is <span id="eq:rectangle-charge"></span><span class="math display">\oint(P\,dx+S\,dz) =\int_{x_0}^{x_1}\{P(x,z_0)-P(x,z_1)\}\,dx, \tag{35}</span> when the first inventory movement occurs at <span class="math inline">z_0</span>.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> Equality of mixed partial derivatives gives <span class="math inline">P_z=\Psi_{xz}=\Psi_{zx}=S_x=0</span>. The two integrals of <span class="math inline">S</span> along the rectangular path cancel. The remaining two integrals give <a href="#eq:rectangle-charge" style="overflow-wrap:anywhere;hyphens:none">(35)</a>. ◻</p>
+        </div>
+        <p>A rectangular path changes inventory, then control, then reverses both movements. For <span class="math inline">P(x,z)=z</span> and <span class="math inline">S(z)=0</span>, the trader’s gain is <span class="math inline">(z_1-z_0)(x_1-x_0)</span>. This is a two-coordinate charging example with reversible transitions. Fees, restricted transitions, and explicit funding add economic state or change the charging rule. Each such addition requires its own accounting. The obstruction alone neither prices an executable AMM order nor evaluates an outside portfolio.</p>
+        <p>The sponsor funds control changes at fixed inventory so that the pool keeps one reserve relation across trades and control updates. Asset trades exchange cash with traders, while control updates exchange cash with the sponsor. In this construction, <span class="math inline">B_*</span> is an anchor inventory, <span class="math inline">K</span> is its cash reserve, and <span class="math inline">x</span> is the logarithm of inventory relative to that anchor. The band parameter <span class="math inline">D</span> limits the permitted distance from the anchor.</p>
+        <div class="definition">
+        <p><strong>Definition 8.2 (Funded reserve adjustment).</strong></p>
+        <p><span id="def:funded-adjustment"></span> Fix <span class="math inline">B_*&gt;0</span>, <span class="math inline">K&gt;0</span>, <span class="math inline">0&lt;g_\ell\leq g_h</span>, and a log-inventory band <span class="math inline">|x|\leq D</span>, where <span class="math inline">x=\log(B/B_*)</span>. The pool keeps the state relation <span id="eq:funded-state"></span><span class="math display">M=K e^{-gx},\qquad g\in[g_\ell,g_h],\qquad C\geq0. \tag{36}</span> Here <span class="math inline">C</span> is a separate sponsor cash account in the same numeraire as <span class="math inline">M</span>. A trade changes <span class="math inline">B</span> at fixed <span class="math inline">g</span> and transfers the exact change in <span class="math inline">M</span> against the trader. A control update <span class="math inline">g\to g&#39;</span> holds <span class="math inline">B</span> fixed and transfers <span id="eq:funded-update"></span><span class="math display">\Delta=K(e^{-g&#39;x}-e^{-gx}),\qquad M&#39;=M+\Delta,\qquad C&#39;=C-\Delta. \tag{37}</span> It executes atomically when <span class="math inline">C&#39;\geq0</span> and both control values lie in the admitted interval. A positive <span class="math inline">\Delta</span> spends sponsor cash. A negative <span class="math inline">\Delta</span> returns cash to that account. Every trade respects the inventory band. The construction has no fee or external reserve flow.</p>
+        </div>
+        <p>All pending control deposits reserve the same sponsor cash before execution. Concurrent requests share that account. Partial execution consumes its reservation cumulatively, and a retry retains the original identity. This mathematical funding rule leaves actual deposit and withdrawal authority to the account’s governing contract.</p>
+        <div class="theorem">
+        <p><strong>Theorem 8.3 (A nonzero signal with a cumulative funded bound).</strong></p>
+        <p><span id="thm:funded-control"></span> Under Definition <a href="#def:funded-adjustment" style="overflow-wrap:anywhere;hyphens:none">8.2</a>, each trade follows the invariant <span class="math inline">MB^g=KB_*^g</span> with marginal price <span class="math inline">P=gM/B</span>. For any finite sequence of trades and control updates, total pool, sponsor, and trader cash is conserved. Total pool and trader asset quantity is also conserved. If the final <span class="math inline">(B,g)</span> equals its initial value, aggregate trader cash gain is <span id="eq:funded-gain"></span><span class="math display">\Pi=C_0-C_T\leq C_0. \tag{38}</span> If <span class="math inline">D&lt;1/g_h</span>, the marginal price increases strictly with <span class="math inline">g</span> at every admitted inventory. At <span class="math inline">B=B_*</span>, its value is exactly <span class="math inline">gK/B_*</span>. Throughout the band, <span id="eq:funded-reserve-range"></span><span class="math display">K e^{-g_hD}\leq M\leq K e^{g_hD},\qquad \max\{\Delta,0\}\leq M(e^{D|g&#39;-g|}-1). \tag{39}</span></p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> At fixed <span class="math inline">g</span>, differentiating <a href="#eq:funded-state" style="overflow-wrap:anywhere;hyphens:none">(36)</a> gives <span class="math inline">dM=-(gM/B)dB</span>. Each trade transfers equal and opposite cash and asset quantities. Each control update transfers equal and opposite cash between <span class="math inline">M</span> and <span class="math inline">C</span>. Thus <span class="math inline">M+C+\sum_i c_i</span> and <span class="math inline">B+\sum_i a_i</span> remain constant, where <span class="math inline">c_i,a_i</span> are trader balances. Restoring <span class="math inline">(B,g)</span> restores <span class="math inline">M</span>, which gives <a href="#eq:funded-gain" style="overflow-wrap:anywhere;hyphens:none">(38)</a>.</p>
+        <p>For the marginal price, <span class="math display">P=\frac{gK}{B_*}e^{-(g+1)x},\qquad \frac{\partial\log P}{\partial g}=\frac1g-x\geq\frac1{g_h}-D&gt;0.</span> The reserve range follows from <span class="math inline">|gx|\leq g_hD</span>. Finally, <span class="math inline">\Delta=M(e^{-x(g&#39;-g)}-1)</span> gives the deposit bound. ◻</p>
+        </div>
+        <p>The complete economic state includes the sponsor balance. A trader can earn a positive amount while restoring <span class="math inline">(B,g)</span> by consuming part of that balance. Restoring the entire state, including <span class="math inline">C</span>, gives zero aggregate cash gain. For an open inventory position, cash gain must be combined with an explicit valuation of the remaining assets. The reserve band bounds each state, while the cash admission rule bounds net sponsorship across repeated states. Returned cash can fund later updates, so gross transfers can exceed the initial balance.</p>
+        <p>Take <span class="math inline">B_*=K=100</span>, <span class="math inline">g_\ell=0.8</span>, <span class="math inline">g_h=1.2</span>, and <span class="math inline">D=0.2</span>. Starting from <span class="math inline">B=100</span> and <span class="math inline">g=0.8</span>, buy down to <span class="math inline">B=100e^{-0.1}</span>. An update to <span class="math inline">g=1.2</span> deposits <span class="math inline">100(e^{0.12}-e^{0.08})</span>, approximately <span class="math inline">4.42098</span>. Selling back to <span class="math inline">B=100</span> and restoring <span class="math inline">g=0.8</span> closes the inventory and control state.</p>
+        <p>The trader receives exactly that deposit, and the sponsor account pays it once. A sponsor balance of <span class="math inline">5</span> funds this cycle. It cannot fund a second identical cycle without replenishment. Every state in this example lies within the admitted band, including coupling values below one.</p>
+        <p>The sponsor purchases the defined control response through an explicit account, set of eligible updates, and cumulative budget. The reporter’s proper score can remain independent of that account. Any reporter ownership of the sponsor or trading positions enters the aggregate outside-payoff contract of Section <a href="#sec:finite-outside" style="overflow-wrap:anywhere;hyphens:none">5</a>. Thus funding a signal does not by itself establish truthful reporting.</p>
+        <section id="certificates-across-execution-modes" class="level3">
+        <h3>8.1 Certificates across execution modes</h3>
+        <p>A finite transition graph can describe the permitted execution modes. The criterion characterizes when differences of a potential, a value assigned to each state, bound every transition weight.</p>
+        <div class="proposition">
+        <p><strong>Proposition 8.4 (Complete potential certificate on a finite graph).</strong></p>
+        <p><span id="prop:finite-potential-certificate"></span> Let a finite directed graph carry real edge weights <span class="math inline">w(u,v)</span>. Every directed cycle has nonpositive total weight exactly when some vertex potential <span class="math inline">\phi</span> satisfies <span class="math display">w(u,v)\le\phi(u)-\phi(v)</span> on every edge. When this holds, the least nonnegative such potential is <span class="math display">\phi_*(u)=\max_{p\text{ starts at }u}\sum_{e\in p}w(e),</span> where paths may end at any vertex and include the empty path. It suffices to maximize over simple paths with at most <span class="math inline">|V|-1</span> edges.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> Summing the potential inequalities around a cycle gives nonpositive total weight. Conversely, remove each repeated-vertex segment from a path. Each removed cycle has nonpositive weight, so removal cannot decrease the path’s weight. The maximum therefore exists among the finitely many simple paths, including the empty path. Prepending an edge <span class="math inline">u\to v</span> to a maximizing path from <span class="math inline">v</span> gives <span class="math inline">\phi_*(u)\ge w(u,v)+\phi_*(v)</span>. Any nonnegative feasible potential bounds a path’s weight by its initial value minus its nonnegative terminal value. It consequently dominates every path weight and hence <span class="math inline">\phi_*</span>. ◻</p>
+        </div>
+        <p>The edge weight must match the economic quantity being certified. For the retained-fee rule, take a finite graph of inventory and control states with the admitted multiplicative reserve updates. Assign each trade edge the dimensionless logarithmic reserve loss <span class="math display">w(u,v)=-\log(M&#39;/M).</span> The reserve ratio depends on the edge’s log-inventory movement, coupling, and fixed fee, independently of the absolute cash scale. Under Theorem <a href="#thm:retained-sequences" style="overflow-wrap:anywhere;hyphens:none">7.3</a>, its reserve inequality gives <span class="math display">w(u,v)\le g_\ell\log(B&#39;/B) =\phi(u)-\phi(v),\qquad \phi(u)=-g_\ell\log(B/B_*),</span> where <span class="math inline">B_*&gt;0</span> is a fixed reference inventory in the same unit as <span class="math inline">B</span>.</p>
+        <p>A control change at fixed reserves has zero edge weight and leaves this potential unchanged. One can add a constant to make the potential nonnegative on the finite graph. Every admitted cycle then has <span class="math inline">-\log(M_T/M_0)\le0</span>. For an inventory-closing execution without external reserve flows, this precludes positive aggregate trader cash gain.</p>
+        <p>The weight is logarithmic reserve loss, not cash gain on each individual trade. On the full reserve-state graph, cash gain already has the potential <span class="math inline">M</span> by conservation. A path restoring inventory while changing cash is not a cycle in that full state graph.</p>
+        <div class="openproblem">
+        <p><strong>Open Problem 1 (Compatible certificates across execution modes).</strong></p>
+        <p><span id="op:cross-mode-potentials"></span> Construct an admitted transition graph that includes retained fees, segregated fees, funded controls, and their permitted mode changes. Its state must retain sponsor balances, pending reservations, reserve floors, and all other liabilities affecting future execution. State the edge accounting and the common or compatible potentials that bound every admitted path. The finite graph criterion decides the stated additive certificate problem once that graph and its weights are supplied. It does not supply the economic interface or justify discarding a resource from the state.</p>
+        </div>
+        </section>
+        </section>
+        <section id="sec:utility" class="level2">
+        <h2>9 Information Gain within the Trading Limits</h2>
+        <p>Safety parameters also limit the information that the price can transmit. At <span class="math inline">f=0.003</span>, the segregated-fee condition gives <span class="math inline">a&lt;\operatorname{atanh}(0.003)</span> and a full price ratio below <span class="math inline">(1.003)/(0.997)\approx1.006018</span>. Whether this range is useful depends on the error scale, the trading depth, and the delay. We test whether a correction within this range can use information that the spot observation misses.</p>
+        <p>In the two-observation model, <span class="math inline">D</span> now denotes the difference between the prediction and spot observations. It is distinct from the preceding section’s inventory-band parameter. The unrestricted correction <span class="math inline">z_*</span> is the amount the calibrated estimate would add to the spot observation. The function <span class="math inline">c</span> reduces that correction to the permitted range while preserving its direction.</p>
+        <div class="proposition">
+        <p><strong>Proposition 9.1 (Strict information improvement under bounded correction).</strong></p>
+        <p><span id="prop:clipped-utility"></span> Use the independent Gaussian observations of <a href="#eq:signal-model" style="overflow-wrap:anywhere;hyphens:none">(4)</a>, with positive variances. Write <span class="math inline">D=X_P-X_A</span>, <span class="math inline">\kappa=\sigma_A^2/(\sigma_A^2+\sigma_P^2)</span>, and <span class="math inline">z_*=\kappa D</span>. The baseline observation <span class="math inline">X_A</span> and its clipping centre are committed before the reporting window. Let <span class="math inline">c(z)</span> have the sign of <span class="math inline">z</span>, satisfy <span class="math inline">|c(z)|\leq|z|</span>, and be nonzero with positive probability. Assume <span class="math inline">|c(z)|\leq a</span>. The bounded log-price estimate <span class="math inline">\widehat v=X_A+c(z_*)</span> satisfies <span id="eq:clipped-mse"></span><span class="math display">\mathbb E(\widehat v-v)^2 =\frac{\sigma_A^2\sigma_P^2}{\sigma_A^2+\sigma_P^2} +\mathbb E\bigl(z_*-c(z_*)\bigr)^2 &lt;\sigma_A^2. \tag{40}</span> The unclipped calibrated estimator attains the first term alone. The differentiable clipper of Definition <a href="#def:clipper" style="overflow-wrap:anywhere;hyphens:none">4.1</a> supplies such a correction for every <span class="math inline">a&gt;0</span>.</p>
+        </div>
+        <div class="proof">
+        <p><em>Proof.</em> Gaussian conditioning gives <span class="math inline">\varepsilon_A=-\kappa D+\eta</span>, where <span class="math inline">\eta</span> is independent of <span class="math inline">D</span>. Its variance is <span class="math inline">\sigma_A^2\sigma_P^2/(\sigma_A^2+\sigma_P^2)</span>. Substitution gives <a href="#eq:clipped-mse" style="overflow-wrap:anywhere;hyphens:none">(40)</a>. The sign and magnitude conditions imply <span class="math inline">(z-c(z))^2\leq z^2</span>, strictly wherever <span class="math inline">c(z)\ne0</span>. Without correction, the same decomposition sums to <span class="math inline">\sigma_A^2</span>. ◻</p>
+        </div>
+        <p>The strict inequality gives no minimum gain of practical size. A narrow permitted correction can yield a correspondingly small information improvement.</p>
+        <p>For an affine prediction observation <span class="math inline">X_P=b+s u</span>, the committed centre is <span class="math inline">u_0=(X_A-b)/s</span> when <span class="math inline">s\ne0</span>. Here <span class="math inline">b</span> is the observation intercept, distinct from the earlier score scale. Apply the clip to <span class="math inline">\kappa s(u-u_0)</span>. This constructs the full estimator in its central region while bounding the overlay everywhere. The prediction payoff remains the proper score and reads neither the resulting spot price nor the fee account. Estimation error in <span class="math inline">\kappa</span>, signal dependence, and delay require evaluation under their actual joint law.</p>
+        <p>For the funded construction, the price at its anchor is the baseline reserve ratio multiplied by the selected control. Choosing <span class="math inline">K/B_*=e^{X_A}</span> and <span class="math inline">g=e^{c(z_*)}</span> realizes the bounded log-price estimator just derived. Here <span class="math inline">c(z_*)</span> is the clipped correction to the baseline log-price observation <span class="math inline">X_A</span>. Its baseline <span class="math inline">X_A</span> is fixed before the reporting window. Away from the anchor, the funded price law is the one in Theorem <a href="#thm:funded-control" style="overflow-wrap:anywhere;hyphens:none">8.3</a> and requires its own calibration.</p>
+        <section id="held-out-synthetic-evaluation" class="level3">
+        <h3>9.1 Held-out synthetic evaluation</h3>
+        <p>A reproducible study uses 4,096 training observations and 8,192 separate evaluation observations for each of twelve signal cases. The training variances determine <span class="math inline">\widehat\kappa</span>. The cases combine spot noise <span class="math inline">0.002</span> or <span class="math inline">0.01</span>, prediction-noise ratios <span class="math inline">0.5</span>, <span class="math inline">1</span>, or <span class="math inline">2</span>, and delay noise <span class="math inline">0</span> or <span class="math inline">0.003</span>. All noises are independent Gaussian draws in log-value units. Delay noise enters the prediction error variance.</p>
+        <p>Each case uses fees <span class="math inline">0.001</span>, <span class="math inline">0.003</span>, or <span class="math inline">0.01</span>, three positive clips below the strict fee limit, and two reserve depths. The 216 configurations reuse evaluation draws for paired comparisons. They compare zero coupling, the bounded correction, and ordinary unclipped calibrated pricing.</p>
+        <p>Table <a href="#tab:signal-study" style="overflow-wrap:anywhere;hyphens:none">1</a> reports synthetic results for six configurations at fee <span class="math inline">0.003</span>, clip <span class="math inline">a=\operatorname{atanh}(0.003)/2</span>, and zero delay noise. The columns give squared log-error divided by the zero-coupling error. A ratio below one means that the forecast correction improves accuracy relative to the spot observation alone.</p>
+        <div id="tab:signal-study">
+        <table>
+        <caption>Table 1. Held-out error ratios under the declared synthetic signal law.</caption>
+        <thead>
+        <tr>
+        <th style="text-align: right;">Spot noise</th>
+        <th style="text-align: right;">Prediction/spot noise</th>
+        <th style="text-align: right;">Bounded</th>
+        <th style="text-align: right;">Unclipped</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td style="text-align: right;">0.002</td>
+        <td style="text-align: right;">0.5</td>
+        <td style="text-align: right;">0.3743</td>
+        <td style="text-align: right;">0.2029</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">0.002</td>
+        <td style="text-align: right;">1.0</td>
+        <td style="text-align: right;">0.5646</td>
+        <td style="text-align: right;">0.4958</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">0.002</td>
+        <td style="text-align: right;">2.0</td>
+        <td style="text-align: right;">0.8097</td>
+        <td style="text-align: right;">0.8048</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">0.010</td>
+        <td style="text-align: right;">0.5</td>
+        <td style="text-align: right;">0.8081</td>
+        <td style="text-align: right;">0.1999</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">0.010</td>
+        <td style="text-align: right;">1.0</td>
+        <td style="text-align: right;">0.8543</td>
+        <td style="text-align: right;">0.5105</td>
+        </tr>
+        <tr>
+        <td style="text-align: right;">0.010</td>
+        <td style="text-align: right;">2.0</td>
+        <td style="text-align: right;">0.9110</td>
+        <td style="text-align: right;">0.8030</td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+        <p>The execution study requests one asset unit at random buy or sell sides. Its private value is two percent above or below the common valuation in the requested direction. An order executes only when its fee-inclusive surplus is nonnegative. Reserve depths are 100 or 10,000 asset units. The liquidity provider owns the segregated fee account.</p>
+        <p>The study records fill rate, trader surplus, fee revenue, and liquidity-provider marked change per requested order. The exact transfer identity makes trader surplus plus provider marked change equal the executed private-value benefit. The full parameter grid accompanies the calculation.</p>
+        <p>For equal signal-noise standard deviations of <span class="math inline">0.01</span> and depth 100, the same fee and clip give Table <a href="#tab:trade-study" style="overflow-wrap:anywhere;hyphens:none">2</a>. Surplus and provider value use the common numeraire per requested one-unit order. Fill rate is the fraction of requested orders that execute. Trader surplus measures the executed private value net of the fee-inclusive price. Provider value includes the fee account and values the remaining asset inventory at the common valuation.</p>
+        <p>The bounded correction increases the fill rate and provider value in this fixture. Trader surplus per request decreases slightly as quotes become more accurate.</p>
+        <div id="tab:trade-study">
+        <table>
+        <caption>Table 2. Synthetic execution outcomes with explicit fee and inventory accounting.</caption>
+        <thead>
+        <tr>
+        <th style="text-align: left;">Pricing rule</th>
+        <th style="text-align: right;">Fill rate</th>
+        <th style="text-align: right;">Trader surplus</th>
+        <th style="text-align: right;">Provider value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td style="text-align: left;">Zero coupling</td>
+        <td style="text-align: right;">0.7614</td>
+        <td style="text-align: right;">0.008441</td>
+        <td style="text-align: right;">0.006789</td>
+        </tr>
+        <tr>
+        <td style="text-align: left;">Bounded correction</td>
+        <td style="text-align: right;">0.7823</td>
+        <td style="text-align: right;">0.008208</td>
+        <td style="text-align: right;">0.007440</td>
+        </tr>
+        <tr>
+        <td style="text-align: left;">Calibrated unclipped</td>
+        <td style="text-align: right;">0.8347</td>
+        <td style="text-align: right;">0.007656</td>
+        <td style="text-align: right;">0.009041</td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+        <p>Moving from these synthetic comparisons to observed-market evaluation requires dated signal samples, out-of-sample outcomes, actual fee routing, and measured execution delay. The unclipped comparator retains its lower model error while allowing a larger signal price range. The bounded construction supplies a positive information effect inside an explicit trading-safety region. Economic deployment depends on the measured utility of that region in the selected market.</p>
+        </section>
+        </section>
+        <section id="sec:boundaries" class="level2">
+        <h2>10 Boundaries of the Result</h2>
+        <section id="exact-statements." class="level5">
+        <h5>Exact statements.</h5>
+        <p>The coupled-path characterization and global reporting bounds are exact under their stated assumptions. The same holds for the clipped price bounds, invariant calculation, purchase-first fee floor, sale-first cap condition, reserve envelope, and retained-fee theorem. The funded control construction and finite-horizon accounting give exact resource bounds under their respective assumptions.</p>
+        </section>
+        <section id="conditional-statements." class="level5">
+        <h5>Conditional statements.</h5>
+        <p>The linear estimator requires independent unbiased Gaussian observations and an affine logit-value relation. The binary-payoff map is a fixed-operating-point linearisation. The global reporting bounds assume a held-to-resolution score and the stated aggregate outside-payoff bounds. The local formula gives its first-order description in the unclipped central region.</p>
+        </section>
+        <section id="usefulness." class="level5">
+        <h5>Usefulness.</h5>
+        <p>Proposition <a href="#prop:clipped-utility" style="overflow-wrap:anywhere;hyphens:none">9.1</a> gives a strict information improvement under the declared Gaussian signal law. The held-out study measures that construction and its trading outcomes in a synthetic economy. Market claims require observed signal errors, dependence, latency, and trader overlap.</p>
+        </section>
+        <section id="separate-questions." class="level5">
+        <h5>Separate questions.</h5>
+        <p>This paper does not define the underlying claim, decide a dispute, establish a legal settlement rule, move funding, or prove receipt by a beneficiary. It studies price formation and cross-venue incentives within the trade boundary of Assumption <a href="#ass:trade-window" style="overflow-wrap:anywhere;hyphens:none">1.1</a>.</p>
+        <div class="openproblem">
+        <p><strong>Open Problem 2 (Endogenous cross-venue equilibrium).</strong></p>
+        <p>Characterise equilibrium when spot trading changes prediction beliefs and prediction trading changes spot demand across successive windows. The static path theorem does not determine that feedback process.</p>
+        </div>
+        <div class="openproblem">
+        <p><strong>Open Problem 3 (Portfolio formation and funded information demand).</strong></p>
+        <p>Characterise equilibrium when traders choose their included portfolios before reporting and sponsors choose future information budgets. Theorems <a href="#thm:global-reporting" style="overflow-wrap:anywhere;hyphens:none">5.1</a> and <a href="#thm:funded-control" style="overflow-wrap:anywhere;hyphens:none">8.3</a> condition on the admitted payoff and funded account. Endogenous participation, undisclosed outside positions, and sequential budget replenishment require a joint economic model.</p>
+        </div>
+        <div class="openproblem">
+        <p><strong>Open Problem 4 (Joint calibration).</strong></p>
+        <p>Estimate signal noise, cross-venue dependence, fee response, and executable depth from public market data. Those estimates determine whether the conditional logit representative is useful in a particular market.</p>
+        </div>
+        </section>
+        </section>
+        <section id="references" class="level2">
+        <h2>References</h2>
+        <div id="ref-hanson2003">
+
+        </div>
+        <p><strong>[1]</strong> R. Hanson. Combinatorial information market design. <em>Information Systems Frontiers</em>, 5(1):107–119, 2003.</p>
+        <div id="ref-hanson2007">
+
+        </div>
+        <p><strong>[2]</strong> R. Hanson. Logarithmic market scoring rules for modular combinatorial information aggregation. <em>Journal of Prediction Markets</em>, 1(1):3–15, 2007.</p>
+        <div id="ref-gneiting2007">
+
+        </div>
+        <p><strong>[3]</strong> T. Gneiting and A. E. Raftery. Strictly proper scoring rules, prediction, and estimation. <em>Journal of the American Statistical Association</em>, 102(477):359–378, 2007.</p>
+        <div id="ref-othman2010decision">
+
+        </div>
+        <p><strong>[4]</strong> A. Othman and T. Sandholm. Decision rules and decision markets. In <em>Proceedings of the 9th International Conference on Autonomous Agents and Multiagent Systems</em>, pages 625–632, 2010.</p>
+        <div id="ref-chenkash2011">
+
+        </div>
+        <p><strong>[5]</strong> Y. Chen and I. A. Kash. Information elicitation for decision making. In <em>Proceedings of the 10th International Conference on Autonomous Agents and Multiagent Systems</em>, pages 175–182, 2011.</p>
+        <div id="ref-shi2009">
+
+        </div>
+        <p><strong>[6]</strong> P. Shi, V. Conitzer, and M. Guo. Prediction mechanisms that do not incentivize undesirable actions. In <em>Proceedings of the 5th Workshop on Internet and Network Economics</em>, pages 89–100, 2009.</p>
+        <div id="ref-angeris2021">
+
+        </div>
+        <p><strong>[7]</strong> G. Angeris, H.-T. Kao, R. Chiang, C. Noyes, and T. Chitra. An analysis of Uniswap markets. <em>Cryptoeconomic Systems</em>, 1(1), 2021.</p>
+        <div id="ref-angeris2020oracles">
+
+        </div>
+        <p><strong>[8]</strong> G. Angeris and T. Chitra. Improved price oracles: Constant function market makers. In <em>Proceedings of ACM Advances in Financial Technologies</em>, pages 80–91, 2020.</p>
+        <div id="ref-pfmi2012">
+
+        </div>
+        <p><strong>[9]</strong> Committee on Payment and Settlement Systems and Technical Committee of the International Organization of Securities Commissions. <em>Principles for Financial Market Infrastructures</em>. Bank for International Settlements, 2012.</p>
+        <div id="ref-du2026myths">
+
+        </div>
+        <p><strong>[10]</strong> W. Du. Three myths about payment innovation. Panel remarks at the Jackson Hole Economic Policy Symposium, 29 August 2026.</p>
+        <div id="ref-du2026competing">
+
+        </div>
+        <p><strong>[11]</strong> W. Du, C. Huang, and D. Scharfstein. Competing rails for cross-border payments: Banks, fintechs, and stablecoins. Harvard Business School working paper, 15 February 2026.</p>
+        <div id="ref-lorgat2026eventcollect">
+
+        </div>
+        <p><strong>[12]</strong> R. Lorgat. Event-Collect BFT. Companion paper, 2026.</p>
+        <div id="ref-lorgat2026ising">
+
+        </div>
+        <p><strong>[13]</strong> R. Lorgat. Parlay Identification of Ising Couplings in Correlated Binary Event Markets. Companion paper, 2026.</p>
+        <div id="ref-jazwinski1970">
+
+        </div>
+        <p><strong>[14]</strong> A. H. Jazwinski. <em>Stochastic Processes and Filtering Theory</em>. Academic Press, 1970.</p>
+        <div id="ref-andersonmoore1979">
+
+        </div>
+        <p><strong>[15]</strong> B. D. O. Anderson and J. B. Moore. <em>Optimal Filtering</em>. Prentice-Hall, 1979.</p>
+        </section>
+        </section>
+        </div>
+
+        <footer class="article-footer">
+            <span class="author-byline"><strong>Raeez Lorgat</strong> · Managing Partner, Momentum</span>
+            <nav class="footer-nav">
+                <a href="/">← All Papers</a>
+            </nav>
+        </footer>
+        <div class="contact-footer">
+            <span>&copy; 2026 Momentum</span>
+        </div>
+    </article>
+</div>
+<script src="/paper.js" defer></script>
+</body>
+</html>

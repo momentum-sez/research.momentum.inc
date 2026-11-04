@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Time in Institutional Computing - Raeez Lorgat</title>
+<meta name="description" content="Law changes the consequences of past events, never their occurrence. Two kinds of time, and why an institutional record needs both.">
+<meta name="author" content="Raeez Lorgat">
+<meta property="og:title" content="Time in Institutional Computing">
+<meta property="og:description" content="Law changes the consequences of past events, never their occurrence. Two kinds of time, and why an institutional record needs both.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://research.momentum.inc/og-image.png">
+<meta property="og:url" content="https://research.momentum.inc/papers/temporal-stratification.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+<link rel="canonical" href="https://research.momentum.inc/papers/temporal-stratification.html">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Time in Institutional Computing",
+    "author": { "@type": "Person", "name": "Raeez Lorgat", "url": "https://research.momentum.inc" },
+    "datePublished": "2026-04-02",
+    "description": "Law changes the consequences of past events, never their occurrence. Two kinds of time, and why an institutional record needs both."
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8T5J8M28"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JP8T5J8M28');
+</script>
+<link rel="stylesheet" href="https://use.typekit.net/zlu2quo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --font-text: 'garamond-premier-pro', 'EB Garamond', 'Hoefler Text', 'Baskerville', Garamond, serif;
+    --font-display: 'garamond-premier-pro-display', var(--font-text);
+    --font-caption: 'garamond-premier-pro-caption', var(--font-text);
+    --font-subhead: 'garamond-premier-pro-subhead', var(--font-text);
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    --text-base: clamp(18px, 1.125rem + 0.25vw, 21px);
+    --text-sm: calc(var(--text-base) / 1.333);
+    --text-xs: calc(var(--text-sm) / 1.333);
+    --text-lg: calc(var(--text-base) * 1.333);
+    --text-xl: calc(var(--text-lg) * 1.333);
+    --text-2xl: calc(var(--text-xl) * 1.333);
+    --baseline: 8px;
+    --leading-tight: 1.2;
+    --leading-snug: 1.35;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.618;
+    --leading-loose: 1.8;
+    --space-1: calc(var(--baseline) * 1);
+    --space-2: calc(var(--baseline) * 2);
+    --space-3: calc(var(--baseline) * 3);
+    --space-4: calc(var(--baseline) * 4);
+    --space-5: calc(var(--baseline) * 5);
+    --space-6: calc(var(--baseline) * 6);
+    --space-8: calc(var(--baseline) * 8);
+    --space-10: calc(var(--baseline) * 10);
+    --space-13: calc(var(--baseline) * 13);
+    --measure: 65ch;
+    --measure-narrow: 55ch;
+    --measure-wide: 75ch;
+    --gutter: clamp(16px, 4vw, 24px);
+    --ink: #1a1917;
+    --ink-muted: #4a4744;
+    --ink-subtle: #6a6662;
+    --ink-faint: #8a8580;
+    --ink-ghost: #b5b0ab;
+    --ink-whisper: #d4d0cc;
+    --ink-hint: #e8e5e2;
+    --paper: #fefdfb;
+    --paper-tint: #f5f3f0;
+    --kern-tight: -0.02em;
+    --kern-snug: -0.01em;
+    --kern-normal: 0;
+    --kern-loose: 0.015em;
+    --kern-wide: 0.04em;
+    --kern-caps: 0.08em;
+    --optical-margin: -0.03em;
+}
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    hanging-punctuation: first last;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body {
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-relaxed);
+    color: var(--ink);
+    background: var(--paper);
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1, "dlig" 1, "onum" 1, "pnum" 1;
+    font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    font-kerning: normal;
+}
+.container {
+    max-width: calc(var(--measure) + var(--space-8));
+    margin-inline: auto;
+    padding: var(--space-10) var(--gutter) var(--space-8);
+}
+.back-nav { margin-bottom: var(--space-8); }
+.back-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.back-nav a:hover { color: var(--ink); }
+.article-header {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--ink-hint);
+}
+.article-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-meta {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+    margin-top: var(--space-3);
+}
+.article-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+.article-meta a:hover {
+    color: var(--ink-muted);
+    text-decoration-color: var(--ink-ghost);
+}
+/* Companion open-source repository link — rendered when `repo` metadata is set.
+   Monochrome ink on warm paper to sit native to the typographic system;
+   the GitHub mark carries the recognition, the hairline frame the prominence. */
+.repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    max-width: 100%;
+    padding: 10px var(--space-3) 10px calc(var(--space-2) + 2px);
+    border: 1px solid var(--ink-whisper);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: border-color 200ms ease, color 200ms ease,
+                background 200ms ease, box-shadow 200ms ease;
+}
+.repo-link:hover {
+    border-color: var(--ink-faint);
+    color: var(--ink);
+    background: var(--paper-tint);
+    box-shadow: 0 2px 12px rgba(26, 25, 23, 0.07);
+}
+.repo-link:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; }
+.repo-link__mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    color: var(--ink);
+    transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.repo-link:hover .repo-link__mark { transform: rotate(-7deg) scale(1.06); }
+.repo-link__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; line-height: var(--leading-tight); }
+.repo-link__label {
+    font-family: var(--font-caption);
+    font-size: var(--text-xs);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    transition: color 200ms ease;
+}
+.repo-link:hover .repo-link__label { color: var(--ink-subtle); }
+.repo-link__url {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    letter-spacing: var(--kern-snug);
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.repo-link__arrow {
+    flex: none;
+    margin-left: var(--space-1);
+    color: var(--ink-ghost);
+    transition: transform 200ms ease, color 200ms ease;
+}
+.repo-link:hover .repo-link__arrow { transform: translateX(3px); color: var(--ink-faint); }
+@media (max-width: 400px) { .repo-link__arrow { display: none; } }
+/* TOC from pandoc */
+nav#TOC {
+    margin: 0 0 var(--space-8);
+    padding: var(--space-4) 0 var(--space-4) var(--space-4);
+    border-top: 1px solid var(--ink-hint);
+    border-bottom: 1px solid var(--ink-hint);
+}
+nav#TOC ul { list-style: none; padding: 0; }
+nav#TOC li { margin: 0.35rem 0; }
+nav#TOC a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-hint);
+    transition: border-color 0.2s;
+    font-size: var(--text-sm);
+}
+nav#TOC a:hover { border-color: var(--ink-muted); }
+.article-body { font-variant-ligatures: common-ligatures discretionary-ligatures contextual; }
+.article-body p {
+    margin-bottom: var(--space-3);
+    max-width: var(--measure);
+    line-height: var(--leading-loose);
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+    hyphenate-limit-lines: 2;
+}
+.article-body h1, .article-body .level1 > h2:first-child {
+    font-family: var(--font-subhead);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h2 {
+    font-family: var(--font-subhead);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: var(--kern-snug);
+    line-height: var(--leading-snug);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+}
+.article-body a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    text-decoration-skip-ink: auto;
+    transition: text-decoration-color 180ms ease;
+}
+.article-body a:hover { text-decoration-color: var(--ink-muted); }
+.article-body blockquote {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--ink-hint);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.article-body hr {
+    border: none;
+    height: 1px;
+    background: var(--ink-hint);
+    margin: var(--space-8) 0;
+    max-width: 4rem;
+}
+.article-body code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--paper-tint);
+    padding: 0.12em 0.35em;
+}
+.article-body pre {
+    background: #0d0d0c;
+    color: #c8c5b8;
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-4) 0;
+    font-size: var(--text-sm);
+}
+.article-body th {
+    text-align: left;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+    letter-spacing: var(--kern-loose);
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 2px solid var(--ink-hint);
+}
+.article-body td {
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 1px solid var(--ink-hint);
+    vertical-align: top;
+}
+.article-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.author-byline {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.author-byline strong { font-style: normal; font-weight: 600; }
+.footer-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.footer-nav a:hover { color: var(--ink); }
+.contact-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+}
+::selection { background: var(--ink); color: var(--paper); }
+a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; border-radius: 2px; }
+@media (max-width: 680px) {
+    :root { --text-base: clamp(17px, 1rem + 0.2vw, 19px); }
+    .container { padding: var(--space-6) var(--gutter) var(--space-5); }
+    .article-title { font-size: var(--text-xl); }
+    .article-body h1, .article-body .level1 > h2:first-child { font-size: var(--text-lg); }
+    .article-body h2 { font-size: calc(var(--text-base) * 1.1); }
+    .article-footer { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+@media (max-width: 400px) {
+    :root { --text-base: 16px; }
+    .container { padding: var(--space-5) var(--space-2) var(--space-4); }
+}
+@media (min-width: 1200px) { .container { padding-top: var(--space-13); } }
+@media print {
+    :root { --ink: #000; --paper: #fff; }
+    body { font-size: 11pt; line-height: 1.4; }
+    .container { max-width: 100%; padding: 0; }
+    .back-nav, .contact-footer { display: none; }
+    nav#TOC { display: none; }
+    a { text-decoration: none !important; color: var(--ink) !important; }
+    .article-body h1, .article-body h2 { page-break-after: avoid; }
+    p { orphans: 3; widows: 3; }
+}
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(var(--gutter), env(safe-area-inset-left));
+        padding-right: max(var(--gutter), env(safe-area-inset-right));
+    }
+}
+
+/* Wiring in a mathematics renderer made display equations set on one unwrappable
+   line, so a long equation pushed the page wider than the viewport and readers on
+   ordinary laptops lost the right-hand side. Let each equation scroll inside its own
+   box instead of widening the page. Wide tables get the same treatment. */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
+.katex-display::-webkit-scrollbar { height: 6px; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 600px) {
+  .paper-nav-title { display: none; }
+}
+</style>
+<link rel="stylesheet" href="/paper.css">
+</head>
+<body>
+<div class="container">
+    <nav class="back-nav">
+        <a href="/">← Research</a>
+    </nav>
+    <article>
+        <header class="article-header">
+            <h1 class="article-title">Time in Institutional Computing</h1>
+            <p class="article-meta">April 2026 · Raeez Lorgat</p>
+                    </header>
+
+        
+        <div class="article-body">
+        <section id="time-in-institutional-computing" class="level1">
+        <h1>Time in Institutional Computing</h1>
+        <p>Author: Raeez Lorgat</p>
+        <hr />
+        <p>A transaction lawful yesterday may be unlawful today. Retroactive legislation can change the <em>consequences</em> of past events, but cannot change their <em>occurrence</em>. A legislature can amend the filing deadline for companies incorporated in 2024, but those incorporations remain historical facts. How far a rule reaches back depends on the rule and the legal domain.</p>
+        <p>For punishment, the bar is near absolute: the ex post facto prohibition (Calder v. Bull, 3 U.S. 386 (1798)), Article 7 of the European Convention on Human Rights, Article 15 of the ICCPR. Civil and regulatory law permit reach-back. Clear legislative intent can overcome the presumption that statutes apply prospectively (Landgraf v. USI Film Products, 511 U.S. 244 (1994)). Courts have also upheld retroactive tax legislation (United States v. Carlton, 512 U.S. 26 (1994)).</p>
+        <p>An institutional system of record must preserve what happened and when, through every later rule change. It must also compute what a rule, including a retroactive rule, says about those events without altering their record. These tasks require two distinct kinds of time.</p>
+        <section id="the-two-times" class="level2">
+        <h2>The two times</h2>
+        <p>A company issues shares on March 15, 2026. The issuance passes evaluation against the securities rules then in force, and the transaction proceeds. Both the issuance and the rules in force on March 15, 2026 become historical facts.</p>
+        <p>On June 1, 2026, the legislature amends the securities law’s reporting threshold for share issuances. The March issuance required no special reporting under the old law. Under the new law, it would have.</p>
+        <p>With only a mutable timestamp on each record, the software cannot retain these distinctions. Updating the evaluation under the new law makes a lawful transaction appear unlawful in the historical record. Ignoring the new law leaves a rule that validly reaches the present unapplied. Keeping both results without specifying which question each answers leaves their meaning unclear.</p>
+        <p><em>Frozen time</em> records when something happened: the issuance was committed, the amendment enacted, or the evaluation rendered. No later event changes it. A rule’s effective date is also frozen time. That the amendment takes effect on June 1 is a historical fact fixed by enactment.</p>
+        <p><em>Derived time</em> results from applying a rule to frozen facts. Examples include a reporting deadline for the March issuance, a tolled limitation period, or a compliance status under a given version of the law. Each computation produces a new, dated consequence while preserving the original record.</p>
+        <p>The system must retain both the time of the fact and the time that a rule derives from it.</p>
+        </section>
+        <section id="why-two-times-not-one" class="level2">
+        <h2>Why two times, not one</h2>
+        <p>Database timestamp columns and object-relational <code>updated_at</code> fields encourage a single mutable timeline in which only the current state survives.</p>
+        <p>A compliance record must preserve what was true at a specific moment. Silently updating it when rules change destroys that evidence. It then shows only what the current software computes, which may change again, rather than whether the transaction was lawful when it occurred.</p>
+        <p>An immutable record also permits commitment. Later rules may reinterpret past facts or change their consequences, while the record preserves what happened and when. If past evaluations can be silently revised, none can be treated as final. Closed audits, settled trades, and issued licenses depend on completed evaluations.</p>
+        </section>
+        <section id="the-non-retroactivity-invariant" class="level2">
+        <h2>The non-retroactivity invariant</h2>
+        <p>Frozen facts can enter a computation that produces derived consequences. No computation can convert a derived consequence into a frozen fact.</p>
+        <p>A tolling provision illustrates the direction. A claim accrues on a recorded, frozen date, and the limitation rule derives a deadline of June 30. A suspension begins on another frozen date. The tolling rule uses the derived deadline and frozen suspension date to extend the deadline to December 30. That extended deadline remains in the derived stratum.</p>
+        <p>A second suspension tolls the extended deadline in the same way, without re-deriving it from the accrual. Each deadline references its inputs: either the frozen accrual, or the deadline it extends and the frozen suspension that tolls it. All those inputs remain in the record. June 30 remains June 30, and the accrual and suspensions retain their historical dates. The facts occupy one stratum and the deadlines the other.</p>
+        <p>A savings clause preserves liability incurred under a repealed statute, as the general federal savings statute, 1 U.S.C. § 109, does. The repeal is a dated enactment with prospective effect, while the earlier liability stands. A limitation rewrite may extend or shorten deadlines for pending claims. The system represents that reach-back as new derived deadlines over unchanged filing facts. In each case, a rule produces a new consequence from a preserved fact.</p>
+        <p>The invariant forbids a derived value where a frozen value is required. A tolled deadline therefore cannot enter the record as the date of an event. The rule language provides no operation that converts derived time to frozen time. The proof and its scope are stated below.</p>
+        </section>
+        <section id="this-is-temporal-stratification" class="level2">
+        <h2>This is temporal stratification</h2>
+        <p>Temporal stratification borrows its name from stratified logic programming. There, a predicate cannot be defined by negating a predicate in its own or a higher stratum. Excluding recursion through negation gives the program a single intended model (Chandra and Harel, 1985; Apt, Blair and Walker, 1988). A logic program may require arbitrarily many strata. The construction here uses the same discipline of one-way reference between layers, with two strata:</p>
+        <ul>
+        <li><strong>Stratum 0</strong>: frozen historical time. What happened and when, as attested – transactions committed, rules enacted and taking effect, authorities appointed, judgments rendered, observations recorded.</li>
+        <li><strong>Stratum 1</strong>: derived legal time. What follows from frozen facts under a body of rules. May reference stratum 0; cannot modify it.</li>
+        </ul>
+        <p>Derived time is indexed by the rules that produced it. The rules in force at a moment form a versioned set, the <em>rule pack</em>. Each derived consequence records that pack and its frozen source facts. The verdict “Compliant” requires its context: “compliant under the June 1 pack, derived from the March 15 facts.”</p>
+        <p>The stratification is flat. Deriving from a derived consequence does not create a third kind of time. Re-evaluating a consequence under a newer pack rebuilds it from the same frozen source under that pack. A time is either a historical fact or a value derived from historical facts under a named pack.</p>
+        </section>
+        <section id="what-is-proved-and-where" class="level2">
+        <h2>What is proved, and where</h2>
+        <p>The companion paper <em>Lex: A Logic for Jurisdictional Rules</em> (section 3.2) makes both sorts first-class in the rule language’s type system. Time₀ represents frozen historical time, and Time₁ represents derived legal time. Effective dates, repeals, tolling, and pack evolution are typed terms. A derived time is a closure containing the frozen source fact, the pack, and a derivation witness that cites the rules used.</p>
+        <p>Soundness here means that no path leads from derived time back to frozen time. The mechanized theorem establishes this property for the language’s temporal constructor graph. Its rules cover lifting, derivation, tolling, effective dates, timestamping, and pack re-evaluation. No rule with a Time₀ conclusion has a Time₁ premise. The transitive closure of the temporal coercions therefore contains no path from Time₁ to Time₀.</p>
+        <p>A companion result establishes that re-evaluation under a new pack rebuilds the closure over the same frozen source. The source projection is definitionally unchanged. Both results are machine-checked in the Lex development’s temporal-stratification and pack re-evaluation modules.</p>
+        <p>Two obligations remain open. First, the theorem covers the temporal fragment’s rule graph. Connecting the full typing relation to that graph remains an integration obligation.</p>
+        <p>Second, pack-evolution soundness remains open: a well-typed judgment transported across a pack rewrite must remain well-typed and preserve its verdict. The companion paper states this at two levels (section 3.3). In the stable fragment, every rule cited by the derivation survives by digest. The named proof target there is induction on the typing derivation. For the modal and temporal subsystem, re-evaluation must also commute with the temporal and tribunal modalities, and soundness remains a conjecture.</p>
+        <p>Within the proved fragment, “the type system forbids it” is a theorem. Outside that scope, the same rule shapes enforce the design intent, but the proof does not yet cover it.</p>
+        </section>
+        <section id="prior-art" class="level2">
+        <h2>Prior art</h2>
+        <p>Temporal databases have distinguished <em>valid time</em>, when a fact held, from <em>transaction time</em>, when it was recorded, since Snodgrass and Ahn (1985). Jensen et al. (1994) consolidated the vocabulary. SQL:2011 standardized both through application-time periods and system-versioned tables (Kulkarni and Michels, 2012). A system-versioned table preserves past states.</p>
+        <p>The norm-change literature formalizes abrogation, annulment, and temporal rule versions (Governatori and Rotolo, 2010). Legislative-markup standards also track point-in-time statute versions (Palmirani, 2011). The single-mutable-timeline failure comes from omitting these techniques, rather than from versioning itself.</p>
+        <p>Record versioning alone leaves the programs that compute over records unconstrained. A rule engine can read a bitemporal store and write a tolled deadline where a frozen accrual date belongs. The store will then version that error. Typing the rule language over time rejects this ill-formed program before execution.</p>
+        <p>This typing restriction determines how retroactive law is represented. Without a coercion from derived to frozen time, an old evaluation cannot be updated to express retroactive application. A retroactive tax amendment or extended limitation period instead produces a fresh derivation under the new pack from the frozen facts. It coexists with the original evaluation. Reach-back occurs in the derived stratum and remains attributed to its rule.</p>
+        </section>
+        <section id="why-this-matters-for-compliance" class="level2">
+        <h2>Why this matters for compliance</h2>
+        <p>Without stratification, the March 15 issuance passes evaluation under the rules then in force, and the transaction proceeds. On June 1, the system re-evaluates it under changed rules and reports failure. A historically approved transaction now appears non-compliant, although the earlier approval was correct under its rules. The software cannot report “compliant then, non-compliant now,” because it retains only one time. It has lost the original evaluation, which was evidence of lawful conduct.</p>
+        <p>Regulators, auditors, and counterparties need both answers. The frozen-context question asks for the transaction’s status under the rules in force at commitment. The derived question asks what its status would be under current rules. Answering the latter must preserve the evidence needed to answer the former.</p>
+        <p>With stratification, the March evaluation under the March pack is frozen at stratum 0. The June re-evaluation is derived at stratum 1 and indexed by the June pack. Both remain queryable, and the rule language supplies no operation that collapses one into the other. An auditor can see that the transaction was compliant when it occurred and would be non-compliant under current rules.</p>
+        </section>
+        <section id="authority-is-a-stratum-0-fact" class="level2">
+        <h2>Authority is a stratum-0 fact</h2>
+        <p>The attested institutional authority record is also frozen: which regulator supervised the firm, which court held the case, and which officer held a delegation, over which periods. Each rendered judgment is likewise a timestamped event, just as the share issuance is. Applying a pack to those events derives consequences such as remedy deadlines, tolled periods, and the status following a ruling.</p>
+        <p>Selecting the authority for a dispute requires a rule over that frozen assignment record. Legal systems use different selectors by domain. Criminal liability generally selects by event time, while United States diversity jurisdiction selects by filing time (Grupo Dataflux v. Atlas Global Group, 541 U.S. 567 (2004)). Tribunals established after events can also hear them. The International Criminal Tribunal for the former Yugoslavia was established in 1993 with jurisdiction reaching back to 1991. It applies a new selector to the frozen event record without rewriting who held authority in 1991.</p>
+        <p>The frozen assignment record makes event-time, filing-time, and decision-time selection well-posed queries with definite answers. If current assignments overwrite earlier ones, the system retains only the data needed for the decision-time question.</p>
+        </section>
+        <section id="evidence-is-a-stratum-0-fact" class="level2">
+        <h2>Evidence is a stratum-0 fact</h2>
+        <p>A frozen decision context has two coordinates: the rules in force and the evidence available at the time of the act. The same discipline protects both. Each observation carries its recording time as a frozen fact, so two strata still suffice.</p>
+        <p>Suppose a transaction is approved in March and disputed in August. The intervening record contains new filings, attestations, counterparty disclosures, and examination findings. Retrieving the whole corpus answers the March question with knowledge unavailable to the March actor. A compliance officer given the current file makes the same error as a machine with unbounded retrieval.</p>
+        <p>Two retrospective questions fix different coordinates. Asking whether the act was lawful under the rules then in force, on the facts now known, fixes the rules while admitting later evidence. Fraud discovered in August can reveal that the March act was unlawful then. The evidence reveals the past without revising it.</p>
+        <p>Asking whether the determination was sound on the record then before the decision-maker fixes both coordinates. This question of due diligence and reasonable reliance excludes hindsight. It can be answered only from evidence available at the time. An as-of bound separates these questions, which a single timeline silently blends.</p>
+        <p>The query interface enforces that bound. A retrospective query names a reference point, and retrieval admits only records whose recording time is at or before it. This is a precondition on access, independent of the querier’s diligence. It applies the database distinction between valid time and transaction time to the non-retroactivity invariant’s second coordinate. Judging a determination on later-recorded evidence makes the same error as judging it under later-enacted rules when the question excludes hindsight.</p>
+        </section>
+        <section id="the-general-pattern" class="level2">
+        <h2>The general pattern</h2>
+        <ol type="1">
+        <li>A fact is committed at a specific moment. That moment is frozen.</li>
+        <li>A rule is applied to the fact, possibly much later. The application produces a derived, dated consequence, attributed to the rule and pack that produced it.</li>
+        <li>The consequence coexists with the fact. It does not replace it.</li>
+        <li>The flow is one-directional: facts into derivations, never derivations back into facts.</li>
+        </ol>
+        <p>Accounting similarly separates historical cost from fair-value adjustment, and science separates observations from reinterpretation under a new theory. Version control preserves commits while branch pointers move. In institutional computing, confusing the strata misstates what was lawful when it occurred and erases the evidence needed to detect that error.</p>
+        <p>The rule language therefore needs two sorts of time, a one-way coercion, and derived consequences indexed by their governing rules. Together, these preserve historical evidence while allowing the system to compute new legal consequences.</p>
+        </section>
+        <section id="references" class="level2">
+        <h2>References</h2>
+        <p>Apt, K. R., Blair, H. A. and Walker, A. (1988). “Towards a Theory of Declarative Knowledge.” In Minker, J. (ed.), <em>Foundations of Deductive Databases and Logic Programming</em>, Morgan Kaufmann, 89–148.</p>
+        <p>Chandra, A. K. and Harel, D. (1985). “Horn Clause Queries and Generalizations.” <em>Journal of Logic Programming</em>, 2(1), 1–15.</p>
+        <p>Governatori, G. and Rotolo, A. (2010). “Changing Legal Systems: Legal Abrogation and Annulment in Defeasible Logic.” <em>Logic Journal of the IGPL</em>, 18(1), 157–194.</p>
+        <p>Jensen, C. S. et al. (1994). “A Consensus Glossary of Temporal Database Concepts.” <em>SIGMOD Record</em>, 23(1), 52–64.</p>
+        <p>Kulkarni, K. and Michels, J.-E. (2012). “Temporal Features in SQL:2011.” <em>SIGMOD Record</em>, 41(3), 34–43.</p>
+        <p>Palmirani, M. (2011). “Legislative Change Management with Akoma-Ntoso.” In Sartor, G., Palmirani, M., Francesconi, E. and Biasiotti, M. A. (eds.), <em>Legislative XML for the Semantic Web</em>, Springer.</p>
+        <p>Snodgrass, R. and Ahn, I. (1985). “A Taxonomy of Time in Databases.” <em>Proceedings of the 1985 ACM SIGMOD International Conference on Management of Data</em>, 236–246.</p>
+        </section>
+        </section>
+        </div>
+
+        <footer class="article-footer">
+            <span class="author-byline"><strong>Raeez Lorgat</strong> · Managing Partner, Momentum</span>
+            <nav class="footer-nav">
+                <a href="/">← All Papers</a>
+            </nav>
+        </footer>
+        <div class="contact-footer">
+            <span>&copy; 2026 Momentum</span>
+        </div>
+    </article>
+</div>
+<script src="/paper.js" defer></script>
+</body>
+</html>

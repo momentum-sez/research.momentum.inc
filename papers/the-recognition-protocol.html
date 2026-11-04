@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Recognition Protocol - Raeez Lorgat</title>
+<meta name="description" content="The standard a jurisdiction accedes to: conformance is machine-decided, recognition stays sovereign, and one deposited instrument reaches every participant whose own policy admits it.">
+<meta name="author" content="Raeez Lorgat">
+<meta property="og:title" content="The Recognition Protocol">
+<meta property="og:description" content="The standard a jurisdiction accedes to: conformance is machine-decided, recognition stays sovereign, and one deposited instrument reaches every participant whose own policy admits it.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://research.momentum.inc/og-image.png">
+<meta property="og:url" content="https://research.momentum.inc/papers/the-recognition-protocol.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+<link rel="canonical" href="https://research.momentum.inc/papers/the-recognition-protocol.html">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "The Recognition Protocol",
+    "author": { "@type": "Person", "name": "Raeez Lorgat", "url": "https://research.momentum.inc" },
+    "datePublished": "2026-09-01",
+    "description": "The standard a jurisdiction accedes to: conformance is machine-decided, recognition stays sovereign, and one deposited instrument reaches every participant whose own policy admits it."
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8T5J8M28"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JP8T5J8M28');
+</script>
+<link rel="stylesheet" href="https://use.typekit.net/zlu2quo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --font-text: 'garamond-premier-pro', 'EB Garamond', 'Hoefler Text', 'Baskerville', Garamond, serif;
+    --font-display: 'garamond-premier-pro-display', var(--font-text);
+    --font-caption: 'garamond-premier-pro-caption', var(--font-text);
+    --font-subhead: 'garamond-premier-pro-subhead', var(--font-text);
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    --text-base: clamp(18px, 1.125rem + 0.25vw, 21px);
+    --text-sm: calc(var(--text-base) / 1.333);
+    --text-xs: calc(var(--text-sm) / 1.333);
+    --text-lg: calc(var(--text-base) * 1.333);
+    --text-xl: calc(var(--text-lg) * 1.333);
+    --text-2xl: calc(var(--text-xl) * 1.333);
+    --baseline: 8px;
+    --leading-tight: 1.2;
+    --leading-snug: 1.35;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.618;
+    --leading-loose: 1.8;
+    --space-1: calc(var(--baseline) * 1);
+    --space-2: calc(var(--baseline) * 2);
+    --space-3: calc(var(--baseline) * 3);
+    --space-4: calc(var(--baseline) * 4);
+    --space-5: calc(var(--baseline) * 5);
+    --space-6: calc(var(--baseline) * 6);
+    --space-8: calc(var(--baseline) * 8);
+    --space-10: calc(var(--baseline) * 10);
+    --space-13: calc(var(--baseline) * 13);
+    --measure: 65ch;
+    --measure-narrow: 55ch;
+    --measure-wide: 75ch;
+    --gutter: clamp(16px, 4vw, 24px);
+    --ink: #1a1917;
+    --ink-muted: #4a4744;
+    --ink-subtle: #6a6662;
+    --ink-faint: #8a8580;
+    --ink-ghost: #b5b0ab;
+    --ink-whisper: #d4d0cc;
+    --ink-hint: #e8e5e2;
+    --paper: #fefdfb;
+    --paper-tint: #f5f3f0;
+    --kern-tight: -0.02em;
+    --kern-snug: -0.01em;
+    --kern-normal: 0;
+    --kern-loose: 0.015em;
+    --kern-wide: 0.04em;
+    --kern-caps: 0.08em;
+    --optical-margin: -0.03em;
+}
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    hanging-punctuation: first last;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body {
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-relaxed);
+    color: var(--ink);
+    background: var(--paper);
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1, "dlig" 1, "onum" 1, "pnum" 1;
+    font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    font-kerning: normal;
+}
+.container {
+    max-width: calc(var(--measure) + var(--space-8));
+    margin-inline: auto;
+    padding: var(--space-10) var(--gutter) var(--space-8);
+}
+.back-nav { margin-bottom: var(--space-8); }
+.back-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.back-nav a:hover { color: var(--ink); }
+.article-header {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--ink-hint);
+}
+.article-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-meta {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+    margin-top: var(--space-3);
+}
+.article-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+.article-meta a:hover {
+    color: var(--ink-muted);
+    text-decoration-color: var(--ink-ghost);
+}
+/* Companion open-source repository link — rendered when `repo` metadata is set.
+   Monochrome ink on warm paper to sit native to the typographic system;
+   the GitHub mark carries the recognition, the hairline frame the prominence. */
+.repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    max-width: 100%;
+    padding: 10px var(--space-3) 10px calc(var(--space-2) + 2px);
+    border: 1px solid var(--ink-whisper);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: border-color 200ms ease, color 200ms ease,
+                background 200ms ease, box-shadow 200ms ease;
+}
+.repo-link:hover {
+    border-color: var(--ink-faint);
+    color: var(--ink);
+    background: var(--paper-tint);
+    box-shadow: 0 2px 12px rgba(26, 25, 23, 0.07);
+}
+.repo-link:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; }
+.repo-link__mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    color: var(--ink);
+    transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.repo-link:hover .repo-link__mark { transform: rotate(-7deg) scale(1.06); }
+.repo-link__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; line-height: var(--leading-tight); }
+.repo-link__label {
+    font-family: var(--font-caption);
+    font-size: var(--text-xs);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    transition: color 200ms ease;
+}
+.repo-link:hover .repo-link__label { color: var(--ink-subtle); }
+.repo-link__url {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    letter-spacing: var(--kern-snug);
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.repo-link__arrow {
+    flex: none;
+    margin-left: var(--space-1);
+    color: var(--ink-ghost);
+    transition: transform 200ms ease, color 200ms ease;
+}
+.repo-link:hover .repo-link__arrow { transform: translateX(3px); color: var(--ink-faint); }
+@media (max-width: 400px) { .repo-link__arrow { display: none; } }
+/* TOC from pandoc */
+nav#TOC {
+    margin: 0 0 var(--space-8);
+    padding: var(--space-4) 0 var(--space-4) var(--space-4);
+    border-top: 1px solid var(--ink-hint);
+    border-bottom: 1px solid var(--ink-hint);
+}
+nav#TOC ul { list-style: none; padding: 0; }
+nav#TOC li { margin: 0.35rem 0; }
+nav#TOC a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-hint);
+    transition: border-color 0.2s;
+    font-size: var(--text-sm);
+}
+nav#TOC a:hover { border-color: var(--ink-muted); }
+.article-body { font-variant-ligatures: common-ligatures discretionary-ligatures contextual; }
+.article-body p {
+    margin-bottom: var(--space-3);
+    max-width: var(--measure);
+    line-height: var(--leading-loose);
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+    hyphenate-limit-lines: 2;
+}
+.article-body h1, .article-body .level1 > h2:first-child {
+    font-family: var(--font-subhead);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h2 {
+    font-family: var(--font-subhead);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: var(--kern-snug);
+    line-height: var(--leading-snug);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+}
+.article-body a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    text-decoration-skip-ink: auto;
+    transition: text-decoration-color 180ms ease;
+}
+.article-body a:hover { text-decoration-color: var(--ink-muted); }
+.article-body blockquote {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--ink-hint);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.article-body hr {
+    border: none;
+    height: 1px;
+    background: var(--ink-hint);
+    margin: var(--space-8) 0;
+    max-width: 4rem;
+}
+.article-body code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--paper-tint);
+    padding: 0.12em 0.35em;
+}
+.article-body pre {
+    background: #0d0d0c;
+    color: #c8c5b8;
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-4) 0;
+    font-size: var(--text-sm);
+}
+.article-body th {
+    text-align: left;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+    letter-spacing: var(--kern-loose);
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 2px solid var(--ink-hint);
+}
+.article-body td {
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 1px solid var(--ink-hint);
+    vertical-align: top;
+}
+.article-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.author-byline {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.author-byline strong { font-style: normal; font-weight: 600; }
+.footer-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.footer-nav a:hover { color: var(--ink); }
+.contact-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+}
+::selection { background: var(--ink); color: var(--paper); }
+a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; border-radius: 2px; }
+@media (max-width: 680px) {
+    :root { --text-base: clamp(17px, 1rem + 0.2vw, 19px); }
+    .container { padding: var(--space-6) var(--gutter) var(--space-5); }
+    .article-title { font-size: var(--text-xl); }
+    .article-body h1, .article-body .level1 > h2:first-child { font-size: var(--text-lg); }
+    .article-body h2 { font-size: calc(var(--text-base) * 1.1); }
+    .article-footer { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+@media (max-width: 400px) {
+    :root { --text-base: 16px; }
+    .container { padding: var(--space-5) var(--space-2) var(--space-4); }
+}
+@media (min-width: 1200px) { .container { padding-top: var(--space-13); } }
+@media print {
+    :root { --ink: #000; --paper: #fff; }
+    body { font-size: 11pt; line-height: 1.4; }
+    .container { max-width: 100%; padding: 0; }
+    .back-nav, .contact-footer { display: none; }
+    nav#TOC { display: none; }
+    a { text-decoration: none !important; color: var(--ink) !important; }
+    .article-body h1, .article-body h2 { page-break-after: avoid; }
+    p { orphans: 3; widows: 3; }
+}
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(var(--gutter), env(safe-area-inset-left));
+        padding-right: max(var(--gutter), env(safe-area-inset-right));
+    }
+}
+
+/* Wiring in a mathematics renderer made display equations set on one unwrappable
+   line, so a long equation pushed the page wider than the viewport and readers on
+   ordinary laptops lost the right-hand side. Let each equation scroll inside its own
+   box instead of widening the page. Wide tables get the same treatment. */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
+.katex-display::-webkit-scrollbar { height: 6px; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 600px) {
+  .paper-nav-title { display: none; }
+}
+</style>
+<link rel="stylesheet" href="/paper.css">
+</head>
+<body>
+<div class="container">
+    <nav class="back-nav">
+        <a href="/">← Research</a>
+    </nav>
+    <article>
+        <header class="article-header">
+            <h1 class="article-title">The Recognition Protocol</h1>
+            <p class="article-meta">September 2026 · Raeez Lorgat</p>
+                    </header>
+
+        
+        <div class="article-body">
+        <section id="the-recognition-protocol" class="level1">
+        <h1>The Recognition Protocol</h1>
+        <p><strong>Raeez Lorgat, 2026</strong></p>
+        <hr />
+        <p>A recognition network can form through bilateral negotiation or accession. In the first mechanism, each pair of authorities negotiates an instrument. In the second, each authority deposits one unilateral instrument against a published standard, and the deposits determine the relation. The companion paper <em>Accession Networks</em> proves that bilateral formation asymptotes below any constant fraction of an eligible population. Accession reproduces the same relation at <span class="math inline">n</span> instruments rather than <span class="math inline">\Theta(n^2)</span> under five hypotheses about the instrument and its use:</p>
+        <ul>
+        <li>A finite published menu of terms that do not vary by counterparty.</li>
+        <li>Reciprocal entitlement: a reservation cuts a participant’s rights exactly as far as it cuts its obligations.</li>
+        <li>Declination by default within a window opened by actual notice.</li>
+        <li>A published rule that resolves conflicting declarations without an adjudicator.</li>
+        <li>Participants declining exactly those counterparties they would have refused bilaterally.</li>
+        </ul>
+        <p>This paper specifies a protocol design against which each hypothesis can be checked. Every grade below is one the design provides for. The protocol defines how a jurisdiction joins a network of sovereign compliance systems: endpoint behavior, conformance testing, deposit, declination, and the standards body’s powers.</p>
+        <section id="conformance-and-recognition-are-different-acts" class="level2">
+        <h2>Conformance and recognition are different acts</h2>
+        <p><strong>Conformance</strong> concerns software. A node is the software a jurisdiction runs at a network endpoint. Running a published test suite and publishing its result decides whether the node answers the specified interfaces with the specified semantics. The question is technical, machine-decidable, and reproducible by anyone who downloads the suite.</p>
+        <p><strong>Recognition</strong> is an act of a sovereign authority. A ministry, registrar or supervisor gives effect under its own law to determinations made under another jurisdiction’s law. The act specifies domains, grades, and conditions. It is legal, discretionary, and revocable.</p>
+        <p>The protocol assigns these acts to different parties. The body that writes the specification certifies conformance. It cannot grant, withhold, condition or revoke recognition, or admit or exclude a jurisdiction. The competent authorities grant recognition and hold no power over the specification.</p>
+        <p>Sovereigns refuse to let a private company both write the rules and decide membership. They already accept testable private standards with membership decisions retained by members in conformity assessment, aviation registries, financial-messaging standards and internet numbering. This allocation of powers makes the protocol acceptable to sovereigns. It also lets membership scale because decisions need no central approval and create no central queue.</p>
+        <p>The protocol certifies software behavior at a network endpoint, on a date, against a published suite. It certifies nothing about an authority, ministry, court or officer.</p>
+        </section>
+        <section id="the-four-boundaries" class="level2">
+        <h2>The four boundaries</h2>
+        <p>Four design invariants preserve the powers a sovereign requires to participate.</p>
+        <ul>
+        <li><strong>No consensus protocol binds nodes that are not both endpoints of the transaction.</strong></li>
+        <li><strong>No append-only log serves as the network’s shared authoritative state.</strong> Each node keeps its own log, and only the two endpoints hold a corridor’s record.</li>
+        <li><strong>No validator set validates transactions on behalf of nodes that did not produce them.</strong></li>
+        <li><strong>No network act creates, modifies or extinguishes a node’s recognition edge without that node’s own signature.</strong></li>
+        </ul>
+        <p>Each jurisdiction validates locally, using proofs exchanged through corridors. Acceptance of a network quorum’s determination about its own registry would delegate that registry to the quorum. Cryptography does not change this allocation of authority.</p>
+        <p>Two nodes run a bilateral commitment protocol: each endpoint signs its own side, and neither can commit alone. It binds only its parties. The network boundaries above permit such bilateral agreements.</p>
+        <p>These boundaries leave a construction problem. Accession must create many edges from one act, while each edge still requires its participant’s own signature.</p>
+        </section>
+        <section id="three-objects-before-the-construction" class="level2">
+        <h2>Three objects, before the construction</h2>
+        <p>A <strong>listing</strong> is the published record of a node’s conformance: its class, the specification version it was tested against, the date, and the evidence. Classes are ordered, and each class carries a ceiling on the grade any participant may assert toward a node holding it.</p>
+        <p>A <strong>grade</strong>, per compliance domain, is how far a participant gives effect to another’s determinations: in full, in full but flagged for local review, conditional on a stated fact, or not at all. The companion paper <em>Mutual Recognition</em> develops the vocabulary and the composition rules.</p>
+        <p>A <strong>corridor</strong> is a directed channel between two participants over which compliance state travels, carrying its own grades per domain.</p>
+        </section>
+        <section id="the-standing-recognition-instruction" class="level2">
+        <h2>The standing recognition instruction</h2>
+        <p>Each participant installs a local policy object, a <em>standing recognition instruction</em>, in its own node. This instruction determines which recognition edges the node signs.</p>
+        <p>The instruction states four requirements in the participant’s own words: a ceiling recognition grade per compliance domain, a minimum counterparty conformance class, a specification-version floor, and an exclusion set. The node applies them to every jurisdiction listed in force in the register. The jurisdiction must be outside the exclusion set and hold a current listing at or above the required class and specification version. For each qualifying jurisdiction, the node emits a locally signed recognition edge. Its grade is the lesser of the participant’s ceiling and the ceiling carried by the counterparty’s certified conformance class.</p>
+        <p>The certified class fixes the highest grade any participant may assert toward a node. Each participant chooses its own grade within that cap. A node refuses an inbound corridor instrument that asserts a grade above its class. The cap derives mechanically from a tested class. A participant therefore cannot raise the grade at which others recognize it through its own declaration.</p>
+        <p>The instruction has five properties.</p>
+        <p><strong>The participant creates the edge under its own signature, node and policy.</strong> No network act creates it, preserving the signature boundary above.</p>
+        <p><strong>The register supplies evidence to local policy and holds no authority over it.</strong> A participant that stops trusting the register narrows or revokes its instruction and loses nothing else. Its existing edges remain in its own authority registry under its own signature.</p>
+        <p><strong>One deposited instrument produces edges with every participant whose instruction admits it.</strong> The number of edges equals the number of admitting participants, with zero negotiations. This is the accession construction, implemented without a central actor.</p>
+        <p><strong>Recognition under an instruction is reciprocal.</strong> A participant is entitled to a grade from another’s instruction only to the extent that its own instruction offers that grade in return. Each direction therefore carries the lesser of the recognizing participant’s ceiling, the counterparty’s ceiling and the counterparty’s class cap. Recognition remains directed, and the two directions differ whenever the nodes hold different classes. Reciprocity limits each side’s entitlement to what it offers. This second hypothesis lets one deposit per participant reproduce the relation that pairwise negotiation would have reached. A participant filing no instruction offers a ceiling of none, giving a pair grade of none and no edge.</p>
+        <p><strong>No participant is obliged to install one.</strong> A participant may rely entirely on explicit per-counterparty recognition and retain full participant status. It gains fewer edges through bilateral negotiation within the multilateral network.</p>
+        <p>If an explicit bilateral recognition and a standing instruction both admit a jurisdiction, they supply separate grounds for the same acceptance. The stronger governs, as when mutual recognition agreements over one corridor compose by taking the strongest resolved grade. The class ceiling still binds every ground within the protocol’s conformance scope, so the grade is the lesser of that ceiling and the strongest ground. A bilateral instrument asserting more than the ceiling allows is outside conformance and composes nothing here. The published rule resolves overlap without adjudication. Where a bilateral instrument is unregistered, only its two parties can compute the pair grade.</p>
+        <p>This published resolution of overlapping declarations supplies the fourth hypothesis.</p>
+        <p>The published machine-readable instruction lets a jurisdiction considering accession compute which counterparties it will reach and at what grade. Each node re-evaluates its instruction at every published register head, so an edge follows the counterparty’s current class and falls with it. A participant’s own narrowing applies prospectively, leaving already committed corridors unchanged. A counterparty’s class reduction takes effect at the next evaluation because no counterparty instrument supports an edge above its source’s present strength.</p>
+        </section>
+        <section id="the-register-is-evidence" class="level2">
+        <h2>The register is evidence</h2>
+        <p>The register is an append-only transparency log of signed declarations. Nodes require none of its state for validation.</p>
+        <p>A node can complete every required verification without access to the register, which is never a precondition of a corridor transition. The published log permits any participant to mirror it in full and independently verify its head. Corridors continue if the register becomes unavailable. Existing recognition edges also stand if the register is wrong, because each participant keeps those edges in its own registry under its own signature.</p>
+        <p>The instruction reads register facts, so its local signature alone does not prevent dependence on the log. Two further properties constrain that dependence. Every entry is self-authenticating: a deposit carries the competent authority’s signature, and a listing carries the operator’s signed result and the suite’s identity. A participant’s node verifies each entry itself. The log can omit an entry but cannot manufacture one.</p>
+        <p>Every listing is also independently re-runnable against its live endpoint, using credentials the operator publishes for a monitor role. Published evidence can therefore reveal a node’s loss of conformance without the log’s cooperation. The tested party still hosts the test. An operator that distinguishes suite traffic from production traffic can conform to the first alone. Self-administered testing supplies evidence of conformance, not proof, and evidence of divergent behavior can defeat a listing.</p>
+        <p>Omission and delay remain availability risks. They cost the affected jurisdiction edges until the omission is shown, with its authority’s signed deposit providing the proof. Each participant republishes the edge set its instruction produced against the verified head, making the age of its view public.</p>
+        <p>The register makes <strong>who declared what, and when</strong> publicly checkable.</p>
+        <p>Certificate transparency likewise places its log outside the trust boundary. Consistency proofs establish its append-only property, and comparison of tree heads detects divergent histories. It does require a certificate to appear in a log before acceptance. In this register, appearance is a condition of nothing. Both constructions make divergent histories detectable, provided someone monitors them. Monitors, an independently re-runnable suite, and a published challenge route are therefore required parts of the design.</p>
+        </section>
+        <section id="accession-in-eight-steps" class="level2">
+        <h2>Accession, in eight steps</h2>
+        <p>Accession has eight steps. <strong>None requires a discretionary act by the standards body, the council that maintains the register, or an existing participant.</strong> No participant can stop an accession. A current conformance listing is a precondition of deposit, so the suite is the one gate outside the acceding jurisdiction’s control. The standards body writes and revises that published, self-administered test on published notice. Its influence over who joins is limited to this gate.</p>
+        <p><strong>Designation.</strong> The jurisdiction designates its competent authority by official function, never by an individual’s name. Examples are the registrar of companies, the financial services authority, or the ministry responsible for the commercial register. The designation carries public key material and the provenance chain binding the key to that function. The protocol applies no test to a competent authority. Neither the standards body nor the council may assess it, and their assessment cannot condition any participant’s recognition. A participant expresses its view of another’s competent authority through declination, with the same bilateral effect and publication as any other declination.</p>
+        <p><strong>Commissioning.</strong> The jurisdiction chooses who builds and operates its node: itself, a state agency, an accredited operator, a systems integrator, or another provider. It may use an independent implementation without licensing the reference implementation. The protocol tests the node’s behavior and imposes no requirement on its builder or operator.</p>
+        <p><strong>Certification.</strong> The operator runs the published suite and publishes the result as its listing: conformance class, tested specification version, date, and evidence. Self-certification with published evidence removes the need for a bilateral assessment contract with a private gatekeeper. The listing stays current while the node meets the version-currency requirement and each re-certification trigger. Its lapse date follows mechanically from published dates, without a council act or discretionary computation. A jurisdiction whose listing lapses retains participant status but loses edges under other participants’ instructions. Re-certification restores those edges without a fresh deposit or declination window.</p>
+        <p><strong>Deposit.</strong> The competent authority deposits the instrument of accession with the depositary, a body of a class participants already accept for that purpose and distinct from the council that maintains the register. The depositary receives it without discretion.</p>
+        <p><strong>Notification.</strong> The council publishes notification of the deposit to every participant within thirty days of receiving it.</p>
+        <p><strong>The declination window.</strong> For six months from the depositary’s dated receipt, any existing participant may decline the accession between itself and the acceding jurisdiction. The clock starts at deposit, so administrative delay cannot shorten the window or postpone entry into force. Publication informs participants of the deposit. A participant receiving late notice keeps the balance of its window from actual notice, as the third hypothesis requires.</p>
+        <p>Two Hague conventions supply evidence for this default. Under the Apostille Convention, where silence consents, eighty-eight states acceded. Twenty-one accessions drew an objection, with each objection suppressing only one pair. Under the Evidence Convention, fifty states acceded, and Article 39 requires affirmative acceptance for every relation. All fifty therefore remain subject to an acceptance procedure. The instruments also differ in other respects, including the Evidence Convention’s limits on eligibility to accede.</p>
+        <p>The comparison supplies strong evidence, not a controlled experiment.</p>
+        <p><strong>Entry into force.</strong> On a fixed day after the window closes, pair by pair.</p>
+        <p><strong>Publication.</strong> The register records the accession in force, together with the pairwise map that results from every participant’s published instruction.</p>
+        <p>The jurisdiction performs steps one and two. Step three is machine-decided, and step four is a deposit. Each participant controls step six, the sequence’s only discretionary step. Steps five, seven and eight require administration on published dates, without administrative discretion.</p>
+        </section>
+        <section id="declination" class="level2">
+        <h2>Declination</h2>
+        <p><strong>Only a participant may decline</strong>, acting under signature through its designated competent authority. The standards body, council, accredited operators, and node operators that are not competent authorities hold no such power. Every jurisdiction chooses its own counterparties, retaining sovereign control of exclusion.</p>
+        <p><strong>The effect is bilateral.</strong> A declination prevents the protocol from entering into force between the declining participant and the named jurisdiction. It does not delay or condition accession, reduce the acceding jurisdiction’s conformance class, or remove or downgrade its listing. It leaves that jurisdiction’s relations with other participants unchanged. Every other edge the declining participant holds also retains its grade.</p>
+        <p>A declination adds one name to the participant’s exclusion set, so its node emits no edge to that jurisdiction. Indirect recognition still requires a separate rule. Recognition composes along paths at the weakest hop’s grade, so a two-hop route can bypass the deleted edge. The participant could receive through a neighbor the determinations it declined directly.</p>
+        <p>To refuse such determinations, the recipient needs a record of the authorities involved in their composition.</p>
+        <p>A composed determination carries a <strong>recognition set</strong>: the unordered set of authorities whose grades composed to produce it. Each authority adds itself under its own signature. A declining participant refuses any determination whose recognition set contains the excluded jurisdiction. Refusal is a membership test and does not read order. Recognition composes by meet, which is commutative and idempotent, while an ordered sequence is neither and would break that composition. Verdict provenance already accumulates this set.</p>
+        <p>The mechanism has three limits.</p>
+        <p>The set names the authorities whose determinations composed and says nothing about where the entity has been. Prior incorporation, filing or screening in the excluded jurisdiction leaves an entity unaffected. This distinction matters because the compliance passport carries the entity’s full evaluation history.</p>
+        <p>Each signature attests only to the set its signer presented. A participant can drop a predecessor and sign the shortened set while every signature still verifies. No signature binds to its predecessor’s, and the object contains no commitment to the number of authorities that should appear. Establishing completeness requires an external anchor, which the register expressly does not provide.</p>
+        <p>A receiving node can locally check that every pair of authorities it can order from the published map holds an edge. This refutes a shortcut across a non-edge but refutes nothing in a dense network. The set therefore supplies attestation without proof of completeness.</p>
+        <p><strong>The set reaches carried recognition only.</strong> An intermediary may consume a foreign determination as evidence and issue its own fresh evaluation. The resulting determination and recognition set identify the intermediary, allowing the excluded jurisdiction’s conclusion to arrive without its name. The protocol expressly permits this route: sovereign authority includes fresh evaluation, and the intermediary owns the resulting determination.</p>
+        <p>Exclusion that reaches transit requires a different instrument within the same boundaries. Standing instructions and the pairwise map they produce are public. A declining participant can compute which participants hold an edge to its excluded jurisdiction and narrow its instruction against that neighborhood. This <em>exclusion by closure</em> uses local computation on published data and needs no wire object. It reaches transit that inspection of a recognition set cannot exclude. It also declines participants solely because of their relationship with the excluded jurisdiction. Each sovereign decides whether to accept that cost.</p>
+        <p>The recognition set has narrower costs. A declining participant loses composed traffic that merely passed through the excluded jurisdiction as well as traffic originating there. Every downstream recipient sees the set and learns which authorities composed the determination, a disclosure participants should weigh before accession.</p>
+        <p>The set also distinguishes a determination that traveled from one that did not. Route coherence means that a staged and direct route deliver the same arrival state. With recognition sets, this property holds only in the grade component, not on the whole object.</p>
+        <p>The declining participant’s node performs every step against the incoming object’s set and verifies its signatures itself. No network act is involved.</p>
+        <p><strong>No grounds are required, and publication is.</strong> Declination is a unilateral sovereign act requiring no justification. A state party to the Apostille Convention can likewise object to accession without stating a reason. The register publishes who declined, whom, and when, together with any grounds the participant chooses to state.</p>
+        <p>Requiring grounds would create an adjudicator, which the protocol excludes. Publication records the sovereign act, whose effect begins at signature. If delaying publication could delay that effect, the register would gain a veto over the acts it records. Publication and attribution instead make declination a named act with a diplomatic cost.</p>
+        <p>A participant may instead narrow its instruction by raising its ceiling grade, minimum class, or version floor until the target falls out. The narrowed instruction remains public in machine-readable form, so anyone can compute the counterparties it drops. Both methods make exclusion visible, but they have different effects. A lodged declination also refuses composed determinations naming the excluded jurisdiction, while a narrowed instruction only stops the participant’s own edge. The wider effect requires a lodged declination and its diplomatic cost.</p>
+        <p>A participant may withdraw a declination at any time by signed notice to the counterparty, effective on that notice. The acceding jurisdiction holds the same right in the other direction, exercisable at deposit. After entry into force, the same instrument permits suspension by signed notice, effective on notice. It states whether open corridors settle or freeze, with settlement the default. Freezing others’ transactions exceeds withdrawal of one’s own recognition.</p>
+        </section>
+        <section id="grades-and-the-one-domain-that-travels-only-under-an-instrument" class="level2">
+        <h2>Grades, and the one domain that travels only under an instrument</h2>
+        <p>Per-domain recognition grades are subject to one constraint that no ordinary instrument may vary.</p>
+        <p><strong>Sanctions is never recognized by ordinary corridor grade.</strong> Every recognition edge, ordinary corridor instrument and standing instruction assigns it the grade none. A node that emits a recognition object carrying the sanctions domain on an ordinary corridor is non-conformant.</p>
+        <p>Recognition transports assessments of an entity’s controls or data handling against a standard. A sanctions clearance instead asserts that the entity appears on none of <em>this</em> jurisdiction’s lists. This membership test answers another jurisdiction’s question only where the first applies every designation that the second applies.</p>
+        <p>Containment is directed: the destination must apply no list the source does not. Suppose one participant applies only a shared list and another applies that list with national additions. The second’s clearance settles the first’s question, but the first’s does not settle the second’s. Shared authority is the symmetric case, with containment in both directions.</p>
+        <p>A certificate records either case. It names the authority or lists relied on, covered directions, bound parties, applicable corridor epochs, validity window, and revocation procedure. Only corridors covered by such a certificate inherit the sanctions domain. Every general-purpose corridor screens sanctions locally, whatever else it recognizes. Without the certificate, inherited clearance would wrongly clear precisely the entities the destination has designated and the source has not. This failure is incompatible with a compliance network.</p>
+        <p>A second invariant requires every wire object to declare explicitly the legal tradition under which it was produced. There is no default or implicit value. A node refuses to start if its deployment manifest omits the declaration. Silent defaulting would produce answers under rules nobody chose.</p>
+        </section>
+        <section id="what-the-standards-body-holds" class="level2">
+        <h2>What the standards body holds</h2>
+        <p>Before any deposit, the protocol must state the private standards body’s five holdings and their limits.</p>
+        <p><strong>The specification and suite.</strong> The body authors, versions and releases both on a published cadence with published notice periods. Its greater influence through the suite requires a limit: revisions cannot cause a current listing to lapse within its tested version’s currency window. A participant has that window to re-certify, or decline the revision and retain its existing standing until the window closes. The body certifies conformance and holds no power over recognition.</p>
+        <p><strong>The conformance mark.</strong> The standards body licenses a mark on uniform published terms to the operator of a node holding a current listing. The license is the <em>only</em> instrument between them: conformance requires no audit agreement, assessment contract, or delivery agreement. The mark also provides enforcement through withdrawal of a listing on lapse, without withdrawal of a right. Losing the listing removes every counterparty’s standing recognition. This commercially decisive consequence needs no enforcement by a court in the acceding state.</p>
+        <p>Two constraints govern the mark. It cannot be a statutory certification mark: under 15 U.S.C. § 1064(5)(B) a United States certification-mark registration is cancellable at any time where the proprietor “engages in the production or marketing of any goods or services to which the certification mark is applied”. The workable instrument is an ordinary trademark license coupled to a published suite and public evidence repository. It voluntarily adopts the non-discrimination duty of § 1064(5)(D) by contract.</p>
+        <p>The second constraint concerns termination. An uncured material breach after notice ends such a license. The standards body interprets and exercises that right itself, although termination costs the operator every counterparty’s recognition. The license must therefore define material breach exhaustively and name the forum and governing law for disputes. The council can decide only whether a stated formal defect existed, so the license must name an arbitral forum outside this protocol. Without all three terms, the mark gives the standards body discretionary control over membership, defeating the allocation of powers stated here.</p>
+        <p>Published, self-administered testing also minimizes the admission process’s antitrust exposure. Refusals concern only stated formal defects, which a jurisdiction may cure before immediately redepositing. With no refusal on the merits, little remains to litigate.</p>
+        <p><strong>One seat on the council.</strong> A legally separate council, constituted by the protocol, maintains the register. Each participant holds a seat and a vote. The standards body has one seat and one vote, with no veto, chair, or depositary function. The council’s exhaustive ministerial powers are receipt, notification, publication, and one narrow appeal about whether a stated formal defect existed. It cannot admit, exclude, grade or assess.</p>
+        <p><strong>The reference implementation</strong>, published on open terms, which nobody is required to use.</p>
+        <p><strong>A fee for publication, listing and suite maintenance</strong>, on uniform published terms. The standards body holds it until the supervisory body described below is constituted, when it passes to that body.</p>
+        <p>The standards body cannot admit or exclude a jurisdiction, object to accession, grade sovereign determinations, or appoint a competent authority. It also cannot amend the four boundaries, which lie entirely outside the amendment procedure. A disinterested supervisory body holds fee-setting and data-openness obligations. <em>Accession Networks</em> establishes the necessity of this body, which also supplies the design’s principal legal protection.</p>
+        <p>The standard-setting antitrust cases — <em>Radiant Burners</em>, <em>American Society of Mechanical Engineers v. Hydrolevel</em>, <em>Allied Tube</em> — attach exposure to discretion in processes subject to competitor influence. A decision-maker without an economic interest in exclusion removes the facts that theory requires. An operator trading in the certified market cannot achieve that separation through drafting.</p>
+        </section>
+        <section id="the-precedents-this-design-copies" class="level2">
+        <h2>The precedents this design copies</h2>
+        <p>The design adopts mechanisms from ratified instruments where available. Treaty membership figures below are as at 1 September 2026 and may change.</p>
+        <p>These precedents support the form of accession more directly than its expected rate. The Apostille’s 130 parties accumulated over sixty years. The closest modern analogue for a machine-readable standard, the UNCITRAL Model Law on Electronic Transferable Records, has thirteen adopting jurisdictions in nine years. The Apostille supplies the structural precedent, while the Model Law supplies the much slower rate precedent.</p>
+        <p>The Hague Apostille Convention supplies the <strong>unilateral-accession-with-declination</strong> mechanism: eighty-eight accessions, twenty-one drawing an objection, and none blocked. These counts use the depositary’s status table as last updated on 30 June 2026. They count rows recording accession and the objected subset separately. Under Article 12, each objection removed one pair and left all other relations and the accession itself unchanged.</p>
+        <p>The design draws two-sided establishment of relations and the withdrawal right from the 2019 Hague Judgments Convention rather than the Apostille’s older drafting. Under Article 29, a relation forms unless either side notifies against it. An incumbent may notify within twelve months, and the acceding state may notify at deposit. Either may withdraw its notification at any time. This protocol adopts those two-sided rights but keeps six months rather than Article 29’s twelve because a node reconfigures faster than a foreign ministry.</p>
+        <p>The Cape Town system separates <strong>three roles</strong>: commercial registrar, intergovernmental supervisor, and depositary. Its International Registry opened on 1 March 2006. An Irish company jointly owned by a private firm and a national government has served as registrar since then. An intergovernmental supervisory authority appoints and can dismiss it, owns the data, sets fees, and approves regulations. A third body serves as depositary. Eighty-seven states are party to the Aircraft Protocol under which the register runs, sixty-nine by accession.</p>
+        <p>Cape Town also supplies a portability clause (Article 17(2)(c)) and asset separation under which the operator never owns the data (Article 17(4)). Under Article 28, the operator answers for its own errors, omissions and system malfunctions, except an inevitable and irresistible event. It never answers for the truth of participant filings. The treaty also requires insurance at a level set by the supervisor (Article 28(4)) and makes the register archive inviolable (Article 27(4)). The latter is a treaty immunity available only to a register constituted by treaty.</p>
+        <p>The <strong>governance structure</strong> comes from the Global Legal Entity Identifier Foundation. Its oversight body’s charter creates no legal rights or obligations of its own. The foundation’s statutes provide each power: inspection, hearings, reports, and a duty for the board to publish reasons when it declines a recommendation. A public supervisor polices the arrangement, which has a non-profit purpose and an asset lock.</p>
+        <p>The BEPS Multilateral Instrument supplies <strong>modification by intersecting declarations</strong>. One deposited text modifies existing bilateral instruments according to each party’s filed declarations. By mid-2026, it had modified more than sixteen hundred bilateral tax treaties across one hundred and seven jurisdictions, from a single text in under a decade.</p>
+        <p>These mechanisms were designed for other fields. Their adoption gives ministries recognized precedents for each part of the proposed compliance protocol.</p>
+        </section>
+        <section id="open-questions" class="level2">
+        <h2>Open questions</h2>
+        <p>Three legal questions remain open.</p>
+        <p><strong>Whether an authority will accept recognition that reached it through an intermediary.</strong> The composition results assume a determination that travelled <span class="math inline">A \to B \to C</span> is capable of being given effect at <span class="math inline">C</span>. Each jurisdiction’s law determines whether that effect is available, on which the value of composition depends. The design leaves this legal question open. The protocol also does not itself make private obligations enforceable. The companion paper <em>Recourse</em> defines a separate construction for consent, locally hosted arbitration, provider execution, satisfaction, and recovery under their own competent sources.</p>
+        <p><strong>Whether technical conformance is a proxy for legal assurance.</strong> A node that passes the suite behaves as specified at an endpoint. That says nothing about the quality of the jurisdiction’s supervision, the competence of its authority, or the truth of what it files. The protocol certifies software behavior alone. Some participants at scale will infer institutional quality from conformance listings, but the protocol supplies no basis for that inference.</p>
+        <p><strong>Where liability lands when a jurisdiction relies and the reliance was misplaced.</strong> In the United States the standard-setting cases put the duty where the control is. Applying section 324A of the Restatement (Second) of Torts, a New Jersey trial court found no duty for a body unable to compel compliance (<em>Meyers v. Donnatacci</em>, 220 N.J. Super. 73 (Law Div. 1987)). The state’s supreme court found a duty for a body that accredited and inspected members, with reports a regulator accepted instead of its own inspections (<em>Snyder v. American Association of Blood Banks</em>, 144 N.J. 269 (1996)).</p>
+        <p>Those cases concern physical injury under a rule limited to physical harm, while misplaced recognition causes economic loss. No court has yet extended their reasoning across that gap. Negligent misstatement would provide the route to economic loss, rather than the section on which these cases rely. Exposure remains unsettled. A network built around authorities relying on others’ findings instead of evaluating for themselves will test that boundary. The design addresses the exposure through a separate certifier entity, reliance limits published on the artifact itself, and insurance at a level the supervisory body sets.</p>
+        </section>
+        <section id="the-result" class="level2">
+        <h2>The result</h2>
+        <p>A jurisdiction designates an authority, commissions a node, runs the suite, deposits an instrument, and publishes its standing recognition instruction. Each participant then computes recognition locally from its own state, under its own signature.</p>
+        <p>The instrument satisfies the companion theorem’s five hypotheses and therefore yields the relation that unconstrained bilateral negotiation would eventually produce. It uses one instrument per participant instead of one per pair. Each participant retains its decisions, and no central body acquires the powers reserved to sovereigns.</p>
+        </section>
+        <section id="references" class="level2">
+        <h2>References</h2>
+        <p><em>Allied Tube &amp; Conduit Corp. v. Indian Head, Inc.</em>, 486 U.S. 492 (1988).</p>
+        <p><em>American Society of Mechanical Engineers v. Hydrolevel Corp.</em>, 456 U.S. 556 (1982).</p>
+        <p>Convention Abolishing the Requirement of Legalisation for Foreign Public Documents. The Hague, 5 October 1961, Articles 6, 12 and 15.</p>
+        <p>Convention on International Interests in Mobile Equipment. Cape Town, 16 November 2001, Articles 17, 27 and 28, and the Protocol thereto on Matters Specific to Aircraft Equipment, Cape Town, 16 November 2001.</p>
+        <p>Convention on the Recognition and Enforcement of Foreign Judgments in Civil or Commercial Matters. The Hague, 2 July 2019, Articles 24, 29 and 32.</p>
+        <p>Convention on the Taking of Evidence Abroad in Civil or Commercial Matters. The Hague, 18 March 1970, Article 39.</p>
+        <p>Global Legal Entity Identifier Foundation. Statutes of 7 August 2018, Articles 2, 3, 4, 30, 31 and 39; and Regulatory Oversight Committee Charter, § 20.</p>
+        <p>Hague Conference on Private International Law. Status tables for the Conventions of 5 October 1961 and 18 March 1970. Retrieved 1 September 2026.</p>
+        <p>Laurie, B., Langley, A., and Kasper, E. Certificate Transparency. RFC 6962, Internet Engineering Task Force, 2013. Obsoleted by Laurie, B., Messeri, E., and Stradling, R. Certificate Transparency Version 2.0. RFC 9162, 2021.</p>
+        <p>Multilateral Convention to Implement Tax Treaty Related Measures to Prevent Base Erosion and Profit Shifting. Paris, 24 November 2016. Signatories and parties, status as at 18 June 2026.</p>
+        <p><em>Radiant Burners, Inc. v. Peoples Gas Light &amp; Coke Co.</em>, 364 U.S. 656 (1961).</p>
+        <p>Restatement (Second) of Torts § 324A. American Law Institute, 1965.</p>
+        <p>UNIDROIT. Status — Protocol on Matters Specific to Aircraft Equipment. Retrieved 1 September 2026.</p>
+        <p>Lanham Act, 15 U.S.C. § 1064(5).</p>
+        </section>
+        </section>
+        </div>
+
+        <footer class="article-footer">
+            <span class="author-byline"><strong>Raeez Lorgat</strong> · Managing Partner, Momentum</span>
+            <nav class="footer-nav">
+                <a href="/">← All Papers</a>
+            </nav>
+        </footer>
+        <div class="contact-footer">
+            <span>&copy; 2026 Momentum</span>
+        </div>
+    </article>
+</div>
+<script src="/paper.js" defer></script>
+</body>
+</html>

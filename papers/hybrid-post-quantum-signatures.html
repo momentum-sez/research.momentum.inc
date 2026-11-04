@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Hybrid Post-Quantum Signatures - Raeez Lorgat</title>
+<meta name="description" content="A charter signed today must verify in thirty years. Why institutional signatures need a post-quantum scheme now, and what a hybrid construction costs.">
+<meta name="author" content="Raeez Lorgat">
+<meta property="og:title" content="Hybrid Post-Quantum Signatures">
+<meta property="og:description" content="A charter signed today must verify in thirty years. Why institutional signatures need a post-quantum scheme now, and what a hybrid construction costs.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://research.momentum.inc/og-image.png">
+<meta property="og:url" content="https://research.momentum.inc/papers/hybrid-post-quantum-signatures.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+<link rel="canonical" href="https://research.momentum.inc/papers/hybrid-post-quantum-signatures.html">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Hybrid Post-Quantum Signatures",
+    "author": { "@type": "Person", "name": "Raeez Lorgat", "url": "https://research.momentum.inc" },
+    "datePublished": "2026-04-02",
+    "description": "A charter signed today must verify in thirty years. Why institutional signatures need a post-quantum scheme now, and what a hybrid construction costs."
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8T5J8M28"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JP8T5J8M28');
+</script>
+<link rel="stylesheet" href="https://use.typekit.net/zlu2quo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --font-text: 'garamond-premier-pro', 'EB Garamond', 'Hoefler Text', 'Baskerville', Garamond, serif;
+    --font-display: 'garamond-premier-pro-display', var(--font-text);
+    --font-caption: 'garamond-premier-pro-caption', var(--font-text);
+    --font-subhead: 'garamond-premier-pro-subhead', var(--font-text);
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    --text-base: clamp(18px, 1.125rem + 0.25vw, 21px);
+    --text-sm: calc(var(--text-base) / 1.333);
+    --text-xs: calc(var(--text-sm) / 1.333);
+    --text-lg: calc(var(--text-base) * 1.333);
+    --text-xl: calc(var(--text-lg) * 1.333);
+    --text-2xl: calc(var(--text-xl) * 1.333);
+    --baseline: 8px;
+    --leading-tight: 1.2;
+    --leading-snug: 1.35;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.618;
+    --leading-loose: 1.8;
+    --space-1: calc(var(--baseline) * 1);
+    --space-2: calc(var(--baseline) * 2);
+    --space-3: calc(var(--baseline) * 3);
+    --space-4: calc(var(--baseline) * 4);
+    --space-5: calc(var(--baseline) * 5);
+    --space-6: calc(var(--baseline) * 6);
+    --space-8: calc(var(--baseline) * 8);
+    --space-10: calc(var(--baseline) * 10);
+    --space-13: calc(var(--baseline) * 13);
+    --measure: 65ch;
+    --measure-narrow: 55ch;
+    --measure-wide: 75ch;
+    --gutter: clamp(16px, 4vw, 24px);
+    --ink: #1a1917;
+    --ink-muted: #4a4744;
+    --ink-subtle: #6a6662;
+    --ink-faint: #8a8580;
+    --ink-ghost: #b5b0ab;
+    --ink-whisper: #d4d0cc;
+    --ink-hint: #e8e5e2;
+    --paper: #fefdfb;
+    --paper-tint: #f5f3f0;
+    --kern-tight: -0.02em;
+    --kern-snug: -0.01em;
+    --kern-normal: 0;
+    --kern-loose: 0.015em;
+    --kern-wide: 0.04em;
+    --kern-caps: 0.08em;
+    --optical-margin: -0.03em;
+}
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    hanging-punctuation: first last;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body {
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-relaxed);
+    color: var(--ink);
+    background: var(--paper);
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1, "dlig" 1, "onum" 1, "pnum" 1;
+    font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    font-kerning: normal;
+}
+.container {
+    max-width: calc(var(--measure) + var(--space-8));
+    margin-inline: auto;
+    padding: var(--space-10) var(--gutter) var(--space-8);
+}
+.back-nav { margin-bottom: var(--space-8); }
+.back-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.back-nav a:hover { color: var(--ink); }
+.article-header {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--ink-hint);
+}
+.article-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-meta {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+    margin-top: var(--space-3);
+}
+.article-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+.article-meta a:hover {
+    color: var(--ink-muted);
+    text-decoration-color: var(--ink-ghost);
+}
+/* Companion open-source repository link — rendered when `repo` metadata is set.
+   Monochrome ink on warm paper to sit native to the typographic system;
+   the GitHub mark carries the recognition, the hairline frame the prominence. */
+.repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    max-width: 100%;
+    padding: 10px var(--space-3) 10px calc(var(--space-2) + 2px);
+    border: 1px solid var(--ink-whisper);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: border-color 200ms ease, color 200ms ease,
+                background 200ms ease, box-shadow 200ms ease;
+}
+.repo-link:hover {
+    border-color: var(--ink-faint);
+    color: var(--ink);
+    background: var(--paper-tint);
+    box-shadow: 0 2px 12px rgba(26, 25, 23, 0.07);
+}
+.repo-link:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; }
+.repo-link__mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    color: var(--ink);
+    transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.repo-link:hover .repo-link__mark { transform: rotate(-7deg) scale(1.06); }
+.repo-link__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; line-height: var(--leading-tight); }
+.repo-link__label {
+    font-family: var(--font-caption);
+    font-size: var(--text-xs);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    transition: color 200ms ease;
+}
+.repo-link:hover .repo-link__label { color: var(--ink-subtle); }
+.repo-link__url {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    letter-spacing: var(--kern-snug);
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.repo-link__arrow {
+    flex: none;
+    margin-left: var(--space-1);
+    color: var(--ink-ghost);
+    transition: transform 200ms ease, color 200ms ease;
+}
+.repo-link:hover .repo-link__arrow { transform: translateX(3px); color: var(--ink-faint); }
+@media (max-width: 400px) { .repo-link__arrow { display: none; } }
+/* TOC from pandoc */
+nav#TOC {
+    margin: 0 0 var(--space-8);
+    padding: var(--space-4) 0 var(--space-4) var(--space-4);
+    border-top: 1px solid var(--ink-hint);
+    border-bottom: 1px solid var(--ink-hint);
+}
+nav#TOC ul { list-style: none; padding: 0; }
+nav#TOC li { margin: 0.35rem 0; }
+nav#TOC a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-hint);
+    transition: border-color 0.2s;
+    font-size: var(--text-sm);
+}
+nav#TOC a:hover { border-color: var(--ink-muted); }
+.article-body { font-variant-ligatures: common-ligatures discretionary-ligatures contextual; }
+.article-body p {
+    margin-bottom: var(--space-3);
+    max-width: var(--measure);
+    line-height: var(--leading-loose);
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+    hyphenate-limit-lines: 2;
+}
+.article-body h1, .article-body .level1 > h2:first-child {
+    font-family: var(--font-subhead);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h2 {
+    font-family: var(--font-subhead);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: var(--kern-snug);
+    line-height: var(--leading-snug);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+}
+.article-body a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    text-decoration-skip-ink: auto;
+    transition: text-decoration-color 180ms ease;
+}
+.article-body a:hover { text-decoration-color: var(--ink-muted); }
+.article-body blockquote {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--ink-hint);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.article-body hr {
+    border: none;
+    height: 1px;
+    background: var(--ink-hint);
+    margin: var(--space-8) 0;
+    max-width: 4rem;
+}
+.article-body code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--paper-tint);
+    padding: 0.12em 0.35em;
+}
+.article-body pre {
+    background: #0d0d0c;
+    color: #c8c5b8;
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-4) 0;
+    font-size: var(--text-sm);
+}
+.article-body th {
+    text-align: left;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+    letter-spacing: var(--kern-loose);
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 2px solid var(--ink-hint);
+}
+.article-body td {
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 1px solid var(--ink-hint);
+    vertical-align: top;
+}
+.article-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.author-byline {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.author-byline strong { font-style: normal; font-weight: 600; }
+.footer-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.footer-nav a:hover { color: var(--ink); }
+.contact-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+}
+::selection { background: var(--ink); color: var(--paper); }
+a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; border-radius: 2px; }
+@media (max-width: 680px) {
+    :root { --text-base: clamp(17px, 1rem + 0.2vw, 19px); }
+    .container { padding: var(--space-6) var(--gutter) var(--space-5); }
+    .article-title { font-size: var(--text-xl); }
+    .article-body h1, .article-body .level1 > h2:first-child { font-size: var(--text-lg); }
+    .article-body h2 { font-size: calc(var(--text-base) * 1.1); }
+    .article-footer { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+@media (max-width: 400px) {
+    :root { --text-base: 16px; }
+    .container { padding: var(--space-5) var(--space-2) var(--space-4); }
+}
+@media (min-width: 1200px) { .container { padding-top: var(--space-13); } }
+@media print {
+    :root { --ink: #000; --paper: #fff; }
+    body { font-size: 11pt; line-height: 1.4; }
+    .container { max-width: 100%; padding: 0; }
+    .back-nav, .contact-footer { display: none; }
+    nav#TOC { display: none; }
+    a { text-decoration: none !important; color: var(--ink) !important; }
+    .article-body h1, .article-body h2 { page-break-after: avoid; }
+    p { orphans: 3; widows: 3; }
+}
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(var(--gutter), env(safe-area-inset-left));
+        padding-right: max(var(--gutter), env(safe-area-inset-right));
+    }
+}
+
+/* Wiring in a mathematics renderer made display equations set on one unwrappable
+   line, so a long equation pushed the page wider than the viewport and readers on
+   ordinary laptops lost the right-hand side. Let each equation scroll inside its own
+   box instead of widening the page. Wide tables get the same treatment. */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
+.katex-display::-webkit-scrollbar { height: 6px; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 600px) {
+  .paper-nav-title { display: none; }
+}
+</style>
+<link rel="stylesheet" href="/paper.css">
+</head>
+<body>
+<div class="container">
+    <nav class="back-nav">
+        <a href="/">← Research</a>
+    </nav>
+    <article>
+        <header class="article-header">
+            <h1 class="article-title">Hybrid Post-Quantum Signatures</h1>
+            <p class="article-meta">April 2026 · Raeez Lorgat</p>
+                    </header>
+
+        
+        <div class="article-body">
+        <section id="hybrid-post-quantum-signatures" class="level1">
+        <h1>Hybrid Post-Quantum Signatures</h1>
+        <p>Author: Raeez Lorgat</p>
+        <hr />
+        <p>A compliance record signed today must be verifiable in thirty years. Corporate charters, securities filings, and regulatory attestations depend on that continuing ability to authenticate the record. A sufficiently large quantum computer running Shor’s algorithm could forge signatures in general institutional use, including signatures on historical records. The retained archive supplies the public keys and messages needed for such forgery.</p>
+        <p>This paper gives the design rationale for a hybrid signature that combines Ed25519, ML-DSA-65, and SLH-DSA. This AND composition requires every component to verify, and its three schemes rest on unrelated hardness assumptions. The composite remains existentially unforgeable as long as any one component does, by a combiner theorem cited here without proof. The analyzed instantiation produces an 11,229-byte signature. Its hash-based component uses a conservative assumption class at NIST security category 1, below the lattice component’s category 3.</p>
+        <p>The construction also uses re-anchoring: appending a fresh witness over an old record under a successor scheme while the old one remains sound. Together, hybrid signing and re-anchoring allow signature-scheme retirement through scheduled maintenance. The need to preserve records before a quantum computer can forge them motivates deployment now.</p>
+        <section id="evidence-with-a-thirty-year-horizon" class="level2">
+        <h2>1. Evidence with a thirty-year horizon</h2>
+        <p>Most software systems use signatures for immediate authentication, after which an hour-long session ends and the signature can be discarded. Institutional infrastructure retains signatures as evidence that a board resolution was authorized, a compliance evaluation occurred, or a sanctions check returned clean. A tribunal established decades later may have to verify that evidence under rules adopted after the signing date.</p>
+        <p>Thirty years is longer than many deployed primitives have lasted. DES, MD5, SHA-1, RC4, and 512-bit RSA each entered and left service inside such a window. Archival signatures must therefore remain sound when some of their cryptographic assumptions fail during the retention period.</p>
+        </section>
+        <section id="threat-model" class="level2">
+        <h2>2. Threat model</h2>
+        <p>RSA, ECDSA, and Ed25519 signatures rest on the hardness of factoring or computing discrete logarithms. Shor’s algorithm solves both in polynomial time on a sufficiently large quantum computer (Shor, 1997). Contested estimates place such a machine ten to thirty years away, within the horizon over which institutional records must remain valid. Post-quantum deployment has begun: NIST SP 800-208 (2020) standardizes stateful hash-based signatures for firmware signing, and ML-DSA is entering protocol stacks. Institutional records still overwhelmingly use pre-quantum signatures, including RSA and elliptic-curve schemes.</p>
+        <p>The adversary we defend against holds the public archive and unbounded time. New records can use successor signature schemes, but existing records retain signatures under the schemes used when they were created. Forgery against a signature scheme requires only the public key and a target message, both of which an institutional archive retains indefinitely. The archive itself is therefore the attack surface. This is the signature analogue of harvest-now-decrypt-later, with no need for interception because the system deliberately retains the records. For institutional retention periods, “later” falls within the period in which the evidence must remain verifiable.</p>
+        <p>A compliance record signed in 2026 with Ed25519 attests that a specific entity passed a specific sanctions check on a specific date. The signature binds the attestation to the attester. If Ed25519 fails in 2040, an adversary can forge that historical signature as well as future ones. After fourteen years, the signature alone can no longer establish authenticity. The adversary can also produce a different record, bearing a valid signature from the same key, that attests to an arbitrary claim.</p>
+        <p>Mosca’s inequality relates the retention period, migration time, and time until a cryptographically relevant quantum computer (Mosca, 2018). Some records are exposed if the retention period plus migration time exceeds the time until that computer exists. Both terms on the left are measured in decades here.</p>
+        <p>Three exposures are out of scope. Compromise of a signing key defeats any signature scheme and requires operational custody controls. Implementation side channels are independent of scheme choice. Confidentiality requires separate protection against harvest-now-decrypt-later attacks on encrypted records. This paper addresses the continued authenticity of archival evidence.</p>
+        </section>
+        <section id="the-hybrid-construction" class="level2">
+        <h2>3. The hybrid construction</h2>
+        <p>NIST has standardized two post-quantum signature families. FIPS 204 specifies ML-DSA (formerly Dilithium), a module-lattice scheme, and FIPS 205 specifies SLH-DSA (formerly SPHINCS+), a stateless hash-based scheme. Code-based and multivariate signatures remain under evaluation in NIST’s additional-signature process. During the competition, classical attacks defeated candidates with rich algebraic structure, including one finalist (Section 4). The two standardized families have different mathematical foundations, performance, and risk profiles. Retaining the classical scheme and adding one from each family gives the construction three distinct sources of security.</p>
+        <p>A hybrid signature is an AND composition. Fix the component schemes, here Ed25519, ML-DSA-65, and SLH-DSA-SHA2-128s, and assign a name to the suite. Encode the record with a tag naming the suite in force. Sign that same encoding once with each component key. The composite verifies only if every component signature verifies against that encoding.</p>
+        <p>Because every component signs the suite tag, a signature made under one suite cannot be presented as a signature made under another. The tag also identifies the components required by the verification policy in force when the record was signed. This policy lookup supports the retirement procedure in Section 6.</p>
+        <p>Forging the composite requires forging every component, so the combiner remains existentially unforgeable if any one component does. Bindel, Herath, McKague, and Stebila (2017) prove this for two components through their concatenation-combiner theorem. Iterating the pairwise combiner gives the three-component statement. We cite this reduction without proving it here. Their framework also treats key-substitution attacks and non-separability, neither of which is claimed here.</p>
+        <p>Ed25519 supplies fast, compact signatures and a longer record of public cryptanalysis than the post-quantum components. Public analysis began in 2011, building on Curve25519 from 2006 (Bernstein, Duif, Lange, Schwabe, and Yang, 2012). Retaining it preserves that classical security alongside the newer schemes. The hybrid requires at least one of the three algorithms to remain secure.</p>
+        <p>The two post-quantum families depend on different assumptions. ML-DSA-65’s unforgeability rests on Module-LWE and a self-target variant of the module short-integer-solution problem (Ducas, Kiltz, Lepoint, Lyubashevsky, Schwabe, Seiler, and Stehlé, 2018). Both are module-lattice assumptions. No efficient quantum algorithm is known for either, but both are algebraic and have less history of study than the problems they replace.</p>
+        <p>SLH-DSA depends on properties of a hash construction built from SHA-256. It needs multi-target and truncated-output variants of the properties used elsewhere in deployed cryptography. These remain assumptions about a well-studied compression function’s resistance to generic attack, without an algebraic problem or trapdoor. A thirty-year archive needs at least one component in that assumption class.</p>
+        </section>
+        <section id="the-hash-based-anchor" class="level2">
+        <h2>4. The hash-based anchor</h2>
+        <p>Lattice-based cryptography depends on the difficulty of exploiting the structure of a lattice, ring, or module. Earlier attacks show how algebraic structure can reduce security margins.</p>
+        <p>The number field sieve exploited the ring structure of algebraic number fields. It reduced factoring cost from the quadratic sieve’s L[1/2] to L[1/3], which drove key sizes from 512 to 3,072 bits. This did not break RSA outright. RSA-250, at 829 bits, is the factoring record (Boudot, Gaudry, Guillevic, Heninger, Thomé, and Zimmermann, 2020), and RSA-2048 remains unbroken classically. Shor’s algorithm solves the elliptic-curve discrete-logarithm problem once a cryptographically relevant quantum computer exists.</p>
+        <p>The post-quantum competition supplied further examples. A classical key-recovery attack defeated SIKE, an isogeny-based alternate candidate, in about an hour on a single core (Castryck and Decru, 2023). Rainbow, a multivariate signature finalist, fell to a key-recovery attack running over a weekend on a laptop (Beullens, 2022). Whether module-lattice structure remains secure is open, so an institutional archive needs an independent assumption class.</p>
+        <p>Hash-based signatures use no lattice, ring, or group structure that an attacker can exploit. SLH-DSA is a stateless hash-based scheme: a Merkle tree of one-time signatures over a few-time signature layer (FORS). Its security reduces to properties of the underlying tweakable hash construction (Bernstein, Hülsing, Kölbl, Niederhagen, Rijneveld, and Schwabe, 2019). Those properties are multi-target second-preimage resistance, pseudorandomness, and, for the FORS layer, interleaved target subset resilience. Forging a signature requires defeating one of them.</p>
+        <p>The scheme requires no collision resistance. A SHA-256 collision, the failure mode that retired MD5 and SHA-1 (Section 1), does not by itself yield a forgery. FIPS 205 standardizes the “simple” instantiations, whose security analysis uses the quantum random-oracle model. Hülsing and Kudinov (2022) found and repaired a flaw in the original tweakable-hash proof. These guarantees concern the model and do not establish the corresponding properties of concrete SHA-256.</p>
+        <p>The quantum cost depends on the scheme’s exposed parameters. SLH-DSA-SHA2-128s instantiates its internal functions with SHA-256 and truncates their outputs to sixteen bytes. An attacker therefore faces 128-bit targets, despite the 256-bit digest width. Grover’s algorithm gives a quadratic speedup for generic search (Grover, 1996). This speedup is optimal in the black-box model (Bennett, Bernstein, Brassard, and Vazirani, 1997).</p>
+        <p>Generic preimage search against these targets thus costs on the order of 2^64 sequential quantum hash evaluations, compared with 2^128 classical evaluations. NIST assigns security category 1, corresponding to the difficulty of quantum key search on AES-128.</p>
+        <p>The oracle optimality bound does not by itself exclude attacks that exploit the concrete structure of SHA-256. Category 1 is also the lowest standardized level. At this instantiation, the hash-based component has the most conservative assumption class at category 1, while ML-DSA-65 is category 3. A deployment requiring the hash-based component to meet or exceed that category can raise its parameter set. SLH-DSA-SHA2-256s is category 5 with a 29,792-byte signature, changing the parameters within the same construction.</p>
+        <p>The lattice-based signature supplies a fast and reasonably compact post-quantum component. The larger, slower hash-based component preserves a fallback based on the most conservative assumption class available.</p>
+        </section>
+        <section id="cost" class="level2">
+        <h2>5. Cost</h2>
+        <p>An Ed25519 signature is 64 bytes. The composite above is 11,229 bytes: 64 for Ed25519, 3,309 for ML-DSA-65, and 7,856 for SLH-DSA-SHA2-128s. Its public key is 2,016 bytes, and verification rises from microseconds to low milliseconds. SLH-DSA dominates signing time. Its small-signature “s” parameter sets cost hundreds of milliseconds of CPU per signature. The “f” sets sign an order of magnitude faster at roughly twice the signature size: 17,088 bytes for SLH-DSA-SHA2-128f.</p>
+        <p>Each signer also manages three key pairs, with generation ceremonies, custody, and rotation for all three. Each verifier maintains three implementations at the exact parameter sets selected by the suite tag for the archive’s lifetime.</p>
+        <p>These costs would be prohibitive for a network protocol signing every packet. The design serves institutional records: compliance attestations stored beside regulatory documents orders of magnitude larger, and ledger digests signed once per synchronization interval. It also serves audit-trail entries signed once per event, where the pipeline already commits a database transaction at ten to a hundred milliseconds. These workloads have neither high signing frequency nor tight size constraints. Eleven kilobytes and low-millisecond verification add little to their budgets.</p>
+        </section>
+        <section id="why-migration-starts-now" class="level2">
+        <h2>6. Why migration starts now</h2>
+        <p>Deferring migration until a cryptographically relevant quantum computer exists leaves years of accumulated records exposed during the migration itself. Section 2’s inequality states this timing problem. For an Ed25519-only archive, re-signing under a post-quantum scheme requires the original attester, evidence, and compliance evaluation. The attester may have ceased to exist as a legal entity, and data-protection rules may have required redaction of the evidence. The rules governing the original evaluation may also have changed. These conditions make re-signing impossible for a significant fraction of an archive spanning decades.</p>
+        <p>The archival literature provides re-anchoring, which the companion Intelligent Assets paper uses in its record-custody construction. Append a fresh witness over the old record’s digest, signed under the successor scheme while the retiring scheme remains sound. This preserves the historical entry and original signature without requiring the original attester. Verification uses the policy in force at signing, identified through the suite tag in Section 3. A verifier who no longer trusts the retired scheme can follow the witness chain to a scheme it still trusts.</p>
+        <p>Each generation anchors the preceding one, so the construction can recur as schemes retire. Timestamp renewal and evidence records supply this mechanism (RFC 3161; RFC 4998), as do the ETSI long-term archive profiles (ETSI EN 319 122-1, 2016).</p>
+        <p>Re-anchoring must occur while the retiring scheme remains sound, and its failure date is unknown. An Ed25519-only archive depends on one assumption. A credible weakening therefore requires emergency re-anchoring of the entire archive before an uncertain deadline.</p>
+        <p>The hybrid distributes this dependence across three unrelated assumptions. If one component fails, every record remains unforgeable through the surviving components, so the archive needs no immediate triage. The pass that retires the failed component can run as scheduled maintenance. Verification continues unchanged: the record still verifies, with unforgeability resting on the surviving components.</p>
+        <p>Each record’s base security is contained in one hybrid signature block, independent of a witness chain or timestamp authority. Re-anchoring alone does not provide that independence. The hybrid still requires maintenance over thirty years as its own components retire. Each retirement requires a re-anchoring pass, which the surviving components allow operators to schedule.</p>
+        <p>Signing with the hybrid from day one protects every record at creation and avoids retroactive migration, re-signing campaigns, and gaps in the evidentiary chain. This construction works whether a cryptographically relevant quantum computer arrives in 2035, in 2045, or never. If it never arrives, the cost remains eleven kilobytes per signature. If it arrives within the retention period, the archive’s evidence survives for as long as any one of the three unrelated assumptions holds.</p>
+        </section>
+        <section id="assumptions-and-limitations" class="level2">
+        <h2>7. Assumptions and limitations</h2>
+        <p><strong>The combiner theorem is cited, not proved.</strong> Unforgeability of the verify-all combiner reduces to the unforgeable component (Bindel, Herath, McKague, and Stebila, 2017), extended from two components to three by iteration. Key-substitution resistance and non-separability are analyzed in that framework and are not claimed here.</p>
+        <p><strong>The hash-based analysis lives in the random-oracle model.</strong> FIPS 205’s “simple” instantiations carry security proofs in the quantum random-oracle model, for multi-target properties over truncated outputs (Bernstein et al., 2019; Hülsing and Kudinov, 2022). The Grover-optimality bound is a black-box result and says nothing about the concrete structure of SHA-256.</p>
+        <p><strong>The security categories are asymmetric.</strong> At the analyzed instantiation the hash-based anchor is NIST category 1 and the lattice component category 3. Raising the hash-based category requires larger parameters and more bytes within the same construction (Section 4).</p>
+        <p><strong>The operational requirements triple.</strong> Each signer maintains three key pairs, and each archive maintains three verifier implementations at exact parameter sets for decades. Because every component must verify, a defect in any one verifier rejects valid records even when another component preserves unforgeability.</p>
+        <p><strong>Maintenance remains necessary.</strong> Components retire over a thirty-year horizon, and each retirement requires a scheduled re-anchoring pass (Section 6).</p>
+        <p><strong>Scope.</strong> The design serves archival records and is unfit for high-frequency signing, including network protocols that sign every packet. Signing-key compromise, implementation side channels, and the migration of encrypted data are out of scope (Section 2).</p>
+        </section>
+        <section id="references" class="level2">
+        <h2>References</h2>
+        <p>Adams, C., Cain, P., Pinkas, D., and Zuccherato, R. (2001). “Internet X.509 Public Key Infrastructure Time-Stamp Protocol (TSP).” RFC 3161.</p>
+        <p>Bennett, C. H., Bernstein, E., Brassard, G., and Vazirani, U. (1997). “Strengths and Weaknesses of Quantum Computing.” <em>SIAM Journal on Computing</em>, 26(5), 1510-1523.</p>
+        <p>Bernstein, D. J., Duif, N., Lange, T., Schwabe, P., and Yang, B.-Y. (2012). “High-Speed High-Security Signatures.” <em>Journal of Cryptographic Engineering</em>, 2(2), 77-89.</p>
+        <p>Bernstein, D. J., Hülsing, A., Kölbl, S., Niederhagen, R., Rijneveld, J., and Schwabe, P. (2019). “The SPHINCS+ Signature Framework.” In <em>Proceedings of the ACM Conference on Computer and Communications Security (CCS)</em>, 2129-2146.</p>
+        <p>Beullens, W. (2022). “Breaking Rainbow Takes a Weekend on a Laptop.” In <em>Advances in Cryptology – CRYPTO 2022</em>.</p>
+        <p>Bindel, N., Herath, U., McKague, M., and Stebila, D. (2017). “Transitioning to a Quantum-Resistant Public Key Infrastructure.” In <em>Post-Quantum Cryptography (PQCrypto 2017)</em>, Lecture Notes in Computer Science 10346.</p>
+        <p>Boudot, F., Gaudry, P., Guillevic, A., Heninger, N., Thomé, E., and Zimmermann, P. (2020). “Comparing the Difficulty of Factorization and Discrete Logarithm: A 240-Digit Experiment.” In <em>Advances in Cryptology – CRYPTO 2020</em>.</p>
+        <p>Castryck, W. and Decru, T. (2023). “An Efficient Key Recovery Attack on SIDH.” In <em>Advances in Cryptology – EUROCRYPT 2023</em>.</p>
+        <p>Ducas, L., Kiltz, E., Lepoint, T., Lyubashevsky, V., Schwabe, P., Seiler, G., and Stehlé, D. (2018). “CRYSTALS-Dilithium: A Lattice-Based Digital Signature Scheme.” <em>IACR Transactions on Cryptographic Hardware and Embedded Systems</em>, 2018(1), 238-268.</p>
+        <p>ETSI (2016). <em>Electronic Signatures and Infrastructures (ESI); CAdES Digital Signatures; Part 1: Building Blocks and CAdES Baseline Signatures</em>. EN 319 122-1.</p>
+        <p>Gondrom, T., Brandner, R., and Pordesch, U. (2007). “Evidence Record Syntax (ERS).” RFC 4998.</p>
+        <p>Grover, L. K. (1996). “A Fast Quantum Mechanical Algorithm for Database Search.” In <em>Proceedings of the ACM Symposium on Theory of Computing (STOC)</em>, 212-219.</p>
+        <p>Hülsing, A. and Kudinov, M. (2022). “Recovering the Tight Security Proof of SPHINCS+.” In <em>Advances in Cryptology – ASIACRYPT 2022</em>.</p>
+        <p>Lorgat, R. <em>Intelligent Assets</em>. Companion paper in this series.</p>
+        <p>Mosca, M. (2018). “Cybersecurity in an Era with Quantum Computers: Will We Be Ready?” <em>IEEE Security &amp; Privacy</em>, 16(5), 38-41.</p>
+        <p>NIST (2020). <em>Recommendation for Stateful Hash-Based Signature Schemes</em>. Special Publication 800-208.</p>
+        <p>NIST (2024). <em>Module-Lattice-Based Digital Signature Standard</em>. FIPS 204.</p>
+        <p>NIST (2024). <em>Stateless Hash-Based Digital Signature Standard</em>. FIPS 205.</p>
+        <p>Shor, P. W. (1997). “Polynomial-Time Algorithms for Prime Factorization and Discrete Logarithms on a Quantum Computer.” <em>SIAM Journal on Computing</em>, 26(5), 1484-1509.</p>
+        </section>
+        </section>
+        </div>
+
+        <footer class="article-footer">
+            <span class="author-byline"><strong>Raeez Lorgat</strong> · Managing Partner, Momentum</span>
+            <nav class="footer-nav">
+                <a href="/">← All Papers</a>
+            </nav>
+        </footer>
+        <div class="contact-footer">
+            <span>&copy; 2026 Momentum</span>
+        </div>
+    </article>
+</div>
+<script src="/paper.js" defer></script>
+</body>
+</html>

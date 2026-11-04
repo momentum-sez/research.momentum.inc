@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Momentum Research</title>
+  <subtitle>Formal papers on institutions, compliance, claims, market design, clearing risk, allocated title, and dispute resolution.</subtitle>
+  <id>https://research.momentum.inc/</id>
+  <link href="https://research.momentum.inc/"/>
+  <link rel="self" href="https://research.momentum.inc/feed.xml"/>
+  <updated>2026-11-03T00:00:00Z</updated>
+  <author><name>Raeez Lorgat</name></author>
+
+  <entry>
+    <title>Sovereign Economies on a Decentralized Network</title>
+    <id>https://research.momentum.inc/sovereign-economies-on-a-network.html</id>
+    <link href="https://research.momentum.inc/sovereign-economies-on-a-network.html"/>
+    <published>2025-09-21T00:00:00Z</published>
+    <updated>2026-10-27T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>A decentralized network of sovereign execution environments for AI agents: typed execution, zero-knowledge proofs, polycentric consensus and selective recognition.</summary>
+  </entry>
+  <entry>
+    <title>The Institutional World Model</title>
+    <id>https://research.momentum.inc/institutional-world-model.html</id>
+    <link href="https://research.momentum.inc/institutional-world-model.html"/>
+    <published>2025-09-21T00:00:00Z</published>
+    <updated>2026-10-30T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>How sovereign execution environments for AI agents learn, adopt and correct interpretations of law, regulation and policy while preserving authority and unfinished work.</summary>
+  </entry>
+  <entry>
+    <title>One Entity in Many Jurisdictions</title>
+    <id>https://research.momentum.inc/papers/one-entity-in-many-jurisdictions.html</id>
+    <link href="https://research.momentum.inc/papers/one-entity-in-many-jurisdictions.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>Rights, shared resources, and compliance for one entity recognized in several jurisdictions.</summary>
+  </entry>
+  <entry>
+    <title>How Compliance Composes</title>
+    <id>https://research.momentum.inc/papers/how-compliance-composes.html</id>
+    <link href="https://research.momentum.inc/papers/how-compliance-composes.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>How requirements from several jurisdictions combine, with a record of which rules apply and who decides.</summary>
+  </entry>
+  <entry>
+    <title>Programmable Institutions</title>
+    <id>https://research.momentum.inc/papers/programmable-institutions.html</id>
+    <link href="https://research.momentum.inc/papers/programmable-institutions.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>Authority, records, and workflows for institutions operated through software.</summary>
+  </entry>
+  <entry>
+    <title>Lex</title>
+    <id>https://research.momentum.inc/papers/lex.html</id>
+    <link href="https://research.momentum.inc/papers/lex.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>A language for legal rules, exceptions, authority, and changes in law.</summary>
+  </entry>
+  <entry>
+    <title>Op: Compliance-Carrying Operations</title>
+    <id>https://research.momentum.inc/papers/op.html</id>
+    <link href="https://research.momentum.inc/papers/op.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>Typed instructions for institutional operations, from authorization through payment, interruption, and resumption.</summary>
+  </entry>
+  <entry>
+    <title>The Sovereign Jurisdiction Network</title>
+    <id>https://research.momentum.inc/papers/sovereign-jurisdiction-network.html</id>
+    <link href="https://research.momentum.inc/papers/sovereign-jurisdiction-network.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>Recognition and shared evidence between jurisdictions that retain their own authority.</summary>
+  </entry>
+  <entry>
+    <title>Accession Networks</title>
+    <id>https://research.momentum.inc/papers/accession-networks.html</id>
+    <link href="https://research.momentum.inc/papers/accession-networks.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>How common accession instruments can establish a network of recognition in place of pairwise negotiation.</summary>
+  </entry>
+  <entry>
+    <title>The Claim as Primitive</title>
+    <id>https://research.momentum.inc/papers/moxie/claim-as-primitive.html</id>
+    <link href="https://research.momentum.inc/papers/moxie/claim-as-primitive.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>A common language for financial claims: what determines the payoff, when it is evaluated, and what must be paid.</summary>
+  </entry>
+  <entry>
+    <title>Admissible Obligation Transitions</title>
+    <id>https://research.momentum.inc/papers/moxie/admissible-obligation-transitions.html</id>
+    <link href="https://research.momentum.inc/papers/moxie/admissible-obligation-transitions.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>How claims split, combine, and move between programs while preserving what is owed.</summary>
+  </entry>
+  <entry>
+    <title>Event-Collect BFT</title>
+    <id>https://research.momentum.inc/papers/moxie/event-collect-bft.html</id>
+    <link href="https://research.momentum.inc/papers/moxie/event-collect-bft.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>Consensus for transactions whose execution depends on external events and evidence.</summary>
+  </entry>
+  <entry>
+    <title>One-Way Coupling of Prediction Markets to Automated Market Makers</title>
+    <id>https://research.momentum.inc/papers/moxie/pwamm-coupling.html</id>
+    <link href="https://research.momentum.inc/papers/moxie/pwamm-coupling.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>How prediction-market signals can adjust automated prices, and how fees and trade limits control manipulation.</summary>
+  </entry>
+  <entry>
+    <title>Central Counterparty Risk in Automated Markets</title>
+    <id>https://research.momentum.inc/papers/moxie/amm-aware-central-counterparty-risk.html</id>
+    <link href="https://research.momentum.inc/papers/moxie/amm-aware-central-counterparty-risk.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>Clearing resources when liquidation moves prices: margin, cash timing, loss allocation, and settlement-asset feedback.</summary>
+  </entry>
+  <entry>
+    <title>Parlay Identification of Ising Couplings</title>
+    <id>https://research.momentum.inc/papers/moxie/parlay-ising-couplings.html</id>
+    <link href="https://research.momentum.inc/papers/moxie/parlay-ising-couplings.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>Recovering the dependence encoded in joint market prices.</summary>
+  </entry>
+  <entry>
+    <title>Allocated Title</title>
+    <id>https://research.momentum.inc/papers/allocated-title.html</id>
+    <link href="https://research.momentum.inc/papers/allocated-title.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>A register for identified physical gold, carrying title and obligations through transfer, delivery, shortages, and returns.</summary>
+  </entry>
+  <entry>
+    <title>Recourse</title>
+    <id>https://research.momentum.inc/papers/recourse.html</id>
+    <link href="https://research.momentum.inc/papers/recourse.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>Dispute resolution from the claim and evidence through the award, execution, and recovery record.</summary>
+  </entry>
+  <entry>
+    <title>Recourse preserves authority from legal claim to execution</title>
+    <id>https://research.momentum.inc/papers/recourse-authority.html</id>
+    <link href="https://research.momentum.inc/papers/recourse-authority.html"/>
+    <published>2026-11-03T00:00:00Z</published>
+    <updated>2026-11-03T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>Practitioner engagement, court and arbitration routes, evidence, payment and execution records, with their guarantees and implementation limits.</summary>
+  </entry>
+
+  <entry>
+    <title>The Recognition Protocol</title>
+    <id>https://research.momentum.inc/papers/the-recognition-protocol.html</id>
+    <link href="https://research.momentum.inc/papers/the-recognition-protocol.html"/>
+    <updated>2026-09-01T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>The standard a jurisdiction accedes to: conformance is machine-decided, recognition stays sovereign, and one deposit reaches every participant whose own policy admits it.</summary>
+  </entry>
+  <entry>
+    <title>The Research Programme</title>
+    <id>https://research.momentum.inc/programme.html</id>
+    <link href="https://research.momentum.inc/programme.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>How institutional rules, execution, financial claims, markets, title, and dispute resolution fit together.</summary>
+  </entry>
+  <entry>
+    <title>Two Harnesses and a Limit</title>
+    <id>https://research.momentum.inc/two-harnesses-and-a-limit.html</id>
+    <link href="https://research.momentum.inc/two-harnesses-and-a-limit.html"/>
+    <updated>2026-08-04T00:00:00Z</updated>
+    <summary>There are two ways to make an AI agent safe: fence the model, or fence the world. The second turns out to be what makes a network of jurisdictions neutral, too.</summary>
+  </entry>
+
+  <entry>
+    <title>The Multi-Harbored Institution</title>
+    <id>https://research.momentum.inc/papers/multi-harbored-institution.html</id>
+    <link href="https://research.momentum.inc/papers/multi-harbored-institution.html"/>
+    <updated>2026-04-02T00:00:00Z</updated>
+    <summary>A legal entity existing in several jurisdictions simultaneously, with compliance composed point-by-point across all of them.</summary>
+  </entry>
+
+  <entry>
+    <title>Intelligent Assets</title>
+    <id>https://research.momentum.inc/papers/intelligent-assets.html</id>
+    <link href="https://research.momentum.inc/papers/intelligent-assets.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <summary>A design study of financial instruments that carry rules and compliance state across jurisdictions.</summary>
+  </entry>
+
+  <entry>
+    <title>The Institutional World Model</title>
+    <id>https://research.momentum.inc/institutional-world-model.html</id>
+    <link href="https://research.momentum.inc/institutional-world-model.html"/>
+    <updated>2026-04-02T00:00:00Z</updated>
+    <summary>Book-length treatment of programmable jurisdictional infrastructure for machine-speed economic activity.</summary>
+  </entry>
+
+  <entry>
+    <title>Competitive Topologies</title>
+    <id>https://research.momentum.inc/competitive-topologies.html</id>
+    <link href="https://research.momentum.inc/competitive-topologies.html"/>
+    <updated>2025-11-01T00:00:00Z</updated>
+    <summary>On jurisdictional competition as a structural rather than political phenomenon.</summary>
+  </entry>
+
+  <entry>
+    <title>Technical Architecture Brief</title>
+    <id>https://research.momentum.inc/technical/technical-architecture-brief.html</id>
+    <link href="https://research.momentum.inc/technical/technical-architecture-brief.html"/>
+    <updated>2026-09-06T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>The proposed integrated design for Mass, Moxie, and Recourse, with dated implementation boundaries.</summary>
+  </entry>
+  <entry>
+    <title>Mass Technical Specification</title>
+    <id>https://research.momentum.inc/technical/mass-technical-specification.html</id>
+    <link href="https://research.momentum.inc/technical/mass-technical-specification.html"/>
+    <updated>2026-09-06T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>The public technical specification: architecture, typed contracts, implementation boundaries, and developer and operator references.</summary>
+  </entry>
+  <entry>
+    <title>Background Papers and Notes</title>
+    <id>https://research.momentum.inc/background.html</id>
+    <link href="https://research.momentum.inc/background.html"/>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <author><name>Raeez Lorgat</name></author>
+    <summary>Background papers and notes on institutions, recognition, compliance, and execution.</summary>
+  </entry>
+</feed>

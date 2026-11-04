@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>When Sovereigns Disagree - Raeez Lorgat</title>
+<meta name="description" content="Two sovereigns evaluate the same transaction and disagree. Why that disagreement is protected, and why a sovereign disagreeing with itself is provable.">
+<meta name="author" content="Raeez Lorgat">
+<meta property="og:title" content="When Sovereigns Disagree">
+<meta property="og:description" content="Two sovereigns evaluate the same transaction and disagree. Why that disagreement is protected, and why a sovereign disagreeing with itself is provable.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://research.momentum.inc/og-image.png">
+<meta property="og:url" content="https://research.momentum.inc/papers/verdict-dispute-calculus.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+<link rel="canonical" href="https://research.momentum.inc/papers/verdict-dispute-calculus.html">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "When Sovereigns Disagree",
+    "author": { "@type": "Person", "name": "Raeez Lorgat", "url": "https://research.momentum.inc" },
+    "datePublished": "2026-04-02",
+    "description": "Two sovereigns evaluate the same transaction and disagree. Why that disagreement is protected, and why a sovereign disagreeing with itself is provable."
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8T5J8M28"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JP8T5J8M28');
+</script>
+<link rel="stylesheet" href="https://use.typekit.net/zlu2quo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --font-text: 'garamond-premier-pro', 'EB Garamond', 'Hoefler Text', 'Baskerville', Garamond, serif;
+    --font-display: 'garamond-premier-pro-display', var(--font-text);
+    --font-caption: 'garamond-premier-pro-caption', var(--font-text);
+    --font-subhead: 'garamond-premier-pro-subhead', var(--font-text);
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    --text-base: clamp(18px, 1.125rem + 0.25vw, 21px);
+    --text-sm: calc(var(--text-base) / 1.333);
+    --text-xs: calc(var(--text-sm) / 1.333);
+    --text-lg: calc(var(--text-base) * 1.333);
+    --text-xl: calc(var(--text-lg) * 1.333);
+    --text-2xl: calc(var(--text-xl) * 1.333);
+    --baseline: 8px;
+    --leading-tight: 1.2;
+    --leading-snug: 1.35;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.618;
+    --leading-loose: 1.8;
+    --space-1: calc(var(--baseline) * 1);
+    --space-2: calc(var(--baseline) * 2);
+    --space-3: calc(var(--baseline) * 3);
+    --space-4: calc(var(--baseline) * 4);
+    --space-5: calc(var(--baseline) * 5);
+    --space-6: calc(var(--baseline) * 6);
+    --space-8: calc(var(--baseline) * 8);
+    --space-10: calc(var(--baseline) * 10);
+    --space-13: calc(var(--baseline) * 13);
+    --measure: 65ch;
+    --measure-narrow: 55ch;
+    --measure-wide: 75ch;
+    --gutter: clamp(16px, 4vw, 24px);
+    --ink: #1a1917;
+    --ink-muted: #4a4744;
+    --ink-subtle: #6a6662;
+    --ink-faint: #8a8580;
+    --ink-ghost: #b5b0ab;
+    --ink-whisper: #d4d0cc;
+    --ink-hint: #e8e5e2;
+    --paper: #fefdfb;
+    --paper-tint: #f5f3f0;
+    --kern-tight: -0.02em;
+    --kern-snug: -0.01em;
+    --kern-normal: 0;
+    --kern-loose: 0.015em;
+    --kern-wide: 0.04em;
+    --kern-caps: 0.08em;
+    --optical-margin: -0.03em;
+}
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    hanging-punctuation: first last;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body {
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-relaxed);
+    color: var(--ink);
+    background: var(--paper);
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1, "dlig" 1, "onum" 1, "pnum" 1;
+    font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    font-kerning: normal;
+}
+.container {
+    max-width: calc(var(--measure) + var(--space-8));
+    margin-inline: auto;
+    padding: var(--space-10) var(--gutter) var(--space-8);
+}
+.back-nav { margin-bottom: var(--space-8); }
+.back-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.back-nav a:hover { color: var(--ink); }
+.article-header {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--ink-hint);
+}
+.article-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-meta {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+    margin-top: var(--space-3);
+}
+.article-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+.article-meta a:hover {
+    color: var(--ink-muted);
+    text-decoration-color: var(--ink-ghost);
+}
+/* Companion open-source repository link — rendered when `repo` metadata is set.
+   Monochrome ink on warm paper to sit native to the typographic system;
+   the GitHub mark carries the recognition, the hairline frame the prominence. */
+.repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    max-width: 100%;
+    padding: 10px var(--space-3) 10px calc(var(--space-2) + 2px);
+    border: 1px solid var(--ink-whisper);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: border-color 200ms ease, color 200ms ease,
+                background 200ms ease, box-shadow 200ms ease;
+}
+.repo-link:hover {
+    border-color: var(--ink-faint);
+    color: var(--ink);
+    background: var(--paper-tint);
+    box-shadow: 0 2px 12px rgba(26, 25, 23, 0.07);
+}
+.repo-link:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; }
+.repo-link__mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    color: var(--ink);
+    transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.repo-link:hover .repo-link__mark { transform: rotate(-7deg) scale(1.06); }
+.repo-link__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; line-height: var(--leading-tight); }
+.repo-link__label {
+    font-family: var(--font-caption);
+    font-size: var(--text-xs);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    transition: color 200ms ease;
+}
+.repo-link:hover .repo-link__label { color: var(--ink-subtle); }
+.repo-link__url {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    letter-spacing: var(--kern-snug);
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.repo-link__arrow {
+    flex: none;
+    margin-left: var(--space-1);
+    color: var(--ink-ghost);
+    transition: transform 200ms ease, color 200ms ease;
+}
+.repo-link:hover .repo-link__arrow { transform: translateX(3px); color: var(--ink-faint); }
+@media (max-width: 400px) { .repo-link__arrow { display: none; } }
+/* TOC from pandoc */
+nav#TOC {
+    margin: 0 0 var(--space-8);
+    padding: var(--space-4) 0 var(--space-4) var(--space-4);
+    border-top: 1px solid var(--ink-hint);
+    border-bottom: 1px solid var(--ink-hint);
+}
+nav#TOC ul { list-style: none; padding: 0; }
+nav#TOC li { margin: 0.35rem 0; }
+nav#TOC a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-hint);
+    transition: border-color 0.2s;
+    font-size: var(--text-sm);
+}
+nav#TOC a:hover { border-color: var(--ink-muted); }
+.article-body { font-variant-ligatures: common-ligatures discretionary-ligatures contextual; }
+.article-body p {
+    margin-bottom: var(--space-3);
+    max-width: var(--measure);
+    line-height: var(--leading-loose);
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+    hyphenate-limit-lines: 2;
+}
+.article-body h1, .article-body .level1 > h2:first-child {
+    font-family: var(--font-subhead);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h2 {
+    font-family: var(--font-subhead);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: var(--kern-snug);
+    line-height: var(--leading-snug);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+}
+.article-body a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    text-decoration-skip-ink: auto;
+    transition: text-decoration-color 180ms ease;
+}
+.article-body a:hover { text-decoration-color: var(--ink-muted); }
+.article-body blockquote {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--ink-hint);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.article-body hr {
+    border: none;
+    height: 1px;
+    background: var(--ink-hint);
+    margin: var(--space-8) 0;
+    max-width: 4rem;
+}
+.article-body code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--paper-tint);
+    padding: 0.12em 0.35em;
+}
+.article-body pre {
+    background: #0d0d0c;
+    color: #c8c5b8;
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-4) 0;
+    font-size: var(--text-sm);
+}
+.article-body th {
+    text-align: left;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+    letter-spacing: var(--kern-loose);
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 2px solid var(--ink-hint);
+}
+.article-body td {
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 1px solid var(--ink-hint);
+    vertical-align: top;
+}
+.article-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.author-byline {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.author-byline strong { font-style: normal; font-weight: 600; }
+.footer-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.footer-nav a:hover { color: var(--ink); }
+.contact-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+}
+::selection { background: var(--ink); color: var(--paper); }
+a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; border-radius: 2px; }
+@media (max-width: 680px) {
+    :root { --text-base: clamp(17px, 1rem + 0.2vw, 19px); }
+    .container { padding: var(--space-6) var(--gutter) var(--space-5); }
+    .article-title { font-size: var(--text-xl); }
+    .article-body h1, .article-body .level1 > h2:first-child { font-size: var(--text-lg); }
+    .article-body h2 { font-size: calc(var(--text-base) * 1.1); }
+    .article-footer { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+@media (max-width: 400px) {
+    :root { --text-base: 16px; }
+    .container { padding: var(--space-5) var(--space-2) var(--space-4); }
+}
+@media (min-width: 1200px) { .container { padding-top: var(--space-13); } }
+@media print {
+    :root { --ink: #000; --paper: #fff; }
+    body { font-size: 11pt; line-height: 1.4; }
+    .container { max-width: 100%; padding: 0; }
+    .back-nav, .contact-footer { display: none; }
+    nav#TOC { display: none; }
+    a { text-decoration: none !important; color: var(--ink) !important; }
+    .article-body h1, .article-body h2 { page-break-after: avoid; }
+    p { orphans: 3; widows: 3; }
+}
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(var(--gutter), env(safe-area-inset-left));
+        padding-right: max(var(--gutter), env(safe-area-inset-right));
+    }
+}
+
+/* Wiring in a mathematics renderer made display equations set on one unwrappable
+   line, so a long equation pushed the page wider than the viewport and readers on
+   ordinary laptops lost the right-hand side. Let each equation scroll inside its own
+   box instead of widening the page. Wide tables get the same treatment. */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
+.katex-display::-webkit-scrollbar { height: 6px; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 600px) {
+  .paper-nav-title { display: none; }
+}
+</style>
+<link rel="stylesheet" href="/paper.css">
+</head>
+<body>
+<div class="container">
+    <nav class="back-nav">
+        <a href="/">← Research</a>
+    </nav>
+    <article>
+        <header class="article-header">
+            <h1 class="article-title">When Sovereigns Disagree</h1>
+            <p class="article-meta">April 2026 · Raeez Lorgat</p>
+                    </header>
+
+        
+        <div class="article-body">
+        <section id="when-sovereigns-disagree" class="level1">
+        <h1>When Sovereigns Disagree</h1>
+        <p><strong>Raeez Lorgat, 2026</strong></p>
+        <hr />
+        <p>Two jurisdictions evaluate the same transaction and return different verdicts: one compliant, the other non-compliant.</p>
+        <p>Each verdict follows a different sovereign’s rules, with no third standard above both. Neither verdict is evidence against the other. Signed verdicts can establish that a single authority answered the same question on the same inputs in two different ways. Anyone holding both can prove that contradiction. A cross-jurisdictional network must preserve sovereign disagreement while making attributable self-contradiction costly.</p>
+        <section id="genuine-disagreement-is-the-design" class="level2">
+        <h2>Genuine disagreement is the design</h2>
+        <p>A jurisdiction decides what its rules mean within its territory. Pakistan’s securities regulator and Singapore’s securities regulator apply different functions to the same inputs. Those functions encode different policy choices, risk tolerances, and histories of financial crisis. Different verdicts on the same entity can therefore be correct under each regulator’s rules.</p>
+        <p>In a distributed database, two nodes returning different answers to the same query indicate a fault to repair. Applying that standard to sovereigns would erase the policy differences their separate jurisdictions preserve.</p>
+        <p>The resulting constraint is that <em>you cannot build a system that eliminates disagreement between sovereigns without eliminating sovereignty</em>.</p>
+        </section>
+        <section id="self-contradiction-is-provable" class="level2">
+        <h2>Self-contradiction is provable</h2>
+        <p>When the same authority evaluates the same question on the same inputs and produces two different verdicts, it contradicts itself. The mechanism below establishes that fault without deciding whether it arose from incompetence or fraud.</p>
+        <p>A signed verdict is a cryptographic commitment with an exact scope: the key of jurisdiction <span class="math inline">J</span> over the statement “entity <span class="math inline">E</span> has outcome <span class="math inline">v</span> in domain <span class="math inline">d</span>”, together with the <em>pinned inputs</em> of the evaluation – the version of the rule archive the evaluation ran under and the digests of the evidence it consumed – and an evaluation index naming which evaluation this is.</p>
+        <p>The issuer cannot choose the index, and the evaluation never reads it. The index is either fixed by the question instance or derived from the statement’s subject, domain, and pinned inputs. In the first form, it is the operation identifier and corridor epoch under which the evaluation was requested, as in the companion papers. In the second, it is a digest of the subject, domain, and pinned inputs. Both forms name the evaluation without determining its outcome.</p>
+        <p>The outcome is not a bit: the value set carries Non-Compliant, Pending, and Compliant in that order, with not-applicable and exempt on a separate applicability axis (the companion paper <em>How Compliance Composes</em> fixes this value set). Contradiction is outcome inequality at the same index: two verdicts under the same key, for the same subject and domain, over identical pinned inputs, with different outcomes.</p>
+        <p>Compliance status legitimately changes when evidence arrives, a license expires, or a sanctions list updates. A temporal detector would flag verdicts that change too quickly and tune its window for each jurisdiction. It would have to balance false positives from racing evaluations against false negatives from contradictions separated by a deliberate delay. Pinning the inputs removes the need for that window. The Wednesday sanctions update between Monday’s verdict and Friday’s is itself an input. The pinned inputs differ, so no contradiction arises.</p>
+        <p>Everything that can explain a changed outcome must be inside the signed statements. With identical pinned inputs, different outcomes at the same index yield a certificate. Different indices do not evade accountability: because evaluation is deterministic and does not read the index, at least one verdict then fails replay. As described below, such a signed replay failure breaches the issuer’s commitments and floors the corridor just as a certificate does.</p>
+        <p>The companion papers anchor the index externally in the protocol’s operation identifier and corridor epoch. <em>The Sovereign Jurisdiction Network</em> accepts an equivocation certificate only for conflicting signed artifacts under one zone’s key at that index. <em>Op: A Typed Bytecode for Compliance-Carrying Operations</em> carries verdict uniqueness there as a typed invariant. It refuses a second local signature at an occupied index and converts a same-signer, same-index conflict between imported artifacts into a blame witness naming the signer. All three identify the same fault: one signer, one index, two conflicting artifacts.</p>
+        <p>The two signed statements form an equivocation certificate. Any holder can check the signatures and outcome inequality without a third party or access to the jurisdiction’s internal reasoning. The registry supplies the key’s attribution to the jurisdiction.</p>
+        <p>The claim requires four assumptions. The signature scheme is existentially unforgeable under chosen-message attack, so a verifying signature identifies the key. A registry authentically binds each signing key to its jurisdiction and records revocation, so the key identifies the signer. Verdicts have a canonical encoding, so outcome inequality at the same index is machine-decidable. Evaluation is a deterministic function of the pinned inputs, with the index excluded, so inequality establishes contradiction rather than permitted variation.</p>
+        <p>A verdict speaks for its index indefinitely, but reliance today requires an evaluation recent enough that nothing material has changed. Corridor policy therefore fixes a maximum accepted verdict age, as it does for a presented passport head (<em>The Compliance Passport</em>). This freshness bound governs reliance and plays no part in the definition of contradiction.</p>
+        </section>
+        <section id="what-signed-verdicts-demand" class="level2">
+        <h2>What signed verdicts demand</h2>
+        <p>Before digital signatures, detecting institutional self-contradiction depended on competing testimony. A regulator could say “we never approved that” without a verifiable artifact to test the denial. A signed verdict binds the statement to its unrevoked jurisdictional key. Preserving that evidence requires signatures, retention, and independent detection.</p>
+        <p><strong>Every verdict is signed.</strong> An unsigned verdict cannot be attributed to an issuer and therefore cannot establish contradiction or accountability.</p>
+        <p><strong>Every verdict is retained, beyond the issuer’s power to edit.</strong> Historical verdicts must survive because the issuer has an interest in concealing contradictions. An issuer-held log permits two attacks: rewriting the past or serving different, internally consistent histories to different parties. Hash chaining makes each entry commit to its predecessor under the issuer’s signature. Editing the past then forks the chain, yielding two signed successors of one entry and an equivocation at the log level.</p>
+        <p>Bonded external watchers expose forks by signing the chain head and height they observe. Different histories then produce conflicting attested heads. <em>The Chain of Evidence</em> gives the hash chain, inclusion proofs, and watcher-based fork detection. <em>The Sovereign Jurisdiction Network</em> specifies watcher bonds and requires receipt-chain or watcher inclusion evidence in an equivocation certificate.</p>
+        <p><strong>Recipients and watchers detect contradictions automatically.</strong> Manual comparison of thousands of verdicts is impractical, and the issuer has little incentive to find its own contradiction. Recipients check each new verdict against those they hold. Watchers’ bonded head attestations expose different histories served to different parties, and watchers that attest conflicting heads forfeit their bonds. Corridor policy determines whether watchers also receive payment.</p>
+        <p>These mechanisms have established precedents. PeerReview makes a node’s faults provable to third parties through signed append-only logs (Haeberlen, Kouznetsov and Druschel 2007). Fork consistency forces an untrusted log operator to maintain consistency or expose a detectable fork (Li, Krohn, Mazières and Shasha 2004). Certificate Transparency publicly monitors a trusted authority’s issuance log (Laurie, Langley and Kasper 2013). Proof-of-stake accountable safety treats double-signing at the same index as a provable, punishable fault (Buterin and Griffith 2017; Buchman 2016). The beta reputation family (Jøsang and Ismail 2002) and its network forms (Kamvar, Schlosser and Garcia-Molina 2003) supply slow-accrual, sharp-loss reputation dynamics.</p>
+        <p>The first four systems treat deviation from a shared correctness standard as a fault. The two reputation systems aggregate subjective ratings without a shared standard or proof of fault. They supply precedent here only for the demotion dynamics below. Sovereigns preserve the right to differ from each other, so this construction holds each accountable for inconsistency in its own statements.</p>
+        </section>
+        <section id="the-economics-of-trust-demotion" class="level2">
+        <h2>The economics of trust demotion</h2>
+        <p>A counterparty responds to proven equivocation by changing its own reliance on the jurisdiction’s future assertions and the price of re-verifying them. The response cannot be punitive: an external system cannot fine or compel a sovereign.</p>
+        <p>Reliance has separate domain and corridor components. Foreign evaluations receive recognition per domain: trust in anti-money-laundering evaluations need not extend to data privacy (<em>Mutual Recognition</em>). Operational trust is a corridor level in a finite ordered set. Each level selects a policy table of transaction limits, settlement windows, and in-flight counts (<em>The Sovereign Jurisdiction Network</em>). Equivocation moves the corridor to a level with lower limits and longer windows. A reduced domain recognition grade removes face-value acceptance, requiring the receiving side to re-evaluate locally what it previously accepted.</p>
+        <p>Relying on an untrustworthy counterparty costs far more than proceeding slowly with a trustworthy one, so promotion and demotion follow different rules. Observed clean settlement permits promotion one level at a time, after the relevant threshold is met. Proven equivocation drops the corridor to its most restrictive level, or to suspension, regardless of its previous level.</p>
+        <p>A proportional demotion would cost a low-trust jurisdiction almost nothing. Its deterrent would be weakest for the parties most likely to offend, and each repetition would cost geometrically less. A common floor avoids this dependence on current standing. An established corridor falls further, reflecting the greater concern when equivocation follows a long clean record. Every offender reaches the same floor, and every regained level requires the same promotion threshold regardless of previous standing or repeated falls.</p>
+        <p>A corridor already at or near the floor loses little through the drop itself. The floor’s limits instead cap counterparties’ exposure and the gain from a contradictory verdict, whether the corridor is new or returning. Suspension permits nothing.</p>
+        <p>Recovery requires the same promotion thresholds as a new corridor, with no shortcut back. The rebuild horizon is the observed clean settlement those thresholds demand under each level’s limits. It begins at the floor, and the limits ease with promotion. The cost of equivocation is this constrained recovery period rather than a nominal penalty.</p>
+        <p>A signature that fails to verify leaves trust unchanged. Bytes that do not verify under a jurisdiction’s key are not its statement. Under the unforgeability assumption, anyone can produce such bytes. Penalizing the named key would let third parties demote a jurisdiction by broadcasting invalid signatures. Verification failure therefore means rejection without attribution.</p>
+        <p>A validly signed verdict whose disclosed bundle fails replay is attributable and floors the corridor as a certificate does. Examples include a mismatched evidence digest or a rule-archive version that fails to yield the signed outcome. The jurisdiction’s own statement then fails its commitments. Key compromise requires registry revocation, which bounds what the key can sign from revocation onward. No scoring rule repairs a stolen key.</p>
+        </section>
+        <section id="integrity-disputes-before-interpretation-disputes" class="level2">
+        <h2>Integrity disputes before interpretation disputes</h2>
+        <p>Signed claims can raise disputes about integrity or interpretation, each requiring a different resolver.</p>
+        <p>Integrity checks whether an artifact is what it claims to be. A content-addressed evidence package either matches its digest or fails, and a match establishes unchanged content since commitment. A signature either verifies or fails, with verification attributing the statement to a key. A verdict either replays from its disclosed inputs under the stated rule version or fails. These machine checks establish provenance and preservation. None proves that the committed content was true.</p>
+        <p>Interpretation asks what authentic evidence means under the applicable legal tradition. Two authentic, unmodified documents can support contradictory legal conclusions under different rules of interpretation. A shipping document that constitutes delivery in one legal system may not do so in another. Human adjudicators who know those traditions must resolve this question.</p>
+        <p>Integrity checks come first, before a tribunal considers evidence that could fail its digest. Mechanical verification gives adjudicators a verified record and narrows their docket to contested cases, removing the need for cryptographic reconstruction.</p>
+        </section>
+        <section id="contestation-as-a-design-requirement" class="level2">
+        <h2>Contestation as a design requirement</h2>
+        <p>A system producing verdicts must provide a way to contest them. The standing possibility of challenge supports confidence in uncontested verdicts without presuming that the system is infallible.</p>
+        <p>The challenge must reach a forum independent of the issuer, because adjudicating its own outputs supplies no external check on the system’s correctness. The corridor instrument names that forum in advance, as a commercial contract fixes its arbitral forum before a dispute arises.</p>
+        <p>Standing belongs to the parties a verdict binds: the evaluated entity and any counterparty that relied on it. A challenge presents the signed verdict with its disclosed bundle of evidence digests, rule-archive version, and replay transcript. The forum verifies integrity before hearing argument. The issuing system supplies verdict logs, integrity verification, equivocation certificates, and corridor trust records, while judgment belongs to the forum.</p>
+        <p>The remedy preserves the append-only record. No verdict is deleted. A new signed verdict supersedes a wrong one, and its inputs include the ruling that displaced its predecessor. It occupies a new index under either form: the digest changes with the pinned inputs, and an occupied corridor index admits no second signature. If a challenge reveals two same-index verdicts, the certificate itself establishes the integrity fault. Demotion then follows the corridor’s pre-agreed rules without depending on the forum’s interpretive discretion.</p>
+        </section>
+        <section id="deterrence" class="level2">
+        <h2>Deterrence</h2>
+        <p>Signed, index-keyed verdicts and independently watched, append-only logs make same-index contradictions available as certificates. Any holder can verify a certificate against the key registry and canonical encoding. Certificates and validly signed replay failures floor the corridor’s trust level, imposing the cost of recovery. Mechanical integrity checks precede interpretation by an independent forum.</p>
+        <p>Deterrence holds when the one-shot gain from a contradictory verdict is smaller than the cost of demotion. That cost includes friction from the limits at each level along the promotion path, heaviest at the floor and easing with promotion. It also includes local re-evaluation while recognition is withheld. These costs accumulate over the rebuild horizon and are discounted according to the jurisdiction’s valuation of its future. Whether the inequality holds depends on stakes, detection lag, and discount rates. This note specifies a mechanism that makes the cost side large, but leaves open the payoff model needed to prove deterrence.</p>
+        <p>Consistency leaves two failures unresolved. A jurisdiction applying a bad rule uniformly never contradicts itself, and one consistently attesting fabricated facts can replay cleanly against those fabrications. This mechanism addresses neither case. It removes the ability to make inconsistent statements to different parties, or to the same party at different times, while retaining their reliance.</p>
+        <p>The network can therefore preserve sovereign policy differences while changing reliance on a jurisdiction that contradicts itself. Disagreement between sovereigns remains a policy fact to be priced. Signed artifacts make self-contradiction provable, and the recovery rules make it costly without imposing agreement on substantive policy.</p>
+        </section>
+        <section id="references" class="level2">
+        <h2>References</h2>
+        <p>Buchman, E. (2016). <em>Tendermint: Byzantine Fault Tolerance in the Age of Blockchains.</em> MSc thesis, University of Guelph.</p>
+        <p>Buterin, V. and Griffith, V. (2017). “Casper the Friendly Finality Gadget.” arXiv:1710.09437.</p>
+        <p>Haeberlen, A., Kouznetsov, P. and Druschel, P. (2007). “PeerReview: Practical Accountability for Distributed Systems.” <em>ACM Symposium on Operating Systems Principles (SOSP 2007)</em>.</p>
+        <p>Jøsang, A. and Ismail, R. (2002). “The Beta Reputation System.” <em>15th Bled Electronic Commerce Conference</em>.</p>
+        <p>Kamvar, S. D., Schlosser, M. T. and Garcia-Molina, H. (2003). “The EigenTrust Algorithm for Reputation Management in P2P Networks.” <em>WWW 2003</em>.</p>
+        <p>Laurie, B., Langley, A. and Kasper, E. (2013). <em>Certificate Transparency.</em> RFC 6962.</p>
+        <p>Li, J., Krohn, M., Mazières, D. and Shasha, D. (2004). “Secure Untrusted Data Repository (SUNDR).” <em>OSDI 2004</em>.</p>
+        </section>
+        </section>
+        </div>
+
+        <footer class="article-footer">
+            <span class="author-byline"><strong>Raeez Lorgat</strong> · Managing Partner, Momentum</span>
+            <nav class="footer-nav">
+                <a href="/">← All Papers</a>
+            </nav>
+        </footer>
+        <div class="contact-footer">
+            <span>&copy; 2026 Momentum</span>
+        </div>
+    </article>
+</div>
+<script src="/paper.js" defer></script>
+</body>
+</html>

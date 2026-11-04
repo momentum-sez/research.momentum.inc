@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>How Rules Evolve - Raeez Lorgat</title>
+<meta name="description" content="Tax rates adjust, licences tighten, whole frameworks are replaced. How a rule system changes its own rules without invalidating what was lawful when it was done.">
+<meta name="author" content="Raeez Lorgat">
+<meta property="og:title" content="How Rules Evolve">
+<meta property="og:description" content="Tax rates adjust, licences tighten, whole frameworks are replaced. How a rule system changes its own rules without invalidating what was lawful when it was done.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://research.momentum.inc/og-image.png">
+<meta property="og:url" content="https://research.momentum.inc/papers/meta-evolution.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+<link rel="canonical" href="https://research.momentum.inc/papers/meta-evolution.html">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "How Rules Evolve",
+    "author": { "@type": "Person", "name": "Raeez Lorgat", "url": "https://research.momentum.inc" },
+    "datePublished": "2026-04-02",
+    "description": "Tax rates adjust, licences tighten, whole frameworks are replaced. How a rule system changes its own rules without invalidating what was lawful when it was done."
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8T5J8M28"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JP8T5J8M28');
+</script>
+<link rel="stylesheet" href="https://use.typekit.net/zlu2quo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --font-text: 'garamond-premier-pro', 'EB Garamond', 'Hoefler Text', 'Baskerville', Garamond, serif;
+    --font-display: 'garamond-premier-pro-display', var(--font-text);
+    --font-caption: 'garamond-premier-pro-caption', var(--font-text);
+    --font-subhead: 'garamond-premier-pro-subhead', var(--font-text);
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    --text-base: clamp(18px, 1.125rem + 0.25vw, 21px);
+    --text-sm: calc(var(--text-base) / 1.333);
+    --text-xs: calc(var(--text-sm) / 1.333);
+    --text-lg: calc(var(--text-base) * 1.333);
+    --text-xl: calc(var(--text-lg) * 1.333);
+    --text-2xl: calc(var(--text-xl) * 1.333);
+    --baseline: 8px;
+    --leading-tight: 1.2;
+    --leading-snug: 1.35;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.618;
+    --leading-loose: 1.8;
+    --space-1: calc(var(--baseline) * 1);
+    --space-2: calc(var(--baseline) * 2);
+    --space-3: calc(var(--baseline) * 3);
+    --space-4: calc(var(--baseline) * 4);
+    --space-5: calc(var(--baseline) * 5);
+    --space-6: calc(var(--baseline) * 6);
+    --space-8: calc(var(--baseline) * 8);
+    --space-10: calc(var(--baseline) * 10);
+    --space-13: calc(var(--baseline) * 13);
+    --measure: 65ch;
+    --measure-narrow: 55ch;
+    --measure-wide: 75ch;
+    --gutter: clamp(16px, 4vw, 24px);
+    --ink: #1a1917;
+    --ink-muted: #4a4744;
+    --ink-subtle: #6a6662;
+    --ink-faint: #8a8580;
+    --ink-ghost: #b5b0ab;
+    --ink-whisper: #d4d0cc;
+    --ink-hint: #e8e5e2;
+    --paper: #fefdfb;
+    --paper-tint: #f5f3f0;
+    --kern-tight: -0.02em;
+    --kern-snug: -0.01em;
+    --kern-normal: 0;
+    --kern-loose: 0.015em;
+    --kern-wide: 0.04em;
+    --kern-caps: 0.08em;
+    --optical-margin: -0.03em;
+}
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    hanging-punctuation: first last;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body {
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-relaxed);
+    color: var(--ink);
+    background: var(--paper);
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1, "dlig" 1, "onum" 1, "pnum" 1;
+    font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    font-kerning: normal;
+}
+.container {
+    max-width: calc(var(--measure) + var(--space-8));
+    margin-inline: auto;
+    padding: var(--space-10) var(--gutter) var(--space-8);
+}
+.back-nav { margin-bottom: var(--space-8); }
+.back-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.back-nav a:hover { color: var(--ink); }
+.article-header {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--ink-hint);
+}
+.article-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-meta {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+    margin-top: var(--space-3);
+}
+.article-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+.article-meta a:hover {
+    color: var(--ink-muted);
+    text-decoration-color: var(--ink-ghost);
+}
+/* Companion open-source repository link — rendered when `repo` metadata is set.
+   Monochrome ink on warm paper to sit native to the typographic system;
+   the GitHub mark carries the recognition, the hairline frame the prominence. */
+.repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    max-width: 100%;
+    padding: 10px var(--space-3) 10px calc(var(--space-2) + 2px);
+    border: 1px solid var(--ink-whisper);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: border-color 200ms ease, color 200ms ease,
+                background 200ms ease, box-shadow 200ms ease;
+}
+.repo-link:hover {
+    border-color: var(--ink-faint);
+    color: var(--ink);
+    background: var(--paper-tint);
+    box-shadow: 0 2px 12px rgba(26, 25, 23, 0.07);
+}
+.repo-link:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; }
+.repo-link__mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    color: var(--ink);
+    transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.repo-link:hover .repo-link__mark { transform: rotate(-7deg) scale(1.06); }
+.repo-link__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; line-height: var(--leading-tight); }
+.repo-link__label {
+    font-family: var(--font-caption);
+    font-size: var(--text-xs);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    transition: color 200ms ease;
+}
+.repo-link:hover .repo-link__label { color: var(--ink-subtle); }
+.repo-link__url {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    letter-spacing: var(--kern-snug);
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.repo-link__arrow {
+    flex: none;
+    margin-left: var(--space-1);
+    color: var(--ink-ghost);
+    transition: transform 200ms ease, color 200ms ease;
+}
+.repo-link:hover .repo-link__arrow { transform: translateX(3px); color: var(--ink-faint); }
+@media (max-width: 400px) { .repo-link__arrow { display: none; } }
+/* TOC from pandoc */
+nav#TOC {
+    margin: 0 0 var(--space-8);
+    padding: var(--space-4) 0 var(--space-4) var(--space-4);
+    border-top: 1px solid var(--ink-hint);
+    border-bottom: 1px solid var(--ink-hint);
+}
+nav#TOC ul { list-style: none; padding: 0; }
+nav#TOC li { margin: 0.35rem 0; }
+nav#TOC a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-hint);
+    transition: border-color 0.2s;
+    font-size: var(--text-sm);
+}
+nav#TOC a:hover { border-color: var(--ink-muted); }
+.article-body { font-variant-ligatures: common-ligatures discretionary-ligatures contextual; }
+.article-body p {
+    margin-bottom: var(--space-3);
+    max-width: var(--measure);
+    line-height: var(--leading-loose);
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+    hyphenate-limit-lines: 2;
+}
+.article-body h1, .article-body .level1 > h2:first-child {
+    font-family: var(--font-subhead);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h2 {
+    font-family: var(--font-subhead);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: var(--kern-snug);
+    line-height: var(--leading-snug);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+}
+.article-body a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    text-decoration-skip-ink: auto;
+    transition: text-decoration-color 180ms ease;
+}
+.article-body a:hover { text-decoration-color: var(--ink-muted); }
+.article-body blockquote {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--ink-hint);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.article-body hr {
+    border: none;
+    height: 1px;
+    background: var(--ink-hint);
+    margin: var(--space-8) 0;
+    max-width: 4rem;
+}
+.article-body code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--paper-tint);
+    padding: 0.12em 0.35em;
+}
+.article-body pre {
+    background: #0d0d0c;
+    color: #c8c5b8;
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-4) 0;
+    font-size: var(--text-sm);
+}
+.article-body th {
+    text-align: left;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+    letter-spacing: var(--kern-loose);
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 2px solid var(--ink-hint);
+}
+.article-body td {
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 1px solid var(--ink-hint);
+    vertical-align: top;
+}
+.article-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.author-byline {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.author-byline strong { font-style: normal; font-weight: 600; }
+.footer-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.footer-nav a:hover { color: var(--ink); }
+.contact-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+}
+::selection { background: var(--ink); color: var(--paper); }
+a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; border-radius: 2px; }
+@media (max-width: 680px) {
+    :root { --text-base: clamp(17px, 1rem + 0.2vw, 19px); }
+    .container { padding: var(--space-6) var(--gutter) var(--space-5); }
+    .article-title { font-size: var(--text-xl); }
+    .article-body h1, .article-body .level1 > h2:first-child { font-size: var(--text-lg); }
+    .article-body h2 { font-size: calc(var(--text-base) * 1.1); }
+    .article-footer { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+@media (max-width: 400px) {
+    :root { --text-base: 16px; }
+    .container { padding: var(--space-5) var(--space-2) var(--space-4); }
+}
+@media (min-width: 1200px) { .container { padding-top: var(--space-13); } }
+@media print {
+    :root { --ink: #000; --paper: #fff; }
+    body { font-size: 11pt; line-height: 1.4; }
+    .container { max-width: 100%; padding: 0; }
+    .back-nav, .contact-footer { display: none; }
+    nav#TOC { display: none; }
+    a { text-decoration: none !important; color: var(--ink) !important; }
+    .article-body h1, .article-body h2 { page-break-after: avoid; }
+    p { orphans: 3; widows: 3; }
+}
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(var(--gutter), env(safe-area-inset-left));
+        padding-right: max(var(--gutter), env(safe-area-inset-right));
+    }
+}
+
+/* Wiring in a mathematics renderer made display equations set on one unwrappable
+   line, so a long equation pushed the page wider than the viewport and readers on
+   ordinary laptops lost the right-hand side. Let each equation scroll inside its own
+   box instead of widening the page. Wide tables get the same treatment. */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
+.katex-display::-webkit-scrollbar { height: 6px; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 600px) {
+  .paper-nav-title { display: none; }
+}
+</style>
+<link rel="stylesheet" href="/paper.css">
+</head>
+<body>
+<div class="container">
+    <nav class="back-nav">
+        <a href="/">← Research</a>
+    </nav>
+    <article>
+        <header class="article-header">
+            <h1 class="article-title">How Rules Evolve</h1>
+            <p class="article-meta">April 2026 · Raeez Lorgat</p>
+                    </header>
+
+        
+        <div class="article-body">
+        <section id="how-rules-evolve" class="level1">
+        <h1>How Rules Evolve</h1>
+        <p><strong>Raeez Lorgat, April 2026</strong></p>
+        <hr />
+        <p>Tax rates adjust, licensing requirements tighten, and legislatures replace regulatory frameworks when they reject the old approach.</p>
+        <p>A rule system must encode how its rules change and decide which rules, if any, it places beyond amendment.</p>
+        <section id="the-re-evaluation-problem" class="level2">
+        <h2>The re-evaluation problem</h2>
+        <p>When a rule changes, the status of everything evaluated under the old rule must be resolved.</p>
+        <p>Consider a jurisdiction that raises its minimum capital requirement for financial institutions from $1 million to $5 million. Entity <span class="math inline">A</span> was evaluated last month under the old rule and found compliant with $3 million in capital. Under the new rule, entity <span class="math inline">A</span> is non-compliant. What is entity <span class="math inline">A</span>’s status?</p>
+        <p>Legal systems apply the principle of <em>temporal application</em>, <em>tempus regit actum</em>: an act is governed by the law in force when it was performed. Both evaluations of <span class="math inline">A</span> remain true under their respective rules. Last month’s evaluation records compliance then. From the new rule’s effective date, <span class="math inline">A</span> is non-compliant and must raise capital, restructure, or exit. The question “What is <span class="math inline">A</span>’s status?” requires a time and rule version. The system must retain both answers and their contexts.</p>
+        <p>If rule changes silently invalidated prior evaluations, audits, compliance certificates, and verifications would remain subject to revision whenever a relevant rule changed. No one could know whether an evaluation would still count as valid next month. Such a record could not serve as reliable evidence.</p>
+        <p>The default principle is that <em>an evaluation’s validity is judged under the rules in force at evaluation, not those in force at audit</em>.</p>
+        <p>Legal systems provide exceptions to that default. A court may invalidate a framework from inception and immediately affect operations in flight. <em>Schrems II</em> (Court of Justice of the European Union, C-311/18, 2020) invalidated the EU-U.S. Privacy Shield. Transfers relying on it lost their legal basis immediately, before their next evaluation. Legislatures may constitutionally enact curative and retroactive tax statutes (<em>United States v. Carlton</em>, 512 U.S. 26 (1994)). Procedural rules also routinely apply to pending matters.</p>
+        <p>The record preserves the earlier evaluation of what the law said and what was decided. An invalidation or retroactive statute enters as a new, dated event, followed by a re-evaluation under the changed law. The companion paper <em>Lex: A Logic for Jurisdictional Rules</em> gives these events typed form. The system appends them without mutating the earlier record.</p>
+        </section>
+        <section id="version-chains" class="level2">
+        <h2>Version chains</h2>
+        <p>Verifying a historical evaluation requires the rules that governed it. The system therefore retains the current rule and every predecessor in a traversable <em>version chain</em>. Overwriting an old rule would remove the basis for verification.</p>
+        <p>A <em>version</em> carries its rule content, the versions it supersedes, its effective interval, and its publication time. Effective time and publication time are distinct. A rule published in March may take effect in June, while a curative statute enacted in June may be effective from January. This is the valid-time/transaction-time distinction of temporal databases (Snodgrass and Ahn 1985). The companion paper <em>Time in Institutional Computing</em> develops its use in institutional records.</p>
+        <p>A version is <em>active at time <span class="math inline">t</span> as of publication time <span class="math inline">\tau</span></em> when <span class="math inline">t</span> lies within its effective interval as recorded at <span class="math inline">\tau</span>. At publication, a successor adds an entry closing its predecessor’s effective interval at the successor’s effective start. The earlier entry remains. The June statute and its predecessor can therefore both cover March 15th, as viewed at different publication times. Before the statute’s publication, the predecessor is active on March 15th. After publication, the statute is active on March 15th.</p>
+        <p>To answer “Which version was active on March 15th?”, the system reads effective intervals as of a named time. Walking backward from the current version in publication order would conflate the two coordinates.</p>
+        <p>An <em>evaluation record</em> binds the verdict to the entity, consulted facts or their commitment, governing version, and evaluation time. A regulator asking “was this entity compliant on March 15th?” must name the time as of which the law is read. March 15th itself selects the law governing the act then. The present selects the law as subsequently rewritten. The answer uses that active version and the record evaluated against it. Losing or overwriting versions makes this question unanswerable.</p>
+        <p>This paper assumes that each version after the first supersedes exactly one predecessor and has at most one successor. Versions therefore form a chain. Concurrent amendments to different parts of a rule and partial repeals require a directed acyclic graph. One version may then supersede several, or several may supersede one, with activity at <span class="math inline">t</span> resolved per part. The definitions extend to that case, which this paper does not develop.</p>
+        <p>The chain supports <em>delta computation</em>: comparing a version with its predecessor identifies exactly what changed. Only evaluations that depended on the changed portion can differ. The delta therefore identifies candidates for re-evaluation, but their verdicts determine which entities actually change status. Evaluating the candidates under both versions gives the affected set. Transitions use the same comparison at full scale.</p>
+        </section>
+        <section id="replayable-evaluations" class="level2">
+        <h2>Replayable evaluations</h2>
+        <p>Rule systems with evidentiary obligations need precise guarantees about historical evaluations. Backwards compatibility, understood as a best-effort promise that new versions preserve old behavior, leaves those guarantees unstated.</p>
+        <p>Four conditions make evaluations <em>verifiable</em>: alteration of a decision or its governing text becomes detectable. Versions are <em>content-addressed</em>, with each identified by a cryptographic hash of its content. Editing the text produces a different version and identifier, while existing records still name the original. Evaluation records are <em>committed</em>: they contain the version hash, fact-snapshot hash, and verdict in a log anchored outside the system’s control. The same log commits effective intervals. The evaluator is <em>deterministic</em>, so the same version and facts yield the same verdict.</p>
+        <p>A fifth condition, <em>retention</em>, makes evaluations <em>replayable</em>. Whoever replays must have the version text and fact snapshot identified by the log’s hashes. The log certifies those materials without containing them.</p>
+        <p>From the log alone, a third party can detect retroactive alteration of a version, effective interval, or evaluation record. With the certified version text and fact snapshot, that party can also rerun the evaluation and check its verdict. The argument has three steps. Altering version content changes its hash and breaks references to it, unless the adversary produces a hash collision. The external anchor exposes alterations to committed records or intervals. Deterministic replay then either reproduces the recorded verdict or detects a discrepancy.</p>
+        <p>Replay certifies what was evaluated, against which text, and with what result. It does not certify legal soundness: a mis-drafted rule replays perfectly. If evaluation used an external oracle or human judgment, replay reproduces only the committed answer, not its source. A successor version need not preserve prior evaluations itself. Each record remains bound by hash to the version that produced it, beyond the successor’s reach.</p>
+        </section>
+        <section id="refinements-and-replacements" class="level2">
+        <h2>Refinements and replacements</h2>
+        <p>A threshold change, deadline extension, or added category refines an existing framework. A replacement introduces a new regulatory approach. The distinction determines how historical evaluations can be read.</p>
+        <p>A refinement uses the old framework’s terms. Raising the minimum capital requirement from $1M to $5M changes its value while preserving what “minimum capital requirement” means. Historical evaluations remain interpretable without translation.</p>
+        <p>Replacing principles-based securities regulation with rules-based regulation changes the categories of evaluation. A status of “compliant” under the former may have no counterpart under the latter, because the frameworks ask different questions.</p>
+        <p>Distinguish three levels of change by what the change preserves.</p>
+        <ol type="1">
+        <li><p><strong>Value changes.</strong> The evaluator is unchanged; a parameter differs – a number, a date, a list entry. Old and new evaluations answer the same question and are directly comparable.</p></li>
+        <li><p><strong>Schema changes.</strong> The structure of the rule’s inputs or categories changes, but a total mapping carries every old status to a new one, together with an explicit <em>loss set</em>: the propositions the mapping fails to preserve. Historical evaluations translate, and the loss set states exactly what the translation dropped.</p></li>
+        <li><p><strong>Replacements.</strong> The approach itself changes – “paradigm” in Kuhn’s (1962) sense, and with Kuhn’s consequence: some historical evaluations are <em>incommensurable</em> with the new framework. They answer a question the new framework does not ask, so no mapping carries them anywhere. They are preserved as records, interpretable under the framework that produced them and not re-derivable under the new one.</p></li>
+        </ol>
+        <p>The existing machinery handles value changes. Schema changes add a mapping and its loss set. Replacements change the framework in which those two kinds of change are measured. <em>Meta-evolution</em> names this change of framework.</p>
+        </section>
+        <section id="the-self-revision-paradox" class="level2">
+        <h2>The self-revision paradox</h2>
+        <p>Version chains, evaluation records, and supersession also depend on rules: who may propose changes, how proposals are reviewed, and how old and new rules interact. Hart (1961) called these <em>rules of change</em>. They too require a procedure for amendment.</p>
+        <p>Ross (1969) posed the paradox of self-amendment, examined at book length by Suber (1990). A procedure for changing the rules of change applies to itself. Through a sequence of individually valid amendments, it can therefore become any procedure.</p>
+        <p>Constitutional systems respond differently. Germany’s Article 79(3) of the Basic Law places human dignity and the federal and democratic order beyond amendment. Article V of the United States Constitution shields only equal state suffrage in the Senate. The United Kingdom entrenches nothing, relying on convention for continuity.</p>
+        <p>New Zealand uses single entrenchment. Section 268 of the Electoral Act 1993 protects six reserved provisions, including Parliament’s three-year term and the voting age. Amending them requires three-quarters of all House members or a referendum. Section 268 itself can be amended by simple majority, so its one-layer protection also ultimately rests on convention. Entrenchment is a design choice rather than a general property of legal systems.</p>
+        <p>A rule system whose evaluations serve as evidence must protect the process that gives them continuity. Entrenching only <em>the system can revise itself</em> is insufficient. A procedure amended into “any party may change any rule at any time” still satisfies that axiom. It supplies neither continuity nor a basis for long-term commitment.</p>
+        <p>The system must instead entrench the founding act that records its origin and the minimum requirements for changing the amendment procedure: the required authority and thresholds. The founding signers remain disjoint from every signer set the amendment process can create. No sequence of individually valid amendments can therefore confer authority to remove those requirements. The process cannot create the founding signatures that authorize that change.</p>
+        <p>This construction assumes unforgeable signatures and continued custody of founding keys by their holders. A leak reaching the entrenched threshold permits valid steps that dissolve the protection. Key loss below that threshold freezes it, leaving only abandonment, discussed next. Under these assumptions, no amendment path within the system removes the entrenched floor. All other rules, thresholds, and procedures above that floor remain subject to governed change.</p>
+        <p>Entrenchment governs changes within the system. A community can still abandon it and build a successor. Such abandonment is a level 3 replacement. The preserved record remains interpretable under its original framework, as it does through every replacement.</p>
+        </section>
+        <section id="concurrent-operation-during-transitions" class="level2">
+        <h2>Concurrent operation during transitions</h2>
+        <p>During the interval between enactment and full effect, entities evaluated under old and new versions coexist. Operations begun under the old version may also remain in flight.</p>
+        <p>Each change declares a <em>transition provision</em> for evaluations and operations that straddle it. The default permits an operation begun under the old version to finish under that version’s terms. An entity partway through a multi-month authorization therefore need not restart when the rules change. A sanctions designation or emergency suspension instead declares a fail-closed transition: affected operations halt, with the halt recorded under the new version. The change declares which provision applies.</p>
+        <p>During transition, <em>dual operation</em> evaluates old and new versions concurrently and tags each evaluation with its governing version. Comparing the same entity yields agreement, disagreement, or a proposition with no counterpart in the other framework. The last outcome indicates level 3 change: the frameworks differ in what they ask. A regulator needs the rates of all three outcomes to judge whether the new rules behave as intended.</p>
+        <p>The transition ends through a governed process. Entities evaluated under the old version receive a path to re-evaluation, after which that version ceases to govern current activity. It remains part of the record. The question “Was this entity compliant in 2024?” retains a definite answer after the rules change in 2025. The version, facts or their commitments, verdict, and evidence of integrity must survive indefinitely.</p>
+        <p>The underlying data may have a shorter life. Statutes limit retention, and data-protection law grants erasure rights, as in Article 17 of the GDPR. Erasing a fact snapshot leaves an evaluation <em>verifiable</em>: its commitments still establish the decision and governing text. It ceases to be <em>replayable</em>. The system must track this change of class.</p>
+        </section>
+        <section id="the-permanent-next-paradigm" class="level2">
+        <h2>The permanent next paradigm</h2>
+        <p>Replacements are the hardest transitions, and their late announcement leaves little preparation time. Starting translation work only then risks a rushed, lossy mapping or prolonged incompatibility.</p>
+        <p>The system can instead maintain and test the most plausible next framework. If evidence points toward rules-based securities regulation, it can begin translating from the principles-based framework before any announcement. Preparation includes a draft mapping, its computed loss set, candidate incommensurable propositions, and parallel evaluation of live records.</p>
+        <p>If the forecast is wrong, the specific mappings into the anticipated framework are discarded. The work still exercises reusable methods for translation, loss-set computation, incommensurability testing, tagged dual operation, and interpretation of divergent results. An actual transition requires those methods whichever framework arrives. Preparation is useful even when the forecast fails.</p>
+        </section>
+        <section id="why-this-matters" class="level2">
+        <h2>Why this matters</h2>
+        <p>Rule systems use familiar software mechanisms: version control, deprecation, and migration. Their evidentiary obligation adds a requirement that ordinary software migration lacks. Deprecated APIs can be replaced in old code. Historical compliance determinations remain relied on by entities, certified by regulators, and enforced by courts, so their original frameworks must remain verifiable.</p>
+        <p>Version chains preserve institutional continuity through change. They address the question: “the rules have changed – can you still prove that what we did under the old rules was legitimate?” Failure to retain that evidence undermines decisions made under the prior regime. Retained versions, records bound to their governing versions, and tamper-evident history let new law take effect while preserving the earlier record.</p>
+        <p>These guarantees retain their conditions. A single version lineage is assumed, with branching histories left to the graph generalization. Replay reproduces committed oracle answers and human judgments without reproducing their sources. Erasure can move a record from replayable to verifiable. Declared fail-closed changes displace the completion default, while retroactive invalidation appends a new evaluation.</p>
+        <p>The entrenched floor depends on unforgeable signatures and founding-key custody. Leaks reaching the threshold permit valid dissolution, and losses below it freeze amendment. Entrenchment applies only within the system. After wholesale abandonment, the preserved record remains.</p>
+        <p>The goal of meta-evolution is governed change to any rule, including amendment procedures above their entrenched floor, with the integrity of prior acts preserved. Version chains and hash-bound records preserve their context. Declared transition provisions and dual operation govern replacement. Founding signatures, which the amendment process cannot create, protect the minimum conditions for that process.</p>
+        </section>
+        <section id="references" class="level2">
+        <h2>References</h2>
+        <p>Hart, H. L. A. (1961). <em>The Concept of Law.</em> Oxford University Press.</p>
+        <p>Kuhn, T. S. (1962). <em>The Structure of Scientific Revolutions.</em> University of Chicago Press.</p>
+        <p>Ross, A. (1969). “On Self-Reference and a Puzzle in Constitutional Law.” <em>Mind</em>, 78(309), 1–24.</p>
+        <p>Snodgrass, R. T. and Ahn, I. (1985). “A Taxonomy of Time in Databases.” <em>Proceedings of the ACM SIGMOD International Conference on Management of Data</em>, 236–246.</p>
+        <p>Suber, P. (1990). <em>The Paradox of Self-Amendment: A Study of Law, Logic, Omnipotence, and Change.</em> Peter Lang.</p>
+        </section>
+        </section>
+        </div>
+
+        <footer class="article-footer">
+            <span class="author-byline"><strong>Raeez Lorgat</strong> · Managing Partner, Momentum</span>
+            <nav class="footer-nav">
+                <a href="/">← All Papers</a>
+            </nav>
+        </footer>
+        <div class="contact-footer">
+            <span>&copy; 2026 Momentum</span>
+        </div>
+    </article>
+</div>
+<script src="/paper.js" defer></script>
+</body>
+</html>

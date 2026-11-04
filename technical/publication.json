@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "publication_date": "2026-09-06",
+  "references": [
+    {
+      "title": "Technical Architecture Brief",
+      "pages": 57,
+      "html": {
+        "path": "technical/technical-architecture-brief.html",
+        "sha256": "7561c0fcee82638e26207c7095d7c7673595ab1b7dee724a514a55444848d367",
+        "bytes": 17421
+      },
+      "pdf": {
+        "path": "technical/technical-architecture-brief.pdf",
+        "sha256": "f4e832f1d36999c458910b2a0a228f0d10ac5e4d55692c901a6e607d87c8d39c",
+        "bytes": 555032
+      },
+      "docx": {
+        "path": "technical/technical-architecture-brief.docx",
+        "sha256": "fbdca880b5bf55cf45a563f87bb2f331bba153423b81317254218ef45b35af24",
+        "bytes": 96387
+      },
+      "source_archive": {
+        "path": "technical/technical-architecture-brief-source.zip",
+        "sha256": "3d703753a5883bc76cc6717130352660c7aaadfdf4c641326745e4b9825fe019",
+        "bytes": 41057
+      },
+      "source_markdown": {
+        "path": "technical/sources/technical-architecture-brief.md",
+        "sha256": "176c6a2de278ce20715bf86192eb8093bf00de98ee87b8755dd0cedbd3e21da8",
+        "bytes": 125611
+      }
+    },
+    {
+      "title": "Mass Technical Specification",
+      "pages": 254,
+      "html": {
+        "path": "technical/mass-technical-specification.html",
+        "sha256": "bc5c07a086325690ebb9d6359c877191ad76a783f875a75c8c4e8e1742955046",
+        "bytes": 17387
+      },
+      "pdf": {
+        "path": "technical/mass-technical-specification.pdf",
+        "sha256": "950ea056c398b9702a8b6e0770e0dea6c3c688af304fb5c92c12eebc26120f43",
+        "bytes": 3053018
+      },
+      "docx": {
+        "path": "technical/mass-technical-specification.docx",
+        "sha256": "84f79cf6b48104065bc2240a97de293b8a1382d86595afc869994377cca8b4a7",
+        "bytes": 596946
+      },
+      "source_archive": {
+        "path": "technical/mass-technical-specification-source.zip",
+        "sha256": "fe8db3e946ee85b958b74610fa90476478d08e7ee94a794067d64e50b9842258",
+        "bytes": 745294
+      },
+      "source_markdown": {
+        "path": "technical/sources/mass-technical-specification.md",
+        "sha256": "be65f6d6deb8dbd276871fa4ed47c4620d58d49f2c1a1773c52a6f35e4fddc03",
+        "bytes": 608393
+      }
+    }
+  ],
+  "website_format": "html",
+  "pdf_delivery": "Print copies are retained in source custody and excluded from the website."
+}

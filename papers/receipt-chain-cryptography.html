@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Chain of Evidence - Raeez Lorgat</title>
+<meta name="description" content="When goods or money cross a border, someone stamps a piece of paper. The cryptographic construction that makes such a record tamper-evident, verifiable offline, and hard to fork.">
+<meta name="author" content="Raeez Lorgat">
+<meta property="og:title" content="The Chain of Evidence">
+<meta property="og:description" content="When goods or money cross a border, someone stamps a piece of paper. The cryptographic construction that makes such a record tamper-evident, verifiable offline, and hard to fork.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://research.momentum.inc/og-image.png">
+<meta property="og:url" content="https://research.momentum.inc/papers/receipt-chain-cryptography.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+<link rel="canonical" href="https://research.momentum.inc/papers/receipt-chain-cryptography.html">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "The Chain of Evidence",
+    "author": { "@type": "Person", "name": "Raeez Lorgat", "url": "https://research.momentum.inc" },
+    "datePublished": "2026-04-02",
+    "description": "When goods or money cross a border, someone stamps a piece of paper. The cryptographic construction that makes such a record tamper-evident, verifiable offline, and hard to fork."
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8T5J8M28"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JP8T5J8M28');
+</script>
+<link rel="stylesheet" href="https://use.typekit.net/zlu2quo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --font-text: 'garamond-premier-pro', 'EB Garamond', 'Hoefler Text', 'Baskerville', Garamond, serif;
+    --font-display: 'garamond-premier-pro-display', var(--font-text);
+    --font-caption: 'garamond-premier-pro-caption', var(--font-text);
+    --font-subhead: 'garamond-premier-pro-subhead', var(--font-text);
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    --text-base: clamp(18px, 1.125rem + 0.25vw, 21px);
+    --text-sm: calc(var(--text-base) / 1.333);
+    --text-xs: calc(var(--text-sm) / 1.333);
+    --text-lg: calc(var(--text-base) * 1.333);
+    --text-xl: calc(var(--text-lg) * 1.333);
+    --text-2xl: calc(var(--text-xl) * 1.333);
+    --baseline: 8px;
+    --leading-tight: 1.2;
+    --leading-snug: 1.35;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.618;
+    --leading-loose: 1.8;
+    --space-1: calc(var(--baseline) * 1);
+    --space-2: calc(var(--baseline) * 2);
+    --space-3: calc(var(--baseline) * 3);
+    --space-4: calc(var(--baseline) * 4);
+    --space-5: calc(var(--baseline) * 5);
+    --space-6: calc(var(--baseline) * 6);
+    --space-8: calc(var(--baseline) * 8);
+    --space-10: calc(var(--baseline) * 10);
+    --space-13: calc(var(--baseline) * 13);
+    --measure: 65ch;
+    --measure-narrow: 55ch;
+    --measure-wide: 75ch;
+    --gutter: clamp(16px, 4vw, 24px);
+    --ink: #1a1917;
+    --ink-muted: #4a4744;
+    --ink-subtle: #6a6662;
+    --ink-faint: #8a8580;
+    --ink-ghost: #b5b0ab;
+    --ink-whisper: #d4d0cc;
+    --ink-hint: #e8e5e2;
+    --paper: #fefdfb;
+    --paper-tint: #f5f3f0;
+    --kern-tight: -0.02em;
+    --kern-snug: -0.01em;
+    --kern-normal: 0;
+    --kern-loose: 0.015em;
+    --kern-wide: 0.04em;
+    --kern-caps: 0.08em;
+    --optical-margin: -0.03em;
+}
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    hanging-punctuation: first last;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body {
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-relaxed);
+    color: var(--ink);
+    background: var(--paper);
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1, "dlig" 1, "onum" 1, "pnum" 1;
+    font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    font-kerning: normal;
+}
+.container {
+    max-width: calc(var(--measure) + var(--space-8));
+    margin-inline: auto;
+    padding: var(--space-10) var(--gutter) var(--space-8);
+}
+.back-nav { margin-bottom: var(--space-8); }
+.back-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.back-nav a:hover { color: var(--ink); }
+.article-header {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--ink-hint);
+}
+.article-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-meta {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+    margin-top: var(--space-3);
+}
+.article-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+.article-meta a:hover {
+    color: var(--ink-muted);
+    text-decoration-color: var(--ink-ghost);
+}
+/* Companion open-source repository link — rendered when `repo` metadata is set.
+   Monochrome ink on warm paper to sit native to the typographic system;
+   the GitHub mark carries the recognition, the hairline frame the prominence. */
+.repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    max-width: 100%;
+    padding: 10px var(--space-3) 10px calc(var(--space-2) + 2px);
+    border: 1px solid var(--ink-whisper);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: border-color 200ms ease, color 200ms ease,
+                background 200ms ease, box-shadow 200ms ease;
+}
+.repo-link:hover {
+    border-color: var(--ink-faint);
+    color: var(--ink);
+    background: var(--paper-tint);
+    box-shadow: 0 2px 12px rgba(26, 25, 23, 0.07);
+}
+.repo-link:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; }
+.repo-link__mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    color: var(--ink);
+    transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.repo-link:hover .repo-link__mark { transform: rotate(-7deg) scale(1.06); }
+.repo-link__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; line-height: var(--leading-tight); }
+.repo-link__label {
+    font-family: var(--font-caption);
+    font-size: var(--text-xs);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    transition: color 200ms ease;
+}
+.repo-link:hover .repo-link__label { color: var(--ink-subtle); }
+.repo-link__url {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    letter-spacing: var(--kern-snug);
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.repo-link__arrow {
+    flex: none;
+    margin-left: var(--space-1);
+    color: var(--ink-ghost);
+    transition: transform 200ms ease, color 200ms ease;
+}
+.repo-link:hover .repo-link__arrow { transform: translateX(3px); color: var(--ink-faint); }
+@media (max-width: 400px) { .repo-link__arrow { display: none; } }
+/* TOC from pandoc */
+nav#TOC {
+    margin: 0 0 var(--space-8);
+    padding: var(--space-4) 0 var(--space-4) var(--space-4);
+    border-top: 1px solid var(--ink-hint);
+    border-bottom: 1px solid var(--ink-hint);
+}
+nav#TOC ul { list-style: none; padding: 0; }
+nav#TOC li { margin: 0.35rem 0; }
+nav#TOC a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-hint);
+    transition: border-color 0.2s;
+    font-size: var(--text-sm);
+}
+nav#TOC a:hover { border-color: var(--ink-muted); }
+.article-body { font-variant-ligatures: common-ligatures discretionary-ligatures contextual; }
+.article-body p {
+    margin-bottom: var(--space-3);
+    max-width: var(--measure);
+    line-height: var(--leading-loose);
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+    hyphenate-limit-lines: 2;
+}
+.article-body h1, .article-body .level1 > h2:first-child {
+    font-family: var(--font-subhead);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h2 {
+    font-family: var(--font-subhead);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: var(--kern-snug);
+    line-height: var(--leading-snug);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+}
+.article-body a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    text-decoration-skip-ink: auto;
+    transition: text-decoration-color 180ms ease;
+}
+.article-body a:hover { text-decoration-color: var(--ink-muted); }
+.article-body blockquote {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--ink-hint);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.article-body hr {
+    border: none;
+    height: 1px;
+    background: var(--ink-hint);
+    margin: var(--space-8) 0;
+    max-width: 4rem;
+}
+.article-body code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--paper-tint);
+    padding: 0.12em 0.35em;
+}
+.article-body pre {
+    background: #0d0d0c;
+    color: #c8c5b8;
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-4) 0;
+    font-size: var(--text-sm);
+}
+.article-body th {
+    text-align: left;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+    letter-spacing: var(--kern-loose);
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 2px solid var(--ink-hint);
+}
+.article-body td {
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 1px solid var(--ink-hint);
+    vertical-align: top;
+}
+.article-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.author-byline {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.author-byline strong { font-style: normal; font-weight: 600; }
+.footer-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.footer-nav a:hover { color: var(--ink); }
+.contact-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+}
+::selection { background: var(--ink); color: var(--paper); }
+a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; border-radius: 2px; }
+@media (max-width: 680px) {
+    :root { --text-base: clamp(17px, 1rem + 0.2vw, 19px); }
+    .container { padding: var(--space-6) var(--gutter) var(--space-5); }
+    .article-title { font-size: var(--text-xl); }
+    .article-body h1, .article-body .level1 > h2:first-child { font-size: var(--text-lg); }
+    .article-body h2 { font-size: calc(var(--text-base) * 1.1); }
+    .article-footer { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+@media (max-width: 400px) {
+    :root { --text-base: 16px; }
+    .container { padding: var(--space-5) var(--space-2) var(--space-4); }
+}
+@media (min-width: 1200px) { .container { padding-top: var(--space-13); } }
+@media print {
+    :root { --ink: #000; --paper: #fff; }
+    body { font-size: 11pt; line-height: 1.4; }
+    .container { max-width: 100%; padding: 0; }
+    .back-nav, .contact-footer { display: none; }
+    nav#TOC { display: none; }
+    a { text-decoration: none !important; color: var(--ink) !important; }
+    .article-body h1, .article-body h2 { page-break-after: avoid; }
+    p { orphans: 3; widows: 3; }
+}
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(var(--gutter), env(safe-area-inset-left));
+        padding-right: max(var(--gutter), env(safe-area-inset-right));
+    }
+}
+
+/* Wiring in a mathematics renderer made display equations set on one unwrappable
+   line, so a long equation pushed the page wider than the viewport and readers on
+   ordinary laptops lost the right-hand side. Let each equation scroll inside its own
+   box instead of widening the page. Wide tables get the same treatment. */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
+.katex-display::-webkit-scrollbar { height: 6px; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 600px) {
+  .paper-nav-title { display: none; }
+}
+</style>
+<link rel="stylesheet" href="/paper.css">
+</head>
+<body>
+<div class="container">
+    <nav class="back-nav">
+        <a href="/">← Research</a>
+    </nav>
+    <article>
+        <header class="article-header">
+            <h1 class="article-title">The Chain of Evidence</h1>
+            <p class="article-meta">April 2026 · Raeez Lorgat</p>
+                    </header>
+
+        
+        <div class="article-body">
+        <section id="the-chain-of-evidence" class="level1">
+        <h1>The Chain of Evidence</h1>
+        <p><strong>Raeez Lorgat, 2026</strong></p>
+        <hr />
+        <p>Border crossings produce records of what happened, when, and under which conditions. Goods and money receive different paperwork. A corporation foreign-qualifying in a new jurisdiction, a fund distributing to investors abroad, and a fiduciary transferring assets between regulatory regimes each produce their own records.</p>
+        <p>Courts, regulators, and counterparties rely on these records to reconstruct events. The records form an evidence chain, but they remain scattered across incompatible systems and formats, without a structural guarantee of completeness or integrity. Most institutional systems therefore cannot answer the question “did this sequence of crossings occur in this order, and has anyone tampered with the record?”</p>
+        <p>A hash chain makes the sequence tamper-evident. Haber and Stornetta (1991) first applied it to this problem, and the same structure underlies git and blockchains. Each record includes its predecessor’s hash, so modifying a record changes its hash and breaks the subsequent links through to the present. A party controlling storage can rewrite the whole chain, but anyone holding the current head can recompute backward and detect the tampering.</p>
+        <p>This paper applies that idea to cross-jurisdictional corridor crossings. A zone is a jurisdiction that runs one kernel, the software that is the sole writer of its compliance-sensitive state; a corridor is a bilateral channel between two zones through which an entity’s compliance state passes under recognition terms the two zones have agreed in a corridor instrument; a crossing is one passage through it. The paper states what the records must contain, what rules govern the chain’s growth, and what each layer of the construction proves.</p>
+        <section id="the-corridor-receipt" class="level2">
+        <h2>The corridor receipt</h2>
+        <p>Every corridor crossing produces one receipt with one cryptographic commitment. This receipt is the atomic unit of the evidence chain.</p>
+        <p>A receipt identifies the corridor, direction, time, sequence number, and the entity’s state before and after the crossing. It also records the governing regulatory packs and the compliance evaluations performed. Regulatory packs are the versioned, machine-readable rule sets each jurisdiction publishes. Three further fields describe the chain.</p>
+        <p>The predecessor root ties the receipt to everything that came before: it must equal the previous receipt’s next root. The next root is the digest of this receipt’s own canonical content, computed by the commitment function below; because that content includes the entity’s post-crossing state, one digest serves as both the chain link and the commitment to the state the crossing produced. The accumulator root commits to the chain’s entire history before this receipt; its role is explained with the Merkle Mountain Range below.</p>
+        <p>The commitment function – the function that computes the next root from the receipt’s content – must be deterministic and canonical. Two systems processing the same receipt must produce the same digest. Determinism fails by default when the receipt contains sets (which have no canonical ordering), timestamps (which have multiple valid representations), and optional fields (whose absence can be encoded in more than one way). Canonical serialization removes every such ambiguity. The JSON Canonicalization Scheme (RFC 8785) fixes the encoding – object keys sorted, one form for each number and string – and deliberately preserves array order and leaves timestamps and optional fields to the application. The receipt schema fixes those three: sets are deduplicated and lexicographically sorted before they are encoded as arrays, timestamps are normalized to a fixed format, and optional fields follow a documented convention. The receipt is serialized into canonical bytes and hashed with SHA-256 (FIPS 180-4).</p>
+        <p>Two fields are excluded from the digest. The proof field carries the appender’s signature and auxiliary verification artifacts, such as inclusion paths and folding material. The signature is computed over the next root, so it cannot be part of the content that root hashes. The next root itself is excluded because finding bytes that contain their own SHA-256 digest is computationally infeasible. All remaining fields enter the digest.</p>
+        <p>Each endpoint of a corridor keeps its own chain of the crossings its kernel records. At each append, the kernel records the crossing, appends the receipt in the atomic step described below, and signs the next root. The signature travels in the proof field. The zone that keeps this chain is its operator, and the corridor and operator together identify the chain. The sections below treat one such chain. Its invariants make a bad append detectable, while the signature attributes that append to the operator’s key.</p>
+        </section>
+        <section id="the-append-rule" class="level2">
+        <h2>The append rule</h2>
+        <p>A receipt chain is an ordered, gap-free, hash-linked sequence with three invariants enforced on every append.</p>
+        <p>First, sequence numbers are gap-free. Receipt <span class="math inline">n</span> must carry sequence number <span class="math inline">n</span>, so appends cannot skip a receipt or insert one out of order. If the chain has twelve receipts, an append with sequence number 14 is rejected.</p>
+        <p>Second, linkage to the current state is exact. The new receipt’s predecessor root must equal the chain’s current head, and its accumulator root must equal the accumulator’s current root. If either fails, the receipt is claiming to extend a chain state that does not match reality: it was computed against stale state, or someone is trying to fork the chain.</p>
+        <p>Third, commitment integrity holds. The new receipt’s next root must equal the commitment function applied to its content. If it does not, the receipt was corrupted in transit or modified after commitment.</p>
+        <p>Only after all three checks pass does the chain advance: the head moves to the new receipt’s next root, the receipt joins the sequence, and its next root is pushed into the accumulator. The checks and the advance are one atomic step. Appends are serialized per chain and the head moves by compare-and-swap, so a receipt computed against a head that has since moved fails the linkage check and is re-derived against the new head; two appends never interleave.</p>
+        <p>The append rule fails closed: a receipt that fails any check is rejected entirely. Partial acceptance, “append but flag for review,” and deferred validation are all excluded. Refusing the append preserves the chain’s invariants and evidentiary value.</p>
+        </section>
+        <section id="why-a-hash-chain-is-not-enough" class="level2">
+        <h2>Why a hash chain is not enough</h2>
+        <p>A hash chain answers one question well: has any entry been modified since it was committed? Walk the chain from the head backward, recomputing digests at each step. If every computed digest matches, the chain is intact; any mismatch is tampering.</p>
+        <p>Checking whether a specific receipt was included, or whether it preceded another receipt, also requires a linear scan. A corridor with thousands of crossings needs a more efficient way to answer these point queries.</p>
+        <p>A Merkle Mountain Range answers them in logarithmic time. The MMR is an append-only accumulator (Todd, 2012; Bünz et al., 2020). Every append pushes the receipt’s next root as the next leaf, so a receipt’s leaf index equals its sequence number. The MMR maintains a set of perfect binary trees – the peaks – that together commit to all leaves. To prove that a receipt is included, produce the Merkle path from its leaf to its peak plus the set of peaks; the verifier recomputes the path, bags the peaks, and checks the result against the MMR root. And because leaf order is append order, two inclusion proofs also settle precedence: the receipt at the lower index was committed first.</p>
+        <p>The MMR’s hashing is domain-separated: leaf digests are computed over bytes prefixed with one constant, internal nodes with another – the discipline of Certificate Transparency (RFC 6962), which keeps append-only Merkle logs of the web’s certificate issuance. Without it, an attacker could construct a payload that is simultaneously a valid leaf and a valid internal node, and lead the verifier to accept a proof for content that was never appended.</p>
+        <p>A verifier who skips the chain walk must obtain the MMR root from an authenticated source. Otherwise, an operator can substitute a root and prove inclusion of arbitrary content. Each receipt’s hashed content therefore includes the MMR root over all preceding receipts. An authenticated head authenticates the accumulator over that entire prior history. The committed root excludes only the head itself, which the verifier holds directly.</p>
+        <p>The operator’s signature makes the head attributable to the operator. The watcher quorum described next makes it a head a party may act on. The accumulator root inherits the head’s authentication, allowing inclusion proofs to verify without a chain walk.</p>
+        <p>The chain head commits to the full ordered history. Against that commitment, the MMR proves a receipt’s inclusion and position efficiently. The two mechanisms supply tamper-evident sequence and efficient point queries, respectively.</p>
+        </section>
+        <section id="fork-detection" class="level2">
+        <h2>Fork detection</h2>
+        <p>Hash chains have a well-known vulnerability: equivocation. A malicious chain operator can maintain two chains that diverge from a common ancestor, presenting one version to one party and a different version to another. Both chains are internally valid – correct hash links, correct sequence numbers, correct commitments. They simply disagree about what happened after the fork point.</p>
+        <p>Two signed receipts can prove equivocation directly. In a gap-free chain, the operator signs exactly one receipt at each sequence number. Suppose two receipts belong to the same corridor and are signed under the same operator’s key. If they have the same sequence number and distinct digests, any party holding both has self-contained, attributable proof of two signed histories. No quorum strengthens this proof, and no honest operator can produce such a pair.</p>
+        <p>Detecting that pair requires the two views to meet. An operator serving one history to each party can evade every local check and cause damage before anyone obtains both. Watchers bring views together systematically and within bounded time. The companion <em>Sovereign Jurisdiction Network</em> paper specifies the watcher layer in full. This section states what the receipt chain requires of it.</p>
+        <p>A corridor admits a finite set <span class="math inline">W</span> of watchers, fixed by its registration policy. Each watcher holds a registered Ed25519 key (Bernstein et al., 2012). The operator posts the bond the corridor instrument requires of its endpoints, and each watcher posts a bond at registration. A bond custodian holds both kinds of bond as an escrow agent outside either endpoint’s unilateral control. Proven equivocation makes either bond slashable. Slashing requires an accepted proof and action through the custodian, never the detector’s output alone.</p>
+        <p>A watcher reads each receipt as it is appended, verifies the operator’s signature, and attests only heads that verify. It signs each attestation over five values: the chain identifier, which names the corridor and its operator; the observed head’s digest and sequence number; the watcher’s local timestamp; and the corridor epoch, the monotone period counter the protocol advances. Although the digest commits to the sequence number, the attestation also carries that number in the clear. The fork predicate below is then decidable from attestations alone.</p>
+        <p>Attestations are collected per corridor epoch, which bounds only collection latency. An attestation is discarded if its timestamp falls outside the named epoch by more than the corridor’s configured clock-skew tolerance. The tolerance is a deployment parameter, set to five minutes in the reference profile.</p>
+        <p>A watcher attests at most one head per sequence number of a chain. Honest observation yields one receipt at each height. A watcher served two heads at one height, both under the operator’s signature, already holds the operator’s equivocation proof and files it instead. A key signing two distinct digests at one sequence number of one chain is itself equivocating. Both its attestations are discarded from every count, and its bond is slashed.</p>
+        <p>A fork is declared when a chain’s attestation record, read whole and not by epoch, contains two distinct head digests at the same sequence number, each backed by at least <span class="math inline">\theta</span> attestations from distinct watchers, where <span class="math inline">\theta</span> is a corridor parameter bounded below by <span class="math inline">\lceil |W|/3 \rceil + 1</span>. Equal height distinguishes a fork from honest growth. Each append changes the head, so distinct digests at distinct heights do not establish a fork. Two at one height establish two histories.</p>
+        <p>Checking the whole record prevents a rewind attack across epochs. A branch served late gathers its <span class="math inline">\theta</span> attestations at height <span class="math inline">h</span> after the genuine head at <span class="math inline">h</span> gathered its own. An epoch-local check would find no conflict and admit both heads under the reliance rule below. Since the predicate depends only on the attestation set, every party holding that set reaches the same verdict regardless of arrival order.</p>
+        <p>The bound follows from quorum arithmetic. Assume at most <span class="math inline">f = \lceil |W|/3 \rceil</span> watchers are faulty. Any <span class="math inline">f + 1</span> attestations from distinct watchers include at least one honest watcher. A digest reaching <span class="math inline">\theta</span> was therefore served under the operator’s signature to an honest observer. Two such digests at one height prove that the operator signed conflicting heads. Each quorum’s honest watcher holds the signed receipt it verified, so together the quorums hold the direct signature pair described above. That pair proves equivocation without the fault bound.</p>
+        <p>Detection establishes equivocation and leaves the underlying transactions for adjudication. The protocol does not select a branch, because any selection rule gives influence to whoever controls its inputs. Under the fault bound, a verifier can check the two quorum-backed attestation sets as a signed proof of equivocation from the attestations alone. The sets concern one chain and one sequence number, with two digests and at least <span class="math inline">\theta</span> distinct watcher signatures behind each. They provide grounds to slash the operator’s bond, suspend or demote the corridor, and support action by counterparties, regulators, and courts. The receipts and their parties must then establish which branch, if either, reflects the crossings that occurred. The fork proof establishes the operator’s false statement, after which adjudication proceeds over authenticated records.</p>
+        <p>The scheme has three boundaries, all set by <span class="math inline">\theta</span>. Suppression: detection fails when more than <span class="math inline">|W| - \theta</span> watchers collude with the operator. Fewer than <span class="math inline">\theta</span> honest watchers remain, so the head served to them cannot gather a quorum. Framing: <span class="math inline">\theta</span> colluding watchers can attest a digest the operator never signed at a height the genuine head also reaches. They can thereby fabricate a fork proof against an honest operator. At <span class="math inline">|W| = 10</span> with <span class="math inline">\theta</span> at its floor of five, framing takes five watchers and suppression takes six.</p>
+        <p>Detection and its soundness both rest on the fault bound <span class="math inline">f</span>. Suppression takes <span class="math inline">|W| - \theta + 1</span> colluders and framing takes <span class="math inline">\theta</span>. With <span class="math inline">\theta</span> in the window <span class="math inline">f + 1 \le \theta \le |W| - f</span>, both need more than <span class="math inline">f</span> colluders. One attack hides a fork, while the other manufactures one.</p>
+        <p>Partition: an operator can serve a substitute head to a counterparty and fewer than <span class="math inline">\theta</span> watchers, raising no quorum and therefore no fork. The reliance rule defeats this substitute: a party acts only on a head backed by <span class="math inline">\theta</span> attestations. An unbacked head remains the operator’s bare assertion.</p>
+        <p>Bonds price only proven equivocation. The operator forfeits its bond on a fork proof, and a watcher forfeits its bond on two attestations at one height of one chain. Silent collusion violates no slashing condition stated here. Watchers may withhold attestations of the head served to honest observers or attest only the substitute head, without forfeiting their bonds. The only mitigation stated here is diversity among watchers with misaligned incentives, such as the corridor partner, the operator’s regulator, and independent auditors. This is the known boundary of accountability by observation (Haeberlen, Kouznetsov, and Druschel, 2007). The companion paper examines what watcher independence can and cannot mean.</p>
+        </section>
+        <section id="content-addressed-asset-identity" class="level2">
+        <h2>Content-addressed asset identity</h2>
+        <p>The receipt must identify the asset crossing the corridor. A smart asset is a digitally represented economic instrument whose lifecycle is governed by the compliance rules of the jurisdictions it touches. Its identity must remain usable across systems and independent of a naming authority’s continued operation and good behavior. Database keys are local to one system, URLs change, and authority-assigned identifiers retain that dependence.</p>
+        <p>Content addressing meets all three constraints: the asset’s identity is the digest of its genesis record. The genesis record fixes the asset’s origin – the creator, identified by a public key rather than an entry in anyone’s registry; the jurisdiction of creation; the instrument’s metadata; the creation time; and a creator-chosen nonce. None of this changes after creation. By collision resistance, distinct genesis records yield distinct identifiers, and the nonce makes intended-distinct assets distinct records: a creator issuing a batch of otherwise-identical instruments in the same instant separates them by nonce. The identifier carries an algorithm tag alongside the digest, so the hash function can be replaced without invalidating existing identifiers – the scheme of the companion <em>Content-Addressed Identity</em> paper, which also treats the one thing the identifier deliberately does not establish: that the genesis record corresponds to a creation act some sovereign recognizes. That is supplied by attestation, and attestations bind to the digest.</p>
+        <p>IPFS and git use the same principle of deriving an object’s identity from its content. Two systems independently computing the same asset’s genesis digest arrive at the same identifier without coordination or a registry lookup. The identifier is a deterministic function of the thing it identifies.</p>
+        <p>The genesis digest identifies the asset’s origin. It does not establish compliance, transfer permission, or the rules governing the asset. The compliance evaluation at each corridor crossing answers those questions, and the receipt chain records that evaluation.</p>
+        </section>
+        <section id="the-layered-proof-stack" class="level2">
+        <h2>The layered proof stack</h2>
+        <p>The full system makes five distinct proof claims, each answered by a different mechanism.</p>
+        <p><em>Transition commitment</em>: “this receipt’s digest is a deterministic function of its content.” Answered by the canonical commitment function.</p>
+        <p><em>Ordered append</em>: “this receipt extends the chain’s current head, in sequence, without gaps.” Answered by the three-invariant append rule.</p>
+        <p><em>Inclusion and order</em>: “this receipt is in the committed history, at this position.” Answered by an MMR inclusion proof against an authenticated head.</p>
+        <p><em>Equivocation evidence</em>: “the operator signed two histories.” Answered by two operator-signed receipts of one chain at one sequence number with distinct digests, or by two quorum-backed watcher attestation sets at one sequence number drawn from one chain’s whole attestation record.</p>
+        <p><em>Verification without the data</em>: “this chain is well-formed, checkable by a verifier who holds an attested head and nothing else.” Its mechanism remains a design target, with the obligations stated below.</p>
+        <p>Separate checks identify failures of commitment, sequencing, inclusion, attestation, or folding. A single “the chain is valid” check would leave those causes ambiguous and make the system harder to audit.</p>
+        <p>Walking a chain of <span class="math inline">n</span> receipts costs <span class="math inline">O(n)</span> hashes. SHA-256 streams at gigabytes per second on commodity hardware. A million receipts of ten kilobytes each are ten gigabytes, which a verifier holding the data walks in seconds. The constraint is access to the complete receipt data. A corridor counterparty, regulator, or court may need verification without holding every receipt or being entitled to do so. Receipts carry state that does not all cross jurisdictional boundaries. The target is therefore a proof of a well-formed chain that can travel without the chain itself.</p>
+        <p>The intended mechanism is incrementally verifiable computation built on a folding scheme (Kothapalli, Setty, and Tzialla, 2022). Fix the step relation <span class="math inline">F</span>, which holds at step <span class="math inline">i</span> exactly when the receipt’s sequence number is <span class="math inline">i</span>, its predecessor root equals the previous receipt’s next root, its next root equals the commitment function applied to its canonical content, and its accumulator root correctly extends the previous receipt’s. A folding scheme reduces checking two claimed executions of <span class="math inline">F</span> to checking one, so a prover maintains a running instance that accumulates the whole chain, folding each receipt in as it is appended. The running instance does not grow as the chain does, and the final proof – after a compression step, which is also where zero knowledge enters if it is wanted – has size and verification cost governed by the circuit for <span class="math inline">F</span>, not by <span class="math inline">n</span>.</p>
+        <p>The relation fixes what is proved, and two versions differ by orders of magnitude in proving cost. With <span class="math inline">F</span> as stated, the proof establishes that the chain is well-formed: correctly sequenced, correctly linked, correctly committed. It does not establish that the compliance evaluations recorded in the receipts were correctly computed; for that, the evaluation itself – the per-domain verdict computation the companion <em>How Compliance Composes</em> paper specifies – must move inside <span class="math inline">F</span>. What the construction delivers now is the <span class="math inline">O(n)</span> walk for a verifier who holds the data and the <span class="math inline">O(\log n)</span> inclusion proof for one who holds an authenticated head. The folded chain proof is contingent on fixing <span class="math inline">F</span>’s circuit and on the soundness of the folding backend, and the construction claims nothing stronger until both are discharged.</p>
+        </section>
+        <section id="why-this-structure-matters" class="level2">
+        <h2>Why this structure matters</h2>
+        <p>The construction uses established hash chains (Haber and Stornetta, 1991), Merkle trees (Merkle, 1987), content addressing, and Ed25519 signatures. Its contribution is their application to cross-jurisdictional evidence.</p>
+        <p>Each layer answers a specific question, and the layers compose into an auditable proof stack for corridor crossings. Signed receipts record what happened, the chain fixes their order, and the MMR supports efficient point queries. Watchers bring conflicting views together within bounded time, so operator signatures can establish attribution and bonds can be slashed. Folding would permit verification without the data once its proof obligations are discharged. The genesis digest identifies the assets being transferred.</p>
+        <p>Each layer has its own verification rule, threat model, and possible failures. At the scale of millions of corridor crossings, diagnosing those failures requires distinguishing malformed receipts, chain-order violations, accumulator omissions, conflicting signed heads, and failed folds.</p>
+        <p>Courts, regulators, and counterparties need a diagnosis specific enough to act on. A bare “verification failed” does not supply one. “The predecessor linkage broke between receipts 4,271 and 4,272, and here is the signature over the bad append” identifies both the failure and its attribution.</p>
+        <p>Every corridor crossing must produce a receipt linked to its predecessor. The MMR, watchers, folding scheme, and content addressing extend that requirement into efficient queries, attributable faults, and verification at scale, subject to the obligations above.</p>
+        </section>
+        <section id="references" class="level2">
+        <h2>References</h2>
+        <p>Bernstein, D. J., Duif, N., Lange, T., Schwabe, P., and Yang, B.-Y. High-Speed High-Security Signatures. Journal of Cryptographic Engineering, 2(2):77-89, 2012.</p>
+        <p>Bünz, B., Kiffer, L., Luu, L., and Zamani, M. FlyClient: Super-Light Clients for Cryptocurrencies. In Proceedings of the IEEE Symposium on Security and Privacy (S&amp;P), 2020.</p>
+        <p>Haber, S. and Stornetta, W. S. How to Time-Stamp a Digital Document. Journal of Cryptology, 3(2):99-111, 1991.</p>
+        <p>Haeberlen, A., Kouznetsov, P., and Druschel, P. PeerReview: Practical Accountability for Distributed Systems. In Proceedings of the ACM SIGOPS Symposium on Operating Systems Principles (SOSP), 2007.</p>
+        <p>Kothapalli, A., Setty, S., and Tzialla, I. Nova: Recursive Zero-Knowledge Arguments from Folding Schemes. In Advances in Cryptology (CRYPTO), LNCS 13510, Springer, 2022.</p>
+        <p>Laurie, B., Langley, A., and Kasper, E. Certificate Transparency. RFC 6962, Internet Engineering Task Force, 2013.</p>
+        <p>Merkle, R. C. A Digital Signature Based on a Conventional Encryption Function. In Advances in Cryptology (CRYPTO), LNCS 293, Springer, 1987.</p>
+        <p>National Institute of Standards and Technology. Secure Hash Standard (SHS). FIPS PUB 180-4, 2015.</p>
+        <p>Rundgren, A., Jordan, B., and Erdtman, S. JSON Canonicalization Scheme (JCS). RFC 8785, Internet Engineering Task Force, 2020.</p>
+        <p>Todd, P. Merkle Mountain Ranges. OpenTimestamps documentation, 2012.</p>
+        </section>
+        </section>
+        </div>
+
+        <footer class="article-footer">
+            <span class="author-byline"><strong>Raeez Lorgat</strong> · Managing Partner, Momentum</span>
+            <nav class="footer-nav">
+                <a href="/">← All Papers</a>
+            </nav>
+        </footer>
+        <div class="contact-footer">
+            <span>&copy; 2026 Momentum</span>
+        </div>
+    </article>
+</div>
+<script src="/paper.js" defer></script>
+</body>
+</html>

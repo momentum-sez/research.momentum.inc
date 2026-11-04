@@ -1,0 +1,230 @@
+/* paper.css — Reading enhancement layer for research.momentum.inc
+   Injected into all paper pages. Works alongside each paper's
+   existing styles without overriding them. */
+
+/* ── Reading progress bar ── */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #8b4c3a, #c4956a);
+  z-index: 99999;
+  transition: width 80ms linear;
+  pointer-events: none;
+}
+
+/* ── Back-to-index nav ── */
+.paper-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9998;
+  padding: 12px clamp(16px, 4vw, 32px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'garamond-premier-pro', 'EB Garamond', Garamond, serif;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  background: rgba(254, 253, 251, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(26, 25, 23, 0.06);
+}
+
+.paper-nav.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.paper-nav a {
+  color: #7a7672;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.paper-nav a:hover {
+  color: #2c2c2c;
+}
+
+.paper-nav .paper-nav-title {
+  color: #2c2c2c;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 14px;
+}
+
+/* ── Floating TOC ── */
+.floating-toc {
+  position: fixed;
+  bottom: clamp(24px, 5vh, 48px);
+  right: clamp(16px, 3vw, 32px);
+  z-index: 9997;
+  background: #fefdfb;
+  border: 1px solid rgba(26, 25, 23, 0.08);
+  box-shadow: 0 4px 20px rgba(26, 25, 23, 0.08), 0 1px 3px rgba(26, 25, 23, 0.04);
+  max-width: 280px;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 20px 20px 16px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(26, 25, 23, 0.1) transparent;
+}
+
+.floating-toc.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.floating-toc-label {
+  font-family: 'garamond-premier-pro', 'EB Garamond', Garamond, serif;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #7a7672;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.floating-toc ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.floating-toc li {
+  margin-bottom: 4px;
+}
+
+.floating-toc li.toc-h3 {
+  padding-left: 14px;
+}
+
+.floating-toc a {
+  font-family: 'garamond-premier-pro', 'EB Garamond', Garamond, serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #7a7672;
+  text-decoration: none;
+  transition: color 0.15s;
+  display: block;
+  padding: 2px 0;
+}
+
+.floating-toc a:hover {
+  color: #2c2c2c;
+}
+
+.floating-toc a.active {
+  color: #8b4c3a;
+}
+
+/* Collapse toggle */
+.floating-toc-toggle {
+  position: fixed;
+  bottom: clamp(24px, 5vh, 48px);
+  right: clamp(16px, 3vw, 32px);
+  z-index: 9996;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(26, 25, 23, 0.1);
+  background: #fefdfb;
+  box-shadow: 0 2px 8px rgba(26, 25, 23, 0.06);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'garamond-premier-pro', 'EB Garamond', Garamond, serif;
+  font-size: 14px;
+  color: #7a7672;
+  transition: color 0.2s, border-color 0.2s;
+  opacity: 0;
+}
+
+.floating-toc-toggle:hover {
+  color: #2c2c2c;
+  border-color: rgba(26, 25, 23, 0.2);
+}
+
+.floating-toc-toggle.visible {
+  opacity: 1;
+}
+
+/* ── Smooth scroll ── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Keep linked headings below the fixed reading navigation. */
+.article-body [id],
+.essay-body [id] {
+  scroll-margin-top: 4rem;
+}
+
+/* Keep equation labels in the scrollable equation's layout. */
+.katex-display > .katex > .katex-html:has(> .tag) {
+  display: flow-root;
+  width: max-content;
+  min-width: 100%;
+}
+.katex-display > .katex > .katex-html > .tag {
+  position: static;
+  float: right;
+  margin-left: 1em;
+}
+
+/* The contents panel needs a side margin clear of the reading column. */
+@media (max-width: 1360px) {
+  .floating-toc,
+  .floating-toc-toggle {
+    display: none;
+  }
+}
+
+/* ── Mobile: hide floating TOC, show simplified nav ── */
+@media (max-width: 768px) {
+  .floating-toc {
+    display: none;
+  }
+  .floating-toc-toggle {
+    display: none;
+  }
+  .paper-nav .paper-nav-title {
+    font-size: 12px;
+  }
+}
+
+/* ── Print: hide overlays ── */
+@media print {
+  .reading-progress,
+  .paper-nav,
+  .floating-toc,
+  .floating-toc-toggle {
+    display: none !important;
+  }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .reading-progress {
+    transition: none;
+  }
+  .paper-nav,
+  .floating-toc {
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

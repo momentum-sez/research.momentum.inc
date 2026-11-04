@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Programmable Institutions - Raeez Lorgat</title>
+<meta name="description" content="Authority, records, and workflows for institutions operated through software.">
+<meta name="author" content="Raeez Lorgat">
+<meta property="og:title" content="Programmable Institutions">
+<meta property="og:description" content="Authority, records, and workflows for institutions operated through software.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://research.momentum.inc/og-image.png">
+<meta property="og:url" content="https://research.momentum.inc/papers/programmable-institutions.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+<link rel="canonical" href="https://research.momentum.inc/papers/programmable-institutions.html">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Programmable Institutions",
+    "author": { "@type": "Person", "name": "Raeez Lorgat", "url": "https://research.momentum.inc" },
+    "datePublished": "2026-09-06",
+    "description": "Authority, records, and workflows for institutions operated through software."
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8T5J8M28"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JP8T5J8M28');
+</script>
+<link rel="stylesheet" href="https://use.typekit.net/zlu2quo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --font-text: 'garamond-premier-pro', 'EB Garamond', 'Hoefler Text', 'Baskerville', Garamond, serif;
+    --font-display: 'garamond-premier-pro-display', var(--font-text);
+    --font-caption: 'garamond-premier-pro-caption', var(--font-text);
+    --font-subhead: 'garamond-premier-pro-subhead', var(--font-text);
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    --text-base: clamp(18px, 1.125rem + 0.25vw, 21px);
+    --text-sm: calc(var(--text-base) / 1.333);
+    --text-xs: calc(var(--text-sm) / 1.333);
+    --text-lg: calc(var(--text-base) * 1.333);
+    --text-xl: calc(var(--text-lg) * 1.333);
+    --text-2xl: calc(var(--text-xl) * 1.333);
+    --baseline: 8px;
+    --leading-tight: 1.2;
+    --leading-snug: 1.35;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.618;
+    --leading-loose: 1.8;
+    --space-1: calc(var(--baseline) * 1);
+    --space-2: calc(var(--baseline) * 2);
+    --space-3: calc(var(--baseline) * 3);
+    --space-4: calc(var(--baseline) * 4);
+    --space-5: calc(var(--baseline) * 5);
+    --space-6: calc(var(--baseline) * 6);
+    --space-8: calc(var(--baseline) * 8);
+    --space-10: calc(var(--baseline) * 10);
+    --space-13: calc(var(--baseline) * 13);
+    --measure: 65ch;
+    --measure-narrow: 55ch;
+    --measure-wide: 75ch;
+    --gutter: clamp(16px, 4vw, 24px);
+    --ink: #1a1917;
+    --ink-muted: #4a4744;
+    --ink-subtle: #6a6662;
+    --ink-faint: #8a8580;
+    --ink-ghost: #b5b0ab;
+    --ink-whisper: #d4d0cc;
+    --ink-hint: #e8e5e2;
+    --paper: #fefdfb;
+    --paper-tint: #f5f3f0;
+    --kern-tight: -0.02em;
+    --kern-snug: -0.01em;
+    --kern-normal: 0;
+    --kern-loose: 0.015em;
+    --kern-wide: 0.04em;
+    --kern-caps: 0.08em;
+    --optical-margin: -0.03em;
+}
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    hanging-punctuation: first last;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body {
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-relaxed);
+    color: var(--ink);
+    background: var(--paper);
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1, "dlig" 1, "onum" 1, "pnum" 1;
+    font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    font-kerning: normal;
+}
+.container {
+    max-width: calc(var(--measure) + var(--space-8));
+    margin-inline: auto;
+    padding: var(--space-10) var(--gutter) var(--space-8);
+}
+.back-nav { margin-bottom: var(--space-8); }
+.back-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.back-nav a:hover { color: var(--ink); }
+.article-header {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--ink-hint);
+}
+.article-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-meta {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+    margin-top: var(--space-3);
+}
+.article-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+.article-meta a:hover {
+    color: var(--ink-muted);
+    text-decoration-color: var(--ink-ghost);
+}
+/* Companion open-source repository link — rendered when `repo` metadata is set.
+   Monochrome ink on warm paper to sit native to the typographic system;
+   the GitHub mark carries the recognition, the hairline frame the prominence. */
+.repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    max-width: 100%;
+    padding: 10px var(--space-3) 10px calc(var(--space-2) + 2px);
+    border: 1px solid var(--ink-whisper);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: border-color 200ms ease, color 200ms ease,
+                background 200ms ease, box-shadow 200ms ease;
+}
+.repo-link:hover {
+    border-color: var(--ink-faint);
+    color: var(--ink);
+    background: var(--paper-tint);
+    box-shadow: 0 2px 12px rgba(26, 25, 23, 0.07);
+}
+.repo-link:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; }
+.repo-link__mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    color: var(--ink);
+    transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.repo-link:hover .repo-link__mark { transform: rotate(-7deg) scale(1.06); }
+.repo-link__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; line-height: var(--leading-tight); }
+.repo-link__label {
+    font-family: var(--font-caption);
+    font-size: var(--text-xs);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    transition: color 200ms ease;
+}
+.repo-link:hover .repo-link__label { color: var(--ink-subtle); }
+.repo-link__url {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    letter-spacing: var(--kern-snug);
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.repo-link__arrow {
+    flex: none;
+    margin-left: var(--space-1);
+    color: var(--ink-ghost);
+    transition: transform 200ms ease, color 200ms ease;
+}
+.repo-link:hover .repo-link__arrow { transform: translateX(3px); color: var(--ink-faint); }
+@media (max-width: 400px) { .repo-link__arrow { display: none; } }
+/* TOC from pandoc */
+nav#TOC {
+    margin: 0 0 var(--space-8);
+    padding: var(--space-4) 0 var(--space-4) var(--space-4);
+    border-top: 1px solid var(--ink-hint);
+    border-bottom: 1px solid var(--ink-hint);
+}
+nav#TOC ul { list-style: none; padding: 0; }
+nav#TOC li { margin: 0.35rem 0; }
+nav#TOC a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-hint);
+    transition: border-color 0.2s;
+    font-size: var(--text-sm);
+}
+nav#TOC a:hover { border-color: var(--ink-muted); }
+.article-body { font-variant-ligatures: common-ligatures discretionary-ligatures contextual; }
+.article-body p {
+    margin-bottom: var(--space-3);
+    max-width: var(--measure);
+    line-height: var(--leading-loose);
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+    hyphenate-limit-lines: 2;
+}
+.article-body h1, .article-body .level1 > h2:first-child {
+    font-family: var(--font-subhead);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h2 {
+    font-family: var(--font-subhead);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: var(--kern-snug);
+    line-height: var(--leading-snug);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+}
+.article-body a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    text-decoration-skip-ink: auto;
+    transition: text-decoration-color 180ms ease;
+}
+.article-body a:hover { text-decoration-color: var(--ink-muted); }
+.article-body blockquote {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--ink-hint);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.article-body hr {
+    border: none;
+    height: 1px;
+    background: var(--ink-hint);
+    margin: var(--space-8) 0;
+    max-width: 4rem;
+}
+.article-body code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--paper-tint);
+    padding: 0.12em 0.35em;
+}
+.article-body pre {
+    background: #0d0d0c;
+    color: #c8c5b8;
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-4) 0;
+    font-size: var(--text-sm);
+}
+.article-body th {
+    text-align: left;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+    letter-spacing: var(--kern-loose);
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 2px solid var(--ink-hint);
+}
+.article-body td {
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 1px solid var(--ink-hint);
+    vertical-align: top;
+}
+.article-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.author-byline {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.author-byline strong { font-style: normal; font-weight: 600; }
+.footer-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.footer-nav a:hover { color: var(--ink); }
+.contact-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+}
+::selection { background: var(--ink); color: var(--paper); }
+a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; border-radius: 2px; }
+@media (max-width: 680px) {
+    :root { --text-base: clamp(17px, 1rem + 0.2vw, 19px); }
+    .container { padding: var(--space-6) var(--gutter) var(--space-5); }
+    .article-title { font-size: var(--text-xl); }
+    .article-body h1, .article-body .level1 > h2:first-child { font-size: var(--text-lg); }
+    .article-body h2 { font-size: calc(var(--text-base) * 1.1); }
+    .article-footer { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+@media (max-width: 400px) {
+    :root { --text-base: 16px; }
+    .container { padding: var(--space-5) var(--space-2) var(--space-4); }
+}
+@media (min-width: 1200px) { .container { padding-top: var(--space-13); } }
+@media print {
+    :root { --ink: #000; --paper: #fff; }
+    body { font-size: 11pt; line-height: 1.4; }
+    .container { max-width: 100%; padding: 0; }
+    .back-nav, .contact-footer { display: none; }
+    nav#TOC { display: none; }
+    a { text-decoration: none !important; color: var(--ink) !important; }
+    .article-body h1, .article-body h2 { page-break-after: avoid; }
+    p { orphans: 3; widows: 3; }
+}
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(var(--gutter), env(safe-area-inset-left));
+        padding-right: max(var(--gutter), env(safe-area-inset-right));
+    }
+}
+
+/* Wiring in a mathematics renderer made display equations set on one unwrappable
+   line, so a long equation pushed the page wider than the viewport and readers on
+   ordinary laptops lost the right-hand side. Let each equation scroll inside its own
+   box instead of widening the page. Wide tables get the same treatment. */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
+.katex-display::-webkit-scrollbar { height: 6px; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 600px) {
+  .paper-nav-title { display: none; }
+}
+</style>
+<link rel="stylesheet" href="/paper.css">
+</head>
+<body>
+<div class="container">
+    <nav class="back-nav">
+        <a href="/">← Research</a>
+    </nav>
+    <article>
+        <header class="article-header">
+            <h1 class="article-title">Programmable Institutions</h1>
+            <p class="article-meta">September 2026 · Raeez Lorgat</p>
+                    </header>
+
+        
+        <div class="article-body">
+        <section id="programmable-institutions" class="level1">
+        <h1>Programmable Institutions</h1>
+        <section id="abstract" class="level2">
+        <h2>Abstract</h2>
+        <p>An institutional action can outlast the authority, evidence, or resources on which it began. A filing may wait for judgment while a delegation expires. An authorized payment may leave too little money to complete the promised service. We construct a state-change rule for programs acting under these changing conditions while the institution retains control of its record. The rule checks current authority, the facts used in evaluation, required human answers, and the actual effect together. Under explicit assumptions, every observable change has an authorized origin and a retained evidence record, even after reversal. For finite workflows, we also characterize all actions that preserve safety and guaranteed completion within a given number of decisions. The construction accounts for shared resource limits, affected rights, and facts the program cannot yet observe. Its guarantees depend on complete environmental contracts, competent authority sources, and faithful rules. They do not establish those institutional premises.</p>
+        <p><em>Author note.</em> The author has a commercial interest in systems of the kind this paper describes.</p>
+        </section>
+        <section id="research-question-and-answer" class="level2">
+        <h2>1. Institutional action over time</h2>
+        <p>A company register records officers and shares, while a licensing body records permissions. Trustees record beneficial interests, and payment administrators record obligations and discharges. People act on these records because an accepted institution stands behind them.</p>
+        <p>Changing such a record often requires several acts by different people. A program gathers evidence, submits a request, waits for an answer, and then seeks the change. During that interval, the record can change, authority can expire, or an answer can concern an earlier request. The program must establish which facts and permissions still support the proposed action when the institution accepts it.</p>
+        <p>We call that acceptance event a <em>commit</em>. It changes the institution’s authoritative record. The institution controls this event, even when a delegate’s program prepares and submits the request. The first question is whether each commit can preserve this control and leave enough evidence to reconstruct the act.</p>
+        <p>A sequence of individually permitted acts presents a further problem. Several delegates can exhaust one shared allowance. A valid first purchase can leave insufficient resources to complete an outstanding obligation. Delayed observations can conceal whether a service occurred or an authority ended. We therefore also ask which next actions preserve a lawful, funded route to the stated outcome, given the available evidence.</p>
+        <p>For one filing, the local result attributes every observable change to current authority, an evaluated rule, and retained evidence. We then treat a workflow as a sequence of such acts. The finite continuation results characterize the choices that still guarantee the specified outcome. These results assume the institution’s authority designations and a complete account of the possible external responses.</p>
+        <p>The construction combines established methods. Complete mediation requires an authority check for each protected act (Saltzer and Schroeder 1975). Optimistic concurrency control compares the state used in a decision with the state being changed (Kung and Robinson 1981). Workflow analysis studies completion and deadlock (van der Aalst 1998). Here the decision must also retain the exact human judgments, shared resources, and current source conditions on which institutional authority depends. Section 9 gives the detailed comparison with these traditions.</p>
+        </section>
+        <section id="the-smallest-example" class="level2">
+        <h2>2. A filing that waits</h2>
+        <p>Consider a fictional company register. The example states no rule of any actual jurisdiction.</p>
+        <p>The register contains one company record:</p>
+        <ul>
+        <li><p>company: Cedar Works Ltd</p></li>
+        <li><p>registered office: 8 Reed Street</p></li>
+        <li><p>company secretary: Mira</p></li>
+        <li><p>governing rule: a registered-office change requires a board resolution and a filing by an authorized secretary</p></li>
+        </ul>
+        <p>The board gives Mira a signed delegation with a stated scope. We call this record a <em>capability</em>. It permits one action, change of registered office, on one object, Cedar Works Ltd, until 17:00 on 30 September. The delegation does not permit a share issue, an officer appointment, or a change to another company.</p>
+        <p>Mira asks a program to change the address to 12 Kestrel Road. The program reads the company record, verifies the board resolution, checks the delegation, evaluates the filing rule, and proposes a mutation. Authority must hold at commit, when the authoritative record changes. The registrar owns the record and is its sole writer under the applicable law. It runs the commit boundary. Mira’s program can submit the filing but cannot commit the registrar’s record.</p>
+        <p>Three runs show why these checks belong to the same accepted act. We call authority <em>live</em> when it remains valid at the time of use.</p>
+        <p><strong>Run A: permitted commit.</strong> The board resolution is present. Mira’s delegation is authentic, in scope, and live at commit. The filing rule returns permit. The mutation changes only the registered-office field. The system commits the new address and appends an immutable evidence record, called a <em>receipt</em>. The receipt identifies the prior state, the new state, Mira, the delegation chain, the rule version, the resolution, and the commit time.</p>
+        <p><strong>Run B: expired authority.</strong> The program performs the same checks at 16:59. A queue delay moves commit to 17:01. If authority is checked only when work begins, the program changes the record after Mira’s authority has ended. A live-at-commit check refuses the mutation. The program may prepare the filing before expiry, but preparation is not authoritative change.</p>
+        <p><strong>Run C: human judgment.</strong> Suppose the rule also requires “satisfactory evidence that the new address is suitable for official service.” The submitted document does not settle that question under the encoded rule. The evaluator records an unanswered question, called a <em>discretion hole</em>. Its type specifies the missing evidence, allowed answers, and registrar role. The request waits. A timeout cannot create permission. An authorized registrar authenticates an answer to the exact pending request revision. The boundary checks the registrar’s live authority for that act. The evaluator checks whether that answer may still be used. A later permit records the exact answer on which it relies. A changed filing, rule, or question context requires a fresh request revision. Closing an obsolete question supplies no answer.</p>
+        <p>The example separates four objects often merged in workflow descriptions. The board resolution supplies evidence about an institutional decision, and Mira’s capability identifies who may submit the action. The filing rule decides whether the submitted action satisfies encoded conditions. The registrar’s judgment resolves a question that the rule deliberately leaves open. None substitutes for another. A board resolution does not prove that Mira’s delegation is live. A valid delegation does not make the filing lawful. A rule cannot invent the registrar’s judgment. A registrar cannot silently expand the delegation to a share issue.</p>
+        <p>Larger workflows repeat the same local boundary. Formation, licensing, ownership changes, tax filings, and payments add rules and external effects. Each local commit still requires attribution to current authority.</p>
+        <p>The commit changes the institution’s local record. Governing law and the institution’s designation determine the legal effect of that record. A replayable receipt proves what the local system recorded under its stated rules. It does not prove settlement finality, beneficiary credit, or discharge in an external system.</p>
+        </section>
+        <section id="formal-object" class="level2">
+        <h2>3. Requests, authority, and admissible changes</h2>
+        <p>The filing separates three kinds of record. The company record states the registered address. Authority records state who may act. A request history records the question, its revisions, and the answer. Changing the address requires these records to agree at commit.</p>
+        <p>An execution <em>trace</em> lists accepted events in order. A trace <em>prefix</em> contains the events accepted so far.</p>
+        <p>Let <span class="math inline">P</span> be a set of principals. A principal is an identity that the model treats as able to hold authority. It may denote a natural person, a legal person, an office, or a delegated service identity. Let <span class="math inline">O</span> be a set of institutional objects. For each <span class="math inline">o\in O</span>, let <span class="math inline">\mathsf{judgments}(o)\in O</span> be the stable authority object for discretion holes concerning <span class="math inline">o</span>. Let <span class="math inline">A</span> be a set of action names. Let <span class="math inline">\mathsf{Field}</span> be the set of authoritative field names. Let <span class="math inline">S</span> be the set of authoritative institutional states. Let <span class="math inline">T</span> be a totally ordered record-time domain. Event record times in a valid trace are nondecreasing.</p>
+        <p>Mira’s filing can be revised without becoming a different workflow. The answer to one revision must nevertheless identify the exact address, evidence, and rule that the registrar considered. A stable workflow identifier and a separate revision identifier express this distinction. An action request is an immutable revision of a workflow:</p>
+        <p><span class="math display">q=(\ell,\xi,p,a,o,x,e,r,\nu,c_q,d_q).</span></p>
+        <p>The boundary assigns the stable workflow identifier <span class="math inline">\ell</span>. The fresh nonce <span class="math inline">\xi</span> identifies one revision. The actor is <span class="math inline">p\in P</span>, the action is <span class="math inline">a\in A</span>, and the target is <span class="math inline">o\in O</span>. The payload is <span class="math inline">x</span>, and the submitted evidence is <span class="math inline">e</span>. The boundary selects governing rule <span class="math inline">r</span>, immutable version <span class="math inline">\nu</span>, question context <span class="math inline">c_q</span>, and request expiry <span class="math inline">d_q</span>.</p>
+        <p>The context <span class="math inline">c_q</span> contains the frozen subject facts and proof inputs that give the question its meaning. It excludes later judgment receipts and auxiliary ledger appends. Mutable conditions governing an answer’s current use are checked separately. These include revocation, supersession, and the current request revision. Thus an accepted answer does not invalidate its own signed context.</p>
+        <p>Let <span class="math inline">H</span> assign a content identifier to a canonical record. Write <span class="math inline">\omega=H(q)</span> for the revision’s content identifier. The formal model compares the complete canonical records named by these identifiers. Section 6 states the cryptographic realization assumptions. Changing a bound field requires a fresh revision and nonce. An authenticated continuation retains <span class="math inline">\ell</span> and names its previous revision. The boundary checks that lineage against its registry. The registry records the current revision and successful consumption. Changing a revision preserves every unresolved obligation in that workflow. An authorized transfer of an unanswered obligation is called <em>carriage</em>. It moves the obligation to a successor pending record. Carriage supplies no answer.</p>
+        <section id="scoped-capabilities" class="level3">
+        <h3>3.1 Scoped capabilities</h3>
+        <p>Mira can delegate only the authority she received. The record must therefore identify both the permitted act and its permitted effects. Judgment authority needs an answer scope as well: permission to answer one question need not include every possible determination. A capability is a tuple</p>
+        <p><span class="math display">c=(i,h,O_c,A_c,F_c,Y_c,[t_0,t_1],n,\pi,\sigma).</span></p>
+        <p>The issuer <span class="math inline">i</span> delegates to the holder <span class="math inline">h</span>. The set <span class="math inline">O_c</span> is the object scope. The set <span class="math inline">A_c</span> is the action scope. The set <span class="math inline">F_c\subseteq O_c\times\mathsf{Field}</span> is the field scope. The set <span class="math inline">Y_c</span> is the allowed judgment-answer scope. The interval <span class="math inline">[t_0,t_1]</span> is the validity window. The natural number <span class="math inline">n</span> is the remaining delegation depth. The value <span class="math inline">\pi</span> identifies the parent capability, or a trusted root when no parent exists. The value <span class="math inline">\sigma</span> is the issuer’s authentication evidence over the other fields.</p>
+        <p>A <em>trusted root</em> is a capability whose authority the model accepts as an axiom. A capability chain for principal <span class="math inline">p</span> is a finite sequence from a trusted root to a capability held by <span class="math inline">p</span>. The chain is <em>well formed at time <span class="math inline">t</span></em> when:</p>
+        <ol type="1">
+        <li><p>Every authentication check succeeds.</p></li>
+        <li><p>Every parent points to the preceding capability.</p></li>
+        <li><p>Each child issuer is the holder of its parent capability.</p></li>
+        <li><p>Each child object scope is a subset of its parent’s object scope.</p></li>
+        <li><p>Each child action scope is a subset of its parent’s action scope.</p></li>
+        <li><p>Each child field scope is a subset of its parent’s field scope.</p></li>
+        <li><p>Each child answer scope is a subset of its parent’s answer scope.</p></li>
+        <li><p>Each child validity interval is contained in its parent’s interval.</p></li>
+        <li><p>Time <span class="math inline">t</span> lies in every link’s validity interval.</p></li>
+        <li><p>Delegation depth strictly decreases at each link.</p></li>
+        <li><p>No revocation or competent authority notice terminating any link, effective at or before <span class="math inline">t</span>, appears in the trace prefix.</p></li>
+        </ol>
+        <p>The chain’s <em>effective scope</em> is the intersection of all object, action, field, answer, and time scopes in the chain. Taking intersections ensures that a delegate cannot grant more than it received.</p>
+        <p>Let <span class="math inline">\Gamma_\tau</span> be the authority context recorded in trace prefix <span class="math inline">\tau</span>. It contains trusted roots, issued capabilities, revocations, recorded authority terminations, and authentication material. We write</p>
+        <p><span class="math display">\Gamma_\tau \vdash_\chi p \triangleright (a,o)</span></p>
+        <p>when the named chain <span class="math inline">\chi</span> is well formed and live at the evaluation time, ends at <span class="math inline">p</span>, and its effective scope contains action <span class="math inline">a</span> and object <span class="math inline">o</span>. Naming <span class="math inline">\chi</span> prevents different chains from supplying different parts of one authorization.</p>
+        </section>
+        <section id="rule-outcomes-and-discretion-holes" class="level3">
+        <h3>3.2 Rule outcomes and discretion holes</h3>
+        <p>The filing rule needs the request history as well as the company record. Otherwise it could overlook an unanswered question or reuse an answer whose permitted use has ended. Let <span class="math inline">\Gamma^J_\tau</span> be the auxiliary ledger derived from accepted events in trace prefix <span class="math inline">\tau</span>. It records request revisions, consumption, discretion holes, original resolutions, derived uses, carriage, supersessions, and eligibility changes. It supplies evidence to the evaluator and leaves institutional state <span class="math inline">S</span> unchanged. For each action <span class="math inline">a</span>, the evaluator returns one of three results. It either permits the act, refuses it with a reason, or requests judgment:</p>
+        <p><span class="math display">R_a(s,q,\Gamma^J_\tau,t)\in \{\operatorname{Permit}(b),\operatorname{Refuse}(r), \operatorname{Awaiting}(j)\}.</span></p>
+        <p>A permit carries a rule receipt <span class="math display">b=(r_b,\nu_b,e_b,\omega_b,J_b,\mathcal{G}_b).</span></p>
+        <p>A rule receipt records what supported the permission. The final commit receipt will also bind the actor, authority, actual change, and commit time. A judgment <em>dependency</em> is an answer used by that evaluation. An observation <em>guard</em> records a fact or query result that must still hold at use. The receipt identifies the rule, immutable version, evaluated evidence, request revision, exact judgment dependencies <span class="math inline">J_b</span>, and observation guards <span class="math inline">\mathcal{G}_b</span>. Every judgment dependency names a judgment-use record for <span class="math inline">\omega_b</span>. It contains a direct resolution or an authorized derived-use certificate, as defined below. All guards of each derived-use record also belong to <span class="math inline">\mathcal{G}_b</span>. The guards record relevant values, range results, and absence predicates. They include the current revision, consumption status, unresolved holes, superseding acts, conflicts, quorum membership, and policy-selected authoritative sources whenever the evaluation uses those facts.</p>
+        <section id="the-question-an-authorized-person-must-answer" class="level4">
+        <h4>The question an authorized person must answer</h4>
+        <p>For Cedar’s filing, suitability of the new address is a question about specified facts under a specified rule. Its record must preserve that meaning while the set of people entitled to answer can change. A refusal carries reason <span class="math inline">r</span>. An awaiting result carries the discretion hole</p>
+        <p><span class="math display">j=(k,m,\ell,\omega,o,Q,E_j,U_j,Y_j,\delta,d_j).</span></p>
+        <p>The evaluator supplies a stable rule occurrence key <span class="math inline">m</span>. This key identifies one question produced by the rule. It includes any refresh generation authorized by the governing rule. The pending identifier is determined before admission: <span class="math display">k=H(\omega,r,\nu,m,Q,E_j,U_j,Y_j,\delta,d_j).</span> A repeated evaluation of the same occurrence has the same identifier. A later question or refresh requires a distinct justified occurrence key. The registry binds each <span class="math inline">(\omega,m)</span> to its complete question record. Changed fields under an existing occurrence key are rejected. The key <span class="math inline">\omega</span> binds the complete request revision. The text <span class="math inline">Q</span> states the question, and <span class="math inline">E_j</span> names required evidence. The set <span class="math inline">U_j\subseteq P</span> gives the initial eligible answerers. The set <span class="math inline">Y_j</span> defines the answer domain. The condition <span class="math inline">\delta</span> governs escalation. The record <span class="math inline">d_j</span> states answer-time and permitted-use validity conditions. The answer deadline lies within the request’s expiry. The governing authority separately selects and authenticates permitted-use conditions. They can permit reuse after the original request’s execution deadline. That request itself remains subject to its original deadline.</p>
+        <p>The immutable pending-record key is <span class="math display">\pi_j=H(\omega,j,\mathsf{judgments}(o)).</span> It binds the question, evidence requirements, authority interface, answer scope, initial eligibility policy, and validity conditions. Each pending record also has a current eligibility epoch <span class="math inline">\epsilon_j</span>. An epoch identifies the current eligible-answerer set. Authenticated escalation can change that epoch and its eligible set. It preserves the immutable record named by <span class="math inline">\pi_j</span>.</p>
+        <p>Let <span class="math inline">\operatorname{Open}_\tau(\ell)</span> contain every discretion hole for <span class="math inline">\ell</span> that remains an active unanswered leaf across all revisions. A pending record has at most one terminal disposition: resolved, derived, superseded, or carried to one successor record. Carriage edges advance revisions and have no cycles or forks. The carriage map is injective, so distinct duties remain distinct. Carriage preserves the active successor obligation. It supplies no answer. Expiry alone leaves an unanswered obligation open. Resolving a hole requires a principal eligible in the current epoch, an answer <span class="math inline">y\in Y_j</span>, and one live chain whose action scope contains <span class="math inline">\operatorname{resolve}</span>, object scope contains <span class="math inline">\mathsf{judgments}(o)</span>, and answer scope contains <span class="math inline">y</span>. Supersession requires the corresponding <span class="math inline">\operatorname{supersede}</span> authority. It closes an obsolete hole but never satisfies a member of <span class="math inline">J_b</span>. A later permit must come from a fresh evaluation that no longer depends on that hole. The first valid resolution or supersession for <span class="math inline">k</span> is final within the trace; later attempts are rejected. Every resolution authenticates its original request revision and pending record. Its additional evidence remains in the resolution receipt. It does not silently replace the request’s submitted evidence. Current-use guards are evaluated after resolution. They are distinct from the immutable signed subject and question context.</p>
+        </section>
+        <section id="using-an-answer-in-a-later-request" class="level4">
+        <h4>Using an answer in a later request</h4>
+        <p>A later filing can concern facts already considered by the registrar. Reuse requires authority for that use and compatibility with the new question. The following record makes both conditions checkable.</p>
+        <p>For example, an address-suitability judgment may expressly permit use for another filing about the same premises. The receiving rule must accept that use under the original conditions. Changing the address changes the subject of the question and requires a new compatibility check. A rule requiring fresh personal judgment requires a fresh answer.</p>
+        <p>A judgment-use record binds an answer to the current request’s pending record. A direct resolution supplies such a record for its own revision. An earlier resolution can support another revision through a certificate <span class="math display">\upsilon=(\zeta,\pi_{\rm target},\omega,r_u,\nu_u, \mathcal{D}_u,\mathcal{G}_u).</span> The immutable original resolution <span class="math inline">\zeta</span> retains its exact request, question, answer, evidence, signer, chain, issuance, and validity. The certificate names the target pending record and current request, governing reuse rule and version, compatibility derivation, and use guards. The checked derivation <span class="math inline">\mathcal{D}_u</span> establishes authorized reuse. The original act permits that use, and the receiving rule accepts it. The answer supplies the target question under its subject facts, evidence requirements, and answer domain. Every original and target use condition holds. A rule requiring fresh personal judgment prevents mechanical reuse. Reuse preserves original issuance and signed permitted-use expiry. It cannot amplify scope. The boundary authenticates the certificate and checks its use guards.</p>
+        <p>A fail-closed two-valued evaluator can send a refusal to an external human process. The third result records the question, answer domain, answering authority, and resulting human act as named dependencies of the state change.</p>
+        </section>
+        <section id="when-an-earlier-evaluation-still-applies" class="level4">
+        <h4>When an earlier evaluation still applies</h4>
+        <p>An authentic answer can support a permission that has since become stale. A conflicting judgment, a replacement request, or a changed source-selection policy can alter the result. The evaluator must record every observation that determines its result so the commit can check them together.</p>
+        <p>A query can depend on an absence, such as finding no conflicting judgment, or on simultaneous changes to several facts. Dependency completeness requires equal observations to imply equal evaluation results across complete contexts. The <em>write footprint</em> records which fields the proposed action may change; Section 3.3 specifies that part of the result.</p>
+        <p>Completeness is extensional across whole admitted contexts. An admitted context contains institutional state, both ledgers, and the governing policy and source records. For context <span class="math inline">C</span>, write <span class="math display">\mathsf{Eval}(C;q,t)=(v,J,\mathcal{G},W),</span> where <span class="math inline">v</span> is the rule outcome and <span class="math inline">W</span> is the declared write footprint defined in Section 3.3. For the state <span class="math inline">s</span> in <span class="math inline">C</span>, this footprint equals <span class="math inline">W_a(s,q)</span>. Let <span class="math inline">\mathsf{obs}_{\mathcal{G}}(C)</span> contain the exact named values and predicate results. For every admitted context <span class="math inline">C&#39;</span>, completeness requires <span class="math display">\mathsf{obs}_{\mathcal{G}}(C&#39;)=\mathsf{obs}_{\mathcal{G}}(C) \quad\Longrightarrow\quad \mathsf{Eval}(C&#39;;q,t)=(v,J,\mathcal{G},W).</span> The statement quantifies over simultaneous changes outside the guards. One-at-a-time insensitivity is insufficient. The final boundary checks the named reads and predicates atomically with the commit. An altered guard requires a fresh evaluation.</p>
+        <p><strong>A checkable dependency fragment.</strong> Consider finite expressions built from constants, named reads, registered queries, total pure operations, and conditional expressions. A query declares its result domain, selecting policy, and predicate scope. Its source head identifies the version of the source record. Its range head identifies the version of the complete range inspected by the query. An insertion into that range therefore changes the observation even when all previously returned records remain unchanged. The dependency function <span class="math inline">D</span> includes every named read. It includes the source head, range head, and selecting policy of each query. For an operation, <span class="math inline">D</span> takes the union over its operands. For a conditional, it takes the union over the guard and both branches. The same analysis applies to judgment selections, write values, and external command descriptors. An opaque primitive supplies a checked semantic contract or declares its entire readable domain.</p>
+        <p><strong>Lemma 2 (setwise dependency preservation).</strong> If two admitted contexts agree on <span class="math inline">D(e)</span>, expression <span class="math inline">e</span> produces the same value, judgment references, and proposed effects in both contexts.</p>
+        <p><strong>Proof.</strong> Induct over the expression syntax. Constants require no observation. Named reads agree by hypothesis. Query results agree because their complete domain, predicate scope, and selecting policy agree. Total operations preserve equal operands. A conditional has equal guard values and therefore selects the same branch. The union includes that branch’s dependencies. The argument applies to tuples of outputs. It therefore establishes whole-context completeness for this fragment.</p>
+        <p>For example, let <span class="math inline">e=x\mathbin{\wedge}y</span> at <span class="math inline">(x,y)=(0,0)</span>. Either isolated change leaves the outcome false, whereas changing both makes it true. The analysis includes both coordinates. A judgment query also includes an absence predicate, so insertion of a new conflicting judgment invalidates its earlier observation.</p>
+        <p>The commit witness contains the complete vector of source heads. A local transaction protects those heads, point reads, and predicate reads through the same durable decision that appends the receipt. A remote current-use dependency requires the source’s authorized use transition or an institutionally sufficient reservation at the named use stage. A fresh cached head alone supplies no such reservation. Changing any protected source requires reevaluation before commit.</p>
+        </section>
+        </section>
+        <section id="mutation-footprints" class="level3">
+        <h3>3.3 Mutation footprints</h3>
+        <p>The address example requires more than the action name. The operation must change only the fields its authority covers. We call the operation that proposes this concrete state change a <em>primitive</em>. For each action, a primitive transition function proposes a next state:</p>
+        <p><span class="math display">F_a(s,q)=s&#39;.</span></p>
+        <p>The function also declares a write footprint <span class="math inline">W_a(s,q)\subseteq O\times\mathsf{Field}</span>. The footprint lists every authoritative field the primitive may change. Primitive soundness requires the actual difference between <span class="math inline">s</span> and <span class="math inline">s&#39;</span> to be contained in the declared footprint.</p>
+        <p>The footprint constrains the effects an authority permits. Permission to change a company’s address does not imply permission to change its shareholders. A capability that names an object but omits the relevant action is incomplete. The action scope and write footprint jointly define which changes it permits.</p>
+        <section id="which-changes-require-their-own-authority" class="level4">
+        <h4>Which changes require their own authority</h4>
+        <p>A final state can conceal an earlier effect. Writing a shareholder field and then restoring it produces no final difference, though another party might have observed the temporary value. The trace must therefore retain each visible write.</p>
+        <p><strong>Observable effects.</strong> A primitive can perform several internal computation steps before Commit. Those steps use private workspace. Isolation prevents external readers, callbacks, triggers, and adapters from observing its provisional writes. The workspace has no dispatch capability. Its observable result is the single admitted Commit and its declared effects.</p>
+        <p>A step visible outside that workspace is a separate admitted transition. Write <span class="math inline">\mathsf{Writes}(\tau)</span> for the sequence of all pairs <span class="math inline">(i,o,f)</span> changed by Commit <span class="math inline">i</span>, with their old and new values. It retains multiplicity and order. A write followed by restoration therefore contributes two entries even when the final difference is empty. The footprint check applies to each observable step, before visibility. An implementation may refine an isolated step into hidden operations only when its projection has the same observable trace.</p>
+        </section>
+        <section id="commands-whose-effects-occur-elsewhere" class="level4">
+        <h4>Commands whose effects occur elsewhere</h4>
+        <p>A local record can instruct a provider to act. The provider’s subsequent performance occurs outside the local transaction. An unresolved attempt must remain attributable while the institution waits for evidence. A <em>durable outbox</em> stores the admitted command before dispatch.</p>
+        <p><strong>External command attempts.</strong> An action can commit a command record to a durable outbox. Its command identifier binds the immutable request before dispatch. The record names the provider, operation, resource reservations, permitted outcomes, and the authority-use stage required by the provider contract. A dispatcher atomically marks an attempt ready before it sends anything. It checks current authority and source coverage at actual dispatch. Provider acceptance or performance has its own current-use check when the applicable authority contract requires that later stage.</p>
+        <p>The observable trace also records <span class="math inline">\operatorname{Send}(c,i,t)</span> and authenticated provider observations <span class="math inline">\operatorname{Observe}(c,o,z,t_e,t_r)</span>. Here <span class="math inline">c</span> identifies the command, <span class="math inline">i</span> the attempt, <span class="math inline">o</span> a physical occurrence, and <span class="math inline">z</span> the reported outcome. Occurrence time <span class="math inline">t_e</span> and recording time <span class="math inline">t_r</span> remain distinct. Send requires the admitted ready attempt and the same immutable command. A retry preserves <span class="math inline">c</span>. Provider idempotency is a separate adapter contract. An unknown attempt preserves its reservations and outstanding obligation. A successor dispatcher recovers the ready record and reconciles evidence before deciding whether another attempt is permitted.</p>
+        <p>Observations retain partial completion, uncertainty, reversals, and disputes. They enter an append-only evidence journal, including adverse observations. A separate authorized Commit reconciles the institutional state with them. Restoring a local field cannot delete Send or Observe. An offline replay folds records and has no Send transition. A provider may promise stronger reservation or settlement behavior through an explicit protocol contract. The local receipt never substitutes for it.</p>
+        </section>
+        </section>
+        <section id="trace-events" class="level3">
+        <h3>3.4 Trace events</h3>
+        <p>The ordinary filing submits a request, waits if judgment is needed, records an authorized answer, and attempts a commit. Authority notices or conflicting changes can intervene. An execution trace is a finite sequence of the events defined below. Their rules specify what each step must establish and which record it may change. Each event time is at least the prior event’s record time.</p>
+        <section id="registering-a-request-and-preserving-its-unanswered-duties" class="level4">
+        <h4>Registering a request and preserving its unanswered duties</h4>
+        <ul>
+        <li><span class="math inline">\operatorname{Submit}(q,\omega_{\rm prev},M,\chi,\alpha,t)</span> registers an immutable request revision. The boundary authenticates <span class="math inline">p</span> through one live chain covering <span class="math inline">a</span> and <span class="math inline">o</span>, and checks the recorded workflow lineage. A first submission receives a fresh <span class="math inline">\ell</span>. A continuation names the current revision as <span class="math inline">\omega_{\rm prev}</span>. Its actor must control that lineage under the recorded submission authority. The nonce <span class="math inline">\xi</span> is fresh and <span class="math inline">t\leq d_q</span>. The rule and frozen question inputs match the boundary’s evaluation. The authenticated event also binds the carriage map <span class="math inline">M</span>. Every displaced predecessor obligation has one entry in <span class="math inline">M</span>. Each entry names an open original record and a successor pending record determined by the new revision’s evaluator. Each successor satisfies Await’s admission conditions in the same atomic registered context. These include nonempty eligibility, declared judgment scope, canonical occurrence binding, and a fresh initial eligibility epoch. The recorded governing policy authorizes that question and expiry transition. It preserves every still-required question, evidence duty, and answer restriction. The map is injective, and each edge advances the revision. An unanswered obligation disappears only through authorized supersession. Registration atomically makes <span class="math inline">H(q)</span> current, authenticates the successor records, and marks each mapped predecessor as carried. Unmapped records remain open under their original conditions. When those conditions preclude an answer, revision requires authorized carriage or prior authorized supersession. Without that path, registration fails and preserves the prior state. Carriage creates a new authorized opportunity to answer. It renews no prior determination, evidence validity, or use expiry.</li>
+        </ul>
+        </section>
+        <section id="recording-authority-and-its-termination" class="level4">
+        <h4>Recording authority and its termination</h4>
+        <ul>
+        <li><p><span class="math inline">\operatorname{Issue}(c,t)</span> adds a delegated capability after checking a live parent chain at <span class="math inline">t</span>, issuer-parent continuity, scope, validity containment, depth, and authentication.</p></li>
+        <li><p><span class="math inline">\operatorname{AuthorityNotice}(c,s,k,t_e,t_r)</span> records an authenticated external authority event from source <span class="math inline">s</span> under its coverage contract <span class="math inline">k</span>. The event binds the affected capability, legal effective time <span class="math inline">t_e</span>, recording time <span class="math inline">t_r</span>, and supporting bytes. Its source must have the contract’s competence for that event class. A court or registry source can differ from the capability’s issuer. Recording the notice appends evidence and updates current-use status. A late notice preserves earlier records and opens an attributed coverage breach with affected acts and required remedial actions.</p></li>
+        <li><p><span class="math inline">\operatorname{Revoke}(c,u,t)</span> records a prospective revocation effective at <span class="math inline">t</span> only when <span class="math inline">u</span> issued <span class="math inline">c</span> or holds a live ancestor of <span class="math inline">c</span>, and <span class="math inline">u</span> authenticates the act.</p></li>
+        </ul>
+        </section>
+        <section id="recording-the-rule-outcome" class="level4">
+        <h4>Recording the rule outcome</h4>
+        <ul>
+        <li><p><span class="math inline">\operatorname{Refuse}(q,r,t)</span> requires <span class="math inline">R_a(s,q,\Gamma^J_\tau,t)=\operatorname{Refuse}(r)</span>. It does not change state.</p></li>
+        <li><p><span class="math inline">\operatorname{Await}(q,j,\alpha_A,t)</span> returns the existing record and current status when the occurrence key was already admitted. A new occurrence requires <span class="math inline">R_a(s,q,\Gamma^J_\tau,t)=\operatorname{Awaiting}(j)</span>, a current unconsumed request revision, <span class="math inline">t\leq d_q</span>, <span class="math inline">U_j\ne\varnothing</span>, and a declared <span class="math inline">\mathsf{judgments}(o)</span> scope. The boundary checks the complete request and frozen question binding. It validates the occurrence key and derived <span class="math inline">k</span>. A new occurrence records <span class="math inline">\pi_j</span> as open and sets its initial eligibility epoch. Authentication <span class="math inline">\alpha_A</span> binds the complete pending record to this accepted boundary event. A retry creates no second pending obligation.</p></li>
+        </ul>
+        </section>
+        <section id="answering-or-disposing-of-a-pending-question" class="level4">
+        <h4>Answering or disposing of a pending question</h4>
+        <ul>
+        <li><p><span class="math inline">\operatorname{Resolve}(\pi_j,\epsilon_j,u,y,\chi_J,\zeta,t)</span> looks up one earlier authenticated open pending record admitted by Await or atomic submission carriage. Its complete pending record must match <span class="math inline">\pi_j</span>. Its request belongs to the recorded authenticated lineage. Its eligibility epoch must be current. The answer satisfies <span class="math inline">y\in Y_j</span>, and its evidence satisfies <span class="math inline">E_j</span>. The answer-time conditions in <span class="math inline">d_j</span> hold at <span class="math inline">t\leq d_q</span>. One live chain <span class="math inline">\chi_J</span> ends at authenticated resolver <span class="math inline">u</span>. It covers <span class="math inline">\operatorname{resolve}</span>, <span class="math inline">\mathsf{judgments}(o)</span>, and <span class="math inline">y</span>, and <span class="math inline">u</span> belongs to the current eligible set. Resolver authentication covers <span class="math inline">\pi_j</span>, <span class="math inline">\epsilon_j</span>, answer, supplied evidence, chain, permitted use, and time. Acceptance atomically records <span class="math inline">\zeta</span> and closes that pending record. Its open-state, lineage, and epoch checks occur in the same transition. An earlier revision can therefore receive its own still-valid answer. That answer supports a newer revision only through authorized reuse.</p></li>
+        <li><p><span class="math inline">\operatorname{Reuse}(\pi_{\rm target},\zeta,\upsilon,t)</span> requires an authenticated open target record for the current revision. The source is one accepted original authenticated resolution. The boundary validates the complete certificate <span class="math inline">\upsilon</span>, its compatibility derivation, and every original and target use condition. It atomically checks the target, current revision, and use guards, authenticates the certificate, and marks the target as derived. An authorized reusable judgment requires no new human signature.</p></li>
+        <li><p><span class="math inline">\operatorname{Supersede}(\pi_j,u,r&#39;,\chi_J,\zeta,t)</span> looks up one earlier authenticated open pending record. It closes that exact record only when <span class="math inline">u</span> is currently eligible, the live chain <span class="math inline">\chi_J</span> ends at authenticated <span class="math inline">u</span> and has action scope <span class="math inline">\operatorname{supersede}</span> and object scope <span class="math inline">\mathsf{judgments}(o)</span>. The authenticated act binds <span class="math inline">\pi_j</span>, reason <span class="math inline">r&#39;</span>, any successor reference, chain, and time. Its eligibility and open-state checks are atomic with closure. Supersession supplies no answer and satisfies no judgment dependency.</p></li>
+        <li><p><span class="math inline">\operatorname{Escalate}(\pi_j,\epsilon_j,u,U&#39;_j,\chi_J,\zeta,t)</span> requires that exact pending record to remain open. The named eligibility epoch must be current and <span class="math inline">\delta</span> must hold. Authenticated <span class="math inline">u</span> has one live chain covering <span class="math inline">\operatorname{escalate}</span> over <span class="math inline">\mathsf{judgments}(o)</span>. The immutable escalation policy must permit <span class="math inline">U&#39;_j</span>. The signed act binds <span class="math inline">\pi_j</span>, prior epoch, new eligible set, triggering evidence, chain, and time. Acceptance atomically checks those premises and records a fresh epoch. It preserves the question, answer domain, and open status.</p></li>
+        </ul>
+        </section>
+        <section id="recording-external-attempts-and-observations" class="level4">
+        <h4>Recording external attempts and observations</h4>
+        <ul>
+        <li><span class="math inline">\operatorname{Send}(c,i,t)</span> performs the admitted ready attempt under its actual-use authority and provider contract. <span class="math inline">\operatorname{Observe}(c,o,z,t_e,t_r)</span> appends authenticated external evidence, preserving physical occurrence identity and both times. These events follow the command and observation rules in Section 3.3. They do not directly change the institutional state <span class="math inline">S</span>.</li>
+        </ul>
+        </section>
+        <section id="admitting-the-state-change" class="level4">
+        <h4>Admitting the state change</h4>
+        <ul>
+        <li><p><span class="math inline">\operatorname{Conflict}(q,\eta,t)</span> records that the expected state-and-history head <span class="math inline">\eta</span> was stale. It changes no institutional state and consumes no request revision.</p></li>
+        <li><p><span class="math inline">\operatorname{Commit}(q,\eta,s,s&#39;,b,\chi,\alpha,\rho,t)</span> atomically changes the current authoritative state from <span class="math inline">s</span> to <span class="math inline">s&#39;</span>, consumes the current request revision, and appends receipt <span class="math inline">\rho</span>. The value <span class="math inline">\alpha</span> authenticates the holder of <span class="math inline">\chi</span> as the actor named by <span class="math inline">q</span>.</p></li>
+        </ul>
+        <p>Let <span class="math inline">\operatorname{head}(\tau)</span> be a cryptographic commitment to the current institutional state and the preceding event history. A source head similarly identifies the source record used in evaluation. A source-use contract states what its competent owner must establish when authority is used. It is ready when its required conditions hold. Retention admission checks that the required evidence bytes have been stored and retrieved under the custody contract. Sections 6.1 and 6.2 give these two contracts in full.</p>
+        <p>The commit rule has six premises:</p>
+        <ol type="1">
+        <li><p>Holder authentication <span class="math inline">\alpha</span> verifies that <span class="math inline">p</span> controls the terminal principal of one named chain <span class="math inline">\chi</span>, and <span class="math inline">\Gamma_\tau\vdash_\chi p\triangleright(a,o)</span> holds at <span class="math inline">t</span>.</p></li>
+        <li><p>The same chain <span class="math inline">\chi</span> covers <span class="math inline">a</span>, <span class="math inline">o</span>, and every field in <span class="math inline">W_a(s,q)</span>.</p></li>
+        <li><p>The expected head <span class="math inline">\eta</span> equals <span class="math inline">\operatorname{head}(\tau)</span>, and the current state is <span class="math inline">s</span>. The request revision <span class="math inline">H(q)</span> is current and unconsumed, <span class="math inline">t\leq d_q</span>, and the governing rule still applies. The request’s frozen subject and question context match this evaluation. Every required source-use contract is ready at this durable use time. Every required evidence preimage has a valid retention admission. The receipt binds those contracts, source heads, and evidence manifest.</p></li>
+        <li><p><span class="math inline">R_a(s,q,\Gamma^J_\tau,t)=\operatorname{Permit}(b)</span>, <span class="math inline">J_b</span> is complete, <span class="math inline">\operatorname{Open}_\tau(\ell)=\varnothing</span>, and every member of <span class="math inline">J_b</span> is a valid judgment-use record. Each record satisfies the judgment-ledger invariant below. Its target pending revision equals <span class="math inline">\omega_b=H(q)</span>. A direct resolution supplies its own answer. A derived record retains its exact authenticated original resolution and checked authorized compatibility derivation. The rule identifiers and versions in <span class="math inline">q</span> and <span class="math inline">b</span> agree. Every original and target permitted-use condition holds at Commit. Continuing resolver authority is checked when the governing rule requires it. Historical authority is checked at resolution time. All read and predicate guards in <span class="math inline">\mathcal{G}_b</span> hold atomically with Commit. Whole-context completeness covers simultaneous changes outside them. Supersession cannot satisfy a judgment dependency.</p></li>
+        <li><p><span class="math inline">F_a(s,q)=s&#39;</span> and the actual difference from the current <span class="math inline">s</span> to <span class="math inline">s&#39;</span> lies within <span class="math inline">W_a(s,q)</span>.</p></li>
+        <li><p>The receipt <span class="math inline">\rho</span> binds <span class="math inline">q</span>, its submitted evidence, <span class="math inline">\chi</span>, <span class="math inline">\alpha</span>, the rule identifier and version, <span class="math inline">J_b</span> and its exact pending and resolution records, <span class="math inline">\mathcal{G}_b</span>, derived-use certificates and their compatibility derivations, <span class="math inline">\eta</span>, the output-state digest, revision consumption, and <span class="math inline">t</span>. Consumption and receipt append occur in the same state-changing event.</p></li>
+        </ol>
+        <p>No other event changes <span class="math inline">S</span>. Issuance changes authority without expanding it. Revocation prevents later use of the affected authority. Submission, awaiting, resolution, reuse, supersession, and escalation change only <span class="math inline">\Gamma^J_\tau</span>. <span class="roman">A later legal decision</span> with retroactive effect requires a new authorized remedial event. It does not alter an earlier trace prefix.</p>
+        </section>
+        </section>
+        </section>
+        <section id="authority-preservation-theorem" class="level2">
+        <h2>4. Authority-preservation theorem</h2>
+        <p>The event rules describe individual accepted acts. The theorem extends attribution across a trace, including intervening revocations and revisions. Its proof shows that these events preserve the attribution of earlier changes.</p>
+        <p>The assumptions specify what a realization must enforce. F1–F9 concern the initial roots and the local execution boundary. F10 supplies the authority information required at each use. Section 6 explains its external institutional conditions.</p>
+        <ul>
+        <li><p><strong>F1. Root integrity.</strong> Every trusted root in the initial authority context is authentic within the model.</p></li>
+        <li><p><strong>F2. Exclusive mutation boundary.</strong> Only the commit event changes authoritative institutional state.</p></li>
+        <li><p><strong>F3. Atomic current-head check.</strong> Commit succeeds only when its expected head and input state equal the current head and state.</p></li>
+        <li><p><strong>F4. Primitive footprint soundness.</strong> Each observable primitive changes only fields in its declared footprint, measured from its current state. Hidden steps have no external observer or dispatch capability. The effect journal preserves every visible step.</p></li>
+        <li><p><strong>F5. Complete judgment discipline.</strong> Commit requires permit, a complete dependency set, and no open hole across workflow revisions. Each dependency satisfies the judgment-ledger invariant and binds the current target revision to a valid authenticated original resolution. Derived reuse requires its authorized compatibility derivation. Every use condition remains valid for the committed act. Completeness compares whole contexts using exact reads and protected predicate results. Commit atomically validates those observations. A successful commit consumes that revision once.</p></li>
+        <li><p><strong>F6. Time causality.</strong> Record times are nondecreasing. A revocation changes the authority context only for events at or after its recorded time.</p></li>
+        <li><p><strong>F7. Atomic receipt append.</strong> A commit and its receipt are one trace event.</p></li>
+        <li><p><strong>F8. Trusted record time.</strong> The boundary assigns event time from a trusted monotone clock. The actor cannot choose it.</p></li>
+        <li><p><strong>F9. Holder authentication.</strong> Each commit authenticates its actor as the holder of the chain it names. Submission authenticates its requester and complete event record. Resolution, supersession, and escalation authenticate their acting principals and complete event records. Admission, carriage, and reuse records authenticate their boundary origin.</p></li>
+        <li><p><strong>F10. Authority-context completeness.</strong> Each authority-use event has the source-specific coverage contracts defined in Section 6.1. Every termination effective at or before that use is either recorded before the use or handled by an institutionally sufficient use decision. This includes issuance, submission, judgment, commit, and required external use stages. Authenticity alone establishes no coverage. The competent institutional owners discharge each contract’s legal scope and effective-time conditions.</p></li>
+        </ul>
+        <p>We first check the origin of human answers. Without this invariant, an otherwise valid commit could cite an answer to the wrong question.</p>
+        <p><strong>Lemma 0 (judgment-ledger integrity).</strong> Every accepted resolution names one earlier authenticated pending record admitted by Await or submission carriage. Its immutable request, question, authority interface, evidence requirements, and answer domain match that record. The resolver authenticated the particular answer under one live, in-scope chain and the current eligibility epoch. Each pending record has at most one terminal disposition. Every derived answer retains an authenticated original resolution and a checked authorized use derivation for its target. Carriage preserves each unanswered obligation as a distinct successor.</p>
+        <p><strong>Proof.</strong> Induct over accepted events. Await introduces a justified occurrence and its complete binding. A retry returns the existing record and preserves its status. Resolve requires that record to be open and checks every named binding, authentication, authority, epoch, and validity condition. Its atomic transition changes the record to resolved. Supersede requires the same open state and changes it to superseded. Reuse validates the original resolution, compatibility derivation, and current use guards before atomically marking its target derived. Any terminal state prevents another terminal transition. Escalate preserves the immutable record and authenticates its next epoch. Submit retains unmapped obligations. Each carriage entry atomically replaces an open leaf with its distinct authenticated successor under the recorded governing policy. Revision advancement prevents cycles, and injectivity prevents merged duties. Thus carriage preserves an obligation and supplies no answer. The other events introduce no resolution or derived answer.</p>
+        <p><strong>Proposition 1 (local commit boundary).</strong> Under F1–F10, every accepted <span class="math inline">\operatorname{Commit}</span> event has the following properties:</p>
+        <ol type="1">
+        <li><p>One authenticated chain is live at boundary-assigned commit time and covers the action, object, declared footprint, and actual difference.</p></li>
+        <li><p>The rule result is permit, every named human dependency has one authenticated original resolution with a valid direct or derived use binding for the exact current request revision. No active discretion obligation in the workflow remains open. Every original and target permitted-use condition holds at Commit.</p></li>
+        <li><p>The expected head is the current head, so the rule result applies to the state that changes.</p></li>
+        <li><p>One receipt binds the request, actor authentication, chain, rule, evidence, exact pending records, resolutions, observation guards, input head, output digest, time, and one successful revision consumption.</p></li>
+        </ol>
+        <p><strong>Proof.</strong> The six commit premises give the four statements directly. F8 fixes the time used by the liveness test, F9 binds the actor to the chain, and F10 gives recorded termination its intended scope. Lemma 0 establishes the origin and binding of each resolution. Current-revision, context, and permitted-use checks establish its applicability. Whole-context completeness and the atomic guard check preserve the evaluated result and its declared effects.</p>
+        <p>Delegation narrows authority, a property called <em>attenuation</em>. The next lemma relates the commit’s immediate delegation to its trusted root.</p>
+        <p><strong>Lemma 1 (chain attenuation).</strong> Every child capability has object, action, field, answer, time, and depth scopes contained in those of its trusted root.</p>
+        <p><strong>Proof.</strong> Each issuance checks containment in its parent. Finite chains and transitivity give containment in the root. Revocation can remove a chain from later use but cannot enlarge it.</p>
+        <p>For states <span class="math inline">s,s&#39;</span>, write <span class="math inline">D(s,s&#39;)=\{(o,f):s(o,f)\ne s&#39;(o,f)\}</span> for their field-level difference.</p>
+        <p><strong>Theorem 1 (trace-wide effect attribution).</strong> Let a valid trace take initial state <span class="math inline">s_0</span> to final state <span class="math inline">s_m</span> under F1–F10. For every <span class="math inline">(o,f)\in D(s_0,s_m)</span>, some commit in the trace changed <span class="math inline">(o,f)</span>. That commit names one chain <span class="math inline">\chi</span> which was live at its boundary-assigned time, whose field scope contains <span class="math inline">(o,f)</span>, and whose receipt binds <span class="math inline">\chi</span>, the rule result, both heads, and that time. Moreover, <span class="math inline">s_m</span> is the ordered composition of the committed transitions and of no other events. Every commit also carries the exact authenticated judgments required for its request revision. No revision commits twice.</p>
+        <p><strong>Proof.</strong> Induct on the trace length. The empty trace has <span class="math inline">s_m=s_0</span>. Suppose the result holds for a prefix ending in <span class="math inline">s_n</span>. If the next event is not a commit, F2 leaves the state unchanged. If the next event commits <span class="math inline">s_n</span> to <span class="math inline">s_{n+1}</span>, then <span class="math inline">D(s_0,s_{n+1})\subseteq D(s_0,s_n)\cup D(s_n,s_{n+1})</span>. The induction hypothesis supplies the witness for the first set. Premises 1, 2, 5, and 6 of the last commit supply the live chain, scope coverage, and receipt for the second. F2 also proves that the final state is exactly the ordered composition of commit transitions. For each new commit, Proposition 1 supplies exact judgment dependencies and their permitted-use checks. Atomic consumption prevents another commit of the same revision. Noncommit events preserve these claims about earlier commits.</p>
+        <p><strong>Corollary 1 (observable trace attribution).</strong> Every entry of <span class="math inline">\mathsf{Writes}(\tau)</span> names its responsible live chain, footprint, and receipt. Every Send names an admitted command and a valid authority-use witness. Later restoration or compensation preserves those entries. Replay reconstructs them without executing another Send.</p>
+        <p><strong>Proof.</strong> Apply Proposition 1 to each observable Commit before taking any final state difference. Send admission checks its own command and authority premises. The append-only trace preserves both event forms. Private computation contributes no observation by the isolation contract. Replay reads Send records through the reconstruction fold. That fold has no operation that executes dispatch. These cases establish the result by induction over observations.</p>
+        <p>The theorem concerns recorded authority and execution of an encoded rule. Legal validation must establish that the relevant institution designated the trusted root and that the encoded rule matches its legal source for the stated jurisdiction and time.</p>
+        </section>
+        <section id="why-the-assumptions-are-necessary" class="level2">
+        <h2>5. Why the assumptions are necessary</h2>
+        <p>The first four examples each remove one control and violate an attribution conclusion, identifying distinct implementation obligations. The final example shows that formal attribution can hold even when the encoded rule misstates the legal rule.</p>
+        <p><strong>Theorem 2 (four necessary controls).</strong> Commit-time liveness, primitive footprint soundness, complete judgment dependencies, and faithful scope comparison are independently necessary for the local boundary and trace-wide attribution results. For each control, a trace can satisfy the other three and violate a conclusion when that control is removed.</p>
+        <section id="check-time-is-not-commit-time" class="level3">
+        <h3>5.1 Check-time is not commit-time</h3>
+        <p>Remove the live-at-commit premise. Let a capability be valid through time <span class="math inline">5</span>. Let the program check it at time <span class="math inline">4</span> and commit at time <span class="math inline">6</span>. The trace changes state without a live chain at commit. Proposition 1(1) is false. The cached authorization result cannot justify a commit after the authority expires.</p>
+        <p>The same counterexample applies to revocation and to authority that ends by operation of law. Suppose a winding-up order ends a director’s power at 16:30 while a capability interval runs until 17:00. A 16:40 commit passes unless F10 brings the order into the authority context before the commit. The required legal-event source is therefore part of the hypothesis.</p>
+        </section>
+        <section id="a-hidden-write-defeats-scoped-authority" class="level3">
+        <h3>5.2 A hidden write defeats scoped authority</h3>
+        <p>Remove primitive footprint soundness. Give Mira authority only to change the registered-office field. Let the address primitive also change the controlling-shareholder field. The visible action is authorized, but the actual mutation exceeds its scope. A type declaration cannot enforce the footprint when code can bypass it.</p>
+        <p>This counterexample requires an exclusive mutation boundary in the surrounding system. If an administrator, database trigger, or external service can change the authoritative record outside the event rules, the theorem governs only the trace and not the institution.</p>
+        </section>
+        <section id="timeout-is-not-judgment" class="level3">
+        <h3>5.3 Timeout is not judgment</h3>
+        <p>Replace awaiting with “permit after 24 hours if nobody answers,” or let a later permit omit the earlier discretion hole from <span class="math inline">J_b</span>. No authorized person answers, yet the workflow commits. Silence or dependency omission has allowed the commit without the required answer. F5 rejects both traces.</p>
+        <p>Identifier continuity alone does not bind a human answer. The complete pending record binds the payload, evidence, rule, question context, authority interface, validity conditions, and request nonce. A changed request requires a new revision. Earlier obligations remain open until answered, lawfully superseded, or carried to an authenticated successor obligation. A resolution for an earlier revision supports a new revision only through an authorized compatibility derivation and current-use checks.</p>
+        <p>Dependency completeness also includes predicate observations. Two contexts agreeing on recorded reads but differing in an unrecorded absence condition need not produce the same result. The whole-context condition requires that absence to be guarded whenever the evaluator depends on it.</p>
+        <p>A supersession creates the same defect if it is treated as an answer. Let <span class="math inline">Y_j</span> contain <span class="math inline">\mathsf{suitable}</span> and <span class="math inline">\mathsf{unsuitable}</span>. A principal with supersession authority but no answer scope closes <span class="math inline">j</span>. If that receipt could satisfy <span class="math inline">J_b</span>, the request would commit without either allowed answer. The commit rule excludes that trace.</p>
+        <p>Fail-closed behavior can still impose harm through delay. The model prevents unauthorized commit. It does not prove that a reviewer answers promptly, that queues are fair, or that awaiting cannot be used strategically.</p>
+        </section>
+        <section id="generic-delegation-amplifies-through-interpretation" class="level3">
+        <h3>5.4 Generic delegation amplifies through interpretation</h3>
+        <p>Suppose a parent capability permits “manage company matters,” and the system treats that phrase as containing every later action name. A child capability can then appear formally narrower while acquiring authority that the parent never specifically granted. Scope inclusion is only meaningful over a stable action vocabulary or a signed interpretation rule.</p>
+        <p>The formal model assumes that scope comparison is decidable and faithful. Schema evolution therefore needs an explicit rule. New action names must not fall inside old wildcard scopes by default.</p>
+        <p>The four counter-traces establish Theorem 2.</p>
+        </section>
+        <section id="a-receipt-can-faithfully-record-a-wrong-rule" class="level3">
+        <h3>5.5 A receipt can faithfully record a wrong rule</h3>
+        <p>Let the encoded filing rule omit a statutory condition. The workflow may satisfy every formal premise and issue a faithful receipt for a legally invalid change. The theorem still holds because it proves execution relative to the encoded rule. Semantic equivalence between that rule and law requires separate evidence.</p>
+        </section>
+        </section>
+        <section id="formal-legal-and-empirical-assumptions" class="level2">
+        <h2>6. Formal, legal, and empirical assumptions</h2>
+        <p>The preceding counterexample satisfies the calculus while applying the wrong legal rule. To use the theorem for an institution, we must therefore separate execution guarantees from the facts that give the records their authority. Source coverage and retained evidence appear in the commit premises, though a signature alone establishes neither.</p>
+        <p><strong>Formal assumptions.</strong> F1–F10 concern the transition system. They can be stated in a proof assistant and tested against a concrete realization. Capability containment, current-head comparison, revocation checks, rule outcomes, discretion-hole resolution, write footprints, and receipt binding all belong here. The same formal scope includes immutable request binding, extensional dependency completeness, predicate reservations, and atomic revision consumption.</p>
+        <p><strong>Cryptographic assumptions.</strong> Authentication may use signatures, hashes, secure hardware, or another scheme. The model requires authenticity and integrity. It does not select a scheme or prove its security. A concrete construction must state its unforgeability, collision-resistance, key-custody, compromise-recovery, and time-stamping assumptions.</p>
+        <p><strong>Legal assumptions.</strong> A legal authority must designate each trusted root. Delegations must have the legal form and scope that the relevant law recognizes. The encoded rule must be a certified interpretation of the operative legal source. A human answer must come from a person or office authorized to supply it. The receipt must have the evidentiary status needed for its intended use. None follows from trace validity.</p>
+        <p>UNCITRAL’s Model Law on Electronic Commerce, the UN Electronic Communications Convention, the Uniform Electronic <span class="roman">Transactions</span> Act, and the US E-SIGN Act recognize defined acts or contracts formed through automated systems. The Model Law, Federal Rules of Evidence 902(13)–(14), and eIDAS establish routes for electronic records and signatures. GDPR Article 22 provides safeguards for specified solely automated decisions. Article 14 of the EU AI Act requires human oversight for high-risk AI systems. A discretion hole records an authorized human act when the applicable rule requires one. Its authenticated resolution binds the exact pending request and question. The resulting commit checks the resolution’s permitted use. The institutional act’s legal validity still depends on which authority designated the trusted root and which rule governed the act.</p>
+        <p>Payment and clearing records require further distinctions. The <em>Principles for Financial Market Infrastructures</em> separates legal basis, credit risk, final settlement, and default management in Principles 1, 4, 8, and 13 (CPSS–IOSCO 2012). A receipt does not replace any of those requirements. CLS gives a settlement-specific example: its payment-versus-payment process operates under its own rules and funding cycle (CLS and FNA 2025).</p>
+        <p><strong>Empirical assumptions.</strong> Submitted evidence may be false, stale, incomplete, or adversarial. External registries and service providers may not enforce the same mutation boundary. Human reviewers may make inconsistent decisions. A concrete system may contain defects in parsers, clocks, storage, or access control. Operational evidence is required before claims about reliability, latency, cost, or error rates.</p>
+        <p><strong>Institutional assumptions.</strong> Authority may be contested. Two bodies may claim power over the same act. A court may invalidate a delegation after a commit. Law may apply retroactively. The model can record conflicts and later remedies, but it cannot settle constitutional hierarchy by syntax.</p>
+        <p>A successful formal proof establishes trace properties, while legal validation establishes rule and authority fidelity for a defined jurisdiction and time. Empirical evaluation establishes how a concrete process behaves with real evidence and users. Each evaluation answers a different question, so none substitutes for the other two.</p>
+        <section id="source-coverage" class="level3">
+        <h3>6.1 Source coverage and authority use</h3>
+        <p>Run B assumed that the boundary knew when Mira’s authority ended. Expiry can appear in the delegation itself. A court order or registry act instead requires information from a competent external source. An authentic source can omit an event. Sequence continuity establishes which messages arrived, but not which legal events occurred. A source contract therefore binds the competent owner, covered objects, event classes, jurisdictions, authoritative interfaces, and legal effect. It also binds maximum observation delay, the allowed use stage, outage behavior, conflict resolution, exposure accounting, and remedial owner. The selecting rule identifies the complete required source set. That policy is itself a guarded dependency. An empty source set requires an explicit source-independent rule case. Missing metadata supplies none.</p>
+        <p>A coverage witness records the source head, covered cutoff, retrieval time, contract version, and any current-use authorization. At use time <span class="math inline">u</span>, the contract returns <span class="math inline">\mathsf{Ready}</span>, <span class="math inline">\mathsf{Pending}</span>, <span class="math inline">\mathsf{Conflict}</span>, or <span class="math inline">\mathsf{Breach}</span>. Ready requires valid coverage for every required source and a legally sufficient authority-use condition at <span class="math inline">u</span>. A watermark records the source’s covered time cutoff. A watermark before <span class="math inline">u</span> leaves an interval that needs its own justification. A signed no-event statement covers only the scope and time its competent source can establish. An unknown source set is Pending. Its recorded reason distinguishes missing scope, stale coverage, and a sequence gap. Competing competent sources require the contract’s authorized precedence or adjudication rule.</p>
+        <p>A source can provide a synchronous decision at actual use, or its institution can grant transaction-specific authority whose legal effect covers that use. A database reservation alone cannot postpone an immediately effective legal termination. The contract records which construction applies and who can grant it. Without either construction, a delayed observational feed does not establish F10 for a current authority-dependent act.</p>
+        <p>Pending or Conflict suspends the affected act and preserves its work, rights, reservations, and unanswered obligations. Independent workflows continue when their complete source sets remain ready. Preparation and counterfactual evaluation retain no dispatch right. A standing lawful emergency or protective procedure can run under its own ready authority contract. An ordinary workflow cannot create that power.</p>
+        <p>A contract may separately authorize measured exposure while a source is observational. It records a currency or loss unit, a maximum outstanding amount <span class="math inline">B</span>, and a common reservation account across affected workflows. At observation delay <span class="math inline">\Delta</span>, a defensible bound is <span class="math inline">B+v\Delta</span> only when the institution establishes a maximum unreserved loss rate <span class="math inline">v</span>. This is a conditional exposure bound, not a bound on every legal consequence. Shared reservations prevent concurrent duplication. Such a policy cannot certify F10 where the authority-use premise fails.</p>
+        <p>An omitted or delayed termination can later reveal a coverage breach. The notice records its actual effective and recording times, the failed contract, the affected acts, and the responsible remediation route. The original decisions remain historical observations. Their legal consequences follow the competent determination and the resulting authorized remedy. The system does not silently reclassify an earlier invalid act as authorized.</p>
+        <p>To apply the executable admission rules, an institution must establish a named competent source, its actual mandate, an agreed coverage service, and an accountable owner. It must also supply observed delay and outage evidence. The construction itself establishes none of those institutional facts.</p>
+        </section>
+        <section id="retained-evidence" class="level3">
+        <h3>6.2 Retained evidence and independent reconstruction</h3>
+        <p>The receipt in Run A names the board resolution and filing rule. A future reviewer must be able to obtain and read those exact materials. A digest identifies the bytes, but reconstruction requires possession and permitted use of them. Each commit therefore carries a retained-evidence manifest. For every required item, the manifest binds its content digest, byte length, format, source act, disclosure class, retention deadline, and available custodian locations. An encrypted item also names its cipher suite, key identifier, authorized decryptors, and succession procedure. The manifest includes the transitive closure of rule inputs, authority acts, judgment origins, derived-use certificates, and source contracts. It also retains a reconstruction checkpoint and the required event suffix. The manifest excludes its enclosing receipt, avoiding a digest cycle. The export carries that receipt beside the manifest and supporting bytes.</p>
+        <p>Retention admission obtains authenticated custody receipts and an independent retrieval-and-digest check before Commit. The storage contract specifies the number and independence of custodians, repair time after loss, periodic retrieval checks, and key recovery. A pending dispute or continuing obligation extends retention through its applicable evidence duty. Expiry of an ordinary storage period alone cannot erase a live evidence obligation.</p>
+        <p>An export contains the receipt history, manifests, admitted rule interpreter, and every required preimage available to the receiving reviewer. Encrypted exports carry recipient-authorized key envelopes. The exporter checks disclosure authority before releasing bytes or keys. A successor reviewer can reconstruct the record without the author’s service when its role has the complete disclosure and decryption rights. A narrower role receives an explicit restricted result for hidden inputs.</p>
+        <p>The reconstruction result distinguishes <span class="math inline">\mathsf{Verified}</span> from <span class="math inline">\mathsf{BlockedMissing}</span>, <span class="math inline">\mathsf{BlockedKey}</span>, <span class="math inline">\mathsf{BlockedDisclosure}</span>, and <span class="math inline">\mathsf{Invalid}</span>. Missing or undecryptable bytes produce a blocked result. A digest or authentication mismatch produces Invalid. An available digest without its required preimage cannot produce Verified. These results describe the evidence package, not the legal merits.</p>
+        <p>Later storage loss leaves historical receipts intact but marks their current reconstructibility as blocked. The retention owner recovers another authorized copy or records the failure and its affected obligations. Key rotation preserves the content digest and authorized access through a new attributable envelope. It never requires rewriting the original institutional event.</p>
+        </section>
+        </section>
+        <section id="composition-concurrency-and-external-effects" class="level2">
+        <h2>7. From authorized steps to completed obligations</h2>
+        <p>The trace theorem preserves authority across accepted steps of a longer workflow, without establishing that the workflow can finish. Sequential, concurrent, and external steps must each retain their authority. Completion also needs shared resource accounting, authority over affected rights, and a feasible continuation under possible responses.</p>
+        <p>The distinction is concrete. From a balance of 100, a permitted purchase of 60 can leave a required 60-unit delivery unfunded. A program also needs to account for what it cannot yet observe. A pending response can hide either completed performance or a continuing obligation. These are the problems treated by the finite constructions below.</p>
+        <section id="sequential-composition" class="level3">
+        <h3>7.1 Sequential composition</h3>
+        <p>If two actions commit in sequence, the second evaluates against the state produced by the first, with fresh authority and rule checks. It has a fresh request nonce and requires an unconsumed current revision. The first action’s permit receipt does not authorize the second, so workflow approval cannot become a blanket capability. An earlier human judgment can support the new action through its authorized derived-use record and current-use checks.</p>
+        <p>A composite workflow is authority preserving when every state-changing step passes the same commit rule. The conclusion follows directly from Theorem 1 because the trace proof is event-local.</p>
+        </section>
+        <section id="concurrent-proposals" class="level3">
+        <h3>7.2 Concurrent proposals</h3>
+        <p>Two programs can read the same state and propose inconsistent changes. Premise 3 atomically compares the expected head with the current head. If they differ, the boundary records a conflict and requires a fresh evaluation. The rule result therefore applies to the state that changes, and an in-scope field cannot be silently overwritten with a stale value. Current revision, consumption, eligibility, and observation guards are checked in the same accepted transition. A conflict leaves request consumption and pending-record status unchanged.</p>
+        <p>This rule closes the local lost-update case in the sequential model. It does not prove serializability for distributed effects. That theorem still needs a conflict relation, scheduler semantics, and an equivalence proof.</p>
+        </section>
+        <section id="compensation" class="level3">
+        <h3>7.3 Compensation</h3>
+        <p>Institutional workflows often include external steps that cannot be rolled back exactly. A bank transfer, public filing, or delivered notice may remain historically true after a later failure. A <em>compensation</em> is a new authorized action that restores a business invariant. It is not deletion of the prior act.</p>
+        <p>The construction stages external effects after all reversible checks, records an intent before dispatch, and requires a separate capability for compensation. Theorem 1 then covers each forward and compensating commit. It does not prove that the compensation restores an external world state. That claim requires a contract for the external primitive and an extensional proof or empirical test.</p>
+        <p>A commit receipt may confirm that an instruction was dispatched. Legal finality and beneficiary credit follow the receiving rail’s rulebook and account relationship. Swift carries messages rather than funds (Cipriani, Goldberg, and La Spada 2023). Its speed measure therefore does not establish end-to-end beneficiary credit (Swift 2025). Fedwire finality follows Regulation J and Operating Circular 6, not the sender’s local receipt (Federal Reserve Banks 2026).</p>
+        <p>Current evidence and a recognized determination may shorten a later evaluation. The commit boundary does not make onboarding, authority, or recognition relationships portable. Each relationship must be formed under the receiving institution’s rules (Du, Huang, and Scharfstein 2026).</p>
+        </section>
+        <section id="delegation-and-revocation" class="level3">
+        <h3>7.4 Delegation and revocation</h3>
+        <p>Each step still needs a complete delegation. Combining workflows creates no new source of authority. Scope intersects along one parent chain. A principal may hold several independent chains, and each chain authorizes its own acts. One complete chain must cover each act. Different chains cannot supply its action, object, and field scopes separately. Quantitative limits add a common economic account to this chain. Section 7.5 gives its containment and consumption rules.</p>
+        <p>Each act that uses authority requires a revocation check. Revocation preserves accepted events as historical facts. It can stop future commits or trigger a remedy. Notice to a third party is a separate legal act that a receipt can evidence. Irrevocable powers lie outside this capability model. Systems that require retroactive legal effect need a separate remedial transition and a rule for downstream reliance.</p>
+        </section>
+        <section id="shared-economic-authority" class="level3">
+        <h3>7.5 Shared economic authority</h3>
+        <p>Consider a principal who authorizes expenditure of 100 units and appoints ten agents. Giving each agent a limit of 100 permits aggregate expenditure of 1,000. Intersecting each child’s scope with the parent’s scope leaves this error intact. Because a quantitative limit constrains a history of actions, it needs one account shared by every action in that history.</p>
+        <p>Fix a competent authority root <span class="math inline">b</span> and a finite set <span class="math inline">D</span> of resource coordinates. Each coordinate names a unit, purpose, and accounting window. For example, separate coordinates can constrain total expenditure, expenditure during a day, and expenditure on a named project. Finite overlapping windows also express rate limits on a discrete time domain. Every applicable coordinate receives a charge. Unspecified units and accounting windows require an explicit extension of the mandate.</p>
+        <p>The root binds its owner, accounting rule, validity interval, and canonical account identity. Every child retains that identity. An alias, a new workflow, or another service identity creates no additional root account. For each capability <span class="math inline">c</span>, let <span class="math inline">B_c\in\mathbb{Q}_{\geq0}^{D}</span> be its limit. A child satisfies <span class="math inline">B_{c&#39;}\leq B_c</span> coordinatewise, narrows the purpose scope, and has a contained validity interval. The ordinary chain rules continue to apply. Creating a child changes no resource balance.</p>
+        <p>For command <span class="math inline">k</span>, let <span class="math inline">u_k\in\mathbb{Q}_{\geq0}^{D}</span> bound its charge. The command binds its request revision, complete economic dependencies, effect description, and one capability chain. The accounting rule must justify <span class="math inline">u_k</span> against every permitted external outcome. A local estimate alone supplies no bound on a provider’s actual performance. Let <span class="math inline">r_k</span> be the unresolved reservation and <span class="math inline">s_c</span> the cumulative charge already attributed to capability <span class="math inline">c</span> and its descendants. Define <span class="math display">U_c=s_c+\sum_{k:\,c\in\operatorname{chain}(k)}r_k. \tag{E1}</span> The sum ranges over all descendants, including sibling agents and suspended workflows. Each command appears once in an ancestor’s sum. The root’s counter therefore represents aggregate delegated use.</p>
+        <p>Admission compares the entire chain and reserves <span class="math inline">u_k</span> in the same transition that admits the immutable command. It requires <span class="math inline">U_c+u_k\leq B_c</span> at every ancestor <span class="math inline">c</span>. A batch reserves the sum of its new commands. Distinct commands can then execute concurrently from their separate reservations. Their external work remains parallel despite serial local admission. The construction does not require a distributed serializability claim.</p>
+        <p>When authenticated performance incurs charge <span class="math inline">d\leq r_k</span>, reconciliation replaces <span class="math inline">r_k</span> by <span class="math inline">r_k-d</span> and adds <span class="math inline">d</span> to each ancestor’s <span class="math inline">s_c</span>. An exact command retry returns the recorded admission without reserving again. Each fresh dispatch still checks current authority and the complete current dependency set. A suspended or uncertain attempt retains <span class="math inline">r_k</span>. Unused capacity returns only through an admitted release proving that further charged performance is excluded. A timeout supplies no such proof. Historical performance can be recorded after authority has ended without granting a new dispatch right.</p>
+        <p>A lifetime expenditure coordinate retains its consumed charge after a refund. A replenishable balance requires its own accounting rule and authenticated receipt. An exposure coordinate can permit release when its specified risk ends. Neither transition proves performance of an unrelated delivery obligation. Cash availability, expenditure authority, and outstanding duties have distinct projections of the same state.</p>
+        <p><strong>Theorem 3 (aggregate economic attenuation).</strong> Suppose one boundary owns every counter for a canonical root. Assume complete command coverage, nonnegative charges, faithful charge bounds, atomic admission, and the transitions above. Starting with <span class="math inline">0\leq U_c\leq B_c</span>, every reachable state satisfies that inequality for every capability <span class="math inline">c</span>. The result includes all sibling delegates, exact retries, suspended commands, and concurrent external execution.</p>
+        <p><em>Proof.</em> Creating a child adds zero usage. Admission adds the new reservation to each affected ancestor and checks its limit atomically. Reconciliation moves <span class="math inline">d</span> from reservation to consumed charge, so <span class="math inline">U_c</span> is unchanged. A justified release decreases <span class="math inline">U_c</span>. An exact retry changes no counter. Revocation changes authority and leaves historical charges and unresolved reservations intact. These cases exhaust the transitions. Induction on the admitted history proves the result. Concurrent external actions retain their separate reservations throughout their execution. <span class="math inline">\square</span></p>
+        <p>Two agents with limits 40 and 60 can reserve and execute both commands against a root limit of 100. If both hold limits of 100, one reservation of 100 excludes another. A shared intermediate capability with limit 50 also constrains the sum of its children, even when the root has unused capacity. Parent attenuation bounds each child’s authority, while aggregate accounting bounds their combined use.</p>
+        <p>This construction makes the common reservation account of Section 6.1 precise. Its economic dependencies use Lemma 2 and the same guarded membership and range observations as the commit boundary. It adds no alternative test for dependency completeness. A physical resource shared between separate institutional roots requires an explicit common allocation authority or a sound partition. Different root names alone establish neither construction.</p>
+        </section>
+        <section id="proof-carrying-commercial-continuation" class="level3">
+        <h3>7.5.1 Proof-carrying commercial continuation</h3>
+        <p>Completion also requires matching resources to obligations under their ownership and use restrictions. A commercial state is the tuple <span class="math inline">S_c=(R_c,H_c,O_c,A_c,E_c)</span>: resources <span class="math inline">R_c</span>, rights and restrictions <span class="math inline">H_c</span>, outstanding obligations <span class="math inline">O_c</span>, authorities that may change the state <span class="math inline">A_c</span>, and an append-only evidence history <span class="math inline">E_c</span>. A transition <span class="math inline">S_c\xrightarrow{w}S&#39;_c</span> carries a replayable witness <span class="math inline">w</span> showing that the change was admitted under the applicable rules. The witness binds the principal, legal person, estate, beneficiary, unit, quantity, authority, and evidence needed to check the transition. It does not assert that an external provider performed.</p>
+        <p>The projections must remain distinct. Registered title and economic participation are different rights, and voting, security, proceeds, and successor-asset rights may differ again. Operator income, service fees, customer funds, collateral, capital contributions, Fund entitlements, and distributions are different resource classes with different owners and restrictions. Conserving one aggregate balance can therefore preserve a numerical invariant while changing the bargain.</p>
+        <p>The first bounded capability test is allocation. For credits <span class="math inline">c</span> with values <span class="math inline">v_c</span>, obligations <span class="math inline">o</span> with capacities <span class="math inline">U_o</span>, and compatibility indicator <span class="math inline">K_{co}</span>, the closed, divisible, single-unit completion problem is</p>
+        <p><span class="math display">\max\sum_{c,o}x_{co}\quad\text{subject to}\quad\sum_o x_{co}\le v_c,\quad\sum_c x_{co}\le U_o,\quad x_{co}=0\text{ if }K_{co}=0,\quad x_{co}\ge0.</span></p>
+        <p>Here <span class="math inline">K_{co}</span> checks asset type along with beneficiary, purpose, remittance, and legally committed payment restrictions. The flow network joins a source to each credit with capacity <span class="math inline">v_c</span>. It joins a compatible credit to an obligation when <span class="math inline">K_{co}=1</span>, and each obligation to the sink with capacity <span class="math inline">U_o</span>. A source–sink cut in this network bounds every feasible allocation. A greedy order is insufficient: if credit <span class="math inline">a</span> may satisfy obligations <span class="math inline">x</span> or <span class="math inline">y</span> while credit <span class="math inline">b</span> may satisfy <span class="math inline">x</span> only, choosing <span class="math inline">a\to x</span> completes one obligation although <span class="math inline">a\to y,b\to x</span> completes both. A feasible flow together with a cut of equal capacity is an independently checkable certificate.</p>
+        <p><strong>Proposition (bounded allocation certificate).</strong> In the closed, divisible, single-unit domain above, a feasible flow whose value equals a matching cut bound completes the maximum possible quantity.</p>
+        <p><em>Proof.</em> Flow conservation gives a feasible allocation. The max-flow/min-cut theorem gives an upper bound equal to the cut capacity. Equality of the exhibited flow and cut proves optimality. <span class="math inline">\square</span></p>
+        <p>This proposition does not cover online arrivals, indivisible property, nonlinear conditions, already-final allocations, external performance, settlement, or recovery. Those cases require explicit witness schemas, typed obstructions, and independent provider or legal evidence. In particular, a local receipt cannot prove beneficiary credit or discharge in an external system. The full proof-carrying interface remains an open obligation in the public ledger.</p>
+        </section>
+        <section id="authority-over-affected-rights" class="level3">
+        <h3>7.6 Authority over affected rights</h3>
+        <p>The allocation problem uses the stated rights and restrictions to decide which resources may satisfy an obligation. Changing those terms raises a further question: who has authority over each affected right? A one-field change can alter many rights. Replacing a fee schedule may change the amount owed by every client whose contract refers to that schedule. The field footprint identifies the written field. A rights projection identifies the resulting economic and legal changes.</p>
+        <p>Fix a guarded universe <span class="math inline">I</span> of affected institutional relationships. For <span class="math inline">i\in I</span>, define <span class="math inline">\rho_i(s)</span> as its rights projection in state <span class="math inline">s</span>. This projection includes the holder, obligor, applicable terms, amount or performance, priority, maturity, and discharge conditions relevant to the action. A created or removed relationship has a distinguished absent value on the other side. Define its actual impact by <span class="math display">\mathcal I(s,s&#39;)=\{i\in I:\rho_i(s)\ne\rho_i(s&#39;)\}. \tag{E2}</span> The action declares a set <span class="math inline">J</span> containing <span class="math inline">\mathcal I(s,s&#39;)</span> and supplies the current amendment authority for each changed projection. This authority names the exact old and new terms and their effective time. It includes consent when the governing rule requires consent. A competent public power or constitutional mandate can supply a different lawful basis. The construction does not convert every institutional duty into a commercial agreement.</p>
+        <p>The registered universe and its membership generation are guarded inputs. The dependency analysis includes the rules that interpret each relationship, their relevant data, and any range query that selects affected parties. A new affected contract invalidates a proposal’s old membership guard. The boundary recomputes the impact before committing it. Source completeness and competent authority remain the explicit institutional premises of Section 6.1.</p>
+        <p><strong>Proposition 2 (economic impact attribution).</strong> Assume the registered universe covers every relationship in scope, the projections are faithful, and the impact guards hold at commit. If <span class="math inline">\mathcal I(s,s&#39;)\subseteq J</span> and each changed projection has the required current amendment authority, every changed right in scope has that authority. Every relationship outside <span class="math inline">J</span> has the same projection before and after the commit.</p>
+        <p><em>Proof.</em> A changed projection belongs to <span class="math inline">\mathcal I(s,s&#39;)</span>, hence to <span class="math inline">J</span>, where its exact amendment authority is checked. If <span class="math inline">i\notin J</span>, then <span class="math inline">i\notin\mathcal I(s,s&#39;)</span>. Equation (E2) gives <span class="math inline">\rho_i(s)=\rho_i(s&#39;)</span>. <span class="math inline">\square</span></p>
+        <p>For example, existing contracts can bind a fixed schedule while new contracts adopt a separately authorized schedule. A change for future contracts then preserves the existing clients’ projections. Charging those clients a higher fee instead requires their applicable amendment basis. Permission to write the schedule field supplies only the field part of that authority.</p>
+        <p>Complete impact analysis is a semantic obligation. The proposition does not infer an unrecorded right from a database field. Finite explicit contract families permit direct evaluation of every projection. More general rule languages need a sound abstraction or their own completeness argument. This is the same distinction between a declared write footprint and its faithful implementation, applied to the meaning of the record.</p>
+        </section>
+        <section id="viable-continuations" class="level3">
+        <h3>7.7 Viable continuations</h3>
+        <p>A workflow can respect both its resource limits and its amendment authority, yet fail its obligation to deliver. An authorized action can leave no funded route to the required result. Spending 60 from a balance of 100 is within a limit of 100, but leaves insufficient funds for a delivery requiring a further 60. A useful program therefore needs a continuation condition in addition to next-action permission.</p>
+        <p>For the balance of 100, a delivery route costing 90 can be viable, as can a route costing 80. The policy retains both when their declared outcomes meet the goal. The 60-unit preliminary purchase is excluded when every subsequent delivery costs another 60 and further funding is unavailable. Its local authority remains valid. It fails the stated continuation goal. A lawful refund route can remain available as a remedy while lying outside a delivery-only goal.</p>
+        <p>A continuation must work after every response allowed by the contract. We compute such continuations backward from the permitted outcomes. The first construction assumes the program sees the complete state. Here <span class="math inline">S</span> denotes the safe subset of workflow states, distinct from the institutional state space used in Section 3.</p>
+        <p>Let <span class="math inline">X</span> be a finite, fully observed state space. A state records current authority, source coverage, budget counters, outstanding rights, external outcomes, and the remaining time. Let <span class="math inline">S\subseteq X</span> be the states allowed by the governing safety and risk contract. Let <span class="math inline">G\subseteq S</span> be a nonempty set of authorized terminal outcomes. Delivery, discharge, and a permitted remedy have explicit predicates. A refund belongs to <span class="math inline">G</span> only when that goal permits it. Public-service performance can define <span class="math inline">G</span> through its governing mandate.</p>
+        <p>A policy chooses the next action from the state it observes. The environmental contract states how providers and other authorities can respond before the policy chooses again. At <span class="math inline">x</span>, the finite set <span class="math inline">A(x)</span> contains the actions or batches that satisfy the current commit, economic, and affected-rights rules. The finite environmental contract gives a finite family <span class="math inline">\mathcal P_E(x,a)</span> of complete observable response paths for each action. Each path starts at <span class="math inline">x</span> and contains at least one transition. Write <span class="math inline">\operatorname{Post}_E(x,a)\subseteq X</span> for their final states. Terminal states occur only at response endpoints and admit no further act. The contract states the covered provider outcomes, evidence delays, authority changes, and losses. An executable action has at least one successor. An empty successor set cannot certify completion by a vacuous universal statement. The contract also binds the identities and versions that give these states and transitions their meaning.</p>
+        <p>For example, a safe first purchase must leave a permitted continuation after every allowed price, performance, and authority outcome. The sets <span class="math inline">V_h</span> below collect states from which completion remains guaranteed within <span class="math inline">h</span> decisions. The sets <span class="math inline">\Pi_h(x)</span> collect all next actions preserving that guarantee.</p>
+        <p>Write <span class="math inline">\mathsf{SafePath}(x,a)</span> when every state on every response path lies in <span class="math inline">S</span>. For a horizon of <span class="math inline">h</span> decision rounds, define <span class="math display">\begin{align*} V_0&amp;=G,\qquad \Pi_0(x)=\varnothing,\\ \Pi_{h+1}(x)&amp;=\{a\in A(x):\mathsf{SafePath}(x,a),\; \varnothing\ne\operatorname{Post}_E(x,a)\subseteq V_h\},\\ V_{h+1}&amp;=G\cup\{x\in S:\Pi_{h+1}(x)\ne\varnothing\}. \tag{E3} \end{align*}</span> At a terminal state the policy stops. Elsewhere it retains every member of <span class="math inline">\Pi_h(x)</span>. Outside <span class="math inline">S</span>, define <span class="math inline">\Pi_h(x)=\varnothing</span>. The remaining horizon decreases after every response path.</p>
+        <p><strong>Theorem 4 (finite viable continuation).</strong> For the stated fully observed contract, <span class="math inline">x\in V_h</span> exactly when a policy can keep every reached state in <span class="math inline">S</span> and terminate in <span class="math inline">G</span> within <span class="math inline">h</span> rounds, against every response path in <span class="math inline">\mathcal P_E</span>. Here the horizon counts decision rounds. Every action in <span class="math inline">\Pi_h(x)</span> at <span class="math inline">x\in S\setminus G</span> preserves this guarantee. Any action outside that set at <span class="math inline">x\notin G</span> fails to supply such a guarantee for the remaining horizon.</p>
+        <p><em>Proof.</em> For <span class="math inline">h=0</span>, completion means <span class="math inline">x\in G</span>. Suppose the equivalence holds for <span class="math inline">h</span>. From a nonterminal state, a policy must select an executable action whose response paths stay in <span class="math inline">S</span> and whose every final state admits a remaining policy of horizon <span class="math inline">h</span>. The induction hypothesis makes this exactly the condition defining <span class="math inline">\Pi_{h+1}(x)</span>. The state itself must belong to <span class="math inline">S</span>. Conversely, choose any action in that set. After observing its outcome, use the corresponding policy furnished by the induction hypothesis. Its horizon decreases and it reaches <span class="math inline">G</span>. Empty successor sets were excluded, so this implication cannot use an impossible transition. The same argument proves the claim for every retained action and excludes each other first action. <span class="math inline">\square</span></p>
+        <p>An intermediate violation followed by restoration fails <span class="math inline">\mathsf{SafePath}</span>. Safe endpoints alone establish no such guarantee. Each response path also retains the per-event guards of Theorem 1. An initial batch decision supplies no authority for an unchecked later act. Each response contract has a finite duration bound, represented by the clock in <span class="math inline">X</span>. A deadline belongs to <span class="math inline">S</span> and <span class="math inline">G</span> when the mandate requires it. Waiting beyond that deadline is then an explicit losing outcome.</p>
+        <p>The recursion uses ordinary finite backward reachability to combine the institutional state, action, and environmental contracts. Theorem 3 contributes aggregate resource bounds. Proposition 2 contributes authority over changed rights. The original commit theorem supplies current authority, complete dependencies, and effect attribution. No one of these properties implies the others.</p>
+        <p>A safety contract can permit a measured loss. The theorem does not require every transaction to be riskless. Its universal quantifier ranges over the declared environmental outcomes. A provider failure or authority change outside that set is a contract breach, requiring a fresh analysis from the observed state. A rejected transition preserves existing rights and obligations. It cannot replace delivery with a newly convenient goal.</p>
+        <p>The finite reference construction evaluates every action and successor in Equation (E3). It includes parallel sibling reservations, ancestor limits, revocation before dispatch, uncertain performance, and fee changes affecting existing and future contracts. Its witnesses distinguish an authorized dead end, a viable alternative, an impossible transition, and a refund outside the delivery goal. These establish the stated finite semantics. The next construction treats partial observation. Unbounded service and production adapter refinement require additional results.</p>
+        </section>
+        <section id="incomplete-observations" class="level3">
+        <h3>7.8 Acting from incomplete observations</h3>
+        <p>A delayed answer can arrive after the acting delegate loses authority. The answer resolves the judgment. A current authority check still governs the next effect. Meanwhile, independently authorized preparation can continue. The program must distinguish judgment, current authority, and independent preparation while retaining every useful continuation supported by its evidence.</p>
+        <p><strong>Example 1 (useful work through suspension).</strong> One party reserves 80 units of money. The other reserves one service slot. A pending judgment can approve or refuse performance. Its answer arrives within two admitted service opportunities. Here a service opportunity is an admitted chance to obtain that answer. The acting delegate can lose authority during either opportunity or during independent preparation. The evidence returned to the program reports the judgment. The authority change remains hidden until a guarded attempt returns its result.</p>
+        <p>After approval, the program can still be uncertain about its delegate’s authority. The same observation is compatible with a live delegate and a revoked delegate. A command must therefore be safe in both cases, and its observed response determines what can happen next. The program tracks the set of states compatible with its observations.</p>
+        <p>Let <span class="math inline">X</span> and <span class="math inline">\overline A</span> be finite sets of states and command choices. Let <span class="math inline">S\subseteq X</span> be the safe states and <span class="math inline">G\subseteq S</span> the fulfilled or expressly permitted terminal outcomes. A state includes all memory that constrains later responses, including hidden authority and pending response obligations. The initial contract supplies a nonempty set <span class="math inline">B_0\subseteq X</span> containing every initially possible state. A <em>belief</em> <span class="math inline">B</span> is the nonempty set of states consistent with the complete action and observation history.</p>
+        <p>The <em>controller</em> is the program that implements the policy. For each <span class="math inline">x</span> and <span class="math inline">a</span>, the contract supplies finite response paths <span class="math inline">\mathcal P_E(x,a)</span>. Each path starts at <span class="math inline">x</span> and ends at the next controller decision. Intermediate steps obey the same authority, rights, and resource guards as a separately issued act. The controller makes no intervening choice. Its transcript <span class="math inline">\operatorname{obs}(p)</span> contains exactly the evidence and timing it observes. Hidden state labels never enter that transcript automatically.</p>
+        <p>A program cannot choose different actions in states its observations do not distinguish. Its next choice must have a defined response in each possible state. An action is <em>uniformly executable</em> at <span class="math inline">B</span> when <span class="math inline">\mathcal P_E(x,a)\ne\varnothing</span> for every <span class="math inline">x\in B</span>. One guarded attempt can therefore succeed under live authority and return a local refusal under revoked authority. Both are responses to the same choice. Refusal preserves the outstanding duties and their reservations. An empty response family in one possible world prevents uniform execution.</p>
+        <p>The update retains precisely the endpoints compatible with the observed response. Approval can therefore settle the judgment while leaving authority uncertain. A later guarded attempt can resolve that uncertainty.</p>
+        <p>For a possible transcript <span class="math inline">z</span>, define the updated belief <span class="math display">U(B,a,z)=\{\operatorname{last}(p):x\in B,\; p\in\mathcal P_E(x,a),\;\operatorname{obs}(p)=z\}. \tag{E4}</span> Write <span class="math inline">Z(B,a)</span> for the transcripts that these paths produce. Every update for <span class="math inline">z\in Z(B,a)</span> is nonempty. An observation outside <span class="math inline">Z(B,a)</span> is a contract breach. It supplies no completion certificate.</p>
+        <p>The actual endpoint belongs to every successive belief. Initially this holds by the state contract. Each actual response starts in the prior belief and produces the received transcript. Equation (E4) therefore retains its endpoint. Complete state memory makes the update exact. A conservative transition contract instead gives a conservative belief, which can exclude actions that the actual environment would permit.</p>
+        <p>Actual fulfillment and knowledge of fulfillment differ. Completion can be declared precisely when <span class="math inline">B\subseteq G</span>. A belief containing a fulfilled world and a pending world still requires evidence. Unlike the terminal convention in Section 7.7, fulfilled states here can admit evidence-only responses. The controller’s declaration ends the policy.</p>
+        <p>Applying the backward argument to sets of possible states gives <span class="math inline">\mathcal W_h</span>, the beliefs from which safety and known completion can be guaranteed within <span class="math inline">h</span> decisions. The set <span class="math inline">\widehat\Pi_h(B)</span> retains every first choice with that property. Each possible observation must lead to a belief with a shorter guaranteed continuation.</p>
+        <p>Let <span class="math inline">\mathsf{SafePath}(B,a)</span> require every state on every response path from <span class="math inline">B</span> to lie in <span class="math inline">S</span>. Define <span class="math display">\begin{align*} \mathcal W_0&amp;=\{B:\varnothing\ne B\subseteq G\}, &amp;\widehat\Pi_0(B)&amp;=\varnothing,\\ \widehat\Pi_{h+1}(B)&amp;=\{a\in\overline A: a\text{ is uniformly executable at }B,\\[-2pt] &amp;\qquad\mathsf{SafePath}(B,a),\quad U(B,a,z)\in\mathcal W_h\text{ for every }z\in Z(B,a)\},\\ \mathcal W_{h+1}&amp;=\mathcal W_0\cup \{B:\varnothing\ne B\subseteq S,\; \widehat\Pi_{h+1}(B)\ne\varnothing\}. \tag{E5} \end{align*}</span> Set <span class="math inline">\widehat\Pi_h(B)=\varnothing</span> when <span class="math inline">B</span> is unsafe or <span class="math inline">B\subseteq G</span>. At other winning beliefs choose any retained action. After receiving its complete response, apply Equation (E4) and decrease <span class="math inline">h</span> by one.</p>
+        <p><strong>Theorem 5 (viable continuation from observations).</strong> Under the complete finite contract, <span class="math inline">B\in\mathcal W_h</span> exactly when an observation-based policy guarantees safety and known completion within <span class="math inline">h</span> decision rounds. The guarantee covers every permitted response path. At a nonterminal safe belief, <span class="math inline">\widehat\Pi_h(B)</span> contains exactly the first actions of such policies. Every retained action preserves the guarantee for the remaining horizon.</p>
+        <p><em>Proof.</em> At horizon zero, every possible world must satisfy the declared goal. This is exactly <span class="math inline">\mathcal W_0</span>, and <span class="math inline">G\subseteq S</span> supplies safety. At a nonterminal belief, a policy chooses before observing the next response. Its choice applies uniformly across all possible worlds. Each response must exist and remain safe at every intermediate step. After transcript <span class="math inline">z</span>, Equation (E4) gives precisely the remaining worlds. Induction identifies their winning continuation policies with <span class="math inline">U(B,a,z)\in\mathcal W_h</span>. These are exactly the conditions in Equation (E5). Conversely, each retained action and the corresponding posterior policies satisfy those conditions. The decreasing horizon forces completion. This also proves the assertion about all first actions. <span class="math inline">\square</span></p>
+        <p>The theorem uses universal path guarantees. Its objective differs from almost-sure reachability under a probability model. Subset constructions for imperfect-information games are established methods. Reif (1984) studies games of incomplete information. Chatterjee and Doyen (2011) explain why belief alone can fail for other stochastic objectives. Here the belief and remaining horizon suffice because they determine all future choices and responses under the stated contract.</p>
+        <p>Return to the 80-unit service in Example 1. With six rounds remaining, both preparation and a service request are winning first actions under a delivery-or-permitted-cancellation goal. Consider preparation, one pending response, then approval. The next guarded attempt either performs or records local refusal. Refusal keeps the money, service slot, and both parties’ duties intact. A separately authorized owner action can then transfer the unused reservation to a fresh command. The owner performs under its own current authority. The original command retains its identity and refusal history.</p>
+        <p>The refusal branch uses six rounds:</p>
+        <ol type="1">
+        <li><p>Preparation completes.</p></li>
+        <li><p>A service opportunity returns a pending response.</p></li>
+        <li><p>The next service opportunity returns approval.</p></li>
+        <li><p>The guarded attempt records local refusal.</p></li>
+        <li><p>The authorized owner transfers the unused reservation.</p></li>
+        <li><p>The owner performs under its current authority.</p></li>
+        </ol>
+        <p>This path pays 80 once and performs the service once. An adverse judgment instead requires the admitted joint cancellation and its simultaneous releases and discharge. The delivery-only goal is losing when that adverse answer is possible. Returning money alone does not discharge the other party’s performance claim. The example’s mandates and response competence are explicit premises. The finite transition table implements their modeled consequences.</p>
+        <p><strong>Example 2 (progress without forced approval).</strong> A response monitor records the original obligation and its remaining service opportunities. At each required opportunity, it supplies an allowed answer or decreases the counter. At zero, the next opportunity must yield an allowed answer, refusal, expiry, or authenticated failure. The contract determines which of these outcomes can meet the goal.</p>
+        <p>The counter belongs to the hidden state whenever its value is unobserved. Retries retain the original counter. Resetting it permits indefinite delay and invalidates the finite guarantee. Weak fairness alone also permits arbitrary finite delay. A calendar bound additionally requires a schedule and a duration bound for the complete decision round. If each round, including the controller’s choice, takes at most <span class="math inline">d</span> time units, <span class="math inline">h</span> rounds take at most <span class="math inline">hd</span>. An absent competent response at expiry breaches that contract.</p>
+        <p>Retaining every action into an eventual winning set would permit an idle loop. Equation (E5) retains idle only while enough rounds remain for completion. In the two-party example, idle is available at horizon seven and excluded at horizon six. The policy preserves freedom within the specified deadline.</p>
+        <p>The finite reference evaluates Equation (E5) on demand. It also checks complete observation-policy trees for small games and traces all retained choices in the two-party example. These tests distinguish hidden deadlock, intermediate unauthorized effects, lost observation history, false completion, and response-counter resets. The construction requires complete institutional and provider contracts. Large state spaces call for abstractions whose soundness and useful action retention are proved against the same semantics.</p>
+        <p>The accompanying <a href="supplements/programmable-institutions-supplement.zip" style="overflow-wrap:anywhere;hyphens:none"><em>Programmable Institutions: supplementary construction</em></a> contains the finite observation controller, the two-party example, and their reproduction tests.</p>
+        </section>
+        </section>
+        <section id="what-programmability-changes" class="level2">
+        <h2>8. What programmability changes</h2>
+        <p>The continuation results characterize which choices preserve safety and completion under the stated contract. Institutional acceptance still governs each authoritative change.</p>
+        <p>Software can prepare and test filings, contracts, approvals, and payments continuously before submission. At the commit boundary, the institution decides which acts change its authoritative record. It thereby retains sole control of the change that has legal or administrative effect.</p>
+        <p>The construction gives a governed institution four properties.</p>
+        <ol type="1">
+        <li><p><strong>Independent reconstruction.</strong> An authorized reviewer can reconstruct each accepted change from its retained evidence export. Retrieval, decryption, and digest checks produce explicit results. The replay interpreter has no external dispatch capability.</p></li>
+        <li><p><strong>Institutional autonomy.</strong> Each institution keeps its own trusted roots, rules, judgment authorities, and authoritative record.</p></li>
+        <li><p><strong>Append-only correction.</strong> A later remedy is a new authorized act. It does not rewrite the earlier event.</p></li>
+        <li><p><strong>Typed human judgment.</strong> When a rule cannot decide, it names the question, required evidence, allowed answers, and principals who may answer. The authenticated answer binds one exact pending revision. Its permitted use becomes a dependency of the resulting commit.</p></li>
+        </ol>
+        <p>Whether these properties suffice for an institution depends on its law, external effects, and operating process. The boundary applies to private and public institutions. A local commit may consult a compliance state composed across several jurisdictions, but recognition between institutions is a separate construction.</p>
+        </section>
+        <section id="prior-art-and-exact-position" class="level2">
+        <h2>9. Prior art and exact position</h2>
+        <p>The construction uses established authorization, transaction, and workflow methods. Together they constrain who may act, what may change, and whether a process can finish.</p>
+        <p><strong>Reference monitors and capabilities.</strong> Dennis and Van Horn (1966) introduced capability-based protection in multiprogrammed systems. Lampson (1971) gave the access-control matrix model. Saltzer and Schroeder (1975) set out complete mediation, least privilege, and economy of mechanism. SPKI/SDSI certificate reduction, proxy certificates, and Macaroons already provide scoped, time-bounded, and attenuating delegation. The present model uses those established ideas at the sole-writer boundary of an institutional record.</p>
+        <p><strong>Authorization logic.</strong> Abadi, Burrows, Lampson, and Plotkin (1993) gave a calculus for distributed access control. PolicyMaker and KeyNote separated policy from application code and evaluated signed assertions. XACML 3.0 returns Permit, Deny, Indeterminate, or NotApplicable and may attach obligations. This paper’s narrower discretion hole names the unanswered question, admissible answers, and answering principals, then binds the authorized answer as a dependency of the state change.</p>
+        <p><strong>Effects and authority safety.</strong> Lucassen and Gifford’s effect systems (1988) track computational effects. Necula’s proof-carrying code (1997) binds code to evidence of a safety property. Miller (2006) and Maffeis, Mitchell, and Taly (2010) establish non-amplification results for object-capability systems. This paper constrains a field-level write footprint by the same delegation chain that authorizes the action and binds both to the receipt.</p>
+        <p><strong>Concurrency.</strong> The current-head comparison is optimistic concurrency control in the sense of Kung and Robinson (1981). Here it also fixes the institutional meaning of the rule result: the permit was computed on the state that the commit changes.</p>
+        <p><strong>Transactions and workflows.</strong> Garcia-Molina and Salem’s sagas (1987) treat long transactions through compensating actions. Workflow-net research, including van der Aalst (1998), studies sound completion and deadlock. The present model adopts staged and compensating action, while separately requiring actor authority and typed judgment before state mutation.</p>
+        <p><strong>Computational law.</strong> Sergot and co-authors (1986) represented provisions of the British Nationality Act as a logic program and left open predicates external. Catala makes statutory defaults and exceptions explicit in a programming language. LegalRuleML standardizes rule interchange. L4 and defeasible-logic research model legal rules, priorities, and arguments. This paper specifies the execution boundary that any such rule representation must cross before authoritative state changes.</p>
+        <p><strong>Open texture and adjudication.</strong> Hart (1961) described the open texture of rules. Dworkin (1977) argued that legal reasoning also involves principles and institutional interpretation. The discretion-hole type records where a chosen formalization stops and who must act next. The institution supplies the legal interpretation.</p>
+        <p><strong>Tamper-evident evidence.</strong> Haber and Stornetta (1991) showed how to time-stamp documents in a hash-linked history. Certificate Transparency later used append-only logs to make certificate issuance publicly auditable. A receipt chain makes mutation history detectable and replayable under stated assumptions. Evidence validity is a separate input.</p>
+        <p>The local contribution combines authorization, transaction, and workflow methods at one mutation boundary. One commit binds a live delegation chain, an encoded rule result, every required judgment use, an observable write footprint, protected source heads, and retained evidence. The trace theorem attributes each visible write to that boundary. Source contracts connect recorded authority to its institutionally competent origins and actual use stages.</p>
+        <p>The finite continuation constructions retain all safe completion choices under the same current authority, resource, and affected-rights conditions. Backward reachability and the construction of beliefs are established methods. Their guarantees here are relative to the specified institutional and environmental contracts.</p>
+        <p>Five companion papers define the surrounding objects. <em>One Entity in Many Jurisdictions</em> defines an entity recognized under several legal contexts and the composed state this boundary may consult (Lorgat 2026a). <em>How Compliance Composes</em> defines state composition (Lorgat 2026b). <em>Lex: A Logic for Jurisdictional Rules</em> defines the applicable rule and typed discretion hole (Lorgat 2026c). <em>Op: A Typed Bytecode for Compliance-Carrying Operations</em> defines execution and its evidence bundle (Lorgat 2026d). <em>The Sovereign Jurisdiction Network</em> defines a network in which each institution controls its own record (Lorgat 2026e). This paper defines the commit boundary, its live authority trace, and the replayable receipt.</p>
+        </section>
+        <section id="scope-and-open-problems" class="level2">
+        <h2>10. Scope and open problems</h2>
+        <p>The theorems govern changes to one sole-writer institutional record under an encoded rule and recorded authority context. Legal validation supplies the trusted-root designation and fidelity of the rule to its source. Empirical evaluation supplies reliability, latency, and error rates. Distributed histories, external effects, privacy, and human judgment require further results:</p>
+        <ol type="1">
+        <li><p><strong>Mechanized metatheory.</strong> Formalize the syntax, trace semantics, scope algebra, and theorem in at least one proof assistant. Prove decidability of capability validation and rule-outcome checking for a defined fragment.</p></li>
+        <li><p><strong>Distributed concurrent authority preservation.</strong> Add conflict-aware scheduling and prove that every accepted distributed history is equivalent to an authorized sequential history, or returns a typed conflict.</p></li>
+        <li><p><strong>External-effect refinement.</strong> Give contracts for external primitives and prove that staged execution and compensation preserve named business invariants.</p></li>
+        <li><p><strong>Rule-translation validation.</strong> Define a process that binds legal sources, interpretations, tests, and authorized certifiers to each executable rule. Evaluate it on a representative legal corpus.</p></li>
+        <li><p><strong>Judgment governance.</strong> Specify quorum, conflict, appeal, revocation, bias monitoring, and reason-giving for human resolutions. Extend the exact request and question binding to these additional governance transitions.</p></li>
+        <li><p><strong>Information-flow security.</strong> Prove that receipts disclose no information beyond a declared observer policy while retaining enough evidence for review.</p></li>
+        <li><p><strong>Adversarial systems evidence.</strong> Test complete mediation, storage integrity, clock integrity, key compromise, disaster recovery, and log availability in a concrete system.</p></li>
+        <li><p><strong>Comparative expressiveness.</strong> Characterize which traces this calculus admits beyond SPKI/SDSI, XACML, and object-capability models.</p></li>
+        </ol>
+        <p>The trace theorem uses F1–F10. The economic and continuation results add complete resource accounting, faithful rights projections, and an explicit finite environment. The open problems specify the further results needed for distributed, legal, and operational effects.</p>
+        </section>
+        <section id="conclusion" class="level2">
+        <h2>11. Conclusion</h2>
+        <p>An institution can delegate preparation and execution while retaining authority over each change to its record. The required evidence must remain attached to the act it supports. A current delegation governs the effect, a human answer governs its exact question, and protected observations connect the evaluated rule to the state that changes. The trace theorem establishes this attribution under F1–F10, including observable changes later reversed.</p>
+        <p>Useful delegation also depends on what remains possible after the act. A common account preserves an allowance across sibling delegates. Rights projections identify the amendment authority required by a change. The finite continuation constructions then retain every next action that can guarantee the stated outcome within the remaining decisions. Under partial observation, the guarantee must hold for every state still consistent with the evidence. Completion requires evidence that every such state satisfies the goal.</p>
+        <p>These conclusions depend on faithful rules, complete dependencies, competent authority sources, and the stated environmental contract. Retained evidence allows a reviewer with the required access to reconstruct the recorded decisions. Legal validation establishes their authority and effect. External providers remain responsible under their own performance contracts. At each act, the program must establish its current authority and preserve its outstanding duties and feasible continuations in the same state.</p>
+        </section>
+        <section id="references" class="level2">
+        <h2>References</h2>
+        <p>Abadi, M., Burrows, M., Lampson, B., and Plotkin, G. (1993). “A Calculus for Access Control in Distributed Systems.” <em>ACM Transactions on Programming Languages and Systems</em>, 15(4), 706–734.</p>
+        <p>Birgisson, A., Politz, J. G., Erlingsson, U., Taly, A., Vrable, M., and Lentczner, M. (2014). “Macaroons: Cookies with Contextual Caveats for Decentralized Authorization in the Cloud.” <em>Network and Distributed System Security Symposium</em>.</p>
+        <p>Blaze, M., Feigenbaum, J., and Ioannidis, J. (1999). <em>The KeyNote Trust-Management System Version 2.</em> RFC 2704.</p>
+        <p>Blaze, M., Feigenbaum, J., and Lacy, J. (1996). “Decentralized Trust Management.” <em>Proceedings of the 1996 IEEE Symposium on Security and Privacy</em>, 164–173.</p>
+        <p>Centre for Computational Law, Singapore Management University. (2020). <em>L4: A Domain-Specific Language for Law.</em></p>
+        <p>Chatterjee, K., and Doyen, L. (2011). “Partial-Observation Stochastic Games: How to Win when Belief Fails.” IST Austria Technical Report IST-2011-0007. <a href="https://arxiv.org/abs/1107.2141" class="uri" style="overflow-wrap:anywhere;hyphens:none">https://arxiv.org/abs/1107.2141</a></p>
+        <p>Cipriani, M., Goldberg, L. S., and La Spada, G. (2023). “Financial Sanctions, SWIFT, and the Architecture of the International Payments System.” <em>Journal of Economic Perspectives</em>, 37(1), 31–52.</p>
+        <p>CLS and FNA. (2025). <em>Reimagining Same-Day FX: Exploring the Case for Additional Settlement Cycles.</em> ShapingFX report, 6 March 2025. <a href="https://www.cls-group.com/insights/innovation/report-reimagining-same-day-fx-exploring-the-case-for-additional-settlement-cycles-shapingfx-series/" style="overflow-wrap:anywhere;hyphens:none">CLS ShapingFX report.</a></p>
+        <p>Committee on Payment and Settlement Systems and Technical Committee of the International Organization of Securities Commissions. (2012). <em>Principles for Financial Market Infrastructures</em>. Bank for International Settlements and IOSCO. <a href="https://www.bis.org/publications/principles-financial-market-infrastructures.pdf" class="uri" style="overflow-wrap:anywhere;hyphens:none">https://www.bis.org/publications/principles-financial-market-infrastructures.pdf</a></p>
+        <p>Dennis, J. B. and Van Horn, E. C. (1966). “Programming Semantics for Multiprogrammed Computations.” <em>Communications of the ACM</em>, 9(3), 143–155.</p>
+        <p>Dworkin, R. (1977). <em>Taking Rights Seriously.</em> Harvard University Press.</p>
+        <p>Du, W., Huang, C., and Scharfstein, D. (2026). “Competing Rails for Cross-Border Payments: Banks, Fintechs, and Stablecoins.” Harvard Business School working paper, 15 February 2026. <a href="https://www.hbs.edu/ris/Publication%20Files/Du_Huang_Scharfstein_14Feb2016_66992079-2e6b-4584-95cf-014441c77485.pdf" style="overflow-wrap:anywhere;hyphens:none">HBS working paper.</a></p>
+        <p>Ellison, C., Frantz, B., Lampson, B., Rivest, R., Thomas, B., and Ylonen, T. (1999). <em>SPKI Certificate Theory.</em> RFC 2693.</p>
+        <p>European Parliament and Council. (2014). <em>Regulation (EU) No 910/2014 on Electronic Identification and Trust Services</em>.</p>
+        <p>European Parliament and Council. (2016). <em>Regulation (EU) 2016/679, General Data Protection Regulation</em>.</p>
+        <p>European Parliament and Council. (2024). <em>Regulation (EU) 2024/1689, Artificial Intelligence Act</em>.</p>
+        <p>Federal Rules of Evidence. Rule 902(13)–(14), Certified Records Generated by an Electronic Process or System and Certified Data Copied from an Electronic Device, Storage Medium, or File.</p>
+        <p>Federal Reserve Banks. (2026). <em>Operating Circular 6: Funds Transfers Through the Fedwire Funds Service</em>. Effective 5 January 2026. <a href="https://www.frbservices.org/binaries/content/assets/crsocms/resources/rules-regulations/010526-operating-circular-6.pdf" class="uri" style="overflow-wrap:anywhere;hyphens:none">https://www.frbservices.org/binaries/content/assets/crsocms/resources/rules-regulations/010526-operating-circular-6.pdf</a></p>
+        <p>Garcia-Molina, H. and Salem, K. (1987). “Sagas.” <em>Proceedings of the 1987 ACM SIGMOD International Conference on Management of Data</em>, 249–259.</p>
+        <p>Haber, S. and Stornetta, W. S. (1991). “How to Time-Stamp a Digital Document.” <em>Journal of Cryptology</em>, 3(2), 99–111.</p>
+        <p>Hart, H. L. A. (1961). <em>The Concept of Law.</em> Oxford University Press.</p>
+        <p>Lampson, B. W. (1971). “Protection.” <em>Proceedings of the Fifth Princeton Symposium on Information Sciences and Systems</em>, 437–443.</p>
+        <p>Laurie, B., Langley, A., and Kasper, E. (2013). <em>Certificate Transparency.</em> RFC 6962.</p>
+        <p>Lorgat, R. (2026a). <em>One Entity in Many Jurisdictions</em>. Companion paper.</p>
+        <p>Lorgat, R. (2026b). <em>How Compliance Composes</em>. Companion paper.</p>
+        <p>Lorgat, R. (2026c). <em>Lex: A Logic for Jurisdictional Rules</em>. Companion paper.</p>
+        <p>Lorgat, R. (2026d). <em>Op: A Typed Bytecode for Compliance-Carrying Operations</em>. Companion paper.</p>
+        <p>Lorgat, R. (2026e). <em>The Sovereign Jurisdiction Network</em>. Companion paper.</p>
+        <p>Lucassen, J. M. and Gifford, D. K. (1988). “Polymorphic Effect Systems.” <em>Proceedings of the 15th ACM Symposium on Principles of Programming Languages</em>, 47–57.</p>
+        <p>Kung, H. T. and Robinson, J. T. (1981). “On Optimistic Methods for Concurrency Control.” <em>ACM Transactions on Database Systems</em>, 6(2), 213–226.</p>
+        <p>Maffeis, S., Mitchell, J. C., and Taly, A. (2010). “Object Capabilities and Isolation of Untrusted Web Applications.” <em>Proceedings of the 2010 IEEE Symposium on Security and Privacy</em>, 125–140.</p>
+        <p>Merigoux, D., Chataing, N., and Protzenko, J. (2021). “Catala: A Programming Language for the Law.” <em>Proceedings of the ACM on Programming Languages</em>, 5(ICFP), Article 77.</p>
+        <p>Miller, M. S. (2006). <em>Robust Composition: Towards a Unified Approach to Access Control and Concurrency Control.</em> PhD thesis, Johns Hopkins University.</p>
+        <p>Necula, G. C. (1997). “Proof-Carrying Code.” <em>Proceedings of the 24th ACM Symposium on Principles of Programming Languages</em>, 106–119.</p>
+        <p>OASIS. (2021). <em>LegalRuleML Core Specification Version 1.0.</em> OASIS Standard.</p>
+        <p>OASIS. (2013). <em>eXtensible Access Control Markup Language (XACML) Version 3.0.</em> OASIS Standard.</p>
+        <p>Prakken, H. and Sartor, G. (2015). “Law and Logic: A Review from an Argumentation Perspective.” <em>Artificial Intelligence</em>, 227, 214–245.</p>
+        <p>Reif, J. H. (1984). “The Complexity of Two-Player Games of Incomplete Information.” <em>Journal of Computer and System Sciences</em>, 29(2), 274–301. <a href="https://doi.org/10.1016/0022-0000(84)90034-5" class="uri" style="overflow-wrap:anywhere;hyphens:none">https://doi.org/10.1016/0022-0000(84)90034-5</a></p>
+        <p>Saltzer, J. H. and Schroeder, M. D. (1975). “The Protection of Information in Computer Systems.” <em>Proceedings of the IEEE</em>, 63(9), 1278–1308.</p>
+        <p>Swift. (2025). <em>Spotlight on Speed</em>. September 2025. <a href="https://www.swift.com/sites/default/files/files/swift-spotlight-on-speed_september-2025.pdf" class="uri" style="overflow-wrap:anywhere;hyphens:none">https://www.swift.com/sites/default/files/files/swift-spotlight-on-speed_september-2025.pdf</a></p>
+        <p>Sergot, M. J., Sadri, F., Kowalski, R. A., Kriwaczek, F., Hammond, P., and Cory, H. T. (1986). “The British Nationality Act as a Logic Program.” <em>Communications of the ACM</em>, 29(5), 370–386.</p>
+        <p>Tuecke, S., Welch, V., Engert, D., Pearlman, L., and Thompson, M. (2004). <em>Internet X.509 Public Key Infrastructure Proxy Certificate Profile.</em> RFC 3820.</p>
+        <p>Uniform Law Commission. (1999). <em>Uniform Electronic Transactions Act</em>.</p>
+        <p>United Nations. (2005). <em>Convention on the Use of Electronic Communications in International Contracts</em>.</p>
+        <p>United Nations Commission on International Trade Law. (1996). <em>Model Law on Electronic Commerce with Guide to Enactment</em>.</p>
+        <p>United States. (2000). <em>Electronic Signatures in Global and National Commerce Act</em>, 15 U.S.C. § 7001 et seq.</p>
+        <p>van der Aalst, W. M. P. (1998). “The Application of Petri Nets to Workflow Management.” <em>Journal of Circuits, Systems and Computers</em>, 8(1), 21–66.</p>
+        </section>
+        </section>
+        </div>
+
+        <footer class="article-footer">
+            <span class="author-byline"><strong>Raeez Lorgat</strong> · Managing Partner, Momentum</span>
+            <nav class="footer-nav">
+                <a href="/">← All Papers</a>
+            </nav>
+        </footer>
+        <div class="contact-footer">
+            <span>&copy; 2025 Momentum</span>
+        </div>
+    </article>
+</div>
+<script src="/paper.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The institutional world model - Raeez Lorgat</title>
+<meta name="description" content="How sovereign execution environments for AI agents learn, adopt and correct interpretations of law, regulation and policy while preserving authority and unfinished work.">
+<meta name="author" content="Raeez Lorgat">
+<meta property="og:title" content="The institutional world model">
+<meta property="og:description" content="How sovereign execution environments for AI agents learn, adopt and correct interpretations of law, regulation and policy while preserving authority and unfinished work.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://research.momentum.inc/og-image.png">
+<meta property="og:url" content="https://research.momentum.inc/institutional-world-model.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+<link rel="canonical" href="https://research.momentum.inc/institutional-world-model.html">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "The institutional world model",
+    "author": { "@type": "Person", "name": "Raeez Lorgat", "url": "https://research.momentum.inc" },
+    "datePublished": "2025-09-21",
+    "description": "How sovereign execution environments for AI agents learn, adopt and correct interpretations of law, regulation and policy while preserving authority and unfinished work."
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8T5J8M28"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JP8T5J8M28');
+</script>
+<link rel="stylesheet" href="https://use.typekit.net/zlu2quo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --font-text: 'garamond-premier-pro', 'EB Garamond', 'Hoefler Text', 'Baskerville', Garamond, serif;
+    --font-display: 'garamond-premier-pro-display', var(--font-text);
+    --font-caption: 'garamond-premier-pro-caption', var(--font-text);
+    --font-subhead: 'garamond-premier-pro-subhead', var(--font-text);
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    --text-base: clamp(18px, 1.125rem + 0.25vw, 21px);
+    --text-sm: calc(var(--text-base) / 1.333);
+    --text-xs: calc(var(--text-sm) / 1.333);
+    --text-lg: calc(var(--text-base) * 1.333);
+    --text-xl: calc(var(--text-lg) * 1.333);
+    --text-2xl: calc(var(--text-xl) * 1.333);
+    --baseline: 8px;
+    --leading-tight: 1.2;
+    --leading-snug: 1.35;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.618;
+    --leading-loose: 1.8;
+    --space-1: calc(var(--baseline) * 1);
+    --space-2: calc(var(--baseline) * 2);
+    --space-3: calc(var(--baseline) * 3);
+    --space-4: calc(var(--baseline) * 4);
+    --space-5: calc(var(--baseline) * 5);
+    --space-6: calc(var(--baseline) * 6);
+    --space-8: calc(var(--baseline) * 8);
+    --space-10: calc(var(--baseline) * 10);
+    --space-13: calc(var(--baseline) * 13);
+    --measure: 65ch;
+    --measure-narrow: 55ch;
+    --measure-wide: 75ch;
+    --gutter: clamp(16px, 4vw, 24px);
+    --ink: #1a1917;
+    --ink-muted: #4a4744;
+    --ink-subtle: #6a6662;
+    --ink-faint: #8a8580;
+    --ink-ghost: #b5b0ab;
+    --ink-whisper: #d4d0cc;
+    --ink-hint: #e8e5e2;
+    --paper: #fefdfb;
+    --paper-tint: #f5f3f0;
+    --kern-tight: -0.02em;
+    --kern-snug: -0.01em;
+    --kern-normal: 0;
+    --kern-loose: 0.015em;
+    --kern-wide: 0.04em;
+    --kern-caps: 0.08em;
+    --optical-margin: -0.03em;
+}
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    hanging-punctuation: first last;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body {
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-relaxed);
+    color: var(--ink);
+    background: var(--paper);
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1, "dlig" 1, "onum" 1, "pnum" 1;
+    font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    font-kerning: normal;
+}
+.container {
+    max-width: calc(var(--measure) + var(--space-8));
+    margin-inline: auto;
+    padding: var(--space-10) var(--gutter) var(--space-8);
+}
+.back-nav { margin-bottom: var(--space-8); }
+.back-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.back-nav a:hover { color: var(--ink); }
+.article-header {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--ink-hint);
+}
+.article-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+    text-wrap: balance;
+}
+.article-subtitle {
+    font-size: var(--text-lg);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.35;
+    color: var(--ink-muted);
+    max-width: 34em;
+    margin-left: var(--optical-margin);
+    text-wrap: balance;
+    font-feature-settings: "kern" 1, "liga" 1, "dlig" 1, "onum" 1;
+}
+.article-meta {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+    margin-top: var(--space-3);
+}
+.article-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+.article-meta a:hover {
+    color: var(--ink-muted);
+    text-decoration-color: var(--ink-ghost);
+}
+/* Companion open-source repository link — rendered when `repo` metadata is set.
+   Monochrome ink on warm paper to sit native to the typographic system;
+   the GitHub mark carries the recognition, the hairline frame the prominence. */
+.repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    max-width: 100%;
+    padding: 10px var(--space-3) 10px calc(var(--space-2) + 2px);
+    border: 1px solid var(--ink-whisper);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: border-color 200ms ease, color 200ms ease,
+                background 200ms ease, box-shadow 200ms ease;
+}
+.repo-link:hover {
+    border-color: var(--ink-faint);
+    color: var(--ink);
+    background: var(--paper-tint);
+    box-shadow: 0 2px 12px rgba(26, 25, 23, 0.07);
+}
+.repo-link:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; }
+.repo-link__mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    color: var(--ink);
+    transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.repo-link:hover .repo-link__mark { transform: rotate(-7deg) scale(1.06); }
+.repo-link__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; line-height: var(--leading-tight); }
+.repo-link__label {
+    font-family: var(--font-caption);
+    font-size: var(--text-xs);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    transition: color 200ms ease;
+}
+.repo-link:hover .repo-link__label { color: var(--ink-subtle); }
+.repo-link__url {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    letter-spacing: var(--kern-snug);
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.repo-link__arrow {
+    flex: none;
+    margin-left: var(--space-1);
+    color: var(--ink-ghost);
+    transition: transform 200ms ease, color 200ms ease;
+}
+.repo-link:hover .repo-link__arrow { transform: translateX(3px); color: var(--ink-faint); }
+@media (max-width: 400px) { .repo-link__arrow { display: none; } }
+/* TOC from pandoc */
+nav#TOC {
+    margin: 0 0 var(--space-8);
+    padding: var(--space-4) 0 var(--space-4) var(--space-4);
+    border-top: 1px solid var(--ink-hint);
+    border-bottom: 1px solid var(--ink-hint);
+}
+nav#TOC ul { list-style: none; padding: 0; }
+nav#TOC li { margin: 0.35rem 0; }
+nav#TOC a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-hint);
+    transition: border-color 0.2s;
+    font-size: var(--text-sm);
+}
+nav#TOC a:hover { border-color: var(--ink-muted); }
+.article-body { font-variant-ligatures: common-ligatures discretionary-ligatures contextual; }
+.article-body p {
+    margin-bottom: var(--space-3);
+    max-width: var(--measure);
+    line-height: var(--leading-loose);
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+    hyphenate-limit-lines: 2;
+}
+.article-body h1, .article-body .level1 > h2:first-child {
+    font-family: var(--font-subhead);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h2 {
+    font-family: var(--font-subhead);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: var(--kern-snug);
+    line-height: var(--leading-snug);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+}
+.article-body a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    text-decoration-skip-ink: auto;
+    transition: text-decoration-color 180ms ease;
+}
+.article-body a:hover { text-decoration-color: var(--ink-muted); }
+.article-body blockquote {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--ink-hint);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.article-body hr {
+    border: none;
+    height: 1px;
+    background: var(--ink-hint);
+    margin: var(--space-8) 0;
+    max-width: 4rem;
+}
+.article-body code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--paper-tint);
+    padding: 0.12em 0.35em;
+}
+.article-body pre {
+    background: #0d0d0c;
+    color: #c8c5b8;
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-4) 0;
+    font-size: var(--text-sm);
+}
+.article-body th {
+    text-align: left;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+    letter-spacing: var(--kern-loose);
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 2px solid var(--ink-hint);
+}
+.article-body td {
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 1px solid var(--ink-hint);
+    vertical-align: top;
+}
+.article-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.author-byline {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.author-byline strong { font-style: normal; font-weight: 600; }
+.footer-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.footer-nav a:hover { color: var(--ink); }
+.contact-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+}
+::selection { background: var(--ink); color: var(--paper); }
+a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; border-radius: 2px; }
+@media (max-width: 680px) {
+    :root { --text-base: clamp(17px, 1rem + 0.2vw, 19px); }
+    .container { padding: var(--space-6) var(--gutter) var(--space-5); }
+    .article-title { font-size: var(--text-xl); }
+    .article-subtitle { font-size: var(--text-base); }
+    .article-body h1, .article-body .level1 > h2:first-child { font-size: var(--text-lg); }
+    .article-body h2 { font-size: calc(var(--text-base) * 1.1); }
+    .article-footer { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+@media (max-width: 400px) {
+    :root { --text-base: 16px; }
+    .container { padding: var(--space-5) var(--space-2) var(--space-4); }
+}
+@media (min-width: 1200px) { .container { padding-top: var(--space-13); } }
+@media print {
+    :root { --ink: #000; --paper: #fff; }
+    body { font-size: 11pt; line-height: 1.4; }
+    .container { max-width: 100%; padding: 0; }
+    .back-nav, .contact-footer { display: none; }
+    nav#TOC { display: none; }
+    a { text-decoration: none !important; color: var(--ink) !important; }
+    .article-body h1, .article-body h2 { page-break-after: avoid; }
+    p { orphans: 3; widows: 3; }
+}
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(var(--gutter), env(safe-area-inset-left));
+        padding-right: max(var(--gutter), env(safe-area-inset-right));
+    }
+}
+
+/* Wiring in a mathematics renderer made display equations set on one unwrappable
+   line, so a long equation pushed the page wider than the viewport and readers on
+   ordinary laptops lost the right-hand side. Let each equation scroll inside its own
+   box instead of widening the page. Wide tables get the same treatment. */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
+.katex-display::-webkit-scrollbar { height: 6px; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 600px) {
+  .paper-nav-title { display: none; }
+}
+</style>
+<link rel="stylesheet" href="/paper.css">
+</head>
+<body>
+<div class="container">
+    <nav class="back-nav">
+        <a href="/">← Research</a>
+    </nav>
+    <article>
+        <header class="article-header">
+            <h1 class="article-title">The institutional world model</h1>
+                        <p class="article-subtitle">Continual learning across sovereign virtual machines</p>
+                        <p class="article-meta">21 September 2025 · Raeez Lorgat · <a href="/institutional-world-model.pdf">PDF</a></p>
+                    </header>
+
+        
+        <div class="article-body">
+        <p><strong>Abstract.</strong> AI agents conducting institutional work need an execution environment that determines how law, regulation and policy apply to proposed actions. New cases and changing fraud methods require learning from rulings, investigations and outcomes. Mass is a decentralized network of sovereign execution environments for AI agents. Each environment learns the correct, safe interpretation of its sovereign law, policy and regulation, so it keeps up with fraud and bad actors on its own. We develop the institutional world model through which each environment learns rule application and institutional consequences. Standing mandates authorize qualifying updates. Learning propagates across the network with zero-knowledge proofs, while receiving institutions control adoption and use.</p>
+        <p>We construct a finite consent learner whose proofs establish a fit over a complete source-attested inventory and inference for an exact request. Adoption and current-use checks connect the calculations to an institutional effect. Public weights and decisions can reveal private inputs. Finite results address correction and continuing duties; completion under each fixed model need not survive successive changes of model. A synthetic lifecycle follows private learning through registration, correction and payment after operator replacement. A separate fraud comparison finds harmful direct transfer. Receiving validation discards all source weights and matches local learning without incremental transfer benefit. Improvement against adapting adversaries remains an empirical question.</p>
+        <section id="introduction" class="level2">
+        <h2>1. Introduction</h2>
+        <p>An AI agent conducting business acts through institutions whose rules determine what an operation can do. Payments use accounts, contracts create obligations, and transfers change ownership. Before allowing these effects, an execution environment must determine how its governing requirements apply to the case. A rule’s words alone may leave questions about control, consent or evidence.</p>
+        <p>Consider an agent asking to change a company’s registered owner. Some changes require additional consent. A fixed check may miss that the buyer and seller share a controller. Competent rulings give examples of when consent is required; investigations can reveal conduct that defeats a control or legitimate activity it obstructs. An unchanged procedure may continue missing a newly identified pattern or obstructing legitimate activity.</p>
+        <p>Continual learning must connect new evidence to institutional decisions. A fitted model alone cannot supply that connection: predicting official approval confers no official power, and a fraud score establishes no adjudicated finding. The institution must authorize a use, reserve appropriate judgments and provide for correction. A receiver may also have different rules, case meanings and populations, while source cases remain private.</p>
+        <p>Existing arrangements share parts of the required knowledge. FATF, INTERPOL and the Egmont Group document exchanges about fraud methods [8], and Project Aurora explored collaborative detection with synthetic payment data [9]. Using that knowledge in an agent’s work still requires a procedure that connects a learned pattern to an authorized consequence and its correction.</p>
+        <p>We introduce Mass to connect learning with authorized institutional action. Mass is a decentralized network of sovereign execution environments for AI agents. Each environment learns the correct, safe interpretation of its sovereign law, policy and regulation, so it keeps up with fraud and bad actors on its own.</p>
+        <p>This paper develops the <strong>institutional world model</strong>, the learned representation of rule application and institutional outcomes through which each Mass environment learns. Governing material supplies requirements and rulings teach their application; observations and investigations support empirical models of behavior and consequences. An adopted procedure uses these distinct sources to assess what an agent may do. We specify the cycle from evidence to candidate, adoption, execution and correction.</p>
+        <p>The companion network paper develops the execution architecture [1]. Each environment is a <strong>sovereign virtual machine</strong>, governed by an institution that supplies its rules, delegated powers and authoritative state.</p>
+        <p>A standing mandate authorizes an update procedure in advance. The environment checks each candidate against that mandate, current sources and work underway; qualifying updates can be adopted automatically. Zero-knowledge proofs verify specified learning and inference without transmitting raw case values, although outputs can still reveal them. The receiver checks local meaning, validation evidence and authority for use. Institutions can learn from one another while retaining different operative interpretations. The network design also permits onward propagation: a receiver can adapt what it learns and supply a new zero-knowledge proof bound to the next recipient under an authorized release. That recipient applies its own adoption rules [1, §5.1].</p>
+        <p>Adoption also affects work underway. Registration may have occurred while payment remains pending. Correction must retain that registration occurred and account for payment the bank can still perform. A stricter model can remove the only permitted route for an existing refund. Model updates must therefore account for continuing duties, original deadlines and possible external effects. Replacing a model, agent or operator does not restart these accounts.</p>
+        <p>We study two finite tasks. Synthetic consent rulings distinguish ordinary transfers, common-control reorganizations and nominee or custody arrangements. The procedure requires consent, reserves judgment or satisfies that requirement, leaving other authority, eligibility and resource checks intact. A fraud task compares local learning with direct and locally validated transfer. Admission and investigation select later evidence, and other actors respond to controls. The fixed comparison establishes no success against adapting adversaries.</p>
+        <p>Our contributions are a private fitting and inference construction, a model-adoption contract, and finite results for correction and continuation through updates, under stated source, cryptographic, mediation and service premises. Sections 2–3 connect evidence to an exact action; §§4–5 develop receiving use and private verification. Sections 6–8 treat updates, progress, correction and succession. Section 9 gives the evaluations, and §§10–11 discuss related work and conclusions. The appendix supplies the restricted admission algebra.</p>
+        </section>
+        <section id="evidence-and-its-limits" class="level2">
+        <h2>2. Evidence and its limits</h2>
+        <p>The learning cycle begins with a choice of evidence. A ruling, an investigation and the absence of an observed loss support different conclusions. We first specify what each record means, then ask which questions the available records can answer.</p>
+        <section id="rulings-findings-and-missing-outcomes" class="level3">
+        <h3>2.1. Rulings, findings and missing outcomes</h3>
+        <p>A consent label answers a particular authority’s question about a particular rule and case. The learning record must identify that authority, the source revision and the permitted purpose of the determination. A reversal changes the current label. The earlier ruling and its effects remain in the record.</p>
+        <p>Empirical labels need comparable precision. Suspicion, referral, investigation, competent finding and reversal record different events. Refusing a proposal supplies no fraud finding about it. Missing or censored outcomes remain explicit, with the investigation that could establish them.</p>
+        <p>The observation contract records how the environment obtained each label, with its proposal, acting capacity, affected objects, operative policy, decision, observation horizon and available outcome. The task determines needed relationships among entities, controllers, documents, transfers and their times. The access contract determines which it may use.</p>
+        <p>Identity errors can attach rulings or payment observations to the wrong case. Source assertions therefore remain separate from current assessments. SamePerson identifies records about one person without merging estates. SameEvent identifies records about one occurrence, so corrections can change payment support without creating another payment. Training binds admitted label revisions and the source cut defining available versions and observations.</p>
+        <p>Authenticity cannot recover an outcome that was never observed. Suppose a gate refuses 100 of 1,000 proposed transactions and permits 900. Nine permitted transactions later receive confirmed fraud labels. Assume complete labels for those 900 at the declared horizon. Also stipulate fixed binary potential outcomes under permission, without cross-proposal interference or policy-induced response changes.</p>
+        <p>If none of the refused transactions would have been fraudulent, permitting all proposals would yield a fraud rate of 0.9%. If every refused transaction would have been fraudulent, the rate would be 10.9%. The observed history is identical in both cases.</p>
+        <p><strong>Proposition 1 (Unidentified outcomes and interpretations).</strong> Under the fixed-outcome premises, a record containing only the admitted outcomes in this example identifies the all-proposals potential fraud rate no more narrowly than <span class="math inline">[0.009,0.109]</span>. More generally, two admissibility functions that agree on every recorded case but disagree on a new program cannot be distinguished from that history alone.</p>
+        <p><strong>Proof.</strong> Assign each missing potential outcome zero or one. Both extreme assignments preserve every observed label and decision. They attain the stated endpoints. For the second claim, the two interpretations supply identical learner inputs and different required answers. A function of those inputs cannot return the required answer in both worlds. Randomisation cannot guarantee both answers either. <span class="math inline">\square</span></p>
+        <p>This is the selective-label obstruction [2]. An additional investigation, permitted experiment or justified identification assumption can distinguish some of the possible worlds. With interference, the counterfactual model must also cover changed outcomes among formerly admitted proposals. Provenance identifies the supplied observations. It cannot resolve what they leave open.</p>
+        <p>The same limitation applies to interpretation. Two procedures can fit every retained ruling and disagree on the next ownership request. Selecting between them requires a normative source, authoritative examples or a competent determination. Repeating the already observed cases need not provide that information.</p>
+        </section>
+        <section id="observation-sufficiency" class="level3">
+        <h3>2.2. Observation sufficiency</h3>
+        <p>Even an observed fact can become unavailable through the choice of representation. Consent may depend on who controls whom. A summary containing only earlier verdicts can discard the relationship needed for the next request. Empirical transfer analysis faces the same problem.</p>
+        <p>Consider four entities and three transfers. The histories <span class="math inline">A\to B\to C\to A</span> and <span class="math inline">A\to B\to C\to D</span> can have identical transaction counts and verdicts. Only the first contains a directed cycle. The cycle supplies a feature for investigation. It does not establish fraud.</p>
+        <p>Let <span class="math inline">T(H)</span> be the retained representation of history <span class="math inline">H</span>, and let <span class="math inline">Q</span> be a declared family of questions.</p>
+        <p><strong>Proposition 2 (Observation sufficiency).</strong> Every <span class="math inline">q\in Q</span> has an exact decoder from <span class="math inline">T(H)</span> precisely when</p>
+        <p><span class="math display">
+        T(H)=T(H&#39;)\quad\Longrightarrow\quad q(H)=q(H&#39;)
+        \qquad(q\in Q).
+        </span></p>
+        <p><strong>Proof.</strong> Equal decoder inputs must have equal outputs. Conversely, the condition assigns one answer to each fibre of <span class="math inline">T</span>, defining a decoder on its image. <span class="math inline">\square</span></p>
+        <p>Proposition 2 identifies the questions a representation preserves. Implementation also needs an available decoder. The result requires no unlimited retention. When a later task needs discarded relationships, the institution must obtain source evidence, change its observation contract or report that it cannot answer.</p>
+        <p>Some local learning therefore needs personal or entity-level records. A model exported without rows can still retain information about those records. Access, retention and release obligations follow the task and its artifacts. Section 5 distinguishes the information hidden by a private calculation proof from information disclosed by its outputs.</p>
+        </section>
+        </section>
+        <section id="learned-interpretation-and-admission" class="level2">
+        <h2>3. Learned interpretation and admission</h2>
+        <section id="the-authority-of-learned-outputs" class="level3">
+        <h3>3.1. The authority of learned outputs</h3>
+        <p>The evidence limits determine what a learned output can establish. Consent rulings concern a rule’s application, while fraud findings support predictions about behavior. Before assigning either output a consequence, the institution must specify the proposition on which it intends to rely.</p>
+        <table>
+        <colgroup>
+        <col style="width: 33%" />
+        <col style="width: 33%" />
+        <col style="width: 33%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>Role</th>
+        <th>Output</th>
+        <th>Basis for reliance</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>Empirical model</td>
+        <td>Prediction, uncertainty or identified range</td>
+        <td>Observation and statistical contract</td>
+        </tr>
+        <tr>
+        <td>Institutional interpreter</td>
+        <td>Application of a named rule to a case</td>
+        <td>Competent adoption, precedents and reserved decisions</td>
+        </tr>
+        <tr>
+        <td>Admission policy</td>
+        <td>Permitted effect, hold, question or refusal</td>
+        <td>Current authority and complete execution contract</td>
+        </tr>
+        </tbody>
+        </table>
+        <p>One neural model may perform all three roles in the table. Each interface must establish the proposition required for its use. A prediction of official approval confers no power, and a high fraud score establishes no adjudicated finding. The institution may nevertheless adopt a score as grounds for a defined protective measure.</p>
+        <p>For example, an adopted threshold can trigger a bounded investigation hold. The authorizing procedure states the affected action, duration, review and challenge route. Those terms give the score its operational force. They supply no implicit power to confiscate assets, make a criminal finding or interfere with unrelated remedial work.</p>
+        <p>Competent adoption determines which judgments the institution reserves and which it delegates to learned assessment. A standing mandate can permit automatic updates within that boundary. Competence over every interpretation a model can predict is not presumed.</p>
+        </section>
+        <section id="finite-consent-learning" class="level3">
+        <h3>3.2. Finite consent learning</h3>
+        <p>We use a finite consent task to connect an exact fitting procedure to its adopted consequence. A supported feature extractor assigns each labeled case to a cell <span class="math inline">x</span>. Within that cell, parameter <span class="math inline">\theta_x\in(0,1)</span> predicts the binary recorded outcome. Let <span class="math inline">n_x</span> count observed labels and <span class="math inline">k_x</span> the positives. The finite learner minimizes</p>
+        <p><span class="math display">
+        L_x(\theta_x)=-(k_x+1)\log\theta_x
+        -(n_x-k_x+1)\log(1-\theta_x).
+        </span></p>
+        <p><strong>Lemma 3 (Finite fitted parameters).</strong> The unique minimiser is</p>
+        <p><span class="math display">
+        \widehat\theta_x=\frac{k_x+1}{n_x+2}.
+        </span></p>
+        <p><strong>Proof.</strong> The derivative vanishes exactly when <span class="math inline">(k_x+1)(1-\theta_x)=(n_x-k_x+1)\theta_x</span>. The second derivative is positive throughout <span class="math inline">(0,1)</span>, and the loss diverges at either endpoint. <span class="math inline">\square</span></p>
+        <p>The added units are declared pseudocounts. They define the estimator without supplying missing outcomes or establishing accuracy. With no observed labels, a cell returns <span class="math inline">1/2</span>, and the local training record identifies the lack of support. A private-weight receiver cannot distinguish that cell from one with balanced labels by its score alone. The consent procedure therefore refers every <span class="math inline">1/2</span> cell. It does not claim that the receiver knows the sample count.</p>
+        <p>The consent source supplies 24 synthetic determinations, eight in each category. A positive label records the source authority’s determination that the named rule required additional consent.</p>
+        <table style="width:100%;">
+        <colgroup>
+        <col style="width: 16%" />
+        <col style="width: 22%" />
+        <col style="width: 22%" />
+        <col style="width: 22%" />
+        <col style="width: 16%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>Source category</th>
+        <th style="text-align: right;">Determinations</th>
+        <th style="text-align: right;">Consent required</th>
+        <th style="text-align: right;">Fitted score</th>
+        <th>Adopted response</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>Ordinary transfer</td>
+        <td style="text-align: right;">8</td>
+        <td style="text-align: right;">0</td>
+        <td style="text-align: right;"><span class="math inline">1/10</span></td>
+        <td>No additional consent</td>
+        </tr>
+        <tr>
+        <td>Common control</td>
+        <td style="text-align: right;">8</td>
+        <td style="text-align: right;">7</td>
+        <td style="text-align: right;"><span class="math inline">4/5</span></td>
+        <td>Require consent</td>
+        </tr>
+        <tr>
+        <td>Nominee or custody</td>
+        <td style="text-align: right;">8</td>
+        <td style="text-align: right;">4</td>
+        <td style="text-align: right;"><span class="math inline">1/2</span></td>
+        <td>Refer</td>
+        </tr>
+        </tbody>
+        </table>
+        <p>The adopted procedure returns NoAdditionalConsent at scores at most <span class="math inline">1/4</span>, RequireConsent at scores at least <span class="math inline">3/4</span>, and Refer between them. An unsupported cell thus receives Refer. This synthetic task stipulates both the category definitions and the competent source’s assignment of cases to them.</p>
+        <p>The fitted score summarizes the admitted rulings. The adopted procedure gives that summary a consequence for the next request. NoAdditionalConsent satisfies only the additional-consent requirement. RequireConsent calls for exact scoped consent, and Refer calls for the reserved determination. The transfer’s other admission checks remain necessary.</p>
+        <p>Six competent reversals of common-control positives reduce the positive count from seven to one, giving a fitted score of <span class="math inline">1/5</span>. RequireConsent becomes NoAdditionalConsent. A suspended case can use that change only after current reassessment and reconciliation. Section 9.2 applies the same estimator to empirical fraud findings under a separately adopted consequence policy.</p>
+        <p>The fit record identifies the objective, admitted labels, excluded missing labels, feature semantics, data cut and parameters. These bindings are necessary even for this small estimator. A richer neural learner changes the inference and assurance obligations, while the institution still determines the output’s meaning and permitted use.</p>
+        </section>
+        <section id="the-exact-action-and-its-continuation" class="level3">
+        <h3>3.3. The exact action and its continuation</h3>
+        <p>The fitted consent response answers only one requirement. We must connect it to the complete assessment of the request before allowing an institutional effect. For a specified request, context and use, an adopted procedure can return</p>
+        <p><span class="math display">
+        \begin{aligned}
+        &amp;\mathsf{Permit}(e,k,v),\\
+        &amp;\mathsf{Hold}(b,q,t),\\
+        &amp;\mathsf{Refuse}(b,u).
+        \end{aligned}
+        </span></p>
+        <p>In Permit, <span class="math inline">e</span> identifies the effect and <span class="math inline">v</span> the evidence supporting it. The continuation <span class="math inline">k</span> records unfinished work and the conditions for resumption. Hold identifies the basis <span class="math inline">b</span>, pending question <span class="math inline">q</span> and deadline <span class="math inline">t</span>. Refuse identifies its basis and scope <span class="math inline">u</span>. The operative procedure determines when each result is available.</p>
+        <p>The host controls protected institutional state. For the ownership request, it checks current power, applicable requirements, exact parties and effect, resources, dependencies and residual duties. Sanctions evaluation is one possible requirement. Complete mediation requires every protected change to pass admission, including administrative and model-adoption operations [3].</p>
+        <p>Admission must also allow work that a decision creates or leaves pending. A transfer can create a reporting duty due thirty days later. Requiring the report first would obstruct the act that creates the duty. An unresolved application may still permit evidence submission, identity correction or payment of an existing refund. Permission therefore attaches to an exact action, rather than a permanent favorable status for the entity.</p>
+        <p>Recording the decision supplies no missing permission. Complete mediation can use several physical functions or writers. A small verifier can check the complete admission record, including reasons, unresolved questions and continuing duties.</p>
+        <p>Appendix A gives a restricted algebra for combining requirement grades. Performing a filing, obtaining consent or discharging a duty still requires evidence and an authorized operation.</p>
+        </section>
+        <section id="operative-bundles-and-update-mandates" class="level3">
+        <h3>3.4. Operative bundles and update mandates</h3>
+        <p>Fixed weights do not fix behavior. A changed feature extractor can move a case to another cell, and changed calibration or thresholds can give its score another consequence. Institution <span class="math inline">i</span> therefore adopts the complete operative bundle</p>
+        <p><span class="math display">
+        B_{i,v}=(\theta,F,C,P,R,U;E),
+        </span></p>
+        <table>
+        <thead>
+        <tr>
+        <th>Component</th>
+        <th>What it fixes</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><span class="math inline">\theta</span></td>
+        <td>Learned parameters</td>
+        </tr>
+        <tr>
+        <td><span class="math inline">F</span></td>
+        <td>Feature extraction</td>
+        </tr>
+        <tr>
+        <td><span class="math inline">C</span></td>
+        <td>Interpretation of scores and uncertainty</td>
+        </tr>
+        <tr>
+        <td><span class="math inline">P</span></td>
+        <td>Mapping from interpreted outputs to consequences</td>
+        </tr>
+        <tr>
+        <td><span class="math inline">R</span></td>
+        <td>Inference semantics and reproducibility</td>
+        </tr>
+        <tr>
+        <td><span class="math inline">U</span></td>
+        <td>Permitted uses</td>
+        </tr>
+        <tr>
+        <td><span class="math inline">E</span></td>
+        <td>Training cuts, derivation parents and assurance evidence</td>
+        </tr>
+        </tbody>
+        </table>
+        <p>The bundle belongs to the governed context <span class="math inline">\Gamma_i</span>.</p>
+        <p>In the private consent profile, the source attests each case’s category encoding. The proof checks the calculation over that encoding. Proving feature extraction from committed documents would require a richer profile and its own source and semantic obligations. The finite construction makes no such claim.</p>
+        <p>Update authority belongs to a separate protected mandate <span class="math inline">M_i</span>. It identifies the competent origin, updater, baseline, allowed changes, checker, horizon and cumulative accounts. A candidate can reference that mandate but cannot replace its authority. A successor mandate needs competence from the predecessor context.</p>
+        <p>An assessment binds the actual bundle and its inputs: source and retrieval cuts, extracted features, case, purpose and inference output. The runtime computes the supported inference or verifies a proof of that exact relation. Before commitment, the host rechecks dependencies and current authority. Changed preprocessing, weights, calibration, thresholds or retrieved material require reassessment. A checked correspondence may instead justify reuse for the exact present use. We call that reuse assessment transport.</p>
+        <p>A joint operation binds the relevant vector of local contexts and bundles. Institutions may train locally, share parameters, delegate training, use local adapters or retain a frozen model. Local control concerns the adopted interpretation. It does not require each sovereign VM to train a separate neural network.</p>
+        </section>
+        </section>
+        <section id="learning-across-sovereign-environments" class="level2">
+        <h2>4. Learning across sovereign environments</h2>
+        <section id="the-source-result-and-the-receiving-use" class="level3">
+        <h3>4.1. The source result and the receiving use</h3>
+        <p>The local procedure gives the fitted model an authorized role. A receiving registrar must determine its own role for the same artifact because its rules may treat those relationships differently. The source may offer a ruling, a learned interpretation or a procedure for acting on that interpretation. Recognizing one ruling does not adopt a general model, and adopting a consent model does not authorize unrelated refusals.</p>
+        <p>The receiving use has three contracts. Representational correspondence binds features, labels, capacities, time windows and source meanings. Statistical assurance identifies the evidence for performance in the receiving population. Institutional recognition determines which consequence the receiver may give the result. All three are directional and task-specific.</p>
+        <p>For consent, a correctly fitted source weight can still encode a relationship that receiving law treats differently. The receiver can adopt a correspondence, reserve the question for its own authority or decline the interpretation. The source can continue using its own model.</p>
+        <p>Recognition can also stop at the evidence. A receiver might request more documents where the source requires consent, or adopt local calibration under an existing mandate. Shared learning is compatible with different operative interpretations.</p>
+        </section>
+        <section id="population-and-consequence" class="level3">
+        <h3>4.2. Population and consequence</h3>
+        <p>An empirical model can preserve its meaning and still perform differently after transfer. Take a detector with sensitivity <span class="math inline">0.9</span>, false-positive rate <span class="math inline">0.01</span> and prevalence <span class="math inline">\pi</span>. Its positive predictive value is</p>
+        <p><span class="math display">
+        \frac{0.9\pi}{0.9\pi+0.01(1-\pi)}.
+        </span></p>
+        <p>At prevalence <span class="math inline">0.1</span>, the value is <span class="math inline">10/11</span>. At prevalence <span class="math inline">0.001</span>, it falls to <span class="math inline">10/121</span>. Among 100,000 destination proposals, the latter population gives ninety flagged fraudulent cases and 999 flagged benign cases. The calculation holds classifier rates fixed. It estimates no country’s rates.</p>
+        <p>The unchanged threshold therefore imposes a different burden. Receiving-population evidence must address both performance and the costs of the adopted response. Causal transportability needs additional assumptions about differences between source and destination [5].</p>
+        <p>An embedding can represent jurisdictions numerically through features of their legal traditions. It may provide a prior for investigating transfer, but supplies no transfer theorem. Weight deltas also need compatible parameterization and semantics. Without that compatibility, the exchanged object must be a complete detector, rule proposal or evidence packet with a specified receiving interpretation.</p>
+        </section>
+        <section id="verification-before-adoption" class="level3">
+        <h3>4.3. Verification before adoption</h3>
+        <p>Before adoption, the receiver authenticates the inventory and verifies the calculation against expectations in protected policy. It checks correspondence, validation and proposed use under its existing authority. Each institution controls its interpretation, so shared parameters require no global synchronization.</p>
+        <p>Authentic, correctly computed models can use inaccurate labels or perform poorly at their destination. Model-replacement attacks in federated learning can preserve ordinary performance while introducing targeted errors [6]. The receiving mandate specifies the required checks. Finite validation can reject the authenticated poisoned candidate tested in §9, without excluding every unseen backdoor.</p>
+        <p>Failures must remain separately contestable. Corrected source findings may require retraining, while changed receiving law may require a different use of a correct model. A computation proof establishes neither population fitness nor adoption.</p>
+        </section>
+        </section>
+        <section id="private-learning-and-inference" class="level2">
+        <h2>5. Private learning and inference</h2>
+        <section id="source-inventory-and-commitments" class="level3">
+        <h3>5.1. Source inventory and commitments</h3>
+        <p>The receiving procedure requires evidence of the fit, but the source’s cases may be private. We construct a proof of the specified calculation over a complete finite inventory, or <strong>manifest</strong>, attested by the source. The manifest identifies case revisions, commitments and the learning task. It lets the receiver check the calculation without receiving raw case values.</p>
+        <p>A commitment hides an encoded value and binds the source to it. For each row, six hidden indicators represent the three categories paired with the two possible rulings.</p>
+        <p>Use the Ristretto group of prime order</p>
+        <p><span class="math display">
+        \ell=2^{252}+27742317777372353535851937790883648493.
+        </span></p>
+        <p>Fix generators <span class="math inline">G,H</span> whose discrete-logarithm relation is unknown. The source commits to six values for each row <span class="math inline">i</span>, one for each category <span class="math inline">j\in\{0,1,2\}</span> and label <span class="math inline">b\in\{0,1\}</span>:</p>
+        <p><span class="math display">
+        C_{ijb}=z_{ijb}G+r_{ijb}H.
+        </span></p>
+        <p>The private <span class="math inline">z_{ijb}</span> values select the row’s category and label. Independent uniform scalar blindings <span class="math inline">r_{ijb}</span> hide their openings. A labeled row has exactly one indicator equal to one. A row with a missing label has six zero indicators. The public manifest records label presence, censoring and observation time. Its case identifiers are unique and sorted.</p>
+        <p>Let <span class="math inline">p_i</span> be the public indicator that a label is present. Let <span class="math inline">e_i</span> indicate that the label is present, uncensored and available by the training cut. The relation requires</p>
+        <p><span class="math display">
+        z_{ijb}\in\{0,1\},\qquad
+        \sum_{j,b}z_{ijb}=p_i,\qquad
+        n_j=\sum_i e_i(z_{ij0}+z_{ij1}),\qquad
+        k_j=\sum_i e_i z_{ij1}.
+        </span></p>
+        <p>The manifest and public eligibility rule determine every contributing row. Commitments supply its private category and label values. An inventory contains between one and 256 rows. The source attests the census and encoding under the named rule. That attestation supplies the coverage premise beyond the arithmetic checked by the proof.</p>
+        <p>The artifact identifies the task, normative source, category contract, learner, runtime and fixed decision policy. It supplies three canonical fractions <span class="math inline">a_j/b_j</span>, with <span class="math inline">0&lt;a_j&lt;b_j\le258</span>. It binds the training cut, manifest, recipient, purpose, permitted actions and release identity. The correction frontier gives the latest admitted correction sequence and head hash. A historical replacement link can identify an earlier artifact without asserting continued computational reliance on its invalidated examples.</p>
+        <p>The source signs under a distinct protocol domain. Canonical encoding and content hashes bind the manifest’s exact bytes. Protected local policy supplies the receiver’s expected source key, task and current manifest frontier. Descriptions supplied by the caller cannot establish those expectations.</p>
+        <p>The complete inventory prevents selective inclusion within the manifest. Proving that chosen rows belong to a collection would still allow unfavorable rows to be omitted. Here the verifier derives the relation from every signed row and the public eligibility rule. Coverage beyond that manifest remains the source’s responsibility.</p>
+        </section>
+        <section id="the-training-proof" class="level3">
+        <h3>5.2. The training proof</h3>
+        <p>An aggregated Bulletproof checks verifier-derived commitments in eight-bit ranges [13]. For each indicator commitment <span class="math inline">C</span>, the verifier includes <span class="math inline">C</span> and its complement commitment <span class="math inline">G-C</span>. For each row it derives</p>
+        <p><span class="math display">
+        R_i=\sum_{j,b}C_{ijb}-p_iG
+        </span></p>
+        <p>and includes the residual commitment <span class="math inline">R_i</span> and its negative <span class="math inline">-R_i</span>.</p>
+        <p>For category <span class="math inline">j</span>, the fitting equation is</p>
+        <p><span class="math display">
+        a_j(n_j+2)=b_j(k_j+1).
+        </span></p>
+        <p>The verifier derives commitments to the counts and fitting residual:</p>
+        <p><span class="math display">
+        \begin{aligned}
+        C_{n_j}&amp;=\sum_i e_i(C_{ij0}+C_{ij1}),\\
+        C_{k_j}&amp;=\sum_i e_iC_{ij1},\\
+        F_j&amp;=a_jC_{n_j}-b_jC_{k_j}+(2a_j-b_j)G.
+        \end{aligned}
+        </span></p>
+        <p>Both <span class="math inline">F_j</span> and <span class="math inline">-F_j</span> enter the same proof, with openings equal to the fitting residual and its negative. The verifier derives them from the manifest. The prover therefore cannot substitute independently chosen counts.</p>
+        <p>Each row contributes twelve bit/complement entries and two residual entries. The three fitting equations add six, for a total of <span class="math inline">14N+6</span>. Identity commitments pad this count to a power of two. The transcript binds the full artifact and signed manifest, so inventory, fit and output form one statement.</p>
+        <p><strong>Proposition 3a (Private training relation).</strong> Assume adaptive knowledge soundness and zero knowledge for the instantiated aggregated Bulletproof. Assume an unknown discrete-logarithm relation between the fixed Pedersen generators, Ed25519 authenticity, SHA-256 collision resistance and injective shared encoding. For an accepted envelope outside the corresponding failure events, knowledge extraction supplies openings of every manifest commitment satisfying the stated bit, row and eligibility relations. Its public fractions equal <span class="math inline">(k_j+1)/(n_j+2)</span> for those openings.</p>
+        <p><strong>Proof.</strong> Knowledge extraction supplies bounded openings for all range entries, including each original commitment. Each bit and its derived complement open to nonnegative integers at most 255. Their sum is one modulo <span class="math inline">\ell</span>. Commitment binding and <span class="math inline">510&lt;\ell</span> make the integer sum one, so the original value is zero or one.</p>
+        <p>A residual commitment and its negative also have nonnegative openings at most 255. Their integer sum is zero, so both openings are zero. Binding then identifies each residual with the verifier’s linear combination of the extracted original openings. Row residuals establish the one-hot or all-zero condition. Fitting residuals establish the displayed equation modulo <span class="math inline">\ell</span>.</p>
+        <p>The admitted bounds give <span class="math inline">n_j\le256</span>, <span class="math inline">k_j\le n_j</span>, <span class="math inline">a_j\le257</span> and <span class="math inline">b_j\le258</span>. Each product in the fitting residual is at most <span class="math inline">257\cdot258=66{,}306</span>. Their absolute difference is therefore at most <span class="math inline">66{,}306</span>, below the group order. The modular equality is consequently an integer equality. Positive denominators and canonical reduction give the claimed fractions. Authentication and exact encoding bind those equations to the source’s signed inventory and the receiver’s expected task. <span class="math inline">\square</span></p>
+        <p>Knowledge extraction is essential here. Pedersen commitments are perfectly hiding, so existence of an opening alone would not connect the proof to the claimed calculation. The argument requires extracted openings with the stated algebraic correspondence.</p>
+        <p>Ganesh et al. prove simulation extractability for Fiat–Shamir Bulletproofs in the programmable random-oracle model [14]. This protocol-family result leaves an instantiation premise for the particular library and transcript used here.</p>
+        <p>Proposition 3a establishes the fit over the attested inventory. The truth and legal meaning of a label, and the competence to issue it, remain source premises. Generalization beyond that inventory needs separate evidence. Section 4 specifies the receiving conditions, and §6 examines the changing evidence produced by repeated use.</p>
+        </section>
+        <section id="inference-for-the-present-request" class="level3">
+        <h3>5.3. Inference for the present request</h3>
+        <p>The training proof establishes the fit. A second proof must connect that fit to the receiver’s exact request. To conceal the request’s category, the case source supplies a signed credential containing three commitments</p>
+        <p><span class="math display">
+        U_j=u_jG+s_jH,\qquad
+        u_j\in\{0,1\},\qquad \sum_j u_j=1.
+        </span></p>
+        <p>Public fields bind the task, normative source, category contract, case, subject, revision, source cut and request digest. Source competence and correct encoding remain premises, as they do for training.</p>
+        <p>The adopted fractions fix public decision codes <span class="math inline">c_j</span>: zero for NoAdditionalConsent, one for RequireConsent and two for Refer. For a claimed code <span class="math inline">o\in\{0,1,2\}</span>, the inference proof establishes</p>
+        <p><span class="math display">
+        \sum_j c_j u_j=o.
+        </span></p>
+        <p>The proof checks each bit and complement, both signs of the one-hot residual and both signs of the decision residual. Ten entries pad to sixteen. Its transcript binds the artifact, signed credential and complete inference statement.</p>
+        <p><strong>Proposition 3b (Private inference relation).</strong> Under Proposition 3a’s cryptographic and encoding assumptions, an accepted inference envelope establishes knowledge of a one-hot opening of the signed case credential. The claimed output equals the fixed adopted policy’s decision for that category. The statement binds this conclusion to its exact artifact, case revision, request and proposed operation.</p>
+        <p><strong>Proof.</strong> Extract the three committed openings. The bit/complement checks and one-hot residual give exactly one selected category by Proposition 3a’s integer argument. The two decision-residual checks give <span class="math inline">\sum_j c_j u_j=o</span>. All decision values lie between zero and two, so no modular ambiguity remains. Signature verification and the bound transcript identify the credential, artifact and statement used in these equations. Exact comparison with the host’s expected statement fixes the present request and operation. <span class="math inline">\square</span></p>
+        <p>The host derives its expected statement from the protected current context and proposed effect. Separate authenticated ingress establishes the current case credential before inference can authorize use. The host checks that credential, the adopted artifact and any required consent or reserved determination. A proof for another operation fails the exact statement comparison. NoAdditionalConsent satisfies only the additional-consent requirement. Powers, resources and native-effect checks still apply.</p>
+        <p>Verified inference can thus enter the same assessment relation as local inference. The proof establishes the output. Receiving adoption and current-use checks establish the institutional consequence permitted for that output.</p>
+        </section>
+        <section id="disclosure-through-the-output" class="level3">
+        <h3>5.4. Disclosure through the output</h3>
+        <p>Both proofs disclose their public statements, which include exact weights, metadata and decisions. Zero knowledge limits additional information from the proof. The statement itself can still reveal a category or label, so private verification needs an explicit release contract.</p>
+        <p>Take an inventory with one eligible row. The selected category has weight <span class="math inline">1/3</span> for a negative label and <span class="math inline">2/3</span> for a positive label. Every other category has weight <span class="math inline">1/2</span>. The published weights identify both category and label. An inference outcome likewise identifies a category when the three categories have distinct public decisions.</p>
+        <p>The release contract must cover that output. In the finite consent profile, case identifiers, source revisions and other manifest metadata are public. Commitments and proofs avoid publishing raw witnesses. They do not prevent inference of those values from permitted outputs.</p>
+        <p>Increasing the aggregate size does not by itself remove disclosure. For binary records, <span class="math inline">\theta=\sum_{j=1}^{500}y_j/500</span> reveals the last label to someone who knows the other 499. A corrected weight <span class="math inline">\theta&#39;</span> can reveal a changed label through <span class="math inline">500(\theta-\theta&#39;)</span>. Neither withholding rows nor imposing a population floor supplies a privacy guarantee.</p>
+        <p>A statistical privacy contract specifies the protected unit, neighboring datasets, bounded contributions, recipients and complete observable transcript. The transcript includes any visible weights, gradients, scores, model selection, correction releases, refusals and timing. Repeated inference can disclose information even when the model remains local. The observer model must include every recipient coalition covered by the claim.</p>
+        <p>For neighboring histories <span class="math inline">H\sim H&#39;</span>, differential privacy requires</p>
+        <p><span class="math display">
+        \Pr[M(H)\in E]\le e^\varepsilon\Pr[M(H&#39;)\in E]+\delta
+        </span></p>
+        <p>for every observable event <span class="math inline">E</span>. The network supplement gives finite mechanisms with bounded contributions, complete output channels, durable release identities and cumulative accounting [1]. The institution must adopt a particular mechanism and its allowed outputs. A cohort threshold of 500 can supplement that policy, but proves no privacy property by itself.</p>
+        <p>Learning only from an already released private statistic is post-processing under the same observation contract [7]. Reading corrected private data generally incurs another release cost. A retry must reuse the retained release identity, sample and bytes. Renaming the model does not renew its allowance. Deleting a training row cannot retract an earlier release.</p>
+        <p>The singleton example rules out a nontrivial differential-privacy guarantee for the exact-weight profile. Across neighboring singleton labels, the event releasing one of the distinct weights has probabilities one and zero. The inequality then requires <span class="math inline">\delta\ge1</span>.</p>
+        <p>Changed source rows and case credentials need fresh independent uniform blindings. Reusing a blinding exposes a changed indicator through <span class="math inline">C&#39;-C\in\{-G,0,G\}</span>. Fresh blindings prevent that direct comparison. Weight changes and correction metadata remain disclosed.</p>
+        <p>A proof can also verify a computation over a supplied random tape without establishing how the tape was sampled. Statistical privacy needs that sampling law and an explicit contract for the combined release.</p>
+        <p>Some required performances themselves disclose protected information. Suppose neighboring worlds require different visible payments, each forbidden in the other world. The event containing one world’s required payment has probability zero in the other. The privacy inequality bounds successful payment in the first world by <span class="math inline">\delta</span>.</p>
+        <p>A stronger proof system cannot alter this bound. Changing the observer, receipt, intermediary or permitted disclosure can change the institutional problem. The authorized change must be explicit and cover any later payment that would reveal the same information.</p>
+        </section>
+        </section>
+        <section id="repeated-updates-and-their-accumulated-effects" class="level2">
+        <h2>6. Repeated updates and their accumulated effects</h2>
+        <p>The disclosure account already extends beyond a single proof. The same is true of institutional burdens and delay. We now specify what the update procedure must retain across a sequence of models.</p>
+        <section id="cumulative-limits" class="level3">
+        <h3>6.1. Cumulative limits</h3>
+        <p>An individual update limit need not bound the sequence’s effects. Repeated reductions of at most 0.01 can move a threshold across its entire range. Burdening at most one percent of the population per update can burden everyone if the groups rotate. Changing the model identifier can also conceal the restart of an old hold.</p>
+        <p>The monitor must therefore persist outside the bundle. Over the mandate’s horizon, it retains the authorized baseline and accumulated burdens, costs, disclosures and exposure. Each case keeps its original clock. A distance bound on weights may restrict engineering change. To control an institutional consequence, it also needs a bound on the resulting decisions or effects.</p>
+        <p>The mandate can distribute powers within the procedure. It may allow automatic changes to evidence routing while reserving final refusal for a competent determination. An emergency mandate may permit bounded blocking with review and expiry. Objectives, loss weights, label meanings and consequences all belong to the delegation.</p>
+        <p>A standing mandate authorizes the defined sequence of qualifying updates. An explicit adoption authorizes one identified bundle. In either case, the existing context supplies authority before the candidate can govern a later action.</p>
+        <p>An accepted update installs the complete checked bundle and adoption record atomically. The candidate cannot change the criteria that authorize it. Assessment and commitment bind the installed version.</p>
+        </section>
+        <section id="mandate-renewal" class="level3">
+        <h3>6.2. Mandate renewal</h3>
+        <p>Under the finite allowance, each adoption consumes one credit. Continued adoption eventually requires a successor mandate authorized in the exact predecessor context.</p>
+        <p>Renewal declares authorized changes to future action scope, objectives, baselines and expenditure caps. It retains source frontiers, correction status, model ancestry, completed acts and possible old commands. Disclosure, risk and burden already incurred remain spent. Competent renewal may enlarge future allowances, but the accounts must retain prior expenditure and state any changed lifetime guarantee’s resulting total. Renaming a mandate restores no privacy or risk allowance.</p>
+        <p>Existing duties retain their goals, safety conditions, original deadlines and checked certificates for permitted completion routes. Each also retains its separate allowance for model adoptions affecting its completion route. Neither service steps nor renewal of the learner’s general budget replenishes this allowance. Otherwise administrative activity can postpone payment indefinitely, even when each model permits completion. Section 7’s result requires actual transitions satisfying its common progress condition and service premise.</p>
+        <p>A competent disposition can change the performer, timing or assurance while identifying the change and retaining the former promise’s status. Renewal cannot record an unpaid duty as complete. Implementing successor mandates remains separate from the finite proofs for admitted bundles and counted execution.</p>
+        </section>
+        <section id="policy-feedback-and-adversarial-response" class="level3">
+        <h3>6.3. Policy feedback and adversarial response</h3>
+        <p>The next candidate also faces evidence shaped by earlier use. After a control detects abuse, adversaries may change transaction forms, switch intermediaries or manipulate learning inputs. Legitimate applicants may change behavior to avoid delay. Investigations and corrected findings can reveal those responses. Assessing the new candidate must include the burdens already imposed on legitimate work.</p>
+        <p>Let <span class="math inline">D_t</span> denote data generated in period <span class="math inline">t</span> and <span class="math inline">\pi_{B_t}</span> the active bundle’s admission policy. The observations depend on that policy and the responses it induces:</p>
+        <p><span class="math display">
+        D_t=D(\pi_{B_t},\Gamma_t,\text{responses of other actors}).
+        </span></p>
+        <p>Retraining therefore acts on a population that earlier controls may have changed. Additional observations need not improve the model or make its parameters converge.</p>
+        <p>For example, take <span class="math inline">Y\sim\operatorname{Bernoulli}(1-\theta)</span> under the deployed predictor. Exact squared-error retraining gives <span class="math inline">\theta_{t+1}=1-\theta_t</span>. Starting at <span class="math inline">0.2</span> yields the endless cycle <span class="math inline">0.2,0.8</span>. Every fit is the population optimum, but the population response prevents convergence.</p>
+        <p>Performative prediction gives conditions for retraining to converge [4]. Applying them requires evidence about the response map and loss. A count of institutions or successful adoptions cannot establish those conditions. Convergence also needs a separate connection to the institution’s objective.</p>
+        <p>Even without feedback, the historical data may not identify a policy’s improvement. Suppose two equally common types historically receive actions zero and one, with respective success rates 20% and 80%. Two models reproduce that record. In one, action one succeeds at 80% for both types. In the other, it succeeds at zero for type zero and 80% for type one.</p>
+        <p>Always taking action one then gives 80% success in the first model and 40% in the second. Both have the same historical 50% baseline. Choosing between these effects needs additional model assumptions or information from a competently authorized investigation or experiment.</p>
+        </section>
+        <section id="fixed-evaluation-criteria" class="level3">
+        <h3>6.4. Fixed evaluation criteria</h3>
+        <p>Feedback makes the evaluation criterion consequential. We must fix the population, outcome, baseline and horizon before comparing procedures. Weakening the consent requirement could raise the immediate pass rate while changing the task. The intended outcome may instead be correctly completed ownership changes, with required consent and documentation by a stated deadline.</p>
+        <p>Likewise, a formation procedure that accepts preliminary declarations must be assessed through verified documentation at the agreed deadline. First-attempt acceptance leaves that duty unresolved. The comparison must account for abandonment, false refusal, fraud loss, investigation, delay and unfinished duties.</p>
+        <p>Power to adopt, correct implementation, evidence of improvement and acceptance of the tradeoff are separate judgments. An authorized procedure need not improve the selected outcome. A changed objective must be reported as such. Excluding difficult applicants cannot establish improvement for the original population.</p>
+        </section>
+        </section>
+        <section id="continuation-under-changing-interpretations" class="level2">
+        <h2>7. Continuation under changing interpretations</h2>
+        <p>Keeping the objective fixed requires checking whether the revised procedure can still perform work already owed. Safety of each newly admitted action is insufficient for that promise.</p>
+        <section id="continuation-under-a-fixed-bundle" class="level3">
+        <h3>7.1. Continuation under a fixed bundle</h3>
+        <p>The consent procedure can require permission before a future transfer. A new empirical detector can also affect an existing obligation by removing the payment action needed to discharge it. We distinguish discretionary adoption, which can be refused, from binding authority changes that must take effect.</p>
+        <p>Suppose a refund is owed in state <span class="math inline">s</span>, and <span class="math inline">g</span> records its completed payment. The old bundle permits <span class="math inline">s\to g</span>. A new detector flags the recipient and removes that action. The narrower action set can preserve safety while making the refund impossible.</p>
+        <p>Fix a finite state set <span class="math inline">S</span>, a safe set <span class="math inline">K\subseteq S</span>, a goal set <span class="math inline">G\subseteq K</span> and a declared response model. For each initiated action, <span class="math inline">\operatorname{Succ}(s,a)</span> contains every complete response path’s endpoint, and every intermediate state must also be safe. The response model includes old commands that can still perform.</p>
+        <p>Let <span class="math inline">A_B(s)</span> contain the actions currently admitted under bundle <span class="math inline">B</span>. Define</p>
+        <p><span class="math display">
+        \operatorname{Pre}_B(X)=
+        \{s\in K:\exists a\in A_B(s),\
+        \varnothing\ne\operatorname{Succ}(s,a)\subseteq X,
+        \text{ all intermediate states lie in }K\}.
+        </span></p>
+        <p>Starting with <span class="math inline">W_0=G</span>, set <span class="math inline">W_{n+1}=W_n\cup\operatorname{Pre}_B(W_n)</span>. The finite fixed point is <span class="math inline">W_B</span>.</p>
+        <p><strong>Theorem 4 (Continuation under a fixed bundle).</strong> Each state in <span class="math inline">W_B</span> has a strategy reaching <span class="math inline">G</span> within at most its first-entry rank in completed response steps. The strategy stays in <span class="math inline">K</span>, provided actual responses satisfy the declared nonempty response contract and its steps complete.</p>
+        <p><strong>Proof.</strong> Give <span class="math inline">s\in W_B</span> the least rank <span class="math inline">r(s)</span> with <span class="math inline">s\in W_{r(s)}</span>. Rank zero means the goal already holds. A state of positive rank entered through an admitted action whose complete responses end in the preceding approximation. Select that action. Every response stays safe and ends at a strictly smaller rank. Induction on the rank gives the bound. <span class="math inline">\square</span></p>
+        <p>For the refund, <span class="math inline">W_{\rm old}=\{s,g\}</span> and <span class="math inline">W_{\rm new}=\{g\}</span>. Adoption must address that lost route. It can retain an authorized continuation or record a competent change to the obligation, performer, timing or assurance. An authorized release can end the duty without constituting payment.</p>
+        <p>The goal, response model and inherited duty identity are protected inputs. A candidate cannot redefine payment as assessment or omit the possible arrival of an old payment. A local timeout cannot free a reserve while the provider can still perform. The response contract must be nonempty and cover intermediate safety. An attractive endpoint cannot substitute for an implementation or conceal unsafe execution.</p>
+        </section>
+        <section id="progress-through-changing-models" class="level3">
+        <h3>7.2. Progress through changing models</h3>
+        <p>Now let bundle <span class="math inline">B_0</span> permit only <span class="math inline">s_0\to s_1\to g</span>, and let <span class="math inline">B_1</span> permit only <span class="math inline">s_1\to s_0\to g</span>. Either fixed bundle allows completion from both states. Switching after each first step produces <span class="math inline">s_0,s_1,s_0,s_1,\ldots</span>. The refund is never paid.</p>
+        <p>Each step lowers the active bundle’s rank. Changing the bundle changes that rank, so the sequence makes no lasting progress. The continuing duty needs a progress condition that survives adoption.</p>
+        <p>For a finite construction, fix the goal and a common rank <span class="math inline">\rho:S\to\mathbb N</span>. Adoption must preserve the goal and cannot increase the current rank. Each promised service step needs an admitted implementation whose possible responses remain safe and strictly lower the rank. Administrative changes must leave sufficient opportunity for those service steps.</p>
+        <p><strong>Theorem 5 (Continuation through admitted updates).</strong> Assume rank zero implies the fixed goal. Suppose each positive-rank state receives a completed promised service step within at most <span class="math inline">b</span> admitted transitions, for a fixed positive integer <span class="math inline">b</span>. If every intervening transition preserves safety and does not increase <span class="math inline">\rho</span>, and each service step strictly decreases it, the goal occurs within at most <span class="math inline">b\rho(s_0)</span> admitted transitions.</p>
+        <p><strong>Proof.</strong> Before the first service step, the rank is at most <span class="math inline">\rho(s_0)</span>. That step lowers it by at least one. Repeat over blocks ending at service steps. After at most <span class="math inline">\rho(s_0)</span> such blocks the rank is zero; each block contains at most <span class="math inline">b</span> admitted transitions. <span class="math inline">\square</span></p>
+        <p>The count includes admitted context, service and recorded environment transitions. It bounds neither elapsed time nor unrecorded events. The promised services must actually complete. An absolute deadline additionally requires an actual clock, with no restart on model adoption or mandate renewal.</p>
+        <p>A finite game can treat more general cases. Its state includes the bundle, update authority, clocks and unfinished work. Its environment includes permitted model changes and provider responses. The common rank gives the simpler sufficient condition used here.</p>
+        </section>
+        <section id="revocation-and-failed-assurances" class="level3">
+        <h3>7.3. Revocation and failed assurances</h3>
+        <p>A binding revocation may remove the only lawful performance action. Once the source contract admits it as effective, affected new use must be fenced immediately. Refusing a discretionary adoption cannot keep withdrawn authority in force.</p>
+        <p>The institution records the failed assurance alongside the surviving duty, exposure and possible commands. Preserving history or balancing the ledger does not perform the service. Replacing the agent cannot make silence count as payment.</p>
+        <p>A competent disposition may establish a different continuation contract or discharge the duty through an authorized release. It may change the performer, timing or assurance. The former objective remains unmet unless its specified performance occurred. Necessary institutional change can proceed while leaving its consequences open to correction and remedy.</p>
+        </section>
+        </section>
+        <section id="correction-and-continuity-of-the-institution" class="level2">
+        <h2>8. Correction and continuity of the institution</h2>
+        <section id="correction-dependencies" class="level3">
+        <h3>8.1. Correction dependencies</h3>
+        <p>A source ruling can influence a receiving model and suspend an ownership request that never cites the ruling itself. Correcting direct citations alone would leave that request governed by the invalidated basis.</p>
+        <p>The derivation graph must therefore cover source and label revisions, training cuts, base models, local adapters, calibration, adopted bundles and assessments. An edge records possible dependence. Observed absence of correlation cannot remove a protected dependency. Selective independence needs a checked argument. Conservatively marking every use of an affected bundle is sound.</p>
+        <p>A delivered correction identifies its authority, exact source revision, scope and operative time. After applying its recognition contract, the receiver marks dependent current reliance for reassessment, justified transport or competent disposition. The correction status remains on source revisions and derivation ancestors. Future derivation and adoption must inherit it or discharge it through checked reconciliation.</p>
+        <p>The private consent profile binds each signed correction to the previous manifest, correction sequence and exact prior row. The replacement preserves case identity and advances the revision. Unchanged rows stay identical. New rows require separate source admission, and withdrawn rows retain their identities.</p>
+        <p>The replacement manifest binds the consecutive correction history, and a new proof checks the fit over that manifest. Import uses the admitted current source frontier. An old proof can remain mathematically valid while failing that currentness check. Adopting the replacement still leaves affected cases to be reconciled.</p>
+        <p>Case credentials have a separate authenticated history. Admitting a new case revision invalidates earlier reliance even before a replacement inference proof exists. Reconciliation must use the admitted current credential. It cannot supply its own purported current version. Appendix O of the companion supplement specifies both source and case interfaces [1].</p>
+        <p>The kind of correction determines its retrospective meaning. New evidence, reversed findings, prospective law, population drift and corrected identity require distinct treatment. A fresh fit states its current computational dependencies. Historical replacement links can remain without continuing computational dependence on invalidated labels.</p>
+        <p>The earlier assessment stays attributable. A replacement model cannot reverse a completed transfer, recall a disclosure, compensate a loss or extinguish an executable bank command. Each consequence needs its own competent act. Correction must reach the institution’s economic state as well as its learning record.</p>
+        </section>
+        <section id="eligibility-after-correction" class="level3">
+        <h3>8.2. Eligibility after correction</h3>
+        <p>Invalidation must also permit justified resumption. Suppose an identity mistake makes one payment appear twice, causing an allocation check to block new work. A competent SameEvent correction removes the duplicate occurrence. Once the supported allocation passes current checks, the old discrepancy cannot remain an unexplained veto.</p>
+        <p>An input correction can also change a refund under an already adopted formula. If the current formula gives twenty where earlier evidence supported sixty, the dependent duty needs recomputation or reassessment. An identity authority can correct the input within its powers. Amending the award formula requires the authority competent over that award.</p>
+        <p>A change beyond the formula’s authorized scope needs a competent disposition. Earlier performance and outstanding commands remain in either case. Updating weights alone cannot resolve the changed duty.</p>
+        </section>
+        <section id="currentness-and-receiving-authority" class="level3">
+        <h3>8.3. Currentness and receiving authority</h3>
+        <p>A receiver cannot infer a reversal that has not arrived. Consider two worlds with the same receiving state. In one the source finding remains effective. In the other it has been reversed, but notification is delayed. Computation on the identical state returns the same answer in both.</p>
+        <p>Stronger currentness must come from the source contract. A validity lease, serialized current-use service or bounded notification arrangement can provide it on specified terms. Otherwise correction completeness begins after admitted delivery. The receiver retains stale or uncertain status when a stronger assurance is unavailable.</p>
+        <p>Receiving information can precede receiving authority. A source reversal may trigger review while the receiver obtains its own competent determination. The local consequence remains indexed by purpose and current receiving rules.</p>
+        <p>Binding authority changes follow the immediate invalidation rule of §7.3. Reconciliation may remain pending after new use is fenced. Unpaid claims and possible commands survive even if no replacement continuation is yet available.</p>
+        </section>
+        <section id="succession-and-retained-evidence" class="level3">
+        <h3>8.4. Succession and retained evidence</h3>
+        <p>A replacement agent or operator needs the operative bundle, compatible inference implementation, licenses, derivation references, evidence access and pending corrections. Case clocks, mandates, cumulative expenditure and old commands accompany them. Continued use requires available bytes and services, beyond the identity supplied by a content hash.</p>
+        <p>A private proof may remain verifiable after raw examples disappear. Retraining, challenges or other questions may still require additional evidence. Proposition 2 identifies which questions the retained representation preserves. Authorized erasure can preserve some capabilities and retire others. Requests lacking required evidence must return “evidence unavailable.”</p>
+        <p>A source-label correction states whether the model was retrained, withdrawn, shown independent of the record or remains potentially influenced. Rolling back weights establishes none of these outcomes, and prior disclosures remain recorded.</p>
+        <p>Writer transfer or a reused process name confers no registrar, tribunal or provider powers. The custody contract tests each promised service’s actual post-transfer authority. A successor identity service needs a current scoped appointment or access to an available competent principal.</p>
+        <p>Independent operation requires usable artifacts and rights, evidence access, available inference, a qualified successor and means to contest earlier decisions. The service contract and fulfillment evidence must cover these dependencies. A writer fence prevents further protected writes by the outgoing operator.</p>
+        </section>
+        <section id="the-combined-execution-relation" class="level3">
+        <h3>8.5. The combined execution relation</h3>
+        <p>Adoption, use, correction and succession change the same continuing institution. We represent its local state by <span class="math inline">X=(\Gamma,H,S,K)</span>. The context <span class="math inline">\Gamma</span> holds rules, powers, active bundles and standing mandates. History <span class="math inline">H</span> retains attributable events and derivations, while state <span class="math inline">S</span> holds positions, resources, exposure and persistent accounts. Cases, assessments and unfinished work belong to <span class="math inline">K</span>.</p>
+        <p>The following transitions connect learning to protected execution.</p>
+        <table>
+        <colgroup>
+        <col style="width: 33%" />
+        <col style="width: 33%" />
+        <col style="width: 33%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>Transition</th>
+        <th>Check at the protected boundary</th>
+        <th>Result</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>Generate</td>
+        <td>Observation access and candidate identity</td>
+        <td>Candidate and training record, with active context unchanged</td>
+        </tr>
+        <tr>
+        <td>Adopt</td>
+        <td>Predecessor competence, actual bundle and derivation status, mandate monitor and continuing-work disposition</td>
+        <td>Atomic bundle installation and adoption record</td>
+        </tr>
+        <tr>
+        <td>Assess</td>
+        <td>Exact bundle, inputs, source cut, use and supported inference</td>
+        <td>Computed result with costs, disclosures and case clock</td>
+        </tr>
+        <tr>
+        <td>Use</td>
+        <td>Current context, dependencies and complete action contract</td>
+        <td>Exact authorized effect and continuation</td>
+        </tr>
+        <tr>
+        <td>Transport</td>
+        <td>Current authority and checked correspondence for the exact present use</td>
+        <td>Original assessment retained with its receiving-use witness</td>
+        </tr>
+        <tr>
+        <td>Invalidate</td>
+        <td>Binding authority change under its source contract</td>
+        <td>Affected new uses fenced, with failed assurance and live claims retained</td>
+        </tr>
+        <tr>
+        <td>Correct</td>
+        <td>Competent correction and conservative dependency closure, including future descendants</td>
+        <td>Affected current reliance marked or reconciled</td>
+        </tr>
+        <tr>
+        <td>Succeed</td>
+        <td>Accepted custody cut, fenced writer and available post-transfer authority</td>
+        <td>Continuing model and case operation under the successor</td>
+        </tr>
+        </tbody>
+        </table>
+        <p>A private artifact enters as a candidate after source and proof checks. Proposition 3a establishes its training relation. Proposition 3b establishes supported inference for an assessment. The host must bind these statements to the actual current context and effect. Neither proof receipt installs a bundle.</p>
+        <p><strong>Theorem 6 (Governed learned admission).</strong> Start with an admitted local state and the stated transition rules. Assume complete mediation, atomic protected transitions, sound bundle/inference and dependency checks, and the bound source and service contracts. Every finite admitted execution has these properties:</p>
+        <ol type="1">
+        <li>Every operative bundle has a predecessor-authorised adoption lineage.</li>
+        <li>Every learned assessment used for an effect binds the current bundle directly, or has a currently valid checked transport witness for that use. Its original computation remains attributable.</li>
+        <li>Model changes retain historical consumption, disclosures and effects. They preserve relevant command possibilities until their effect contract supports exclusion. Competent dispositions can change current positions and future mandate terms without erasing that history.</li>
+        <li>After an admitted correction, no affected current reliance authorises a further effect without the prescribed reconciliation.</li>
+        <li>Imported models have operative force only under the receiving institution’s adoption contract.</li>
+        </ol>
+        <p><strong>Proof.</strong> Induct on the admitted trace. Generation adds a candidate and cannot alter the active context. Adoption checks authority in its predecessor and installs exactly the checked successor; the persistent monitor supplies the next account state. Assessment computes the supported inference and records its full dependencies. Use compares those dependencies with the current protected state and checks the exact consequence, so a changed model or feature pipeline cannot reuse the old admission without a checked current transport witness. Transport preserves the original computation and establishes the required present correspondence.</p>
+        <p>Correction first finds the conservative transitive closure. It invalidates or reconciles each affected current reliance while preserving the historical records, disclosures and command identities. The same status checks cover future derivation and adoption, so a stale inactive candidate cannot bypass the correction. The use rule excludes unresolved reliance. Binding invalidation fences new uses immediately and records the assurance failure without declaring the old goal complete. Succession transfers the complete model and case cut under an exclusive writer fence, retaining the competent paths promised by its service contract. Ordinary economic transitions preserve or competently revise positions through the surrounding execution rules. None of these steps turns a foreign artifact into receiving authority. Each case preserves the claimed properties at the next state. <span class="math inline">\square</span></p>
+        <p>Theorem 6 is a result about the stated transitions. Implementation must connect bundle installation, inference, database writes and administrative routes to those rules. The bounded public reference requires exact current-bundle equality. General assessment transport needs its own checked correspondence.</p>
+        <p>The private-proof adapter must likewise obtain its expected statement from protected state and apply the accepted result to the exact operation. A correction need not invalidate the proof’s mathematics. Before use, the adapter must compare the bound source and case revisions with their admitted current frontiers.</p>
+        <p>Theorem 6 alone permits refusal of every proposed act. Theorem 5 supplies progress under its additional continuation and service premises. Useful operation also needs evidence that legitimate work can proceed and that justified refusal preserves the duties left unfinished.</p>
+        </section>
+        </section>
+        <section id="evidence-from-two-finite-tasks" class="level2">
+        <h2>9. Evidence from two finite tasks</h2>
+        <p>The finite tasks test two distinct questions. The consent lifecycle tests whether private learned interpretation reaches the intended effect and remains correctable. The fraud comparison tests whether transferred learning improves the receiving decision under fixed conditions.</p>
+        <section id="consent-registration-and-payment" class="level3">
+        <h3>9.1. Consent, registration and payment</h3>
+        <p>The 24-determination consent task exercises the construction with actual training and inference proofs. Source meanings and authority are synthetic premises. Section 3.2 gives the exact fitted scores and decisions. Before adoption and use, the receiver checks the complete signed inventory and current case credential against protected expectations.</p>
+        <p>The initial common-control request requires consent and fails native admission. Six authenticated reversals invalidate its basis before a replacement proof is available. The receiver then verifies the new fit and renews its exhausted adoption allowance under predecessor authority. After adoption, the case remains blocked until explicit reconciliation. That step changes the response to NoAdditionalConsent and retains the original hold clock, deadline and burden.</p>
+        <p>The host commits one ownership change to Carol, consumes seven service units and records a 100-unit payment command. A seventh source correction arrives after registration while payment is pending. Signed custody carries the command, learned state and pending reconciliation to the successor. A later synthetic provider observation records the full original payment, reducing the outstanding amount to zero. The run reopens the database and compares the complete history with the final state.</p>
+        <p>Seventeen host tests use real proofs to exercise changed operations, stale source and case frontiers, unauthorized adoption and correction before replacement inference. Renewal preserves lifetime accounts and the unfinished case’s update allowance. Public proof packets, accepted statements and the receiving trace supply the evidence. Source-local witnesses remain undisclosed.</p>
+        <p>The execution was recorded on 24 October 2026. It demonstrates the tested path from private learning to a stored effect under synthetic authority and provider premises. It establishes no general implementation refinement, population accuracy or economic advantage from transfer. The second evaluation measures transfer in a fixed empirical task.</p>
+        </section>
+        <section id="a-fixed-fraud-comparison" class="level3">
+        <h3>9.2. A fixed fraud comparison</h3>
+        <p>For the empirical task, we use a synthetic Indonesian financial-integrity office and a synthetic receiving office. These constructed roles establish no actual finding, appointment or deployment. The comparison tests how a learned relational pattern affects protected decisions, transfer and correction.</p>
+        <p>Each proposal contains account-controller relationships, two transfer times and an admitted local-practice record. The feature extractor gives local practice priority. Otherwise it selects a shared-controller and rapid-relay pattern, then the ordinary cell. The practice record provides context without establishing lawfulness.</p>
+        <p>Lemma 3 gives each cell weight <span class="math inline">(k+1)/(n+2)</span> from <span class="math inline">n</span> available binary findings, of which <span class="math inline">k</span> are positive. Three exact rational weights form the parameter vector. Missing findings are excluded and reported. A score at or above the adopted threshold starts a bounded hold and investigation. It supplies no fraud finding.</p>
+        <p>Source training, receiving training, validation and test contain distinct cases and immutable label events. Source training has 900 available ordinary findings, nine positive, and 100 available pattern findings, ninety positive. These counts give weights of <span class="math inline">5/451</span> and <span class="math inline">91/102</span>. Under an adopted half-threshold procedure, the pattern cell causes a bounded hold and referral.</p>
+        <p>Source training also includes a local-practice cell and missing findings. A benign receiving practice resembles the source pattern. The protocol fixes every stratum, data cut and missing-label count.</p>
+        <p>Evaluator truth remains separate from training and model selection. The four arms are rules only, local learning, direct source model and threshold, and receiving-validated transfer. Local learning and receiving-validated transfer have identical calibration capacity.</p>
+        <p>Both calibrated arms mix initial weights with weights fitted on receiving validation and use the same finite threshold set. Selection minimizes validation cost: eight units for a missed positive and one for a held negative. Brier score, threshold and mixture break ties in that order. The selected policies are evaluated on the untouched test cut.</p>
+        <p>All arms face the same 320 proposals, each for amount 100, over a five-tick horizon. A permitted proposal executes at tick zero. A hold reserves 100 until investigation at tick two, costing three service units. The investigation perfectly reveals the stipulated evaluator truth, refusing a positive case and executing a negative case. That accuracy is an explicit service assumption.</p>
+        <p>Every benign case carries a fixed pre-existing performance duty. Every fifth benign case is due at tick one, and the rest at tick three. Fraudulent proposals carry no performance duty in this task. Duties, clocks and provider rules are identical across arms.</p>
+        </section>
+        <section id="direct-transfer-and-receiving-validation" class="level3">
+        <h3>9.3. Direct transfer and receiving validation</h3>
+        <table>
+        <colgroup>
+        <col style="width: 20%" />
+        <col style="width: 26%" />
+        <col style="width: 26%" />
+        <col style="width: 26%" />
+        </colgroup>
+        <thead>
+        <tr>
+        <th>Arm</th>
+        <th style="text-align: right;">Fraud detected, of 26</th>
+        <th style="text-align: right;">False holds, of 294</th>
+        <th style="text-align: right;">Duties on time, of 294</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>Rules only</td>
+        <td style="text-align: right;">0</td>
+        <td style="text-align: right;">0</td>
+        <td style="text-align: right;">294</td>
+        </tr>
+        <tr>
+        <td>Local learning</td>
+        <td style="text-align: right;">24</td>
+        <td style="text-align: right;">16</td>
+        <td style="text-align: right;">290</td>
+        </tr>
+        <tr>
+        <td>Direct transfer</td>
+        <td style="text-align: right;">24</td>
+        <td style="text-align: right;">96</td>
+        <td style="text-align: right;">274</td>
+        </tr>
+        <tr>
+        <td>Receiving-validated transfer</td>
+        <td style="text-align: right;">24</td>
+        <td style="text-align: right;">16</td>
+        <td style="text-align: right;">290</td>
+        </tr>
+        </tbody>
+        </table>
+        <p>Direct transfer incurs 240 delay-ticks, 24,000 capital-ticks and 360 investigation units. Each locally validated arm incurs eighty delay-ticks, 8,000 capital-ticks and 120 investigation units. All 294 benign duties complete by the common horizon. Perfect investigation produces no false final refusals. The learned arms miss two fraudulent executions, while rules alone miss twenty-six.</p>
+        <p>Twenty-four test labels are unavailable. The full comparison uses separate synthetic evaluator truth. The archive reports observed-label metrics and every case outcome as well. These are exact fixture results, with no population uncertainty interval or estimate of real fraud performance.</p>
+        <p>Receiving validation selects mixture one. It replaces every source weight with receiving-validation weights and reaches the same final weights and threshold as local learning. The experiment therefore shows no incremental transfer benefit.</p>
+        <p>The comparison therefore isolates a failure of direct transfer and the receiver’s rejection of unhelpful source influence. A benefit from transfer would require evidence from other declared populations, tasks and data. This fixture establishes no general advantage for federation.</p>
+        </section>
+        <section id="corrections-and-rejected-candidates" class="level3">
+        <h3>9.4. Corrections and rejected candidates</h3>
+        <p>The measured decisions must also connect to protected execution. The public governance lifecycle consumes the comparison’s trained bundle files through the same feature extraction and rational inference. Candidate registration leaves the active context unchanged. Adoption checks the receiving mandate, current predecessor, complete bundle and continuation. A changed feature pipeline or intervening adoption prevents reuse of an earlier assessment.</p>
+        <p>An inherited refund tests lost continuation. The proposed model removes its only admitted completion action, so adoption fails while the original promise remains. The check also rejects a rotating strategy whose selected continuation can leave the common-rank region. A binding source correction remains recordable when it defeats an assurance. The system fences affected new use and retains the unresolved duty.</p>
+        <p>At the correction cut, seventy original source-pattern positives receive verified-negative replacements. Separate synthetic truth marked them benign from the start: the original findings were deliberately erroneous. Refitting moves the pattern weight from <span class="math inline">91/102</span> to <span class="math inline">7/34</span>, changing Hold to Permit at threshold <span class="math inline">1/2</span>. Withdrawing those findings as unresolved instead gives <span class="math inline">21/32</span>. Reversal and missing evidence thus require different label operations.</p>
+        <p>The correction marks receiving reliance through descendants and inactive candidates. A fresh fit records current source dependencies and checked historical reconciliation. The pending case still requires explicit current-case reconciliation after adoption. Releasing an existing hold remains a separate case transition. Its earlier assessment, hold start, original deadline and accumulated burden remain attributable.</p>
+        <p>A separate poisoned source candidate reverses available labels but retains a valid synthetic authenticator. Its direct-use validation cost is 195, against sixteen for the selected local reference. Receiving validation refuses that proposed use. The test separates authentication from fitness, without establishing a general poisoning defense.</p>
+        <p>Foreign-source and correction-completeness fields in this public experiment remain supplied metadata. Authenticated local source registration and receiving adoption perform the operative checks. The private consent profile has a different source contract, with signed manifest and correction relations. That contract does not retrospectively strengthen the fraud comparison.</p>
+        </section>
+        <section id="formal-results-and-executable-correspondence" class="level3">
+        <h3>9.5. Formal results and executable correspondence</h3>
+        <p>The finite mechanization proves exact threshold inference, safe contingent strategies, predecessor-authorized adoption, current-use binding, correction invalidation and persistent accounts. A common rank and remaining update credits bound interleaved use and adoption. Only correctly bound fresh provider observations reduce the original command’s remaining possible payment. Completion requires recording the full stipulated amount. Authority and provider truth remain premises.</p>
+        <p>The durable host protects learned state and connects current learned admission to native execution and the economic journal. Its decoder accepts one declared ownership case with the experiment’s exact feature observation and unchanged trained bundle bytes. A separately identified correction arrives after execution while payment remains pending, without changing the four-arm data. Signed custody carries learned state, active bundles, pending corrections, accounts and old commands. Authenticated commitments identify continuing service powers. The competent provider and operator later record the original payment and complete the bound duty.</p>
+        <p>The formal module proves no general refinement from this decoder and database to the finite semantics. The source and evidence in the reproducibility archive identify that boundary and permit lifecycle reproduction [1].</p>
+        <p>The fraud lifecycle publishes synthetic records and weights without confidential release. Learned parameters affect protected admission while authority, expenditure and correction remain accounted for. The normative construction separately verifies learning and inference over committed case values.</p>
+        <p>Institutional use requires accepted observation contracts, appropriate releases, receiving-population evidence, competent adoption, delivered provider service and independent review. The calculation established by a private proof must remain connected to the receiver’s actual installation and adopted effect.</p>
+        </section>
+        </section>
+        <section id="related-work" class="level2">
+        <h2>10. Related work</h2>
+        <p>The learning problem draws on selective labels, performative prediction, causal transportability and private learning [2,4,5,7]. These establish why authentic observations, a correct fit and wider exchange need not improve outcomes. We connect those limits to the procedure that gives a learned output institutional force and to the duties affected when that procedure changes.</p>
+        <p>Institutions already share knowledge about financial crime. FATF, INTERPOL and the Egmont Group document exchanges about fraud methods and coordinated responses [8]. Here the receiving decision must connect that knowledge to an executable consequence and remain revisable when its basis changes.</p>
+        <p>Project Aurora explored collaborative detection with synthetic payment data, network analysis, machine learning and privacy-enhancing technologies [9]. Project Mandala demonstrated a peer network with rules and proof engines for cross-border compliance [10]. Its participants retained responsibility for regulatory interpretation and application. These are direct precedents for distributed learning and proof-supported compliance. The consent construction adds a specified fit from normative determinations and inference for an exact receiving request.</p>
+        <p>Shielding in safe reinforcement learning constrains a learner under a supplied temporal specification [11]. Here the institution may competently change the interpretation, admission procedure or completion contract itself. The continuation test must identify which earlier promise such a change preserves, alters or defeats. Complete mediation and current-authority checks remain necessary throughout [3].</p>
+        <p>The contribution concerns the complete path from evidence to use: a specified private fit, inference for an exact request, receiving adoption and correction through continuing execution. Computational validity, empirical fitness and institutional authority remain distinct at each interface. The consent and fraud tasks evaluate different parts of that path.</p>
+        </section>
+        <section id="conclusion" class="level2">
+        <h2>11. Conclusion</h2>
+        <p>We have developed the institutional world model through which Mass environments learn how their governing rules apply to an agent’s work. A candidate becomes operative through authority already in force. Zero-knowledge proofs establish specified calculations, and receiving institutions determine the consequences those calculations may support. The resulting decisions remain connected to their evidence, earlier effects and unfinished duties through correction and succession.</p>
+        <p>The finite results state what the declared transitions and response models preserve under their source, cryptographic and service premises. The executable lifecycles test particular connections through adoption, correction and succession. General implementation correspondence and institutional acceptance remain separate obligations. The fraud comparison demonstrates harmful direct transfer and successful rejection of its influence, without demonstrating a transfer benefit.</p>
+        <p>The remaining empirical question is whether this continuing process improves decisions as adversarial and legitimate behavior changes. Evaluation must measure prevented harm, unnecessary exclusion, unfinished duties, correction costs and continued operation after independent operator replacement. Each update must satisfy its authorized procedure, and each shared proof must remain bound to the action the receiver permits. The fixed experiment establishes no longitudinal advantage against adaptive attacks. That claim requires evidence from repeated use of the whole process.</p>
+        </section>
+        <section id="appendix-a.-composition-at-the-admission-interface" class="level2">
+        <h2>Appendix A. Composition at the admission interface</h2>
+        <p>Combining an action’s requirements needs an algebra appropriate to their grades. The fact that one requirement can block an action does not determine a lattice.</p>
+        <p>On <span class="math inline">D=\{0,\tfrac12,1\}</span>, define</p>
+        <p><span class="math display">
+        a\otimes b=\max(0,a+b-1).
+        </span></p>
+        <p>This operation is commutative, has absorbing zero and identity one, and satisfies</p>
+        <p><span class="math display">
+        (a\otimes b)\otimes c
+        =\max(0,a+b+c-2)
+        =a\otimes(b\otimes c).
+        </span></p>
+        <p>But <span class="math inline">\tfrac12\otimes\tfrac12=0</span>. The operation is not idempotent and cannot be meet. Additional hypotheses are needed.</p>
+        <p><strong>Proposition A1 (When composition is meet).</strong> Let <span class="math inline">(D,\le,\top)</span> be a partially ordered set with greatest element. Suppose a binary operation is monotone in each argument, idempotent and has two-sided identity <span class="math inline">\top</span>. Then <span class="math inline">a\otimes b</span> is the greatest lower bound of <span class="math inline">a</span> and <span class="math inline">b</span>.</p>
+        <p><strong>Proof.</strong> Since <span class="math inline">b\le\top</span> and <span class="math inline">a\le\top</span>, monotonicity gives <span class="math inline">a\otimes b\le a\otimes\top=a</span> and <span class="math inline">a\otimes b\le\top\otimes b=b</span>. If <span class="math inline">z\le a,b</span>, then <span class="math inline">z=z\otimes z\le a\otimes b</span>. <span class="math inline">\square</span></p>
+        <p>For applicable requirements, order the grades from more restrictive to less restrictive: NonCompliant <span class="math inline">\le</span> Pending <span class="math inline">\le</span> Compliant. Coordinatewise meet combines independently applicable grades. Attributable source records retain applicability, exemption, authority and unresolved questions. Mixed applicability cannot safely collapse into unqualified Compliant [12].</p>
+        <p>Dependent requirements also need a construction that preserves their schema. Pointwise combination can violate relationships among component judgments [1]. That problem is separate from the numerical order on one grade.</p>
+        <p>On a finite distributive lattice, define the residual by</p>
+        <p><span class="math display">
+        a\Rightarrow b=\bigvee\{x:a\wedge x\le b\}.
+        </span></p>
+        <p><strong>Proposition A2 (Restricted residual).</strong> This residual satisfies <span class="math inline">a\wedge x\le b</span> exactly when <span class="math inline">x\le a\Rightarrow b</span>.</p>
+        <p><strong>Proof.</strong> Every eligible <span class="math inline">x</span> lies below the defining join. Conversely, finite distributivity gives <span class="math inline">a\wedge\bigvee_x x=\bigvee_x(a\wedge x)\le b</span> over the eligible set. Monotonicity gives the result for each smaller <span class="math inline">x</span>. <span class="math inline">\square</span></p>
+        <p>The residual operates on grades in the stated order. It performs no filing, obtains no evidence and creates no permission. Remediation instead searches authorized transitions and their possible responses.</p>
+        <p>Transition planning does not require a residual. In the nondistributive diamond with distinct atoms <span class="math inline">p,q,r</span>, both <span class="math inline">q</span> and <span class="math inline">r</span> satisfy <span class="math inline">p\wedge x\le0</span>, but there is no greatest solution. Finite planning remains well-defined on that state space.</p>
+        <p>The dynamic dependency graph serves a different purpose again. It finds assessments that need invalidation after source, authority, model or feature changes. Sound coverage can be conservative. An empirically learned graph cannot omit an execution dependency because the observed sample showed no effect.</p>
+        </section>
+        <section id="references" class="level2">
+        <h2>References</h2>
+        <p>[1] Raeez Lorgat. <a href="https://research.momentum.inc/sovereign-economies-on-a-network.html"><em>Sovereign economies on a decentralized network: Sovereign virtual machines for AI agents, polycentric consensus and selective recognition</em></a>. 21 September 2025. Companion article and technical supplement supplied with this paper.</p>
+        <p>[2] Himabindu Lakkaraju, Jon Kleinberg, Jure Leskovec, Jens Ludwig and Sendhil Mullainathan. <a href="https://www.cs.cornell.edu/home/kleinber/kdd17-selective.pdf">The Selective Labels Problem: Evaluating Algorithmic Predictions in the Presence of Unobservables</a>. KDD, 2017.</p>
+        <p>[3] Jerome H. Saltzer and Michael D. Schroeder. <a href="https://web.mit.edu/saltzer/www/publications/protection/Basic.html">The Protection of Information in Computer Systems</a>. <em>Proceedings of the IEEE</em> 63(9), 1278–1308, 1975, §I.A.3.</p>
+        <p>[4] Juan C. Perdomo, Tijana Zrnic, Celestine Mendler-Dünner and Moritz Hardt. <a href="https://proceedings.mlr.press/v119/perdomo20a.html">Performative Prediction</a>. ICML, PMLR 119, 7599–7609, 2020.</p>
+        <p>[5] Judea Pearl and Elias Bareinboim. <a href="https://arxiv.org/abs/1503.01603">External Validity: From Do-Calculus to Transportability Across Populations</a>. <em>Statistical Science</em> 29(4), 579–595, 2014.</p>
+        <p>[6] Eugene Bagdasaryan, Andreas Veit, Yiqing Hua, Deborah Estrin and Vitaly Shmatikov. <a href="https://proceedings.mlr.press/v108/bagdasaryan20a.html">How To Backdoor Federated Learning</a>. AISTATS, PMLR 108, 2938–2948, 2020.</p>
+        <p>[7] Cynthia Dwork and Aaron Roth. <a href="https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf">The Algorithmic Foundations of Differential Privacy</a>. <em>Foundations and Trends in Theoretical Computer Science</em> 9(3–4), 211–407, 2014.</p>
+        <p>[8] FATF, INTERPOL and Egmont Group. <a href="https://www.fatf-gafi.org/content/dam/fatf-gafi/reports/Illicit-financial-flows-cyber-enabled-fraud.pdf.coredownload.inline.pdf">Illicit Financial Flows from Cyber-Enabled Fraud</a>. November 2023, boxes 41 and 44.</p>
+        <p>[9] BIS Innovation Hub. <a href="https://www.bis.org/publications/project-aurora-power-data-technology-and-collaboration-combat-money-laundering-across-institutions-and-borders.pdf">Project Aurora: The power of data, technology and collaboration to combat money laundering across institutions and borders</a>. May 2023.</p>
+        <p>[10] BIS Innovation Hub and participating central banks. <a href="https://www.bis.org/publications/project-mandala-streamlining-cross-border-transaction-compliance.pdf">Streamlining cross-border transaction compliance: Project Mandala</a>. October 2024.</p>
+        <p>[11] Mohammed Alshiekh, Roderick Bloem, Rüdiger Ehlers, Bettina Könighofer, Scott Niekum and Ufuk Topcu. <a href="https://ojs.aaai.org/index.php/AAAI/article/view/11797">Safe Reinforcement Learning via Shielding</a>. AAAI 32(1), 2669–2678, 2018.</p>
+        <p>[12] Raeez Lorgat. <a href="https://research.momentum.inc/papers/how-compliance-composes.html">How Compliance Composes</a>. 2026. Attributable requirements, applicability and finite composition.</p>
+        <p>[13] Benedikt Bünz, Jonathan Bootle, Dan Boneh, Andrew Poelstra, Pieter Wuille and Greg Maxwell. <a href="https://eprint.iacr.org/2017/1066">Bulletproofs: Short Proofs for Confidential Transactions and More</a>. IEEE Symposium on Security and Privacy, 2018. Aggregated range proofs. Revised ePrint manuscript, 14 April 2022.</p>
+        <p>[14] Chaya Ganesh, Claudio Orlandi, Mahak Pancholi, Akira Takahashi and Daniel Tschudi. <a href="https://eprint.iacr.org/2023/147">Fiat–Shamir Bulletproofs are Non-malleable (in the Random Oracle Model)</a>. <em>Journal of Cryptology</em>, 2025. <a href="https://doi.org/10.1007/s00145-024-09525-2">doi:10.1007/s00145-024-09525-2</a>.</p>
+        </section>
+        </div>
+
+        <footer class="article-footer">
+            <span class="author-byline"><strong>Raeez Lorgat</strong> · Managing Partner, Momentum</span>
+            <nav class="footer-nav">
+                <a href="/">← All Papers</a>
+            </nav>
+        </footer>
+        <div class="contact-footer">
+            <span>&copy; 2026 Momentum</span>
+        </div>
+    </article>
+</div>
+<script src="/paper.js" defer></script>
+</body>
+</html>

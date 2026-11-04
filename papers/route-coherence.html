@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Route Coherence for Jurisdictional Corridors - Raeez Lorgat</title>
+<meta name="description" content="Checking whether different routes between jurisdictions produce the same compliance state.">
+<meta name="author" content="Raeez Lorgat">
+<meta property="og:title" content="Route Coherence for Jurisdictional Corridors">
+<meta property="og:description" content="Checking whether different routes between jurisdictions produce the same compliance state.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://research.momentum.inc/og-image.png">
+<meta property="og:url" content="https://research.momentum.inc/papers/route-coherence.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+<link rel="canonical" href="https://research.momentum.inc/papers/route-coherence.html">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Route Coherence for Jurisdictional Corridors",
+    "author": { "@type": "Person", "name": "Raeez Lorgat", "url": "https://research.momentum.inc" },
+    "datePublished": "2026-04-02",
+    "description": "Checking whether different routes between jurisdictions produce the same compliance state."
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8T5J8M28"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JP8T5J8M28');
+</script>
+<link rel="stylesheet" href="https://use.typekit.net/zlu2quo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --font-text: 'garamond-premier-pro', 'EB Garamond', 'Hoefler Text', 'Baskerville', Garamond, serif;
+    --font-display: 'garamond-premier-pro-display', var(--font-text);
+    --font-caption: 'garamond-premier-pro-caption', var(--font-text);
+    --font-subhead: 'garamond-premier-pro-subhead', var(--font-text);
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    --text-base: clamp(18px, 1.125rem + 0.25vw, 21px);
+    --text-sm: calc(var(--text-base) / 1.333);
+    --text-xs: calc(var(--text-sm) / 1.333);
+    --text-lg: calc(var(--text-base) * 1.333);
+    --text-xl: calc(var(--text-lg) * 1.333);
+    --text-2xl: calc(var(--text-xl) * 1.333);
+    --baseline: 8px;
+    --leading-tight: 1.2;
+    --leading-snug: 1.35;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.618;
+    --leading-loose: 1.8;
+    --space-1: calc(var(--baseline) * 1);
+    --space-2: calc(var(--baseline) * 2);
+    --space-3: calc(var(--baseline) * 3);
+    --space-4: calc(var(--baseline) * 4);
+    --space-5: calc(var(--baseline) * 5);
+    --space-6: calc(var(--baseline) * 6);
+    --space-8: calc(var(--baseline) * 8);
+    --space-10: calc(var(--baseline) * 10);
+    --space-13: calc(var(--baseline) * 13);
+    --measure: 65ch;
+    --measure-narrow: 55ch;
+    --measure-wide: 75ch;
+    --gutter: clamp(16px, 4vw, 24px);
+    --ink: #1a1917;
+    --ink-muted: #4a4744;
+    --ink-subtle: #6a6662;
+    --ink-faint: #8a8580;
+    --ink-ghost: #b5b0ab;
+    --ink-whisper: #d4d0cc;
+    --ink-hint: #e8e5e2;
+    --paper: #fefdfb;
+    --paper-tint: #f5f3f0;
+    --kern-tight: -0.02em;
+    --kern-snug: -0.01em;
+    --kern-normal: 0;
+    --kern-loose: 0.015em;
+    --kern-wide: 0.04em;
+    --kern-caps: 0.08em;
+    --optical-margin: -0.03em;
+}
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    hanging-punctuation: first last;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body {
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-relaxed);
+    color: var(--ink);
+    background: var(--paper);
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1, "dlig" 1, "onum" 1, "pnum" 1;
+    font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    font-kerning: normal;
+}
+.container {
+    max-width: calc(var(--measure) + var(--space-8));
+    margin-inline: auto;
+    padding: var(--space-10) var(--gutter) var(--space-8);
+}
+.back-nav { margin-bottom: var(--space-8); }
+.back-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.back-nav a:hover { color: var(--ink); }
+.article-header {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--ink-hint);
+}
+.article-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-meta {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+    margin-top: var(--space-3);
+}
+.article-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+.article-meta a:hover {
+    color: var(--ink-muted);
+    text-decoration-color: var(--ink-ghost);
+}
+/* Companion open-source repository link — rendered when `repo` metadata is set.
+   Monochrome ink on warm paper to sit native to the typographic system;
+   the GitHub mark carries the recognition, the hairline frame the prominence. */
+.repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    max-width: 100%;
+    padding: 10px var(--space-3) 10px calc(var(--space-2) + 2px);
+    border: 1px solid var(--ink-whisper);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: border-color 200ms ease, color 200ms ease,
+                background 200ms ease, box-shadow 200ms ease;
+}
+.repo-link:hover {
+    border-color: var(--ink-faint);
+    color: var(--ink);
+    background: var(--paper-tint);
+    box-shadow: 0 2px 12px rgba(26, 25, 23, 0.07);
+}
+.repo-link:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; }
+.repo-link__mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    color: var(--ink);
+    transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.repo-link:hover .repo-link__mark { transform: rotate(-7deg) scale(1.06); }
+.repo-link__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; line-height: var(--leading-tight); }
+.repo-link__label {
+    font-family: var(--font-caption);
+    font-size: var(--text-xs);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    transition: color 200ms ease;
+}
+.repo-link:hover .repo-link__label { color: var(--ink-subtle); }
+.repo-link__url {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    letter-spacing: var(--kern-snug);
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.repo-link__arrow {
+    flex: none;
+    margin-left: var(--space-1);
+    color: var(--ink-ghost);
+    transition: transform 200ms ease, color 200ms ease;
+}
+.repo-link:hover .repo-link__arrow { transform: translateX(3px); color: var(--ink-faint); }
+@media (max-width: 400px) { .repo-link__arrow { display: none; } }
+/* TOC from pandoc */
+nav#TOC {
+    margin: 0 0 var(--space-8);
+    padding: var(--space-4) 0 var(--space-4) var(--space-4);
+    border-top: 1px solid var(--ink-hint);
+    border-bottom: 1px solid var(--ink-hint);
+}
+nav#TOC ul { list-style: none; padding: 0; }
+nav#TOC li { margin: 0.35rem 0; }
+nav#TOC a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-hint);
+    transition: border-color 0.2s;
+    font-size: var(--text-sm);
+}
+nav#TOC a:hover { border-color: var(--ink-muted); }
+.article-body { font-variant-ligatures: common-ligatures discretionary-ligatures contextual; }
+.article-body p {
+    margin-bottom: var(--space-3);
+    max-width: var(--measure);
+    line-height: var(--leading-loose);
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+    hyphenate-limit-lines: 2;
+}
+.article-body h1, .article-body .level1 > h2:first-child {
+    font-family: var(--font-subhead);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h2 {
+    font-family: var(--font-subhead);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: var(--kern-snug);
+    line-height: var(--leading-snug);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+}
+.article-body a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    text-decoration-skip-ink: auto;
+    transition: text-decoration-color 180ms ease;
+}
+.article-body a:hover { text-decoration-color: var(--ink-muted); }
+.article-body blockquote {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--ink-hint);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.article-body hr {
+    border: none;
+    height: 1px;
+    background: var(--ink-hint);
+    margin: var(--space-8) 0;
+    max-width: 4rem;
+}
+.article-body code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--paper-tint);
+    padding: 0.12em 0.35em;
+}
+.article-body pre {
+    background: #0d0d0c;
+    color: #c8c5b8;
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-4) 0;
+    font-size: var(--text-sm);
+}
+.article-body th {
+    text-align: left;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+    letter-spacing: var(--kern-loose);
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 2px solid var(--ink-hint);
+}
+.article-body td {
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 1px solid var(--ink-hint);
+    vertical-align: top;
+}
+.article-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.author-byline {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.author-byline strong { font-style: normal; font-weight: 600; }
+.footer-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.footer-nav a:hover { color: var(--ink); }
+.contact-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+}
+::selection { background: var(--ink); color: var(--paper); }
+a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; border-radius: 2px; }
+@media (max-width: 680px) {
+    :root { --text-base: clamp(17px, 1rem + 0.2vw, 19px); }
+    .container { padding: var(--space-6) var(--gutter) var(--space-5); }
+    .article-title { font-size: var(--text-xl); }
+    .article-body h1, .article-body .level1 > h2:first-child { font-size: var(--text-lg); }
+    .article-body h2 { font-size: calc(var(--text-base) * 1.1); }
+    .article-footer { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+@media (max-width: 400px) {
+    :root { --text-base: 16px; }
+    .container { padding: var(--space-5) var(--space-2) var(--space-4); }
+}
+@media (min-width: 1200px) { .container { padding-top: var(--space-13); } }
+@media print {
+    :root { --ink: #000; --paper: #fff; }
+    body { font-size: 11pt; line-height: 1.4; }
+    .container { max-width: 100%; padding: 0; }
+    .back-nav, .contact-footer { display: none; }
+    nav#TOC { display: none; }
+    a { text-decoration: none !important; color: var(--ink) !important; }
+    .article-body h1, .article-body h2 { page-break-after: avoid; }
+    p { orphans: 3; widows: 3; }
+}
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(var(--gutter), env(safe-area-inset-left));
+        padding-right: max(var(--gutter), env(safe-area-inset-right));
+    }
+}
+
+/* Wiring in a mathematics renderer made display equations set on one unwrappable
+   line, so a long equation pushed the page wider than the viewport and readers on
+   ordinary laptops lost the right-hand side. Let each equation scroll inside its own
+   box instead of widening the page. Wide tables get the same treatment. */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
+.katex-display::-webkit-scrollbar { height: 6px; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 600px) {
+  .paper-nav-title { display: none; }
+}
+</style>
+<link rel="stylesheet" href="/paper.css">
+</head>
+<body>
+<div class="container">
+    <nav class="back-nav">
+        <a href="/">← Research</a>
+    </nav>
+    <article>
+        <header class="article-header">
+            <h1 class="article-title">Route Coherence for Jurisdictional Corridors</h1>
+            <p class="article-meta">April 2026 · Raeez Lorgat</p>
+                    </header>
+
+        
+        <div class="article-body">
+        <section id="route-coherence-for-jurisdictional-corridors" class="level1">
+        <h1>Route Coherence for Jurisdictional Corridors</h1>
+        <p>Author: Raeez Lorgat</p>
+        <hr />
+        <p><strong>Abstract.</strong> Does the compliance state an entity carries between jurisdictions depend on its route? A corporation moving from Pakistan to the Seychelles can go directly or through the UAE. If the routes deliver different states, the entity can choose the more favorable regulatory outcome. This note identifies the source of route-dependence where every verdict is a compliance grade.</p>
+        <p>Per-domain aggregation is a semilattice meet and is independent of order. Route-dependence instead arises from corridor data: re-evaluated domains, recognized evidence and grades, rulebook versions, and instrument clauses. Each corridor in a triangle has an independently negotiated bilateral agreement, so the direct terms need not equal the composite of the staged terms.</p>
+        <p>We reduce each route to a finite snapshot of its corridor data. We prove that a direct corridor and a staged route with equal snapshots deliver identical arrival states, with a finite, decidable comparison. A difference supplies a finite witness naming the disagreeing domains and the agreements that require renegotiation. Only renegotiation can close the defect because the parameters are the content of bilateral instruments. A worked three-jurisdiction example exhibits three disagreements: evidence carried on one route and freshly evaluated on the other, evidence without a counterpart correspondence, and forwarded intermediate evaluations.</p>
+        <p>Sanctions lies outside general-purpose recognition unless a shared sanctions authority is an explicit corridor premise. This exclusion makes sanctions route-coherent by construction. Discretionary evaluation and temporal effects lie outside the fragment and remain open.</p>
+        <section id="route-dependence" class="level2">
+        <h2>1. Route-Dependence</h2>
+        <p>Consider three jurisdictions — Pakistan (PK), the United Arab Emirates (AE), and the Seychelles (SC) — with a bilateral recognition agreement between each pair. An entity incorporated in PK wants to operate in SC.</p>
+        <p>Route 1: PK directly to SC. The corridor re-evaluates Sanctions and Tax at SC and accepts PK’s evaluations across the other corresponded domains.</p>
+        <p>Route 2: PK to AE, then AE to SC. The first corridor re-evaluates Sanctions and Tax at AE and accepts the rest. The second re-evaluates Sanctions and Securities at SC and accepts the rest.</p>
+        <p>These masks already produce a route difference. The direct route delivers PK’s Securities evidence to SC. The staged route discards it at the second hop, where SC evaluates Securities afresh. An entity whose PK Securities record is favorable prefers Route 1, while one that would fare better under fresh SC evaluation prefers Route 2. Route choice can therefore change a regulatory outcome without any party acting in bad faith.</p>
+        <p>The mechanism is the classical one of treaty shopping: an entity routes through an intermediate jurisdiction whose bilateral agreements treat it better than the direct agreement does. Tax authorities have named and countered conduit structures of this kind since the OECD’s report on conduit companies (OECD, 1986), most recently through BEPS Action 6 (OECD, 2015). This note formalizes the mechanism on the applicable-rule fragment and gives a decidable check for its presence in a triangle of agreements.</p>
+        <p>The three corridors implement independently negotiated bilateral agreements. Bilateral negotiation does not require the PK–SC terms to equal the composite of the PK–AE and AE–SC terms, so the routes can differ. Per-domain aggregation adds no source of variation: it is a semilattice meet, independent of order (Section 3). We must therefore define “the composite of the terms” and establish what equality of terms guarantees. The construction below answers both questions on the applicable-rule fragment, and Section 5 compares the triangle above in full.</p>
+        </section>
+        <section id="corridors" class="level2">
+        <h2>2. Corridors</h2>
+        <p><strong>Definition 1 (Jurisdiction-corridor graph).</strong> Let <span class="math inline">\mathcal{J}</span> be a directed graph whose vertices are jurisdictions. Each jurisdiction <span class="math inline">U</span> has a finite set <span class="math inline">\mathcal{D}_U</span> of compliance domains — its regulatory vocabulary — and a versioned rulebook, with <span class="math inline">w</span> ranging over rulebook versions. An edge <span class="math inline">m : U \to V</span> is a corridor: a bilateral instrument under which <span class="math inline">V</span> accepts specified evidence produced in <span class="math inline">U</span>. A bilateral agreement induces two directed edges <span class="math inline">U \to V</span> and <span class="math inline">V \to U</span>, not one symmetric identification; Singapore may accept Abu Dhabi’s AML evaluation without Abu Dhabi reciprocating, and each direction carries its own parameters.</p>
+        <p><strong>Definition 2 (Corridor parameters).</strong> A corridor <span class="math inline">m : U \to V</span> carries four parameters <span class="math inline">(R, \mu, \gamma, W)</span>.</p>
+        <ul>
+        <li><p><strong>Domain correspondence</strong> <span class="math inline">\mu_{U,V} : \mathcal{D}_U \rightharpoonup \mathcal{D}_V</span>, a partial injection pairing each source domain with at most one destination domain and conversely, defined exactly where the corridor instrument names a counterpart. The correspondence records that two domains regulate the same subject matter; it is independent of what is recognized, and it does not by itself move evidence.</p></li>
+        <li><p><strong>Re-evaluation mask</strong> <span class="math inline">R_{U,V} \subseteq \mathcal{D}_V</span>: the destination domains <span class="math inline">V</span> evaluates afresh regardless of source evidence, counterpart or not. Sanctions determinations are sovereign political acts with extraterritorial reach, not quality assessments one jurisdiction can perform on another’s behalf, so <span class="math inline">\mathrm{Sanctions} \in R_{U,V}</span> for every general-purpose corridor; a subnetwork with a shared sanctions authority may omit it only by making that authority an explicit premise of the corridor instrument.</p></li>
+        <li><p><strong>Grade maps</strong> <span class="math inline">\gamma_{U,V,d}</span>, one for each domain <span class="math inline">d</span> with <span class="math inline">\mu(d)</span> defined and <span class="math inline">\mu(d) \notin R</span> — the carried domains of Definition 3: a monotone map from the source grade factor at <span class="math inline">d</span> to the destination grade factor at <span class="math inline">\mu(d)</span> (the grade factors of Section 3), fixing the strength at which <span class="math inline">V</span> accepts <span class="math inline">U</span>’s verdict. Recognition may downgrade — <span class="math inline">U</span>’s Compliant arriving as <span class="math inline">V</span>’s Pending — and never upgrades.</p></li>
+        <li><p><strong>Version window</strong> <span class="math inline">W_{U,V}</span>: the set of rulebook-version pairs <span class="math inline">(w_U, w_V)</span> for which the other three parameters are valid. A corridor negotiated against particular rulebooks is not presumed accurate after either side revises; operation outside the window requires renegotiated parameters.</p></li>
+        </ul>
+        <p><strong>Definition 3 (Carriage).</strong> For a corridor with parameters <span class="math inline">(R, \mu, \gamma, W)</span>, a source domain <span class="math inline">d \in \mathcal{D}_U</span> is <em>carried</em> when <span class="math inline">\mu(d)</span> is defined and <span class="math inline">\mu(d) \notin R</span>. Write <span class="math inline">\mathrm{carry}_{U,V}</span> for the partial injection <span class="math inline">d \mapsto \mu(d)</span> restricted to carried domains. Every destination domain outside the image of <span class="math inline">\mathrm{carry}_{U,V}</span> — masked, or without a counterpart — is freshly evaluated at <span class="math inline">V</span>. This fail-closed default gives every destination domain exactly one status: carried into, or freshly evaluated.</p>
+        </section>
+        <section id="states-and-transit" class="level2">
+        <h2>3. States and Transit</h2>
+        <p><strong>Definition 4 (Compliance assignment).</strong> The compliance assignment <span class="math inline">F</span> gives each jurisdiction <span class="math inline">U</span> the product <span class="math display">
+        F(U) = \prod_{d \in \mathcal{D}_U} S_d(U),
+        </span> where <span class="math inline">S_d(U)</span> is <span class="math inline">U</span>’s grade factor at domain <span class="math inline">d</span>: on the applicable-rule fragment treated here, the finite chain of compliance grades <span class="math inline">\mathrm{NonCompliant} &lt; \mathrm{Pending} &lt; \mathrm{Compliant}</span>, in the normal form of the companion note <em>How Compliance Composes</em>. NotApplicable and Exempt are applicability markers, not grades; the companion note handles mixed applicability by structured outcomes, and this note stays on the fragment where every verdict carries a grade. An element of <span class="math inline">F(U)</span> is a compliance state at <span class="math inline">U</span>: one grade per domain.</p>
+        <p><strong>Transit.</strong> Fix a corridor <span class="math inline">m : U \to V</span>, a version pair in <span class="math inline">W_{U,V}</span>, and an entity with source state <span class="math inline">s \in F(U)</span>. The arrival state <span class="math inline">t \in F(V)</span> is defined coordinate-wise: <span class="math display">
+        t(d&#39;) = \gamma_{U,V,d}(s(d)) \quad \text{if } d&#39; = \mathrm{carry}_{U,V}(d),
+        </span> <span class="math display">
+        t(d&#39;) = \mathrm{eval}_V(d&#39;) \quad \text{otherwise,}
+        </span> where <span class="math inline">d</span> is the unique carried preimage and <span class="math inline">\mathrm{eval}_V(d&#39;)</span> is <span class="math inline">V</span>’s fresh evaluation of the entity in domain <span class="math inline">d&#39;</span> under <span class="math inline">V</span>’s rulebook version. Two modeling assumptions delimit the fragment:</p>
+        <ul>
+        <li><p><strong>(E1) Deterministic evaluation.</strong> Under a fixed rulebook version, <span class="math inline">\mathrm{eval}_V</span> is a function of the entity’s evidence and the domain. Discretionary evaluation — a judgment the rule leaves to a named official — is excluded; the companion paper <em>Lex</em> types such judgments as discretion holes, and route coherence in their presence is open.</p></li>
+        <li><p><strong>(E2) Primary-evidence evaluation.</strong> Fresh evaluation consumes the entity’s primary evidence — its own documents and facts — not the verdicts other jurisdictions have issued along the way. Carried verdicts enter the destination state only through carriage. Since primary evidence is the entity’s own, <span class="math inline">\mathrm{eval}_V</span> does not depend on the route by which the entity arrived.</p></li>
+        </ul>
+        <p>For an entity already present at <span class="math inline">V</span>, the multi-harbored case, the destination may independently hold a verdict on a carried domain. If <span class="math inline">V</span> holds such a verdict, the composition law of the companion note gives the operative verdict as a meet. It combines the carried grade and <span class="math inline">V</span>’s own grade in <span class="math inline">V</span>’s factor. The meet is associative, commutative, and idempotent, so aggregation order never affects it. Route-dependence therefore concerns which grades arrive. Both routes combine those grades through the same meet.</p>
+        <p>Transit along <span class="math inline">A \to B</span> followed by transit along <span class="math inline">B \to C</span> need not equal transit along any single corridor <span class="math inline">A \to C</span>. Wherever carriage fails, fail-closed re-evaluation at <span class="math inline">B</span> replaces carried evidence with <span class="math inline">B</span>’s own evaluation. The second hop may forward <span class="math inline">B</span>’s evaluation to the destination. Route coherence asks whether a direct corridor reproduces this staged behavior.</p>
+        </section>
+        <section id="route-coherence" class="level2">
+        <h2>4. Route Coherence</h2>
+        <p>Fix corridors <span class="math inline">A \to B</span>, <span class="math inline">B \to C</span>, and <span class="math inline">A \to C</span>, and a version profile <span class="math inline">v = (w_A, w_B, w_C)</span> with <span class="math inline">(w_A, w_B) \in W_{AB}</span>, <span class="math inline">(w_B, w_C) \in W_{BC}</span>, and <span class="math inline">(w_A, w_C) \in W_{AC}</span>. All comparisons in this section use <span class="math inline">v</span>. A different profile supplies different corridor parameters and defines a separate comparison.</p>
+        <p><strong>Definition 5 (Route snapshot).</strong> The staged route <span class="math inline">A \to B \to C</span> and the direct corridor <span class="math inline">A \to C</span> reduce to snapshots over the same endpoints:</p>
+        <ul>
+        <li><p><em>carriage map</em> <span class="math inline">\kappa</span>: for the staged route, <span class="math inline">\kappa_{\mathrm{st}} = \mathrm{carry}_{BC} \circ \mathrm{carry}_{AB}</span>, the composition of partial injections, defined where both are; for the direct corridor, <span class="math inline">\kappa_{\mathrm{dir}} = \mathrm{carry}_{AC}</span>;</p></li>
+        <li><p><em>grade maps</em> on carried domains: <span class="math inline">\gamma^{\mathrm{st}}_d = \gamma_{BC,\mu_{AB}(d)} \circ \gamma_{AB,d}</span> for <span class="math inline">d \in \mathrm{dom}\,\kappa_{\mathrm{st}}</span>, and <span class="math inline">\gamma^{\mathrm{dir}}_d = \gamma_{AC,d}</span> for <span class="math inline">d \in \mathrm{dom}\,\kappa_{\mathrm{dir}}</span>;</p></li>
+        <li><p><em>forwarding set</em> <span class="math inline">\Phi</span>: the destination domains that receive the intermediate jurisdiction’s fresh evaluation rather than evidence originating at the source, <span class="math inline">\Phi_{\mathrm{st}} = \mathrm{carry}_{BC}(\mathcal{D}_B \setminus \mathrm{im}\,\mathrm{carry}_{AB})</span> and <span class="math inline">\Phi_{\mathrm{dir}} = \varnothing</span>;</p></li>
+        <li><p><em>clause set</em> <span class="math inline">K</span>: the route’s instrument clauses — governing law, dispute forum, waivers, currency of obligation, termination and dynamic-alignment clauses — in the normal form fixed by the instrument layer, the component of the corridor system that holds each bilateral instrument’s operative clauses in that form; this note takes the layer, its normal form, and decidable equality on it as given. For the direct corridor, <span class="math inline">K_{\mathrm{dir}}</span> is the normalized clause set of the <span class="math inline">A \to C</span> instrument; for the staged route, <span class="math inline">K_{\mathrm{st}}</span> is the instrument layer’s normalized combination of the clause sets of the two traversed instruments, <span class="math inline">A \to B</span> and <span class="math inline">B \to C</span>, under the route-combination rule that layer fixes — which clauses of each traversed instrument govern the staged arrival.</p></li>
+        </ul>
+        <p>The freshly evaluated set at <span class="math inline">C</span> is determined by the rest: <span class="math inline">E = \mathcal{D}_C \setminus (\mathrm{im}\,\kappa \cup \Phi)</span>. By injectivity, <span class="math inline">\mathrm{im}\,\kappa_{\mathrm{st}}</span> and <span class="math inline">\Phi_{\mathrm{st}}</span> partition <span class="math inline">\mathrm{im}\,\mathrm{carry}_{BC}</span>, so what is freshly evaluated at the destination is determined by the final edge alone; what varies with the route is the provenance of everything else.</p>
+        <p><strong>Definition 6 (Route coherence).</strong> The direct corridor is <em>coherent</em> with the staged route at <span class="math inline">v</span> when the snapshots are equal: <span class="math inline">\kappa_{\mathrm{dir}} = \kappa_{\mathrm{st}}</span> as partial maps — equal domains of definition and equal values — <span class="math inline">\gamma^{\mathrm{dir}}_d = \gamma^{\mathrm{st}}_d</span> for every <span class="math inline">d</span> in that common domain, <span class="math inline">\Phi_{\mathrm{st}} = \Phi_{\mathrm{dir}} = \varnothing</span>, and <span class="math inline">K_{\mathrm{dir}} = K_{\mathrm{st}}</span>. When the snapshots differ, the <em>route-coherence defect</em> is the set of components on which they differ; each component names the domains in disagreement and, through them, the corridor agreements whose renegotiation would close the gap. Version windows are compared alongside: a profile admissible for one route and not the other is itself a defect — the routes differ in availability before they can be compared in state.</p>
+        <p><strong>Theorem 1 (Route independence on the applicable fragment).</strong> If the direct corridor is coherent with the staged route at <span class="math inline">v</span>, then under (E1)–(E2) the two routes deliver the same arrival state at <span class="math inline">C</span> for every source state <span class="math inline">s \in F(A)</span>.</p>
+        <p>The arrival state in Theorem 1 is the graded object of Definition 4. A determination may also carry the set of authorities whose grades composed it, as in the companion <em>The Recognition Protocol</em>. That set lets a participant refuse determinations composed through a jurisdiction it has declined. It necessarily distinguishes a staged arrival from a direct one. Theorem 1 then establishes route independence only in the grade component and makes no claim about the deliberately route-dependent provenance component. The results below apply under either convention because the snapshot of Definition 5 fixes the grade component alone.</p>
+        <p><em>Proof.</em> Coherence gives <span class="math inline">\Phi_{\mathrm{st}} = \varnothing</span>, so no coordinate of the staged arrival depends on <span class="math inline">\mathrm{eval}_B</span>. Fix <span class="math inline">d&#39;&#39; \in \mathcal{D}_C</span>.</p>
+        <p>If <span class="math inline">d&#39;&#39; \in \mathrm{im}\,\kappa_{\mathrm{st}} = \mathrm{im}\,\kappa_{\mathrm{dir}}</span>, let <span class="math inline">d</span> be its unique preimage under the common carriage map. Along the staged route, the coordinate <span class="math inline">\mu_{AB}(d)</span> holds <span class="math inline">\gamma_{AB,d}(s(d))</span> on arrival at <span class="math inline">B</span>, and <span class="math inline">d&#39;&#39;</span> holds <span class="math inline">\gamma_{BC,\mu_{AB}(d)}(\gamma_{AB,d}(s(d))) = \gamma^{\mathrm{st}}_d(s(d))</span> on arrival at <span class="math inline">C</span>. The direct corridor delivers <span class="math inline">\gamma^{\mathrm{dir}}_d(s(d))</span>. The grade maps agree, so the values agree.</p>
+        <p>If <span class="math inline">d&#39;&#39; \notin \mathrm{im}\,\kappa_{\mathrm{st}}</span>, then on the direct route <span class="math inline">d&#39;&#39; \notin \mathrm{im}\,\kappa_{\mathrm{dir}}</span> and <span class="math inline">d&#39;&#39;</span> is freshly evaluated. On the staged route, if <span class="math inline">d&#39;&#39;</span> were in <span class="math inline">\mathrm{im}\,\mathrm{carry}_{BC}</span>, its preimage <span class="math inline">d&#39;</span> would lie either in <span class="math inline">\mathrm{im}\,\mathrm{carry}_{AB}</span>, putting <span class="math inline">d&#39;&#39; \in \mathrm{im}\,\kappa_{\mathrm{st}}</span>, or outside it, putting <span class="math inline">d&#39;&#39; \in \Phi_{\mathrm{st}} = \varnothing</span>; so <span class="math inline">d&#39;&#39; \notin \mathrm{im}\,\mathrm{carry}_{BC}</span> and <span class="math inline">d&#39;&#39;</span> is freshly evaluated. By (E1)–(E2), both routes invoke the same evaluation, at version <span class="math inline">w_C</span>, of the same primary evidence. <span class="math inline">\blacksquare</span></p>
+        <p><strong>The check is conservative.</strong> Coherence requires agreement between the instruments. A defective route pair can still deliver equal states for a particular entity if a fresh evaluation happens to equal the carried grade it replaces. Such a coincidence does not give the guarantee a compliance system needs from the agreements.</p>
+        <p>Each snapshot component can expose a distinct disagreement. Section 5 exhibits carriage and forwarding defects with different arrival states. If the carriage maps agree at <span class="math inline">d</span> but <span class="math inline">\gamma^{\mathrm{dir}}_d</span> and <span class="math inline">\gamma^{\mathrm{st}}_d</span> differ at some grade <span class="math inline">g</span>, choose a source state with <span class="math inline">s(d) = g</span>. It arrives at different grades at the common coordinate <span class="math inline">\kappa_{\mathrm{dir}}(d)</span>. A clause defect leaves grades unchanged but subjects the same arrival to different governing terms.</p>
+        <p><strong>Decidability.</strong> The carriage map, grade maps, and forwarding set are finite objects over finite domain sets and finite grade chains. Equality on each is therefore decidable. Clause sets use the instrument layer’s normal form, whose equality is decidable by the standing assumption of Definition 5. Snapshot equality is a finite conjunction of these decidable equalities.</p>
+        <p>The machine-checked artifact accompanying <em>Op</em> proves sound, complete, decidable snapshot-equality checking at the normalized layer of carried cells, fresh-evaluation domains, and instrument clause identifiers. It raises no false obstruction: a failed check refutes coherence (<code>route_coherence_checker_sound</code>, <code>route_coherence_checker_complete</code>, <code>route_coherence_checker_false_obstruction</code>, <code>route_coherence_decidable</code>). Definitions 5 and 6 give the paper-level reduction from this fragment’s corridor-triple data to such finite snapshots. Mechanizing the reduction and its assumed clause normal form remains open.</p>
+        </section>
+        <section id="worked-example" class="level2">
+        <h2>5. Worked Example</h2>
+        <p>Let the three vocabularies share the domain names <span class="math display">
+        \{\mathrm{Sanctions}, \mathrm{Tax}, \mathrm{Securities}, \mathrm{Corporate}, \mathrm{KYC}, \mathrm{DigitalAssets}\},
+        </span> with identity correspondences on the listed names, identity grade maps on the common grade chain, and equal clause sets. These choices ensure that differences below reflect corridor disagreement. At a common version profile, the instruments of Section 1 are:</p>
+        <ul>
+        <li>PK <span class="math inline">\to</span> AE: correspondence on all six names; mask <span class="math inline">R_{\mathrm{PK},\mathrm{AE}} = \{\mathrm{Sanctions}, \mathrm{Tax}\}</span>.</li>
+        <li>AE <span class="math inline">\to</span> SC: correspondence on all six names; mask <span class="math inline">R_{\mathrm{AE},\mathrm{SC}} = \{\mathrm{Sanctions}, \mathrm{Securities}\}</span>.</li>
+        <li>PK <span class="math inline">\to</span> SC: correspondence on five names — none for DigitalAssets; mask <span class="math inline">R_{\mathrm{PK},\mathrm{SC}} = \{\mathrm{Sanctions}, \mathrm{Tax}\}</span>.</li>
+        </ul>
+        <p>The carriage maps (Definition 3) are identities on their domains: <span class="math display">
+        \mathrm{carry}_{\mathrm{PK},\mathrm{AE}} : \{\mathrm{Securities}, \mathrm{Corporate}, \mathrm{KYC}, \mathrm{DigitalAssets}\}, \quad
+        \mathrm{carry}_{\mathrm{AE},\mathrm{SC}} : \{\mathrm{Tax}, \mathrm{Corporate}, \mathrm{KYC}, \mathrm{DigitalAssets}\}, \quad
+        \mathrm{carry}_{\mathrm{PK},\mathrm{SC}} : \{\mathrm{Securities}, \mathrm{Corporate}, \mathrm{KYC}\}.
+        </span></p>
+        <p>Both snapshots, computed in full: <span class="math display">
+        \kappa_{\mathrm{st}} : \{\mathrm{Corporate}, \mathrm{KYC}, \mathrm{DigitalAssets}\}, \quad
+        \Phi_{\mathrm{st}} = \mathrm{carry}_{\mathrm{AE},\mathrm{SC}}(\{\mathrm{Sanctions}, \mathrm{Tax}\}) = \{\mathrm{Tax}\}, \quad
+        E_{\mathrm{st}} = \{\mathrm{Sanctions}, \mathrm{Securities}\};
+        </span> <span class="math display">
+        \kappa_{\mathrm{dir}} : \{\mathrm{Securities}, \mathrm{Corporate}, \mathrm{KYC}\}, \quad
+        \Phi_{\mathrm{dir}} = \varnothing, \quad
+        E_{\mathrm{dir}} = \{\mathrm{Sanctions}, \mathrm{Tax}, \mathrm{DigitalAssets}\}.
+        </span></p>
+        <p>The snapshots differ in three places, one of each kind:</p>
+        <ol type="1">
+        <li><p><strong>Securities</strong> <span class="math inline">\in \mathrm{dom}\,\kappa_{\mathrm{dir}} \setminus \mathrm{dom}\,\kappa_{\mathrm{st}}</span>. The direct corridor carries PK’s Securities verdict to SC. The staged route discards it at the AE <span class="math inline">\to</span> SC mask, and SC evaluates afresh. An entity with a Compliant PK Securities verdict arrives Compliant directly, and arrives with whatever <span class="math inline">\mathrm{eval}_{\mathrm{SC}}</span> returns — Pending, say — when staged. Route choice changes the verdict.</p></li>
+        <li><p><strong>DigitalAssets</strong> <span class="math inline">\in \mathrm{dom}\,\kappa_{\mathrm{st}} \setminus \mathrm{dom}\,\kappa_{\mathrm{dir}}</span>. The staged route carries PK’s digital-asset evidence through AE because both hops correspond and neither masks it. The PK–SC instrument names no counterpart, so the direct route triggers fresh evaluation. Only the staged agreements support this portability.</p></li>
+        <li><p><strong>Tax</strong> <span class="math inline">\in \Phi_{\mathrm{st}} \setminus \Phi_{\mathrm{dir}}</span>. On the staged route, AE freshly evaluates Tax on arrival from PK, and the AE <span class="math inline">\to</span> SC corridor carries AE’s evaluation onward. On the direct route, SC evaluates Tax itself. The routes deliver different evaluators’ verdicts on the same entity.</p></li>
+        </ol>
+        <p>Each defect requires renegotiation because each parameter is part of a bilateral instrument. The alternatives are:</p>
+        <ul>
+        <li>Mask Securities in PK–SC or unmask it in AE–SC.</li>
+        <li>Add a DigitalAssets correspondence to PK–SC at the composed grade or mask DigitalAssets in AE–SC.</li>
+        <li>Mask Tax in AE–SC or unmask it in PK–AE.</li>
+        </ul>
+        <p>No PK–SC term closes the forwarding defect. The direct corridor’s parameters enter only <span class="math inline">\kappa_{\mathrm{dir}}</span> and <span class="math inline">\gamma^{\mathrm{dir}}</span>, while the two staged edges fix <span class="math inline">\Phi_{\mathrm{st}}</span>. A forwarding defect therefore requires an amendment to a staged edge.</p>
+        <p>Masking Tax in AE–SC withdraws Tax from the final edge’s carriage. SC then evaluates Tax itself on both routes, with every other snapshot component unchanged. Unmasking Tax in PK–AE instead carries PK’s Tax verdict through AE. Tax leaves <span class="math inline">\Phi_{\mathrm{st}}</span> for <span class="math inline">\mathrm{dom}\,\kappa_{\mathrm{st}}</span>, creating a carriage disagreement because PK–SC masks it.</p>
+        <p>In general, the first-edge closure moves the forwarded domain into staged carriage. It agrees with the direct corridor only where that corridor carries the same domain under the same grade map. Withdrawing the forwarded domain from the final edge’s carriage is the only single amendment that closes a forwarding defect without changing another component. Each amendment affects the whole edge: masking Tax in AE <span class="math inline">\to</span> SC changes every route through that edge, including routes originating at AE.</p>
+        <p>After three amendments — Securities masked in PK–SC, the DigitalAssets correspondence added to PK–SC, Tax masked in AE–SC — the snapshots agree: <span class="math inline">\kappa</span> is the identity on <span class="math inline">\{\mathrm{Corporate}, \mathrm{KYC}, \mathrm{DigitalAssets}\}</span>, <span class="math inline">\Phi = \varnothing</span>, <span class="math inline">E = \{\mathrm{Sanctions}, \mathrm{Tax}, \mathrm{Securities}\}</span>.</p>
+        <p>The triangle also closes with AE–SC untouched: unmask Tax in PK–AE, and re-parameterize PK–SC to the mask <span class="math inline">\{\mathrm{Sanctions}, \mathrm{Securities}\}</span> with a DigitalAssets correspondence; then <span class="math inline">\kappa</span> is the identity on <span class="math inline">\{\mathrm{Tax}, \mathrm{Corporate}, \mathrm{KYC}, \mathrm{DigitalAssets}\}</span>, <span class="math inline">\Phi = \varnothing</span>, <span class="math inline">E = \{\mathrm{Sanctions}, \mathrm{Securities}\}</span>.</p>
+        <p>Both closures satisfy Definition 6. The first guarantees SC’s own Tax evaluation on every route, while the second guarantees PK’s carried Tax verdict. The parties must negotiate which guarantee to adopt. The check does not choose between them. Under either closure, Theorem 1 gives identical arrival states on the two routes.</p>
+        </section>
+        <section id="eligibility-sanctions-and-instrument-clauses" class="level2">
+        <h2>6. Eligibility, Sanctions, and Instrument Clauses</h2>
+        <p>Every corridor must mask domains ineligible for recognition, with Sanctions the standing case (Definition 2). This requirement has two consequences.</p>
+        <p><em>Eligibility is necessary, not sufficient.</em> In Section 5, Securities is eligible and carried on the PK <span class="math inline">\to</span> SC edge, yet the routes disagree. Coherence is a property of the triangle of agreements, so per-edge eligibility alone cannot ensure it.</p>
+        <p><em>The sanctions coordinate is route-coherent by construction.</em> Because Sanctions lies in the mask of every general-purpose corridor, it lies outside every carriage image and every forwarding set: every route into any destination ends with a fresh sanctions evaluation there. A mandatory mask entry on every edge therefore never produces a route-coherence defect at its own coordinate. It fixes which snapshots are attainable: no route carries or forwards a sanctions verdict. This restriction does not obstruct composition.</p>
+        <p>Instrument clauses explain why equal grades alone cannot close every defect. They enter the snapshot alongside regulatory parameters (Definition 5), and coherence requires equal clause sets in the instrument layer’s normal form. A clause defect leaves grades unchanged but subjects the same arrival to different governing law, forum, or termination terms. Closing this difference in legal position also requires renegotiating the instruments.</p>
+        </section>
+        <section id="what-is-proved-and-what-is-open" class="level2">
+        <h2>7. What Is Proved and What Is Open</h2>
+        <p>On the applicable-rule fragment at a fixed version profile, Theorem 1 proves equal arrival states for direct and staged routes with equal snapshots. Comparing those snapshots is finite and decidable. Since the per-factor meet is independent of order (Section 3), all route-dependence on this fragment originates in corridor data.</p>
+        <p>Open, in order of proximity:</p>
+        <ul>
+        <li><p><em>Discretion and temporal effects.</em> (E1) excludes discretionary evaluation, and the fixed version profile excludes mid-route rulebook change. Route coherence for routes crossing typed discretion holes, or spanning version-window boundaries, is open.</p></li>
+        <li><p><em>Mechanized reduction.</em> The snapshot-equality checker is machine-checked (Section 4); the reduction from corridor-triple data to snapshots, and the clause normal form it presupposes, are paper-level. Mechanizing both is the remaining step to an end-to-end checked comparison.</p></li>
+        <li><p><em>Classification.</em> The equation <span class="math inline">\mathrm{carry}_{AC} = \mathrm{carry}_{BC} \circ \mathrm{carry}_{AB}</span>, over all triangles at once, is the cocycle identity for transition data valued in partial injections between per-jurisdiction vocabularies. Such data compose as arrows of an inverse category (Kastl, 1979; Cockett and Lack, 2002), and as an inverse monoid when the vocabularies coincide, as in Section 5 (Lawson, 1998); in neither case a group. The classical non-abelian <span class="math inline">H^1</span> — cocycles modulo coboundaries with invertible coefficients (Giraud, 1971) — therefore does not apply as stated, and no cohomological classification of coherence defects is claimed. Whether an inverse-category analogue classifies defect classes over larger corridor families is open.</p></li>
+        </ul>
+        <p>A defective triangle records a mismatch between three bilateral agreements, without implying an error state in any single jurisdiction. A finite comparison detects it. Closure requires renegotiating at least one agreement. Until then, the routes remain subject to different arrival guarantees.</p>
+        </section>
+        <section id="references" class="level2">
+        <h2>References</h2>
+        <ul>
+        <li>Cockett, J. R. B., and Lack, S. (2002). Restriction categories I: Categories of partial maps. <em>Theoretical Computer Science</em> 270(1–2), 223–259.</li>
+        <li>Giraud, J. (1971). <em>Cohomologie non abélienne</em>. Grundlehren der mathematischen Wissenschaften 179, Springer.</li>
+        <li>Kastl, J. (1979). Inverse categories. In H.-J. Hoehnke (ed.), <em>Algebraische Modelle, Kategorien und Gruppoide</em>, Studien zur Algebra und ihre Anwendungen 7, 51–60. Akademie-Verlag, Berlin.</li>
+        <li>Lawson, M. V. (1998). <em>Inverse Semigroups: The Theory of Partial Symmetries</em>. World Scientific.</li>
+        <li>OECD. (1986). <em>Double Taxation Conventions and the Use of Conduit Companies</em>. Committee on Fiscal Affairs, OECD, Paris.</li>
+        <li>OECD. (2015). <em>Preventing the Granting of Treaty Benefits in Inappropriate Circumstances, Action 6 – 2015 Final Report</em>. OECD/G20 Base Erosion and Profit Shifting Project, OECD Publishing, Paris.</li>
+        </ul>
+        </section>
+        </section>
+        </div>
+
+        <footer class="article-footer">
+            <span class="author-byline"><strong>Raeez Lorgat</strong> · Managing Partner, Momentum</span>
+            <nav class="footer-nav">
+                <a href="/">← All Papers</a>
+            </nav>
+        </footer>
+        <div class="contact-footer">
+            <span>&copy; 2026 Momentum</span>
+        </div>
+    </article>
+</div>
+<script src="/paper.js" defer></script>
+</body>
+</html>

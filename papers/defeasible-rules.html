@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Defeasible Rules - Raeez Lorgat</title>
+<meta name="description" content="Evaluating rules, exceptions, and competing priorities.">
+<meta name="author" content="Raeez Lorgat">
+<meta property="og:title" content="Defeasible Rules">
+<meta property="og:description" content="Evaluating rules, exceptions, and competing priorities.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://research.momentum.inc/og-image.png">
+<meta property="og:url" content="https://research.momentum.inc/papers/defeasible-rules.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+<link rel="canonical" href="https://research.momentum.inc/papers/defeasible-rules.html">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Defeasible Rules",
+    "author": { "@type": "Person", "name": "Raeez Lorgat", "url": "https://research.momentum.inc" },
+    "datePublished": "2026-04-02",
+    "description": "Evaluating rules, exceptions, and competing priorities."
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8T5J8M28"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JP8T5J8M28');
+</script>
+<link rel="stylesheet" href="https://use.typekit.net/zlu2quo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --font-text: 'garamond-premier-pro', 'EB Garamond', 'Hoefler Text', 'Baskerville', Garamond, serif;
+    --font-display: 'garamond-premier-pro-display', var(--font-text);
+    --font-caption: 'garamond-premier-pro-caption', var(--font-text);
+    --font-subhead: 'garamond-premier-pro-subhead', var(--font-text);
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    --text-base: clamp(18px, 1.125rem + 0.25vw, 21px);
+    --text-sm: calc(var(--text-base) / 1.333);
+    --text-xs: calc(var(--text-sm) / 1.333);
+    --text-lg: calc(var(--text-base) * 1.333);
+    --text-xl: calc(var(--text-lg) * 1.333);
+    --text-2xl: calc(var(--text-xl) * 1.333);
+    --baseline: 8px;
+    --leading-tight: 1.2;
+    --leading-snug: 1.35;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.618;
+    --leading-loose: 1.8;
+    --space-1: calc(var(--baseline) * 1);
+    --space-2: calc(var(--baseline) * 2);
+    --space-3: calc(var(--baseline) * 3);
+    --space-4: calc(var(--baseline) * 4);
+    --space-5: calc(var(--baseline) * 5);
+    --space-6: calc(var(--baseline) * 6);
+    --space-8: calc(var(--baseline) * 8);
+    --space-10: calc(var(--baseline) * 10);
+    --space-13: calc(var(--baseline) * 13);
+    --measure: 65ch;
+    --measure-narrow: 55ch;
+    --measure-wide: 75ch;
+    --gutter: clamp(16px, 4vw, 24px);
+    --ink: #1a1917;
+    --ink-muted: #4a4744;
+    --ink-subtle: #6a6662;
+    --ink-faint: #8a8580;
+    --ink-ghost: #b5b0ab;
+    --ink-whisper: #d4d0cc;
+    --ink-hint: #e8e5e2;
+    --paper: #fefdfb;
+    --paper-tint: #f5f3f0;
+    --kern-tight: -0.02em;
+    --kern-snug: -0.01em;
+    --kern-normal: 0;
+    --kern-loose: 0.015em;
+    --kern-wide: 0.04em;
+    --kern-caps: 0.08em;
+    --optical-margin: -0.03em;
+}
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    hanging-punctuation: first last;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body {
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-relaxed);
+    color: var(--ink);
+    background: var(--paper);
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1, "dlig" 1, "onum" 1, "pnum" 1;
+    font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    font-kerning: normal;
+}
+.container {
+    max-width: calc(var(--measure) + var(--space-8));
+    margin-inline: auto;
+    padding: var(--space-10) var(--gutter) var(--space-8);
+}
+.back-nav { margin-bottom: var(--space-8); }
+.back-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.back-nav a:hover { color: var(--ink); }
+.article-header {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--ink-hint);
+}
+.article-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-meta {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+    margin-top: var(--space-3);
+}
+.article-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+.article-meta a:hover {
+    color: var(--ink-muted);
+    text-decoration-color: var(--ink-ghost);
+}
+/* Companion open-source repository link — rendered when `repo` metadata is set.
+   Monochrome ink on warm paper to sit native to the typographic system;
+   the GitHub mark carries the recognition, the hairline frame the prominence. */
+.repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    max-width: 100%;
+    padding: 10px var(--space-3) 10px calc(var(--space-2) + 2px);
+    border: 1px solid var(--ink-whisper);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: border-color 200ms ease, color 200ms ease,
+                background 200ms ease, box-shadow 200ms ease;
+}
+.repo-link:hover {
+    border-color: var(--ink-faint);
+    color: var(--ink);
+    background: var(--paper-tint);
+    box-shadow: 0 2px 12px rgba(26, 25, 23, 0.07);
+}
+.repo-link:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; }
+.repo-link__mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    color: var(--ink);
+    transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.repo-link:hover .repo-link__mark { transform: rotate(-7deg) scale(1.06); }
+.repo-link__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; line-height: var(--leading-tight); }
+.repo-link__label {
+    font-family: var(--font-caption);
+    font-size: var(--text-xs);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    transition: color 200ms ease;
+}
+.repo-link:hover .repo-link__label { color: var(--ink-subtle); }
+.repo-link__url {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    letter-spacing: var(--kern-snug);
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.repo-link__arrow {
+    flex: none;
+    margin-left: var(--space-1);
+    color: var(--ink-ghost);
+    transition: transform 200ms ease, color 200ms ease;
+}
+.repo-link:hover .repo-link__arrow { transform: translateX(3px); color: var(--ink-faint); }
+@media (max-width: 400px) { .repo-link__arrow { display: none; } }
+/* TOC from pandoc */
+nav#TOC {
+    margin: 0 0 var(--space-8);
+    padding: var(--space-4) 0 var(--space-4) var(--space-4);
+    border-top: 1px solid var(--ink-hint);
+    border-bottom: 1px solid var(--ink-hint);
+}
+nav#TOC ul { list-style: none; padding: 0; }
+nav#TOC li { margin: 0.35rem 0; }
+nav#TOC a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-hint);
+    transition: border-color 0.2s;
+    font-size: var(--text-sm);
+}
+nav#TOC a:hover { border-color: var(--ink-muted); }
+.article-body { font-variant-ligatures: common-ligatures discretionary-ligatures contextual; }
+.article-body p {
+    margin-bottom: var(--space-3);
+    max-width: var(--measure);
+    line-height: var(--leading-loose);
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+    hyphenate-limit-lines: 2;
+}
+.article-body h1, .article-body .level1 > h2:first-child {
+    font-family: var(--font-subhead);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h2 {
+    font-family: var(--font-subhead);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: var(--kern-snug);
+    line-height: var(--leading-snug);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+}
+.article-body a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    text-decoration-skip-ink: auto;
+    transition: text-decoration-color 180ms ease;
+}
+.article-body a:hover { text-decoration-color: var(--ink-muted); }
+.article-body blockquote {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--ink-hint);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.article-body hr {
+    border: none;
+    height: 1px;
+    background: var(--ink-hint);
+    margin: var(--space-8) 0;
+    max-width: 4rem;
+}
+.article-body code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--paper-tint);
+    padding: 0.12em 0.35em;
+}
+.article-body pre {
+    background: #0d0d0c;
+    color: #c8c5b8;
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-4) 0;
+    font-size: var(--text-sm);
+}
+.article-body th {
+    text-align: left;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+    letter-spacing: var(--kern-loose);
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 2px solid var(--ink-hint);
+}
+.article-body td {
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 1px solid var(--ink-hint);
+    vertical-align: top;
+}
+.article-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.author-byline {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.author-byline strong { font-style: normal; font-weight: 600; }
+.footer-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.footer-nav a:hover { color: var(--ink); }
+.contact-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+}
+::selection { background: var(--ink); color: var(--paper); }
+a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; border-radius: 2px; }
+@media (max-width: 680px) {
+    :root { --text-base: clamp(17px, 1rem + 0.2vw, 19px); }
+    .container { padding: var(--space-6) var(--gutter) var(--space-5); }
+    .article-title { font-size: var(--text-xl); }
+    .article-body h1, .article-body .level1 > h2:first-child { font-size: var(--text-lg); }
+    .article-body h2 { font-size: calc(var(--text-base) * 1.1); }
+    .article-footer { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+@media (max-width: 400px) {
+    :root { --text-base: 16px; }
+    .container { padding: var(--space-5) var(--space-2) var(--space-4); }
+}
+@media (min-width: 1200px) { .container { padding-top: var(--space-13); } }
+@media print {
+    :root { --ink: #000; --paper: #fff; }
+    body { font-size: 11pt; line-height: 1.4; }
+    .container { max-width: 100%; padding: 0; }
+    .back-nav, .contact-footer { display: none; }
+    nav#TOC { display: none; }
+    a { text-decoration: none !important; color: var(--ink) !important; }
+    .article-body h1, .article-body h2 { page-break-after: avoid; }
+    p { orphans: 3; widows: 3; }
+}
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(var(--gutter), env(safe-area-inset-left));
+        padding-right: max(var(--gutter), env(safe-area-inset-right));
+    }
+}
+
+/* Wiring in a mathematics renderer made display equations set on one unwrappable
+   line, so a long equation pushed the page wider than the viewport and readers on
+   ordinary laptops lost the right-hand side. Let each equation scroll inside its own
+   box instead of widening the page. Wide tables get the same treatment. */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
+.katex-display::-webkit-scrollbar { height: 6px; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 600px) {
+  .paper-nav-title { display: none; }
+}
+</style>
+<link rel="stylesheet" href="/paper.css">
+</head>
+<body>
+<div class="container">
+    <nav class="back-nav">
+        <a href="/">← Research</a>
+    </nav>
+    <article>
+        <header class="article-header">
+            <h1 class="article-title">Defeasible Rules</h1>
+            <p class="article-meta">April 2026 · Raeez Lorgat</p>
+                    </header>
+
+        
+        <div class="article-body">
+        <section id="defeasible-rules" class="level1">
+        <h1>Defeasible Rules</h1>
+        <p>Raeez Lorgat, April 2026</p>
+        <hr />
+        <p>Laws have exceptions, which can have further exceptions. A machine that executes law must represent this structure and its priorities. It must also report missing evidence, detect structural conflicts, and identify cases that require judgment.</p>
+        <section id="the-shape-of-a-rule" class="level2">
+        <h2>The shape of a rule</h2>
+        <p>A legal rule includes the qualifications that govern its application. “You must file annual returns.” Its operative structure is: “You must file annual returns, unless you are a dormant company. Unless you are in administration. Unless you have been granted an extension by the registrar. Unless the registrar’s extension has been revoked because you failed to satisfy its conditions.” Each exception can itself have an exception. The registrar’s revocation might be subject to appeal, and judicial review might stay that appeal.</p>
+        <p>Defeasibility lets a legal system apply general rules while accommodating the variety of actual situations. The rule states the general case, and exceptions specify the cases that receive different treatment. Lawyers therefore read a statute alongside its exceptions, carve-outs, schedules, and subordinate legislation. A machine needs a representation of those qualifications.</p>
+        </section>
+        <section id="what-a-defeasible-rule-is" class="level2">
+        <h2>What a defeasible rule is</h2>
+        <p>A defeasible rule has a base verdict, a finite set of exceptions, and a finite override relation. The base verdict states what holds in the general case. Each exception pairs a guard, a predicate over the facts of a case, with the verdict that holds when the exception prevails. The override relation records which exception prevails when both fire. The rule is well-formed when that relation is acyclic. Its transitive closure is then a strict partial order on the exceptions: the exception order.</p>
+        <p>Two exceptions are comparable when one overrides the other, directly or through a chain, and incomparable when neither does. An implementation assigns numeric priorities. An assignment of distinct numeric priorities that respects the order induces a linear extension, and every linear extension arises this way. Every such assignment faithfully encodes the order.</p>
+        <p>An assignment that respects the order permits ties only between incomparable exceptions. A tie leaves their relative order to the evaluator. It is faithful for a pair cleared by the confluence check below, since ordering that pair cannot change the verdict. For a flagged pair, the evaluator’s tiebreak can decide the case. The numbers encode the exception order for evaluation.</p>
+        <p>The first static check below tests well-formedness. A cyclic override relation can faithfully represent overlapping enactments, but it cannot be evaluated. Representing the law and evaluating it are separate operations.</p>
+        </section>
+        <section id="why-priority-must-be-explicit" class="level2">
+        <h2>Why priority must be explicit</h2>
+        <p>Consider two exceptions to a tax filing rule. Exception A: “Non-profit entities are exempt from filing.” Exception B: “Entities with revenue exceeding $10 million must file regardless of status.” Entity X is a non-profit with $15 million in revenue. Both exceptions apply. Which wins?</p>
+        <p>There are several candidate resolution strategies.</p>
+        <p><strong>Majority vote.</strong> Count how many rules say “file” versus “don’t file.” A single constitutional provision overrides a thousand statutes, so counting does not resolve legal priority. Rank attaches to the sources: <em>lex superior derogat legi inferiori</em>, the higher source prevails.</p>
+        <p><strong>Random selection.</strong> Pick one. This provides no legal justification.</p>
+        <p><strong>Temporal ordering.</strong> The later rule wins: <em>lex posterior derogat legi priori</em>. Recency and specificity are independent. A general statute enacted in 2025 does not thereby override a specific statute of 2020 that addresses the situation. Temporal stratification determines which rules are in force and when, as the companion note explains. It is independent of the ordering of exceptions within a rule.</p>
+        <p><strong>Priority ordering.</strong> Exceptions stand in an explicit override relation. Among the applicable exceptions, the one placed highest prevails. This models how legal systems resolve conflicts within a rule.</p>
+        <p>An override is legal content, so the question is where it comes from. There are three sources, in descending order of authority.</p>
+        <p><strong>The law fixes it.</strong> Statutes state precedence through clauses such as “subject to subsection (4A),” “notwithstanding any other provision,” and “regardless of status.” In the example above, neither exception is more specific. A non-profit with $5 million in revenue falls under A alone, and a for-profit with $15 million falls under B alone. Neither guard entails the other, so specificity leaves them unordered. The phrase “regardless of status” ranks B over A and decides entity X’s case.</p>
+        <p>Where conflicting provisions come from different levels, such as constitution, statute, and subordinate regulation, <em>lex superior</em> supplies the override before the guards are considered. In both cases, the encoder transcribes the law’s ordering.</p>
+        <p><strong>Specificity computes it.</strong> <em>Lex specialis derogat legi generali</em>: the more specific rule overrides the more general. This principle applies when one guard entails another. Take a base rule, “every company files”; an exception, “dormant companies are exempt”; and an exception to the exception, “dormant companies holding client assets must file.” Every dormant company holding client assets is a dormant company. The narrower guard entails the broader guard and therefore ranks above it, without a precedence clause.</p>
+        <p>For the decidable guard classes below, built from set memberships, threshold comparisons, and boolean conditions, entailment is itself decidable. This source of priority is therefore computable. It also explains why exceptions outrank the base rule: the base applies to everyone, so every exception’s guard entails it.</p>
+        <p>The principle lets legislatures qualify their general rules. If a specific exception did not prevail over the general rule it qualifies, enacting it would change nothing. A legislature unable to make exceptions effective could not refine its most general rules.</p>
+        <p><strong>Someone owns it.</strong> When enacted text and entailment leave overlapping exceptions unordered, assigning priority is an act of interpretation. The system attributes that act to a named author and keeps it open to challenge. Each priority records its source: the law, computed entailment, or an author’s interpretation.</p>
+        </section>
+        <section id="the-defeat-algorithm" class="level2">
+        <h2>The defeat algorithm</h2>
+        <p>Given a well-formed rule and a case, evaluation resolves the exceptions. A guard evaluates the supplied evidence as true, false, or unknown. Unknown means that a missing fact or an event that has not yet occurred prevents a decision. Guards are decidable predicates, as the next section specifies, so they always halt. Unknown records missing evidence.</p>
+        <p>The scan runs down the exceptions in priority order – any linear extension of the exception order – and stops at the first guard that is not false.</p>
+        <ol type="1">
+        <li>If that guard is true, the exception fires: its verdict is the answer, and the evidence that satisfied the guard is attached to the answer.</li>
+        <li>If that guard is unknown, the answer is unknown: the missing fact decides whether this exception fires, and the scan reads no further.</li>
+        <li>If every guard is false, the base verdict applies.</li>
+        </ol>
+        <p>A true guard above an unknown guard settles the case: the higher exception fires however the missing fact resolves. An unknown guard above a true guard leaves the answer open because the missing evidence determines which exception fires. An answer contains the verdict, the exception that fired, and the evidence that satisfied its guard. For this object, the scan is exact under a given extension. It returns an answer exactly when every completion of the missing facts yields that answer. It returns unknown exactly when a missing fact determines which exception fires.</p>
+        <p>For the bare verdict, the scan is exact when every guard is decided. When evidence is missing, it is sound: any returned verdict holds under that extension however the missing facts resolve. It is also conservative, because an unknown answer may have a fixed verdict. Within one extension, this occurs whenever every open exception above the first true guard has that guard’s verdict. If no lower guard is true, it occurs whenever all open exceptions have the base verdict. Otherwise, within one extension, it occurs only where two open guards share a missing fact.</p>
+        <p>Across extensions, a confluent rule may place a true guard above an open guard in one extension and return the verdict there. The scan does not search for these alternatives. It stops at the highest open guard and requests the missing fact. That fact determines the justification, which the answer must certify along with the verdict.</p>
+        <p>The defeat eliminator returns the base verdict, a firing exception, or unknown. An unknown answer names the guard and the missing fact, requesting the evidence needed to settle the case. The companion paper Lex, a typed language for jurisdictional rules, uses total Boolean guards over a typed evidence record. Its five-verdict chain includes Pending for unsettled cases. Both the three-valued guard and the pending verdict represent missing evidence explicitly.</p>
+        </section>
+        <section id="guards-must-be-decidable" class="level2">
+        <h2>Guards must be decidable</h2>
+        <p>Exception guards must be decidable: given the facts a guard names, a machine computes true or false in bounded time. “If the entity’s revenue exceeds $10 million” is decidable. “If the entity is acting in good faith”, “reasonable person,” and “best interests of the company” require judgment. Treating those judgments as mechanically decidable would be dangerous. With non-termination excluded, unknown has one source: absent evidence.</p>
+        <p>Many daily compliance questions use decidable guards. Membership in a finite set: is this entity on the sanctions list? Threshold comparisons: does this transaction exceed the reporting threshold? Boolean conditions: does this entity hold a valid license? For guards built from these forms, entailment and joint satisfiability are also decidable. The static checks below use those properties.</p>
+        <p>Guard evaluation supplies the formal justification for the answer. If revenue exceeding $10 million selects an exception, the answer includes the revenue figure, threshold, and comparison. An auditor can trace the conclusion to the fact that produced it.</p>
+        </section>
+        <section id="two-static-checks" class="level2">
+        <h2>Two static checks</h2>
+        <p>Two static checks examine the exception order before any case is evaluated.</p>
+        <p><strong>Acyclicity.</strong> The override relation must contain no cycle. The law can contain one: A overrides B, B overrides C, and C overrides A. Each pairwise override may be deliberate, introduced by an amendment or asserted by an authority unaware of the others. Every scan order then contradicts some override. The system retains the structure as a faithful record of the enactments and marks it as awaiting resolution.</p>
+        <p>A judge, regulator, or amendment must resolve the cycle. The rule’s history records who resolved it, under what authority, and with what reasoning.</p>
+        <p><strong>Confluence.</strong> A linear extension orders every incomparable pair, and different extensions may order those pairs differently. The check asks whether that choice can affect the verdict. For every incomparable pair, require either jointly unsatisfiable guards, so no case fires both, or equal verdicts. Both conditions are decidable for the guard classes above. A rule that passes is <em>confluent</em>: with all guards decided, every linear extension returns the same verdict. With missing evidence, extensions can differ in precision, with one reporting unknown, but cannot return conflicting verdicts.</p>
+        <p>For decided cases, the proof has two cases. Returning the base verdict requires every guard to be false, which holds in every extension. If two extensions fire different exceptions, each selected guard is true and every guard above it is false. Each selected exception therefore sits below the other in the opposite extension. The pair is incomparable and both guards are true, so the check requires equal verdicts.</p>
+        <p>A failing pair identifies guards that can fire together toward different verdicts, leaving their priority underdetermined. An override from the law, computed entailment, or an author resolves the conflict. The check is conservative: it flags such a pair even if a higher exception fires on every case they share. For a legal instrument, conservative conflict reporting is appropriate.</p>
+        <p>A deterministic evaluator must still return an answer when a flagged pair remains unrepaired. Lex’s mechanized evaluator breaks ties between equal numeric priorities by source position: the earlier exception wins. Source position has no legal meaning. Until an attributed override resolves the pair, transcription order decides its shared cases. The check exposes that dependence.</p>
+        <p>The explicit rule structure also permits content addressing. A canonical encoding contains the base verdict, exceptions, override relation, and authorities. Its hash names the rule. Identical canonical structures receive the same identifier regardless of where or by whom they were encoded. This permits exact de-duplication across packs and citations to exact rules.</p>
+        <p>Identity here means identity of canonical form. Semantically equivalent guards written in different syntax receive different hashes. Canonical form supplies the checkable equality needed for audit and reference. The companion note on content-addressed identity develops this scheme.</p>
+        </section>
+        <section id="when-independent-rules-conflict" class="level2">
+        <h2>When independent rules conflict</h2>
+        <p>The override relation so far orders exceptions within one rule. Independent rules can also conflict.</p>
+        <p>Rule A: “Financial institutions must report all transactions exceeding $10,000.” Rule B: “Medical payments are confidential and shall not be disclosed to financial regulators.” A hospital makes a $50,000 payment to a medical equipment supplier through a financial institution. Both rules apply. Neither is an exception to the other. They are independent rules from independent authorities that happen to conflict in this case.</p>
+        <p>The defeat eliminator resolves conflicts only where the override relation supplies a priority. Here, no enacted text ranks the rules, their sources have equal rank, neither guard entails the other, and no common authority has assigned priority. Prakken and Sartor (1997) formalize how argument can derive priorities between rules, especially through the interaction of specificity and recency. A derived priority remains an interpretation and needs an owner. Every extension of the explicit override relation therefore enters as new legal content through the same three sources.</p>
+        <p>Where the relation supplies no priority, evaluation stops for balancing. Balancing identifies the principles at stake, here financial transparency and medical privacy, cites precedents, and gives a reasoned verdict. It is the formal counterpart of judicial reasoning. The system records the principles, precedents, rationale, and deciding authority, then carries the outcome forward as an act of that authority.</p>
+        <p>Lex represents a required non-mechanical determination as a typed discretion hole. The hole names the decision and the authority entitled to make it. Evaluation stops there until a signed, revocable attestation supplies the decision. The attestation binds the signer, exact value, and rule version.</p>
+        <p>Given an override relation, the defeat scan resolves priority mechanically. Extending that relation requires judgment with an owner, authority, and rationale. Confusing these roles can stall clear cases by requiring balancing where priority already decides. It can also let mechanical priority decide hard cases without an accountable judgment.</p>
+        </section>
+        <section id="why-this-matters-for-computation" class="level2">
+        <h2>Why this matters for computation</h2>
+        <p>A system that executes law must represent defeasibility. Flat conditionals, if X then Y, give wrong answers whenever an omitted exception applies.</p>
+        <p>Compliance software that hardcodes boolean checks handles exceptions through manual overrides. Such a flag records a departure, who clicked, and when. The legal basis remains outside the system: which exception applied, on what evidence, and under whose authority. A regulator asking why an apparent violation was permitted receives only a name and timestamp.</p>
+        <p>Explicit priorities with provenance, decidable guards, evidence-bearing verdicts, and tracked authorities put the exception and its justification in the rule system. The defeat trace supplies the audit record: the verdict, firing exception, evidence, and source of its priority.</p>
+        </section>
+        <section id="prior-art" class="level2">
+        <h2>Prior art</h2>
+        <p>Nute’s formulations in the 1980s gave defeasible logic rules ranked by a superiority relation. Governatori, Prakken, and Sartor developed three decades of legal-reasoning theory from that basis. Prakken and Sartor (1997) derive priorities by argument along the two axes this note separates. Catala (Merigoux, Chataing, and Protzenko, ICFP 2021) made base cases and exceptions central to executable statutes, interleaving code with legal text. Its default calculus reports a conflict when two unordered exceptions fire on the same case.</p>
+        <p>Lex represents the structure as a typed form with Boolean guards, numeric priorities, and a mechanized priority evaluator. It places that form within a logic of authority, legal time, and discretion. This note develops the associated evaluation and analysis: verdicts carry evidence and authority, while acyclicity and confluence checks detect conflicts before case evaluation.</p>
+        <p>A defeasible rule contains a base verdict, finitely many guarded exceptions, and an acyclic override relation. Its priorities record whether they came from enactment, entailment, or an author’s judgment. A three-valued scan returns the base verdict, a firing exception with evidence, or unknown with the missing fact. Static checks detect cycles and incomparable exceptions that can fire toward different verdicts. A named authority must resolve cycles, balance conflicts between independent rules, and supply priorities that require judgment. The system records those decisions alongside its mechanical results and requests for evidence.</p>
+        </section>
+        </section>
+        </div>
+
+        <footer class="article-footer">
+            <span class="author-byline"><strong>Raeez Lorgat</strong> · Managing Partner, Momentum</span>
+            <nav class="footer-nav">
+                <a href="/">← All Papers</a>
+            </nav>
+        </footer>
+        <div class="contact-footer">
+            <span>&copy; 2026 Momentum</span>
+        </div>
+    </article>
+</div>
+<script src="/paper.js" defer></script>
+</body>
+</html>

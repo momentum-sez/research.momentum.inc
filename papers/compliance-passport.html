@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Compliance Passport - Raeez Lorgat</title>
+<meta name="description" content="A portable record of evaluated requirements and the evidence a receiving jurisdiction checks.">
+<meta name="author" content="Raeez Lorgat">
+<meta property="og:title" content="The Compliance Passport">
+<meta property="og:description" content="A portable record of evaluated requirements and the evidence a receiving jurisdiction checks.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://research.momentum.inc/og-image.png">
+<meta property="og:url" content="https://research.momentum.inc/papers/compliance-passport.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+<link rel="canonical" href="https://research.momentum.inc/papers/compliance-passport.html">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "The Compliance Passport",
+    "author": { "@type": "Person", "name": "Raeez Lorgat", "url": "https://research.momentum.inc" },
+    "datePublished": "2026-04-02",
+    "description": "A portable record of evaluated requirements and the evidence a receiving jurisdiction checks."
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8T5J8M28"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JP8T5J8M28');
+</script>
+<link rel="stylesheet" href="https://use.typekit.net/zlu2quo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --font-text: 'garamond-premier-pro', 'EB Garamond', 'Hoefler Text', 'Baskerville', Garamond, serif;
+    --font-display: 'garamond-premier-pro-display', var(--font-text);
+    --font-caption: 'garamond-premier-pro-caption', var(--font-text);
+    --font-subhead: 'garamond-premier-pro-subhead', var(--font-text);
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    --text-base: clamp(18px, 1.125rem + 0.25vw, 21px);
+    --text-sm: calc(var(--text-base) / 1.333);
+    --text-xs: calc(var(--text-sm) / 1.333);
+    --text-lg: calc(var(--text-base) * 1.333);
+    --text-xl: calc(var(--text-lg) * 1.333);
+    --text-2xl: calc(var(--text-xl) * 1.333);
+    --baseline: 8px;
+    --leading-tight: 1.2;
+    --leading-snug: 1.35;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.618;
+    --leading-loose: 1.8;
+    --space-1: calc(var(--baseline) * 1);
+    --space-2: calc(var(--baseline) * 2);
+    --space-3: calc(var(--baseline) * 3);
+    --space-4: calc(var(--baseline) * 4);
+    --space-5: calc(var(--baseline) * 5);
+    --space-6: calc(var(--baseline) * 6);
+    --space-8: calc(var(--baseline) * 8);
+    --space-10: calc(var(--baseline) * 10);
+    --space-13: calc(var(--baseline) * 13);
+    --measure: 65ch;
+    --measure-narrow: 55ch;
+    --measure-wide: 75ch;
+    --gutter: clamp(16px, 4vw, 24px);
+    --ink: #1a1917;
+    --ink-muted: #4a4744;
+    --ink-subtle: #6a6662;
+    --ink-faint: #8a8580;
+    --ink-ghost: #b5b0ab;
+    --ink-whisper: #d4d0cc;
+    --ink-hint: #e8e5e2;
+    --paper: #fefdfb;
+    --paper-tint: #f5f3f0;
+    --kern-tight: -0.02em;
+    --kern-snug: -0.01em;
+    --kern-normal: 0;
+    --kern-loose: 0.015em;
+    --kern-wide: 0.04em;
+    --kern-caps: 0.08em;
+    --optical-margin: -0.03em;
+}
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    hanging-punctuation: first last;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body {
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-relaxed);
+    color: var(--ink);
+    background: var(--paper);
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1, "dlig" 1, "onum" 1, "pnum" 1;
+    font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    font-kerning: normal;
+}
+.container {
+    max-width: calc(var(--measure) + var(--space-8));
+    margin-inline: auto;
+    padding: var(--space-10) var(--gutter) var(--space-8);
+}
+.back-nav { margin-bottom: var(--space-8); }
+.back-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.back-nav a:hover { color: var(--ink); }
+.article-header {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--ink-hint);
+}
+.article-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-meta {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+    margin-top: var(--space-3);
+}
+.article-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+.article-meta a:hover {
+    color: var(--ink-muted);
+    text-decoration-color: var(--ink-ghost);
+}
+/* Companion open-source repository link — rendered when `repo` metadata is set.
+   Monochrome ink on warm paper to sit native to the typographic system;
+   the GitHub mark carries the recognition, the hairline frame the prominence. */
+.repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    max-width: 100%;
+    padding: 10px var(--space-3) 10px calc(var(--space-2) + 2px);
+    border: 1px solid var(--ink-whisper);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: border-color 200ms ease, color 200ms ease,
+                background 200ms ease, box-shadow 200ms ease;
+}
+.repo-link:hover {
+    border-color: var(--ink-faint);
+    color: var(--ink);
+    background: var(--paper-tint);
+    box-shadow: 0 2px 12px rgba(26, 25, 23, 0.07);
+}
+.repo-link:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; }
+.repo-link__mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    color: var(--ink);
+    transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.repo-link:hover .repo-link__mark { transform: rotate(-7deg) scale(1.06); }
+.repo-link__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; line-height: var(--leading-tight); }
+.repo-link__label {
+    font-family: var(--font-caption);
+    font-size: var(--text-xs);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    transition: color 200ms ease;
+}
+.repo-link:hover .repo-link__label { color: var(--ink-subtle); }
+.repo-link__url {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    letter-spacing: var(--kern-snug);
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.repo-link__arrow {
+    flex: none;
+    margin-left: var(--space-1);
+    color: var(--ink-ghost);
+    transition: transform 200ms ease, color 200ms ease;
+}
+.repo-link:hover .repo-link__arrow { transform: translateX(3px); color: var(--ink-faint); }
+@media (max-width: 400px) { .repo-link__arrow { display: none; } }
+/* TOC from pandoc */
+nav#TOC {
+    margin: 0 0 var(--space-8);
+    padding: var(--space-4) 0 var(--space-4) var(--space-4);
+    border-top: 1px solid var(--ink-hint);
+    border-bottom: 1px solid var(--ink-hint);
+}
+nav#TOC ul { list-style: none; padding: 0; }
+nav#TOC li { margin: 0.35rem 0; }
+nav#TOC a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-hint);
+    transition: border-color 0.2s;
+    font-size: var(--text-sm);
+}
+nav#TOC a:hover { border-color: var(--ink-muted); }
+.article-body { font-variant-ligatures: common-ligatures discretionary-ligatures contextual; }
+.article-body p {
+    margin-bottom: var(--space-3);
+    max-width: var(--measure);
+    line-height: var(--leading-loose);
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+    hyphenate-limit-lines: 2;
+}
+.article-body h1, .article-body .level1 > h2:first-child {
+    font-family: var(--font-subhead);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h2 {
+    font-family: var(--font-subhead);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: var(--kern-snug);
+    line-height: var(--leading-snug);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+}
+.article-body a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    text-decoration-skip-ink: auto;
+    transition: text-decoration-color 180ms ease;
+}
+.article-body a:hover { text-decoration-color: var(--ink-muted); }
+.article-body blockquote {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--ink-hint);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.article-body hr {
+    border: none;
+    height: 1px;
+    background: var(--ink-hint);
+    margin: var(--space-8) 0;
+    max-width: 4rem;
+}
+.article-body code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--paper-tint);
+    padding: 0.12em 0.35em;
+}
+.article-body pre {
+    background: #0d0d0c;
+    color: #c8c5b8;
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-4) 0;
+    font-size: var(--text-sm);
+}
+.article-body th {
+    text-align: left;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+    letter-spacing: var(--kern-loose);
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 2px solid var(--ink-hint);
+}
+.article-body td {
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 1px solid var(--ink-hint);
+    vertical-align: top;
+}
+.article-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.author-byline {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.author-byline strong { font-style: normal; font-weight: 600; }
+.footer-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.footer-nav a:hover { color: var(--ink); }
+.contact-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+}
+::selection { background: var(--ink); color: var(--paper); }
+a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; border-radius: 2px; }
+@media (max-width: 680px) {
+    :root { --text-base: clamp(17px, 1rem + 0.2vw, 19px); }
+    .container { padding: var(--space-6) var(--gutter) var(--space-5); }
+    .article-title { font-size: var(--text-xl); }
+    .article-body h1, .article-body .level1 > h2:first-child { font-size: var(--text-lg); }
+    .article-body h2 { font-size: calc(var(--text-base) * 1.1); }
+    .article-footer { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+@media (max-width: 400px) {
+    :root { --text-base: 16px; }
+    .container { padding: var(--space-5) var(--space-2) var(--space-4); }
+}
+@media (min-width: 1200px) { .container { padding-top: var(--space-13); } }
+@media print {
+    :root { --ink: #000; --paper: #fff; }
+    body { font-size: 11pt; line-height: 1.4; }
+    .container { max-width: 100%; padding: 0; }
+    .back-nav, .contact-footer { display: none; }
+    nav#TOC { display: none; }
+    a { text-decoration: none !important; color: var(--ink) !important; }
+    .article-body h1, .article-body h2 { page-break-after: avoid; }
+    p { orphans: 3; widows: 3; }
+}
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(var(--gutter), env(safe-area-inset-left));
+        padding-right: max(var(--gutter), env(safe-area-inset-right));
+    }
+}
+
+/* Wiring in a mathematics renderer made display equations set on one unwrappable
+   line, so a long equation pushed the page wider than the viewport and readers on
+   ordinary laptops lost the right-hand side. Let each equation scroll inside its own
+   box instead of widening the page. Wide tables get the same treatment. */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
+.katex-display::-webkit-scrollbar { height: 6px; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 600px) {
+  .paper-nav-title { display: none; }
+}
+</style>
+<link rel="stylesheet" href="/paper.css">
+</head>
+<body>
+<div class="container">
+    <nav class="back-nav">
+        <a href="/">← Research</a>
+    </nav>
+    <article>
+        <header class="article-header">
+            <h1 class="article-title">The Compliance Passport</h1>
+            <p class="article-meta">April 2026 · Raeez Lorgat</p>
+                    </header>
+
+        
+        <div class="article-body">
+        <section id="the-compliance-passport" class="level1">
+        <h1>The Compliance Passport</h1>
+        <p><strong>Raeez Lorgat</strong></p>
+        <p>When a person crosses a border, their passport records who they are and, in the visa pages, where they have been and who admitted them. The border officer inspects this record without calling the issuing country to ask whether the traveler may travel.</p>
+        <p>An institution crossing a jurisdictional boundary carries no equivalent record. A corporation must prove its compliance status when it foreign-qualifies in a new state, opens a subsidiary abroad, or executes a cross-border transaction. Today, the receiving jurisdiction queries the originating jurisdiction’s systems in real time and trusts the response.</p>
+        <p>This arrangement fails when the originating system is offline or the jurisdictions have no data-sharing agreement. It also fails for historical inquiries because most systems store only the latest state. The receiving jurisdiction cannot verify the response: it neither controls nor can audit the database, and its trust rests on institutional comity.</p>
+        <p>The compliance passport is the institutional analogue: a self-contained, cryptographically verifiable record of an entity’s compliance history that the entity carries as it moves across jurisdictions. Verifying one requires the issuing sovereign’s authentic public keys, the versioned archives of the rules its evaluations ran under, current revocation state, and a policy for when foreign conclusions are accepted or re-evaluated. It does not require a live query to the origin.</p>
+        <p>The construction combines established mechanisms. Hash-chained records date to Haber and Stornetta (1991), and Merkle (1987) gives compact inclusion proofs. Certificate Transparency (Laurie, Langley and Kasper 2013) operates signed append-only logs at internet scale. It confronts the same stale-view problem this design bounds with freshness windows. The W3C verifiable-credential data model (W3C 2022) standardizes signed, portable, machine-verifiable attestations. Selective disclosure is available through anonymous credentials (Camenisch and Lysyanskaya 2001), BBS+ signatures (Au, Susilo and Mu 2006), and SD-JWT (Fett, Yasuda and Campbell).</p>
+        <p>Existing institutional records have narrower scope. A certificate of good standing records one authority’s finding at one point in time, without history. The Legal Entity Identifier and its verifiable form, the vLEI (GLEIF 2022), attest identity and role rather than compliance state. European regulatory passporting establishes mutual recognition by treaty, with no portable artifact. A modern ePassport chip does carry a signed artifact, verified offline under the passive-authentication mechanism of Doc 9303 (ICAO 2021). The officer checks the issuing state’s signature without calling that state.</p>
+        <p>The compliance passport combines a per-domain compliance state vector, the full evaluation history, a completeness attestation, and terminal treatment of sanctions determinations. The completeness attestation forecloses operating on half-finished evaluations. This composition, under the stated assumptions, is the contribution.</p>
+        <hr />
+        <section id="i." class="level2">
+        <h2>I.</h2>
+        <p>An institution operating across borders faces requirements in many independent domains simultaneously: corporate governance, tax filing, beneficial ownership disclosure, anti-money-laundering controls, sanctions screening, securities regulation, employment law, data privacy, environmental reporting, and more. Each domain has its own regulator, rules, evaluation criteria, and timeline, so compliance cannot be represented by one binary state.</p>
+        <p>At any given moment an institution might be fully compliant in corporate governance, pending evaluation in tax, exempt from securities regulation because it is not a public company, and non-compliant in beneficial ownership after a missed filing. These are four different states across four different domains, all simultaneously true. In general each domain sits, at each evaluation, in one of five states: compliant, non-compliant, pending, exempt, or not applicable. Reducing this to a single “compliant” bit destroys exactly the information the receiving jurisdiction needs.</p>
+        <p>The compliance passport stores a per-domain state vector at every evaluation the entity has undergone. The sequence of those vectors records its history.</p>
+        </section>
+        <section id="ii." class="level2">
+        <h2>II.</h2>
+        <p>Corporation X was incorporated in jurisdiction A two years ago. It was evaluated for compliance fourteen times over those two years: once per quarter in tax, twice per year in beneficial ownership, and twice for sanctions screening when it executed cross-border transactions. On its sixth tax evaluation it was found non-compliant. On the seventh, after filing amended returns, it was compliant again.</p>
+        <p>Now Corporation X wants to foreign-qualify in jurisdiction B. Jurisdiction B asks whether the entity is compliant. On the current state alone the answer is yes. But jurisdiction B may need the history of non-compliance and remediation: a jurisdiction can apply heightened scrutiny to entities with a record of tax non-compliance, and its regulations can require disclosure of prior compliance failures as a condition of registration.</p>
+        <p>Corporation X has an incentive to omit adverse findings, so its self-reported history cannot establish this record. The receiving jurisdiction needs a compliance record the corporation cannot edit after the fact.</p>
+        </section>
+        <section id="iii." class="level2">
+        <h2>III.</h2>
+        <p>Each compliance evaluation produces a new passport version, signed by one evaluating authority per jurisdiction. The domain regulators of §I supply their determinations as evidence without signing the passport. The issuing authority records the resulting domain states and signs the version.</p>
+        <p>A version records the per-domain state vector for that evaluation, the hashes of the evidence behind each determination, the version of the rule archive the evaluation ran under, the time of the evaluation, an evaluation counter, the entity’s identifier, and the SHA-256 digest of the previous version. The first version carries counter one and a fixed genesis constant in place of a predecessor digest. The signature covers all of it, including the predecessor digest. These versions form a signed hash chain: each entry cryptographically commits to its predecessor and carries the issuer’s signature.</p>
+        <p>The entity carrying the passport can recompute hashes and rebuild a consistent unsigned chain around an edited history. The signatures prevent that attack under the following proposition.</p>
+        <p>Assume the hash function is collision-resistant, the signature scheme is existentially unforgeable under chosen-message attack, the verifier holds the issuer’s authentic public key, and the issuer signs one linear history per entity — one first version, and at most one successor per version. If the verifier checks that every presented version carries a valid issuer signature over its full contents, that the first presented version carries counter one and the genesis constant, that each later version’s previous-version digest equals the hash of the presented predecessor, and that the counters increment by one, then the presented passport is a prefix of the history the issuer signed for that entity, ending at the presented head.</p>
+        <p>A presented version the issuer never signed is a forgery. Two distinct presented histories under the same signed head collide the hash function somewhere along the chain. Because each signed version names the entity and its counter, signed material cannot be grafted in from another entity’s passport or reordered within this one. A presentation that omits the earliest versions fails the genesis check at its first entry, so truncation can remove only the end of the history.</p>
+        <p>The threat model covers an entity trying to edit its own past. It does not protect against the issuer. An issuer can attest falsely, misrecord a domain regulator’s determination, or sign two competing histories. The passport preserves the origin’s attestations without establishing their truth. It therefore retains the trust in the issuing state that a physical passport also requires.</p>
+        <p>Presenting an old head passes every check above. In the scenario of §II, Corporation X presents the version signed just before the adverse tax finding and withholds everything after it. The signature, chain, and counter remain valid. The verifier receives an authentic prefix ending at the presented head, with no guarantee that it is the latest head.</p>
+        <p>The receiving jurisdiction addresses this attack by fixing a maximum head age, measured from its signed evaluation time. An entity under quarterly obligations cannot explain a head nine months stale. Where the stakes warrant it, the origin can anchor its latest head digest where verifiers can see it. Transparency logs use this mechanism for the same problem (Laurie, Langley and Kasper 2013). Truncation can then hide only what happens within the freshness window.</p>
+        <p>A disclosed mode allows verification without presenting the whole passport. Each version commits to its per-domain entries through a hash tree whose root the signature covers. The entity can present the signed fields while withholding the entries, then disclose one domain’s state, evidence hashes, and rule-archive version. It supplies the short inclusion path from that entry to the committed root.</p>
+        <p>Under the hypotheses of the proposition, plus three the receiving side enforces — the rule-archive version falls inside the window that side accepts, the signing key is unrevoked at verification time, and the presented head falls inside the maximum age that side fixes — an accepted disclosed entry is attributable to the issuer, included in the version it claims, evaluated under an accepted rule archive, and fresh enough for the receiving policy. The same forgery-or-collision argument applies along the inclusion path.</p>
+        <p>This mode proves nothing about withheld contents. A predicate over hidden contents, such as the absence of non-compliant domains while revealing none of them, requires a zero-knowledge construction this paper leaves open. By default, the passport makes an entity’s history legible to receiving regulators. Until that construction exists, selective disclosure supplies attributable partial revelation without a privacy guarantee.</p>
+        <p>In a fully disclosed chain the evaluation counter is redundant because it equals the chain’s length. In the disclosed mode, the signed counter tells a verifier how many evaluations exist even when only selected entries are shown. The verifier can compare that number with the cadence the entity’s age and obligations imply. Corporation X, two years old under the obligations of §II, should show fourteen. A head attesting three reveals that most required evaluations are absent from the record, either never performed or hidden behind a stale head. No further entry needs to be disclosed to establish that absence.</p>
+        <p>These checks establish the record’s authenticity and integrity. The receiving jurisdiction then applies its own policy to accept, reject, or re-evaluate the origin’s legal conclusions. Cryptographic verification establishes what the origin attested, while the receiving policy determines its legal significance.</p>
+        </section>
+        <section id="iv." class="level2">
+        <h2>IV.</h2>
+        <p>The signed chain preserves history, but each evaluation also needs a criterion for completeness.</p>
+        <p>In most compliance systems the evaluation is a point-in-time check: someone runs the checks, records the results, and moves on. A point-in-time check can leave domains pending — the evaluation has not yet occurred, or it awaits external input: a document from the entity, a response from a regulator, a third-party attestation that has not arrived.</p>
+        <p>If a partially completed assessment permits cross-border operations, an entity can delay the evaluation of domains it expects to fail. Pending would then stand in for compliant.</p>
+        <p>The passport addresses this with a completeness attestation. For the operations the receiving jurisdiction’s policy designates, the passport must carry a signed statement by the evaluating authority that no compliance domain is pending: every domain is in a determined state — compliant, non-compliant, exempt, or not applicable. The attestation lists every domain, its determined state, the rule-archive version applied, and the hashes of the evidence behind each determination. This signed, structured artifact can be verified without contacting the origin. It attests that the entity had no unresolved compliance question in any domain at the attested moment. The receiving policy decides which operations require it.</p>
+        </section>
+        <section id="v." class="level2">
+        <h2>V.</h2>
+        <p>One compliance domain receives distinct structural treatment: sanctions.</p>
+        <p>Under the United States regime, the International Emergency Economic Powers Act authorizes the transaction prohibitions at issue (50 U.S.C. § 1702(a)(1)). Civil penalties attach without regard to knowledge or intent (§ 1705(b), enforced on a strict-liability basis), while criminal liability requires a willful violation (§ 1705(c)). The largest enforcement actions have reached billions of dollars. These prohibitions bind only the persons and transactions within the sanctioning sovereign’s reach.</p>
+        <p>Other sovereigns maintain their own lists, and some prohibit compliance with certain foreign sanctions inside their territory. Council Regulation (EC) No 2271/96 is the European instance. Each jurisdiction therefore determines sanctions exposure under its own law. The passport preserves that determination as a first-class, per-jurisdiction fact instead of folding it into an aggregate.</p>
+        <p>Any domain can occupy any of the five states. Mitigations enter the evaluation as evidence before the sanctions verdict is fixed, never as overrides afterward. These include licenses, humanitarian carveouts, sovereign exemptions, and recognition of another sovereign’s determinations. Once fixed, a non-compliant sanctions determination is terminal for the operation under the receiving jurisdiction’s policy: no local override, escalation path, or executive exception converts it into permission. A different sovereign proceeds only by its own independent sanctions re-evaluation or under an explicit certificate its policy accepts. That certificate records the two sovereigns’ recognition of a shared sanctions authority.</p>
+        <p>A passport whose sanctions domain is non-compliant is therefore blocked as a whole. The receiving verifier cannot authorize the operation on its strength, however clean every other domain reads.</p>
+        </section>
+        <section id="vi." class="level2">
+        <h2>VI.</h2>
+        <p>Admission to another jurisdiction creates a second record under that jurisdiction’s rules and signature.</p>
+        <p>A corporation registered in the Cayman Islands faces different compliance domains than one registered in Florida. Securities regulation may not apply at all in one jurisdiction and be the dominant concern in another. Tax requirements differ in structure and rate. Governance rules vary from the number of directors required to whether a corporate secretary is mandatory.</p>
+        <p>The passport is therefore scoped to a jurisdiction. An entity operating in three jurisdictions has three passports, each evaluated against that jurisdiction’s requirements, because compliance is always compliance with a particular jurisdiction’s rules.</p>
+        <p>When an entity moves from jurisdiction A to jurisdiction B, B decides whether the history in A meets its entry requirements. This tests compatibility between two passport instances under B’s rules. Some jurisdictions accept another’s assessments through mutual recognition, while others require fresh evaluation. B records the admission through its first evaluation of the entity, which opens B’s passport. The accepted head of the A-passport enters that evaluation as evidence, with its hash recorded like the other evidence supporting the determination.</p>
+        <p>A traveler’s passport collects foreign stamps in one home-issued booklet. The compliance passport instead keeps each jurisdiction’s record under that jurisdiction’s own signature, with hash references linking the records.</p>
+        </section>
+        <section id="vii." class="level2">
+        <h2>VII.</h2>
+        <p>A receiving jurisdiction can seek compliance information through live queries, self-report, or a signed passport. Each route supplies different information and requires a different basis for trust.</p>
+        <p>Option one: real-time queries. The receiving jurisdiction calls the originating jurisdiction’s system and asks for current status. This requires connectivity, API compatibility, and data-sharing agreements; it returns current state only, not history; and it fails closed whenever the originating system is unavailable.</p>
+        <p>Option two: self-report. The entity describes its own history, requiring trust in the party with the greatest incentive to misrepresent it.</p>
+        <p>Option three: the passport. The entity carries a signed, hash-chained, self-contained record. Every version is issuer-signed, and each signature covers the previous version’s digest, making the history tamper-evident. Completeness attestations can be verified without contacting the origin. Verification requires neither the entity’s honesty nor the origin’s uptime. It requires collision-resistant hashing, unforgeable signatures, authentic sovereign keys and their revocation state, accepted rule archives, a freshness bound, and a foreign-recognition policy. Trust remains in the origin’s honesty as an evaluator, the provenance of its keys, and observance of the freshness window, as with a physical passport.</p>
+        <p>The construction makes a compliance check’s result portable, verifiable, and historically grounded. At a boundary crossing, the receiving jurisdiction can inspect authenticated history at lower cost than querying a database outside its control.</p>
+        </section>
+        <section id="references" class="level2">
+        <h2>References</h2>
+        <p>Au, M. H., Susilo, W. and Mu, Y. (2006). “Constant-Size Dynamic k-TAA.” <em>Security and Cryptography for Networks (SCN 2006)</em>, LNCS 4116, Springer.</p>
+        <p>Camenisch, J. and Lysyanskaya, A. (2001). “An Efficient System for Non-transferable Anonymous Credentials with Optional Anonymity Revocation.” <em>Advances in Cryptology — EUROCRYPT 2001</em>, LNCS 2045, Springer.</p>
+        <p>Council of the European Union (1996). <em>Council Regulation (EC) No 2271/96 protecting against the effects of the extra-territorial application of legislation adopted by a third country.</em> Official Journal L 309.</p>
+        <p>Fett, D., Yasuda, K. and Campbell, B. <em>Selective Disclosure for JWTs (SD-JWT).</em> IETF Internet-Draft draft-ietf-oauth-selective-disclosure-jwt (work in progress).</p>
+        <p>GLEIF (2022). <em>verifiable LEI (vLEI) Ecosystem Governance Framework.</em> Global Legal Entity Identifier Foundation.</p>
+        <p>Haber, S. and Stornetta, W. S. (1991). “How to Time-Stamp a Digital Document.” <em>Journal of Cryptology</em>, 3(2), 99–111.</p>
+        <p>ICAO (2021). <em>Doc 9303: Machine Readable Travel Documents.</em> Eighth edition; Part 11: Security Mechanisms for MRTDs. International Civil Aviation Organization.</p>
+        <p>Laurie, B., Langley, A. and Kasper, E. (2013). <em>Certificate Transparency.</em> RFC 6962.</p>
+        <p>Merkle, R. C. (1987). “A Digital Signature Based on a Conventional Encryption Function.” <em>Advances in Cryptology — CRYPTO ’87</em>, LNCS 293, Springer.</p>
+        <p>United States Congress (1977). <em>International Emergency Economic Powers Act.</em> 50 U.S.C. §§ 1701–1708.</p>
+        <p>W3C (2022). <em>Verifiable Credentials Data Model v1.1.</em> W3C Recommendation.</p>
+        </section>
+        </section>
+        </div>
+
+        <footer class="article-footer">
+            <span class="author-byline"><strong>Raeez Lorgat</strong> · Managing Partner, Momentum</span>
+            <nav class="footer-nav">
+                <a href="/">← All Papers</a>
+            </nav>
+        </footer>
+        <div class="contact-footer">
+            <span>&copy; 2026 Momentum</span>
+        </div>
+    </article>
+</div>
+<script src="/paper.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Technical Architecture Brief | Momentum Research</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Technical Architecture Brief" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Research on institutional rules, execution, financial claims, markets, title, and dispute resolution." />
+<meta property="og:description" content="Research on institutional rules, execution, financial claims, markets, title, and dispute resolution." />
+<link rel="canonical" href="https://research.momentum.inc/technical/sources/technical-architecture-brief.html" />
+<meta property="og:url" content="https://research.momentum.inc/technical/sources/technical-architecture-brief.html" />
+<meta property="og:site_name" content="Momentum Research" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-09-06T00:00:00+07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Technical Architecture Brief" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-09-06T00:00:00+07:00","datePublished":"2026-09-06T00:00:00+07:00","description":"Research on institutional rules, execution, financial claims, markets, title, and dispute resolution.","headline":"Technical Architecture Brief","mainEntityOfPage":{"@type":"WebPage","@id":"https://research.momentum.inc/technical/sources/technical-architecture-brief.html"},"url":"https://research.momentum.inc/technical/sources/technical-architecture-brief.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=004cde75348215d3e66bf52187b0abbfe818efaa">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://research.momentum.inc/">Momentum Research</a></h1>
+      
+
+      <h1 id="technical-architecture-brief">Technical Architecture Brief</h1>
+
+<h2 id="1-purpose-and-design-status">1. Purpose and design status</h2>
+
+<p>Momentum builds the network. Mass runs companies, institutions, and deployments. Moxie prices and clears claims. Recourse runs dispute resolution and carries outcomes into execution.</p>
+
+<p>This brief specifies how the three systems operate independently and together. It defines ownership, records, admission rules, execution, recovery, and evidence. It also defines the interfaces that connect organizational acts, economic obligations, disputes, and actual performance.</p>
+
+<p>The design uses the research corpus, inspected implementations, and the Mass and Recourse owners’ specifications. None of those inputs alone determines the ultimate design. Where inputs disagree, this brief identifies the conflict and proposes a concrete resolution.</p>
+
+<p>Requirements in sections 2–24 describe the proposed target. They do not assert that deployed systems already satisfy them. Section 25 records the inspected implementation boundaries. Section 26 identifies decisions and verification obligations before adoption.</p>
+
+<p>The proposal preserves existing signed bytes and historical verification. New schema names identify proposed contracts. Numeric wire tags, persistence versions, activation heights, institutions, providers, and production keys remain unallocated unless separately selected.</p>
+
+<p>This technical specification presents the proposed design and dated implementation observations. Source descriptions identify evidence captured on 6 September 2026. Current production acceptance requires a separately bound source, binary, configuration, and execution record.</p>
+
+<h3 id="11-product-responsibilities">1.1 Product responsibilities</h3>
+
+<p>Mass maintains organizational identity, ownership, governance, fiscal records, rules, and operating programs. A sovereign Mass deployment controls its own records, keys, admission policies, and disclosures. It exchanges evidence through destination-approved recognition rules.</p>
+
+<p>Moxie maintains claim execution, market state, clearing, settlement obligations, and native consensus finality. It consumes Mass issuance and compliance evidence under its own admission policy. It preserves the distinction between a claim’s terms, market value, funded capacity, and completed payment.</p>
+
+<p>Recourse administers disputes, preserves procedural authority, and carries outcomes to their destinations. Its sovereign nodes can use different institutions, rules, and recognition policies. They exchange authenticated records without acquiring authority over one another’s databases.</p>
+
+<p>Named licensed providers retain custody, banking, payment, and other regulated functions. Software coordinates their instructions and evidence. An internal ledger entry cannot create a provider license, beneficial title, or completed external transfer.</p>
+
+<p>Treasury and other applications use these three systems. They do not become additional peers in the core stack. Their operating companies, customer obligations, provider accounts, and economic interests remain separately identified.</p>
+
+<h3 id="12-design-rules">1.2 Design rules</h3>
+
+<ol>
+  <li>Each authoritative object has one current writer domain.</li>
+  <li>Every consequential action has an identified principal and action-specific authority.</li>
+  <li>Every accepted effect binds its exact terms, inputs, governing rules, and resulting record.</li>
+  <li>Every external instruction has durable identity before dispatch.</li>
+  <li>Unknown external performance remains unknown until admissible evidence resolves it.</li>
+  <li>Retries preserve original results, payment attribution, and unfinished obligations.</li>
+  <li>Historical validity and permission for a new action use separate checks.</li>
+  <li>A transfer of live work preserves its complete state and fences the previous writer.</li>
+  <li>Current implementation claims require evidence beyond a type, route name, or manuscript statement.</li>
+</ol>
+
+<p>Source keys beginning with S identify dated implementation and design records. Keys <code class="language-plaintext highlighter-rouge">P01</code>–<code class="language-plaintext highlighter-rouge">P15</code> identify the selected research manuscripts. Section 27 defines every key and the evidence each source supplies.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">S01</code>–<code class="language-plaintext highlighter-rouge">S05</code>, <code class="language-plaintext highlighter-rouge">P01</code>–<code class="language-plaintext highlighter-rouge">P15</code>.</p>
+
+<h2 id="2-shared-objects-and-meanings">2. Shared objects and meanings</h2>
+
+<p>An <strong>actor</strong> is a human, organization, software agent, institution, or service that submits or signs a statement. A <strong>principal</strong> is the party whose authority supports an action. An actor can represent a principal only through an applicable delegation.</p>
+
+<p>A <strong>deployment</strong> is an independently operated system instance with its own trust and storage boundary. A <strong>writer domain</strong> identifies the deployment and authoritative store that can change an object. A <strong>generation</strong> identifies one active custody period for live work.</p>
+
+<p>A <strong>claim</strong> records a right to specified performance under stated conditions. An <strong>obligation</strong> records the corresponding required performance. A <strong>duty</strong> includes performance that can remain unresolved, nonmonetary, conditional, or subject to continuing institutional requirements.</p>
+
+<p>An <strong>occurrence</strong> is an identified event offered as evidence of performance or another contractual condition. Its identity belongs to the event source. A new observation of the occurrence does not create another occurrence.</p>
+
+<p>An <strong>admitted transition</strong> is a state change accepted under the current authority, evidence, and resource rules. A <strong>receipt</strong> records an accepted transition or observation. Its schema states exactly what it proves.</p>
+
+<p>A <strong>continuation</strong> is the retained machine state needed to resume a suspended program. It includes the program’s control state and supporting commitments. A case snapshot or workflow status alone cannot restore the suspended computation.</p>
+
+<p>A <strong>custody cut</strong> is the complete, consistent collection of records transferred with live work. A <strong>fence</strong> prevents an old writer from initiating further effects. An <strong>outbox</strong> records instructions that require later dispatch.</p>
+
+<h3 id="21-keep-these-identities-separate">2.1 Keep these identities separate</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Identity</th>
+      <th>Meaning</th>
+      <th>Responsible source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Organizational identity</td>
+      <td>Continuing entity or institution</td>
+      <td>Mass and constituting instruments</td>
+    </tr>
+    <tr>
+      <td>Instrument identity</td>
+      <td>Continuing governed agreement</td>
+      <td>Issuer and governing parties</td>
+    </tr>
+    <tr>
+      <td>Claim content digest</td>
+      <td>One exact claim description</td>
+      <td>Claim admission</td>
+    </tr>
+    <tr>
+      <td>Obligation identity</td>
+      <td>Original duty and its continuing history</td>
+      <td>Originating authoritative ledger</td>
+    </tr>
+    <tr>
+      <td>Occurrence identity</td>
+      <td>One external event or performance</td>
+      <td>Admitted occurrence source</td>
+    </tr>
+    <tr>
+      <td>Command identity</td>
+      <td>One requested local transition</td>
+      <td>Caller and destination namespace</td>
+    </tr>
+    <tr>
+      <td>Delivery identity</td>
+      <td>One stable external instruction</td>
+      <td>Sending outbox and destination</td>
+    </tr>
+    <tr>
+      <td>Effect identity</td>
+      <td>One admitted destination effect</td>
+      <td>Destination ledger</td>
+    </tr>
+    <tr>
+      <td>Receipt identity</td>
+      <td>One retained result or observation</td>
+      <td>Receipt issuer</td>
+    </tr>
+    <tr>
+      <td>Custody generation</td>
+      <td>One current owner of live work</td>
+      <td>Transfer authority and fencing service</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>An identifier’s syntax establishes none of these authorities. Adapters retain the native identifier and its domain. They do not replace unrelated identifiers with one convenient universal identifier.</p>
+
+<h3 id="22-separate-state-dimensions">2.2 Separate state dimensions</h3>
+
+<p>Every interface reports the applicable dimensions explicitly:</p>
+
+<ul>
+  <li><strong>Record state:</strong> prepared, accepted locally, superseded, or rejected.</li>
+  <li><strong>Authority state:</strong> authentic, recognized for the action, expired, revoked, or unknown.</li>
+  <li><strong>Execution state:</strong> undispatched, submitted, outcome unknown, partially performed, or performed.</li>
+  <li><strong>Consensus state:</strong> uncommitted, committed, finalized under a named protocol, or disputed.</li>
+  <li><strong>Provider state:</strong> accepted, processed, settled, returned, reversed, or unknown.</li>
+  <li><strong>Legal state:</strong> asserted, determined, recognized under a named policy, stayed, or superseded.</li>
+  <li><strong>Recovery state:</strong> credited quantity, returned quantity, outstanding quantity, and unresolved evidence.</li>
+</ul>
+
+<p>There is no universal <code class="language-plaintext highlighter-rouge">success</code> field that implies all dimensions. User interfaces can summarize progress while retaining these independent facts.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P05</code>, <code class="language-plaintext highlighter-rouge">P08</code>, <code class="language-plaintext highlighter-rouge">P09</code>, <code class="language-plaintext highlighter-rouge">P14</code>, <code class="language-plaintext highlighter-rouge">P15</code>, <code class="language-plaintext highlighter-rouge">S03</code>, <code class="language-plaintext highlighter-rouge">S04</code>.</p>
+
+<h2 id="3-topology-and-state-ownership">3. Topology and state ownership</h2>
+
+<p>The network consists of independently governed Mass deployments, Moxie consensus domains, Recourse nodes, and external providers. Each component can operate without another component’s database. Integration uses authenticated commands, evidence, and retained receipts.</p>
+
+<h3 id="31-deployment-units">3.1 Deployment units</h3>
+
+<p>A Mass deployment contains an API gateway, program host, rule evaluator, domain services, authoritative database, artifact custody, and background workers. Operator configuration selects the jurisdictional packs, trust roots, provider adapters, and permitted network relations.</p>
+
+<p>A Moxie consensus domain contains validators, durable transaction custody, event collection, deterministic execution, market and risk state, and settlement workers. Each validator maintains an independent store. Agreement concerns committed native state and the protocol’s declared finality rules.</p>
+
+<p>A Recourse node contains case administration, institutional trust, artifact custody, procedure execution, network exchange, and execution reconciliation. Its application programming interface (API), software development kit (SDK), Model Context Protocol (MCP) interface, and web application share one authorization model.</p>
+
+<p>A provider adapter contains the protocol-specific encoder, authenticated transport, result decoder, and reconciliation logic. It also declares the provider’s idempotency and cancellation guarantees. The adapter never invents those guarantees from its own local request log.</p>
+
+<h3 id="32-ownership-matrix">3.2 Ownership matrix</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Object family</th>
+      <th>Authoritative writer</th>
+      <th>Other systems retain</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Entity, consent, ownership, fiscal record</td>
+      <td>Owning Mass deployment</td>
+      <td>Scoped evidence and projections</td>
+    </tr>
+    <tr>
+      <td>Mass program and local execution journal</td>
+      <td>Owning Mass host</td>
+      <td>Program commitments and receipts</td>
+    </tr>
+    <tr>
+      <td>Moxie order, position, native balance, clearing duty</td>
+      <td>Owning Moxie consensus domain</td>
+      <td>Finality-bound observations</td>
+    </tr>
+    <tr>
+      <td>Recourse case, procedure, appointment, outcome</td>
+      <td>Owning Recourse node and competent signers</td>
+      <td>Disclosed records and recognition decisions</td>
+    </tr>
+    <tr>
+      <td>Provider balance, custody, payment, physical delivery</td>
+      <td>Named provider or competent registry</td>
+      <td>Authenticated observations and reconciliation</td>
+    </tr>
+    <tr>
+      <td>Cross-domain transfer</td>
+      <td>Source and destination, each for its own records</td>
+      <td>Correlated transfer evidence</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A projection is a derived view. It cannot debit the original ledger or extinguish an original duty. Importing a projection as a new original requires explicit transfer admission and exclusion of concurrent ownership.</p>
+
+<h3 id="33-availability-and-scaling">3.3 Availability and scaling</h3>
+
+<p>Scale reads through projections that expose their source revision and lag. Partition writes by authoritative aggregate, with explicit coordination for shared resources. Aggregate boundaries follow conservation and authority requirements.</p>
+
+<p>Scale workers through durable leases and generation fences. A lease identifies the current worker but does not establish external exclusivity by itself. A provider or destination must reject fenced requests when the safety claim depends on that rejection.</p>
+
+<p>Do not require a universal network clock or database transaction. Cross-domain work uses durable preparation, authenticated decisions, acknowledgement, and reconciliation. Pending work can remain pending while unrelated operations progress.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P03</code>, <code class="language-plaintext highlighter-rouge">P06</code>, <code class="language-plaintext highlighter-rouge">P10</code>, <code class="language-plaintext highlighter-rouge">P15</code>, <code class="language-plaintext highlighter-rouge">S02</code>–<code class="language-plaintext highlighter-rouge">S04</code>.</p>
+
+<h2 id="4-canonical-records-signatures-and-time">4. Canonical records, signatures, and time</h2>
+
+<h3 id="41-common-record-discipline">4.1 Common record discipline</h3>
+
+<p>Each versioned record declares its schema, issuer domain, object scope, semantic payload, and encoding. The verifier rejects duplicate keys, unknown required semantics, invalid bounds, and noncanonical numeric forms before admission.</p>
+
+<p>Digests identify the algorithm and exact byte representation. Existing SHA-256, BLAKE3, canonical JSON, and native binary encodings retain their meanings. An adapter stores both the original bytes and any derived transport representation.</p>
+
+<p>Signatures bind a purpose-specific domain, schema, issuer, destination or audience, payload digest, authority profile, and validity context. A key authenticates a signature. A separately configured policy determines the signer’s permitted actions.</p>
+
+<p>Every record distinguishes immutable content from current admission state. Immutable content includes original terms, source evidence, signatures, and committed results. Current state includes active keys, revocation, stays, remaining resources, and the current custody generation.</p>
+
+<h3 id="42-proposed-shared-envelope">4.2 Proposed shared envelope</h3>
+
+<p>The following field set is a design contract. It does not replace native wire formats:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RecordEnvelope {
+  schema, encoding, digest_algorithm,
+  network_id, issuer_domain, writer_store,
+  object_kind, object_id, object_revision,
+  payload_digest, predecessor_digest,
+  issued_at, effective_interval,
+  authority_profile_id, authority_profile_version,
+  audience, purpose, signatures
+}
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">object_revision</code> orders one authoritative object. <code class="language-plaintext highlighter-rouge">predecessor_digest</code> commits to its exact prior state where the transition requires continuity. <code class="language-plaintext highlighter-rouge">audience</code> limits reliance or disclosure. It does not grant access to undisclosed records.</p>
+
+<p>Existing objects can satisfy this contract through explicit mappings. A mapping identifies absent fields and the resulting unsupported claims. It never manufactures an absent signature or finality commitment.</p>
+
+<h3 id="43-clock-contract">4.3 Clock contract</h3>
+
+<p>Retain at least four separate times: source occurrence, local receipt, logical execution sample, and durable commit. External settlement and legal effectiveness can add further times. A wall-clock timestamp does not prove global order.</p>
+
+<p>Logical execution uses a durable monotone anchor within its writer domain. The final logical sample follows local allocation and precedes commit. Logical-sample predicates use that sample. Durable-effect and provider-acceptance predicates use their respective boundary evidence.</p>
+
+<p>A failed final logical-time check rolls back the transaction. A later retry can retrieve an earlier committed result under historical access authority. It cannot use an expired execution grant for a new effect.</p>
+
+<p>Select each required validity basis explicitly: logical sample, durable effect, and provider acceptance. A profile can require several bases together. Permission at the logical sample does not establish permission at those later boundaries. Durable commit can finish after the sample’s signed interval.</p>
+
+<p>A durable-effect profile requires an admitted mechanism that enforces authority at that boundary. It remains unavailable without that mechanism and its evidence. Database locks serialize authority changes but do not stop wall-clock time.</p>
+
+<p>Complete store rollback can also roll back a local clock. Protection against coherent rollback therefore requires an external freshness anchor or an equivalent independently enforced assumption.</p>
+
+<h3 id="44-cryptographic-agility">4.4 Cryptographic agility</h3>
+
+<p>Trust profiles pin algorithms, key roles, principal identities, thresholds, and accepted historical versions. Distinct keys from one principal do not count as independent principals. Rotation retains historical verification material without granting old keys current execution power.</p>
+
+<p>Algorithm migration uses an authenticated transition record. It specifies the old and new verification rules, activation boundary, and historical treatment. Signature aggregation does not remove signer-purpose or quorum checks.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P03</code>, <code class="language-plaintext highlighter-rouge">P06</code>, <code class="language-plaintext highlighter-rouge">P10</code>, <code class="language-plaintext highlighter-rouge">P15</code>, <code class="language-plaintext highlighter-rouge">S03</code>–<code class="language-plaintext highlighter-rouge">S05</code>.</p>
+
+<h2 id="5-mass-organizational-primitives">5. Mass: organizational primitives</h2>
+
+<p>Mass provides five native primitives: Entities, Ownership, Fiscal, Identity, and Consent. Domain services own their state transitions. A common program admission path supplies authority, evidence, transactional execution, and receipts.</p>
+
+<h3 id="51-entities">5.1 Entities</h3>
+
+<p>An entity record contains its continuing identity, constituting instrument, legal form, governing authority, lifecycle, and harbor set. A harbor records recognition in one jurisdiction. It includes local identifiers, effective dates, obligations, and supporting evidence.</p>
+
+<p>Formation starts from an authorized program and the required constituting evidence. The program creates the organizational record and outstanding registration duties atomically. External registration remains a separate instruction and result.</p>
+
+<p>Onboarding imports a verified existing identity and records unresolved differences. It preserves original instruments and the authority that accepted them. It does not silently create a new legal person.</p>
+
+<p>An entity can maintain one governance and ownership identity across several harbors. Each harbor retains local recognition and continuing duties. Adding a harbor does not imply automatic acceptance by every other jurisdiction.</p>
+
+<p>Lifecycle transitions include preparation, constitution or onboarding, active operation, restriction, dissolution, and retained history. Each transition identifies its competent authority. Dissolution preserves unpaid duties, retention requirements, and access needed for later disputes.</p>
+
+<h3 id="52-ownership">5.2 Ownership</h3>
+
+<p>Ownership records distinguish registered ownership, beneficial entitlement, control, custody, and encumbrance. A position binds the instrument, owner, quantity, unit, restrictions, and authoritative ledger. Quantity calculations use exact admitted units.</p>
+
+<p>An ownership transition consumes identified available positions and creates identified successor positions. It preserves total quantity unless an authorized issuance, cancellation, or correction explains the change. Pledges reserve rights without silently transferring every ownership interest.</p>
+
+<p>Corporate actions bind the class, record date, eligibility snapshot, governing consent, and allocation rule. Rounding uses a declared deterministic policy. Residual quantities remain attributed rather than disappearing through repeated rounding.</p>
+
+<p>The ownership service emits claim issuance or amendment evidence for Moxie. It does not directly modify a Moxie entitlement ledger. The receiver admits the exact instrument and position mapping.</p>
+
+<h3 id="53-fiscal">5.3 Fiscal</h3>
+
+<p>Fiscal records identify the entity, ledger, account, asset, amount, accounting period, and source obligation. Journals retain debits, credits, reversals, and provider references. An accounting classification cannot prove that cash exists at a provider.</p>
+
+<p>Invoices, payroll, taxes, distributions, and provider instructions become governed programs with explicit obligations. Their ledgers distinguish assessment, authorization, instruction, payment, return, and reconciliation. A return refers to the original attributed payment.</p>
+
+<p>Fiscal rules pin jurisdiction, period, rule version, source facts, and rounding. Corrections append new entries and preserve the earlier assessment. Consolidation retains entity boundaries and intercompany attribution.</p>
+
+<p>Bank and custody adapters expose account ownership, permitted operations, and observation freshness. Mass validates each instruction against the applicable mandate. Reconciliation compares provider evidence with the local obligation and allocation history.</p>
+
+<h3 id="54-identity">5.4 Identity</h3>
+
+<p>Identity stores subjects, controllers, credentials, verified attributes, affiliations, and authentication methods. Each verified attribute identifies its issuer, evidence, scope, validity, and revocation source. Self-declared attributes remain distinguishable.</p>
+
+<p>Delegation names the principal, delegate, permitted actions, object scope, limits, and validity. Attenuation can reduce authority but cannot create a missing permission. Revocation affects future admission according to the governing policy.</p>
+
+<p>Recovery of an identity or signing key requires a separate authority procedure. It preserves the replaced key’s historical meaning. An account administrator cannot acquire tribunal, corporate, or provider authority through password recovery.</p>
+
+<h3 id="55-consent">5.5 Consent</h3>
+
+<p>Consent records the proposed act, eligible voters, voting rules, notice, votes, signatures, and effective result. The proposal digest fixes what participants approved. A changed act requires new approval unless an existing delegation covers the change.</p>
+
+<p>Approval, document signing, external submission, and business effect are separate transitions. A provider callback identifies the exact signing submission and completed signers. The service checks those signers against the persisted designated identities.</p>
+
+<p>The target callback contract authenticates the body, event identity, and freshness metadata together. It persists a retryable inbox before acknowledgement. It records downstream effects separately from receipt of the callback.</p>
+
+<p>Cancellation creates durable obligations for provider archive or withdrawal when required. A completed local cancellation does not prove that the external submission disappeared. Reconciliation continues until the provider result resolves that obligation.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P01</code>, <code class="language-plaintext highlighter-rouge">P03</code>, <code class="language-plaintext highlighter-rouge">S01</code>, <code class="language-plaintext highlighter-rouge">S02</code>. Source inspection identifies narrower callback behavior in section 25.</p>
+
+<h2 id="6-mass-rules-and-compliance-composition">6. Mass: rules and compliance composition</h2>
+
+<h3 id="61-rule-packages">6.1 Rule packages</h3>
+
+<p>A lawpack contains source instruments, structured rules, interpretation authority, jurisdiction, effective intervals, and executable commitments. Related packs define licenses, procedures, obligations, adapters, and application templates. A deployment lockfile pins the complete selected dependency set.</p>
+
+<p>Rule publication preserves original source bytes and dated provenance. Rule adoption records the competent authority and deployment scope. Source publication and local adoption require separate acts.</p>
+
+<p>A rule can require a human determination where its application needs discretion. The request names the question, evidence, permitted decision maker, and answer schema. The program resumes only with an admissible answer for that exact request.</p>
+
+<h3 id="62-lex">6.2 Lex</h3>
+
+<p>Lex is the typed language for jurisdictional rules and their proof obligations. Its checker establishes the properties of the admitted language fragment. The runtime must declare which fragment, evaluator, and host profile it implements.</p>
+
+<p>Rule certificates bind program or rule bytes, assumptions, scope, evidence, and checker identity. A certificate for one expression cannot discharge another expression’s obligation. A checker result does not establish the truth of an external legal instrument.</p>
+
+<p>The proposed production path uses deterministic evaluation over pinned inputs. Unresolved facts or discretion produce typed requests. Unsupported expressions produce explicit refusal. They do not become default compliance.</p>
+
+<h3 id="63-compliance-records">6.3 Compliance records</h3>
+
+<p>The compliance state covers 23 domains. It retains applicability separately from the grade of an applicable requirement. It also retains the decision about the particular requested act.</p>
+
+<p>Each cell carries its jurisdiction, regulator, legal source, tradition, domain, rule, obligation, evidence, and effective interval. The witness map preserves these coordinates through composition. A single undifferentiated witness cannot replace the map.</p>
+
+<p>Applicable grades combine through the declared restrictive operator. The result preserves every applicable restriction under the model’s assumptions. Distinct authorities can validly report applicable, exempt, or not applicable findings for different owned requirements. Preserve those coordinates. Conflicting findings for the same owned requirement require resolution. Unsupported projection into a simpler model produces an explicit obstruction.</p>
+
+<p>The interface returns one of three typed results:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CompositionResult =
+  Composed { cells, witness_map, retained_obligations, policy_digest }
+  | Obstructed { coordinates, conflicting_sources, required_decision }
+  | Pending { missing_inputs, scoped_requests, continuation_binding }
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Pending</code> records absent evidence. <code class="language-plaintext highlighter-rouge">Obstructed</code> records an incompatibility that more data alone may not resolve. Neither result permits a consequential effect that requires an admissible composed state.</p>
+
+<h3 id="64-recognition-and-current-use">6.4 Recognition and current use</h3>
+
+<p>Recognition maps declare which source evidence the destination accepts, for what purpose, and with which limitations. They can preserve or reduce an accepted grade. They retain local questions and obligations that the destination reserves.</p>
+
+<p>Admission checks current source revisions, keys, revocation, purpose, and validity. It also checks absence predicates that influenced evaluation. A concurrently inserted restriction must invalidate an admission based on its earlier absence.</p>
+
+<p>The storage contract therefore protects both existing rows and predicate generations. Every relevant writer advances the same generation records. A writer outside that contract makes the affected admission profile unavailable.</p>
+
+<p>Historical verification reconstructs the rules and facts used for a past decision. It does not rerun that decision under today’s rules and overwrite its earlier basis. A new use receives a new current-authority decision.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P02</code>, <code class="language-plaintext highlighter-rouge">P03</code>, <code class="language-plaintext highlighter-rouge">P04</code>, <code class="language-plaintext highlighter-rouge">P06</code>, <code class="language-plaintext highlighter-rouge">S02</code>, <code class="language-plaintext highlighter-rouge">S05</code>.</p>
+
+<h2 id="7-mass-authored-programs-and-op-execution">7. Mass: authored programs and Op execution</h2>
+
+<h3 id="71-program-admission">7.1 Program admission</h3>
+
+<p>Op is the public instruction language for governed operations. A Mass program binds authored intent to Op bytes, Lex obligations, object scope, and execution policy. The author signs the canonical program representation.</p>
+
+<p>The logical entry point is <code class="language-plaintext highlighter-rouge">propose(authority, program) -&gt; result</code>. Resource APIs can lower requests into that path. They do not acquire a separate permission to bypass its checks.</p>
+
+<p>Preparation validates structure and produces a proposed program. Simulation evaluates a declared snapshot and reports projected effects. Neither operation changes authoritative state or constitutes the author’s signature.</p>
+
+<p>A submitted program includes its exact code, interpreter profile, input commitments, operation multiplicity, resource limits, and replay policy. One-shot and repeatable programs require separate admission rules. A new command identifier cannot turn one-shot intent into unlimited execution authority.</p>
+
+<p>The admission result is <code class="language-plaintext highlighter-rouge">Rejected</code>, <code class="language-plaintext highlighter-rouge">Pending</code>, or <code class="language-plaintext highlighter-rouge">Committed</code>. Rejection identifies the violated contract. Pending identifies missing evidence or external performance. Committed returns the retained effect and its exact receipt.</p>
+
+<h3 id="72-typed-execution-and-host-boundary">7.2 Typed execution and host boundary</h3>
+
+<p>The runtime preserves linear resources, fixed targets, required screening, and action-specific authority. Each external request has one permitted consumer. Partial performance changes the retained residual instead of restarting the original payment amount.</p>
+
+<p>The host profile defines primitive calls, units, storage, callbacks, gas, and the interpretation of each result. The current Op integer dispatch quantity remains distinct from monetary fixed-point values and duty quantities. Adapters require exact conversion and divisibility.</p>
+
+<p>A host result does not automatically discharge an obligation. It must identify the observed occurrence and the admitted attribution. A command can close while an underlying debt remains outstanding.</p>
+
+<p>Model output can propose text, classify evidence, or prepare a program. It cannot manufacture a human signature, provider occurrence, or rule certificate. The host treats external material as evidence with declared trust.</p>
+
+<h3 id="73-durable-continuation-contract">7.3 Durable continuation contract</h3>
+
+<p>The proposed <code class="language-plaintext highlighter-rouge">mass.checked-continuation.v1</code> record contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CheckedContinuation {
+  original_host, original_instance, original_nonce,
+  program_digest, interpreter_profile_digest,
+  continuation_schema, admitted_decoder_digest,
+  instruction_position, control_stack, environments,
+  frame_stack, linear_resources, logical_work,
+  request_ordinal, pending_request,
+  signed_history_head, journal_head, effect_head,
+  receipt_head, obligation_namespace_head,
+  custody_generation, authenticated_custody_digest
+}
+</code></pre></div></div>
+
+<p>The record commits to the actual suspended computation. Recovery restores that checked state directly. Reexecuting from the source root can repeat effects or lose the exact suspended environment.</p>
+
+<p>The receiving host verifies the decoder, profile, integrity, and custody authorization. A successful serialization round trip proves representation consistency only. Reachability from admitted execution requires authenticated history or another explicit verification mechanism.</p>
+
+<p>Consumption of a reply atomically updates the continuation, resource state, effect journal, and receipt. Invalid replies consume nothing. An exact repeated reply returns its original receipt without advancing the ordinal again.</p>
+
+<h3 id="74-completion-and-returned-credit">7.4 Completion and returned credit</h3>
+
+<p>Distinguish <code class="language-plaintext highlighter-rouge">ReturnCredit</code> from <code class="language-plaintext highlighter-rouge">AdmittedDisposition</code>. ReturnCredit records an authenticated provider return and its original payment attribution. AdmittedDisposition determines how that return changes the authoritative obligations and funding permissions.</p>
+
+<p>The disposition binds the original payment, return occurrence, exact quantity portions, account, asset, provider epoch, and governing authorities. It retains recipient-debit evidence where the policy requires it. Duplicate aliases resolve to one occurrence.</p>
+
+<p>A cross-store disposition enters <code class="language-plaintext highlighter-rouge">ReopenPending</code> until the original ledger commits the reopening. Returned cash remains encumbered during that state. The host arms replacement funding only after it verifies the destination receipt and required current admissions.</p>
+
+<p>Reopening never regenerates the original consumed cash interval. A replacement payment uses fresh admitted credit with its own attribution. Historical payment and return records remain immutable.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P03</code>, <code class="language-plaintext highlighter-rouge">P05</code>, <code class="language-plaintext highlighter-rouge">P09</code>, <code class="language-plaintext highlighter-rouge">P15</code>, <code class="language-plaintext highlighter-rouge">S05</code>.</p>
+
+<h2 id="8-mass-authoritative-storage-and-atomic-admission">8. Mass: authoritative storage and atomic admission</h2>
+
+<h3 id="81-transaction-boundary">8.1 Transaction boundary</h3>
+
+<p>The proposed PostgreSQL allocation profile applies one local allocation and its final proof in one database transaction. It includes the actual authoritative duty rows. A projection or precomputed allocation plan cannot substitute for those rows.</p>
+
+<p>The transaction covers command identity, admission records, allocations, incurred duties, membership, result, continuation, audit, clock anchor, and required outbox records. It commits before the API exposes success.</p>
+
+<p>External payment remains outside that transaction. The transaction can create a provider instruction and reserve its resources. It cannot guarantee an external effect without the provider’s own acceptance and performance evidence.</p>
+
+<h3 id="82-detached-execution-grant">8.2 Detached execution grant</h3>
+
+<p>The proposed <code class="language-plaintext highlighter-rouge">mass.execution-grant.v1</code> supplements an unchanged signed program envelope. It binds the program to one exact allocation and current authority context. It does not alter existing <code class="language-plaintext highlighter-rouge">mass-program-envelope-v0</code> signing bytes.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ExecutionGrant {
+  schema, approval_domain, owner_store, ledger_id,
+  command_namespace, command_id, intent_multiplicity,
+  program_digest, allocation_effect_digest,
+  current_use_body_digest, catalog_digest,
+  read_footprint_digest, expected_roots,
+  obligation_template_digest, clock_domain,
+  validity_requirements, interval_convention,
+  enforcement_profile, valid_from, valid_until,
+  required_participants, approvals
+}
+</code></pre></div></div>
+
+<p>Every participant signs the same canonical body. Policy determines the required principal, role, and scope tuples. The verifier requires exact tuple coverage and current keys. An independence threshold counts distinct admitted principals, even when one principal holds several required roles.</p>
+
+<p>Validity requirements can combine logical sample, durable effect, and provider acceptance predicates for each effect. Each predicate imposes an independent requirement. A profile must enforce every selected predicate at its named boundary.</p>
+
+<p>The grant binds a <code class="language-plaintext highlighter-rouge">BoundAllocationEffectCore</code> containing the intended economic effect. That core excludes the final clock sample and resulting receipt. The committed <code class="language-plaintext highlighter-rouge">ExecutedEffectCore</code> adds the observed sample, actual state roots, and grant digest. This separation prevents circular digest definitions.</p>
+
+<p>The semantic verifier checks more than digest equality. It proves that the allocation implements the admitted program’s recipients, units, order, effects, and multiplicity. An unrelated valid program cannot authorize a separately chosen allocation.</p>
+
+<h3 id="83-required-execution-sequence">8.3 Required execution sequence</h3>
+
+<ol>
+  <li>Authenticate access to the requested historical result.</li>
+  <li>Look up the exact committed command and canonical request.</li>
+  <li>Return matching stored result and proof bytes without new execution.</li>
+  <li>Reject changed bytes under a committed command identity.</li>
+  <li>Begin the fresh-command transaction and create or lock its durable command fence.</li>
+  <li>Lock the ledger, catalog, predicate generations, revisions, authority records, and clock anchor in deterministic order.</li>
+  <li>Recheck replay, then re-read every admission input through the same transaction.</li>
+  <li>Validate the program, grant, semantic mapping, current permissions, and available resources.</li>
+  <li>Apply the actual ordered allocation to authoritative local rows.</li>
+  <li>Sample the final logical clock. Recheck the complete local admission predicate over the protected inputs and resulting allocation.</li>
+  <li>Derive the act, incurred duties, membership, result, continuation, and final proof.</li>
+  <li>Persist all required records and commit before returning success.</li>
+</ol>
+
+<p>The proof producer must finish inside this boundary. If it needs later consensus or a remote signer, this profile is unavailable. Such work requires a separately declared pending-proof profile.</p>
+
+<p>Proof construction failure, authority failure, or expiry rolls back the allocation. A crash after commit but before response returns the original stored result after restart. It does not create a new act or proof.</p>
+
+<h3 id="84-predicate-protection">8.4 Predicate protection</h3>
+
+<p>The current-use catalog declares each predicate, its typed reads, and all writers that can affect it. Empty namespaces have durable generation sentinels before admission. Inserts, updates, deletes, imports, corrections, and migrations follow the same locking contract.</p>
+
+<p>Predicates identify whether they inspect predecessor state or allocated state. The verifier repeats their evaluation at the appropriate point. Mixed database connections cannot substitute for one locked snapshot.</p>
+
+<p>Historical retrieval requires current read permission, independently of execution permission. Ordinary revocation can stop future effects while preserving access to prior receipts. A retroactive compromise finding can affect current reliance without altering authentic stored bytes.</p>
+
+<h3 id="85-event-ownership-and-projections">8.5 Event ownership and projections</h3>
+
+<p>The target event record commits atomically with the domain mutation and outbox. Deterministic projections expose their applied event cursor and source revision. Rebuilding a projection preserves original event identity and produces no external dispatch.</p>
+
+<p>Existing post-commit event fanout remains a separate implementation boundary. It cannot establish that every domain state is already a complete event projection. Migration requires a verified genesis snapshot, event coverage, and replay equivalence.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P03</code>, <code class="language-plaintext highlighter-rouge">P06</code>, <code class="language-plaintext highlighter-rouge">P09</code>, <code class="language-plaintext highlighter-rouge">P15</code>, <code class="language-plaintext highlighter-rouge">S02</code>, <code class="language-plaintext highlighter-rouge">S05</code>.</p>
+
+<h2 id="9-mass-operating-services-and-agent-applications">9. Mass: operating services and agent applications</h2>
+
+<h3 id="91-domain-service-contract">9.1 Domain service contract</h3>
+
+<p>Each service exposes typed commands, queries, events, and its authoritative aggregate. Its contract declares required authority, rule inputs, resource effects, idempotency scope, and external obligations. Service ownership follows the native primitive architecture.</p>
+
+<p>Sector modules cover formation, governance, ownership, employment, fiscal reporting, permits, licensing, trade, and asset operations. A module composes existing primitives and governed programs. It does not create an unreviewed path to provider accounts or another deployment’s state.</p>
+
+<p>Documents bind their template, data snapshot, program, and signing workflow. The artifact service preserves exact executed bytes. A later corrected document receives a new identity and an explicit relation to its predecessor.</p>
+
+<p>Notifications and webhooks use durable outboxes. They include event identity, resource, revision, destination, and payload commitment. Consumers deduplicate and maintain cursors. A failed notification does not roll back an already committed business fact.</p>
+
+<h3 id="92-agents-and-automation">9.2 Agents and automation</h3>
+
+<p>An installed agent has a publisher, package digest, requested capabilities, permitted data, resource budget, and accountable principal. Installation authorizes only the admitted capability set. Runtime delegation can narrow that set further.</p>
+
+<p>Schedulers create durable trigger records from timers, events, or explicit requests. Each trigger binds the rule version, input revision, and command namespace. Concurrent workers cannot execute the same trigger as separate economic instructions.</p>
+
+<p>Plans preserve assumptions, alternative actions, resource limits, and unresolved questions. Execution rechecks current admission instead of trusting an earlier plan. Resource budgeting spans concurrent commands that share one obligation or funding pool.</p>
+
+<p>Observations retain source, time, confidence or verification status, and permitted uses. Learning and telemetry cannot rewrite signed historical decisions. A promoted model or policy needs a new admitted version and bounded evaluation evidence.</p>
+
+<p>Agent shutdown preserves pending requests, outbox instructions, reservations, and continuations. Revoked agents can lose future action rights while the institution retains the evidence needed for recovery.</p>
+
+<h3 id="93-client-surfaces">9.3 Client surfaces</h3>
+
+<p>The API, SDK, Model Context Protocol tools, and user interface project the same capabilities and errors. A capability response identifies implemented modules and their selected profiles. Unconfigured operations remain unavailable.</p>
+
+<p>The organization workspace shows current records, required decisions, pending provider performance, and recoverable failures. The regulator console shows records within its mandate. Neither receives cross-entity or cross-jurisdiction access through an interface role alone.</p>
+
+<p>The application store publishes package provenance, declared effects, pricing, supported deployments, and required capabilities. Installation and fee acceptance are explicit records. A listing creates neither a regulatory license nor a provider mandate.</p>
+
+<h3 id="94-durable-application-records">9.4 Durable application records</h3>
+
+<p>The package manifest binds publisher, package bytes, dependency digests, requested capabilities, declared effects, and pricing. Publication creates a durable package record. A lost response returns that same record on exact retry.</p>
+
+<p>An installation grant binds organization, package version, principal, permitted operations, data scope, budgets, expiry, and governing approval. Upgrade creates a new admitted grant. Existing jobs retain their original package and grant history while they drain or transfer.</p>
+
+<p>A <code class="language-plaintext highlighter-rouge">WorkOrder</code> binds the authorized objective, immutable inputs, plan, permitted actions, budget, and unresolved assumptions. External documents remain evidence. They cannot change the work order’s permissions or signing principal.</p>
+
+<p>A <code class="language-plaintext highlighter-rouge">ScheduledFiring</code> binds schedule identity, rule revision, occurrence coordinate, job identity, and command key. Cancellation and dispatch contend on that same durable record. A lost commit response cannot create another firing.</p>
+
+<p>A co-sign request binds exact program bytes, target, current intent nonce, required principal-role tuples, threshold, and deadline. Signature completion does not establish current execution authority. Admission rechecks quorum, revocation, budget, and time at the selected boundary.</p>
+
+<p>A telemetry record binds event identity, source, payload commitment, and durable acknowledgement. Conflicting bytes under one identity enter an explicit conflict record. Learning proposals retain evaluation evidence and require separate promotion authority before operational use.</p>
+
+<h3 id="95-provider-callbacks-and-executed-documents">9.5 Provider callbacks and executed documents</h3>
+
+<p>Separate provider occurrence, transport delivery, and callback effect. The occurrence belongs to the provider’s admitted event namespace. A changed delivery timestamp or signature creates no additional occurrence.</p>
+
+<p>Freeze the effect plan at occurrence admission. Each effect identity is <code class="language-plaintext highlighter-rouge">(occurrence, effect_plan_digest, ordinal)</code>. Expected subject revisions remain admission conditions. Revalidation after unrelated state changes preserves that effect identity.</p>
+
+<p>Consent and templating share one <code class="language-plaintext highlighter-rouge">SigningSubmission</code> for the exact document, signer set, and provider submission. Signature completion and executed-artifact custody remain separate states. A dependent step advances only after its required custody check.</p>
+
+<p>A durable custody job retries retrieval of the same executed bytes. It never regenerates a signed document or starts a replacement signing submission. The receipt binds object version, digest, storage profile, and released waiting step.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P03</code>, <code class="language-plaintext highlighter-rouge">P05</code>, <code class="language-plaintext highlighter-rouge">P06</code>, <code class="language-plaintext highlighter-rouge">S01</code>, <code class="language-plaintext highlighter-rouge">S02</code>.</p>
+
+<h2 id="10-mass-sovereign-deployments-and-corridors">10. Mass: sovereign deployments and corridors</h2>
+
+<h3 id="101-deployment-manifest">10.1 Deployment manifest</h3>
+
+<p>The target manifest identifies the sovereign operator, deployment, jurisdiction, primary legal tradition, recognized authorities, packs, keys, and residency rules. It also declares provider adapters, storage ownership, recovery authorities, and permitted peer relations.</p>
+
+<p>Boot checks reject missing mandatory authority and tradition configuration. They verify pack digests and schema compatibility. A source type with a default value does not establish that this boot contract exists.</p>
+
+<p>Operational sovereignty means control over the deployment’s own normative and technical domain. It does not establish state recognition or immunity. External legal claims retain their own competent authorities and procedures.</p>
+
+<h3 id="102-directional-recognition">10.2 Directional recognition</h3>
+
+<p>A corridor is a governed relation between deployments. Each direction selects its accepted evidence, reserved questions, fees, limits, and dispute routes. Treat each direction as a separate admission policy.</p>
+
+<p>The corridor definition commits to participants, instruments, legal bases, trust anchors, rule maps, data permissions, settlement modes, and termination duties. Participant agreements accept exact definition bytes and record any permitted addenda.</p>
+
+<p>Activation requires the specified current approvals. Technical peer enrollment authenticates keys and endpoints. It does not itself activate legal recognition or payment authority.</p>
+
+<p>An accession instrument can reduce repeated negotiation through common terms and individual filings. The resulting relations still depend on effective notice, objections, exceptions, and the stated institutional assumptions. Software cannot assume universal reciprocal willingness.</p>
+
+<h3 id="103-cross-domain-operation">10.3 Cross-domain operation</h3>
+
+<p>The initiating deployment prepares the exact operation, resource commitment, local decision, and required disclosures. The receiving deployment verifies those records under its own current policy. Each records its own decision and reservation.</p>
+
+<p>Commit evidence binds the operation, both domains, nonce, epoch, resource commitments, and effective fences. Durable acknowledgement distinguishes local commit from remote commit. A best-effort notification cannot prove a joint result.</p>
+
+<p>A timeout alone does not prove that a remote participant failed to commit. The target recovery protocol retains locks until authenticated decisions or effective fencing exclude conflicting remote performance. It never invents atomic external settlement from a local state machine.</p>
+
+<p>Settlement instructions then pass to the appropriate licensed providers. Their acceptance, finality, return, and reconciliation remain distinct. A common final exchange is available only when the governing instruments and execution arrangements support it.</p>
+
+<h3 id="104-data-sovereignty">10.4 Data sovereignty</h3>
+
+<p>Classify payloads by category, jurisdiction, purpose, audience, and retention policy. Apply egress checks at every export path, including logs, telemetry, backups, model prompts, and support tooling. A standalone policy type cannot prove complete interception.</p>
+
+<p>Metadata exchange precedes confidential record disclosure. Disclosure names exact content and recipient. Recognition of evidence does not authorize unrestricted replication of the underlying personal or commercial data.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P01</code>, <code class="language-plaintext highlighter-rouge">P02</code>, <code class="language-plaintext highlighter-rouge">P06</code>, <code class="language-plaintext highlighter-rouge">P07</code>, <code class="language-plaintext highlighter-rouge">S02</code>.</p>
+
+<h2 id="11-moxie-claims-and-product-construction">11. Moxie: claims and product construction</h2>
+
+<h3 id="111-claim-definition">11.1 Claim definition</h3>
+
+<p>A claim binds issuer, governed instrument, entitlement, payoff program, settlement asset, legal profile, and resolution mode. Its content digest identifies one exact description. The continuing instrument identity survives through explicitly related amendments.</p>
+
+<p>The template pack defines a governed product family and its permitted structure. A typed claim graph records parties, rights, duties, conditions, and dependencies. Compilation validates that graph against the selected template.</p>
+
+<p>The compiled transition retains both financial meaning and institutional provenance. Product families use generic execution rules where their semantics permit. A new product still requires eligible authority, custody, funding, and settlement support.</p>
+
+<h3 id="112-payoff-evaluation">11.2 Payoff evaluation</h3>
+
+<p>The evaluator uses deterministic, bounded operations with exact admitted arithmetic. It checks overflow, scale, asset, sign, and rounding rules. Missing evidence produces a pending result rather than an invented value.</p>
+
+<p>Historical references point to declared earlier observations. Certified same-event extensions require an explicit dependency order and supporting certificate. Cycles obstruct same-event admission. Missing admissible observations suspend evaluation with retained dependencies and continuation state.</p>
+
+<p>Resolution records bind the input set, program, observation coordinates, result, and evidence. Path resolution can publish successive values without creating new payment entitlement each time. Terminal resolution fixes the value used by separately tracked holder redemptions.</p>
+
+<p>A probability-weighted discounted cash-flow model supplies valuation inputs. It declares its scenario law, information set, discount curve, and payment interpretation. Market value remains separate from contractual amount and cash held in custody.</p>
+
+<p>Historical reductions first select all scheduled members in the declared window. They then retrieve each member’s original type, resolution identity, and evidence. Missing members neither change the divisor nor supply zero.</p>
+
+<p>Compilation extracts complete data and control dependencies before optimization. It retains witnesses from zero-weight expressions and inactive branches when the source contract requires them. An auxiliary producer carries value evidence without acquiring a payment entitlement.</p>
+
+<p>A continuation binds its fixed program, context, lineage revision, completed instructions, pending inputs, cached typed intervals, evidence, and cumulative counters. Resume uses the current shared ledger. It cannot restore a stale ledger over an intervening payment.</p>
+
+<h3 id="113-issuance-and-reliance">11.3 Issuance and reliance</h3>
+
+<p>Mass provides issuance authority, claim terms, compliance evidence, and their governed revisions. Moxie checks their authenticity, current eligibility, revocation, and intended use. It does not independently replace the originating legal analysis with an unsupported local summary.</p>
+
+<p>The admitted reliance record binds the Mass source, claim, product profile, permitted parties, purposes, and finality assumptions. A later use checks its current admission conditions. Historical verification retains the original source and profile.</p>
+
+<p>A pooled claim also requires an entitlement ledger. The pool operator’s control does not establish beneficial ownership of every position. Transfer and redemption consume the exact admitted entitlement.</p>
+
+<h3 id="114-claim-lifecycle">11.4 Claim lifecycle</h3>
+
+<p>The target lifecycle separates authored, admitted, funded, tradeable, restricted, resolved, redeemable, and economically completed states. Restrictions can coexist with outstanding settlement. Completion requires a retained accounting of every applicable obligation and residual.</p>
+
+<p>An amendment preserves the original claim’s history and creates a governed successor description. It never rewrites a finalized payoff or payment. Corrections produce directed adjustment obligations with their own authority and funding.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P08</code>, <code class="language-plaintext highlighter-rouge">P09</code>, <code class="language-plaintext highlighter-rouge">P14</code>, <code class="language-plaintext highlighter-rouge">S01</code>, <code class="language-plaintext highlighter-rouge">S02</code>, <code class="language-plaintext highlighter-rouge">S05</code>.</p>
+
+<h2 id="12-moxie-consensus-custody-and-emergency-control">12. Moxie: consensus, custody, and emergency control</h2>
+
+<h3 id="121-consensus-scope">12.1 Consensus scope</h3>
+
+<p>Byzantine fault tolerance (BFT) names the profile’s declared tolerance of arbitrary validator faults. Validators agree on the complete native execution state. That state includes admitted event evidence, market effects, obligations, resources, pending instructions, and receipts. External uncertainty remains represented inside committed state.</p>
+
+<p>The consensus profile fixes committee membership, voting power, thresholds, cryptographic suites, fault assumptions, and activation rules. Verification uses the exact committee at the relevant coordinates. A later committee cannot silently replace the historical signer set.</p>
+
+<p>A quorum certificate proves the statement and threshold defined by its profile. It does not establish provider performance, legal recognition, or truth beyond its signed statement. Native finality proofs retain those limits.</p>
+
+<h3 id="122-parent-fixed-encrypted-order">12.2 Parent-fixed encrypted order</h3>
+
+<p>The proposed Event-Collect design commits the encrypted transaction order in an authenticated parent block. Decryption reveals instructions whose positions are already fixed. Event evidence can arrive while that reveal proceeds.</p>
+
+<p>Durable custody records preserve the encrypted item, complete signed envelope, and availability obligations. Custody identity, materialized envelope identity, and proposal-local conflict keys remain separate. The encrypted inner identity remains unknown until reveal.</p>
+
+<p>Certification alone does not establish readiness for execution. Readiness requires the selected availability, reveal, and admission conditions. A proposal conflict can defer inclusion while the item remains durably ready.</p>
+
+<p>Decryption duties bind the item, committee epoch, share identity, recipient, and applicable deadline. Missing responses produce the protocol’s explicit pending or timeout result. They do not permit an alternative plaintext or reordered execution.</p>
+
+<h3 id="123-closed-event-collections">12.3 Closed event collections</h3>
+
+<p>An event collection binds its query, authorized sources, response commitments, completeness rule, and closing evidence. The protocol validates the collection as a whole. It distinguishes adverse evidence from absent evidence.</p>
+
+<p>Execution reads the agreed collection and deterministic parent state. It produces the same resulting state or explicit pending result at every conforming validator. Replacing event evidence after execution requires a later governed transition.</p>
+
+<p>Ledger mutation commits atomically with duties, resource changes, and the durable external plan. External workers then dispatch that plan under its retained identities. Consensus can progress while external actions remain incomplete.</p>
+
+<p>The paper’s five-round lower bound concerns a specified protocol class. The parent-fixed construction lies outside that class. The bound does not establish a universal minimum for every implementation or deployed network.</p>
+
+<h3 id="124-signed-pause-and-resume">12.4 Signed pause and resume</h3>
+
+<p>The target emergency record binds chain, authority epoch, authority root, action scope, pause identity, effective position, and signatures. A resume names the exact pause it resolves. Current authority and replay checks apply at native execution.</p>
+
+<p>The restricted-operation phase (Phase-2) limits its exact governed action set. The continuity phase (Phase-3) permits only the settlement and recovery actions declared by the active emergency policy. Every phase retains its required conservation, authority, and evidence checks.</p>
+
+<p>Pause state belongs in canonical durable state and its commitment. Restart, snapshot restore, and state synchronization preserve the same active pause and authority generation. An API acknowledgement without enforced state behavior supplies no acceptance evidence.</p>
+
+<p>Two conflicting resumes, a stale authority root, or a resume for another pause must refuse. Ordinary transaction replay cannot reapply a superseded emergency act. Authorized rotation retains the previous record’s historical verification.</p>
+
+<h3 id="125-adoption-and-recovery">12.5 Adoption and recovery</h3>
+
+<p>A new wire format requires an explicit activation method. Fresh genesis and authenticated checkpoint migration are distinct options. The deployment record selects one and binds exact schema, source, binary, committee, and state commitments.</p>
+
+<p>Historical root functions retain their original meaning. Restore rejects unsupported active-state versions. A migration verifies all retained balances, obligations, custody, replay records, pending instructions, and emergency state before enabling writers.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P10</code>, <code class="language-plaintext highlighter-rouge">P09</code>, <code class="language-plaintext highlighter-rouge">P15</code>, <code class="language-plaintext highlighter-rouge">S02</code>, <code class="language-plaintext highlighter-rouge">S05</code>. Emergency implementation acceptance remains separately owned and unestablished by this brief.</p>
+
+<h2 id="13-moxie-markets-pricing-and-derivatives">13. Moxie: markets, pricing, and derivatives</h2>
+
+<h3 id="131-market-policy">13.1 Market policy</h3>
+
+<p>A market policy binds the instrument, payoff, assets, units, price ticks, mechanism, fees, authority, oracle, risk model, and legal clearing set. Activation requires compatible issuance, custody, funding, and settlement records. A compatibility refusal preserves the active policy and economic state. Admission, trading restrictions, and venue stage remain separate dimensions.</p>
+
+<p>Pricing snapshots and risk snapshots remain separate. Pricing identifies the valuation law, probabilities, curve, observations, and numerical error. Risk evaluates physical loss, liquidation impact, funding deadlines, and collateral deterioration.</p>
+
+<p>A market-implied probability can inform valuation. Using it as a physical forecast or margin offset requires separate calibration. The system records that additional assumption and its evidence.</p>
+
+<h3 id="132-order-books-and-automated-market-makers">13.2 Order books and automated market makers</h3>
+
+<p>A central limit order book matches admitted orders under deterministic price-time priority. An order binds account, market, side, quantity, price, expiry, route, fee ceiling, and current authority. It reserves the resources required for its possible fills.</p>
+
+<p>An order reports one state: reserved, resting, partially filled, filled, canceled, or expired. The proposed cancel-and-replace profile gives a successful replacement fresh priority. Failed replacement preserves the original order, reservation, and priority. Cancellation releases only the unfilled reservation. Protocol fees follow their separately admitted contract.</p>
+
+<p>An automated market maker maintains real reserves, liquidity-provider entitlements, encumbrances, fee balances, and a selected curve. A swap fixes exact input or output, slippage limit, maximum fee, and expiry. It checks all resulting balances before committing.</p>
+
+<p>A local multi-leg fill commits its balance, reserve, fee, position, and capital effects together. If that profile cannot support atomic completion, it advertises a different staged contract. A displayed quote is not reserved liquidity.</p>
+
+<p>Routing compares quantity-dependent cost, including fees, impact, funding, and settlement. Each route consumes reserved physical inventory. Ordinary and liquidation routes share that capacity across different certificate keys and accounts. Retain consumed-key tombstones and inventory generations after release. A new key cannot reserve already encumbered inventory.</p>
+
+<h3 id="133-batch-clearing">13.3 Batch clearing</h3>
+
+<p>A clearing batch fixes its input root, objective, constraints, rounding, deterministic tie-break, and work limit. Its certificate includes a solution, feasibility checks, and any claimed approximation or optimality bound. It also identifies funded settlement deltas.</p>
+
+<p>Work exhaustion returns <code class="language-plaintext highlighter-rouge">Deferred</code>. An infeasibility claim requires a verified infeasibility certificate. Deferred computation retains its escrow and intermediate state. Timeout cancellation releases exact unused reservations once. Terminal resolution accounts for pending batches before releasing pool assets or holder entitlements.</p>
+
+<p>Liquidity-provider withdrawal first calculates net entitlement after senior liabilities. It then checks available inventory after disjoint backing and depth reservations. Count each liability once in each applicable calculation. Insufficient availability prevents both share burn and transfer. A valuation increase creates no cash.</p>
+
+<h3 id="134-prediction-linked-pricing">13.4 Prediction-linked pricing</h3>
+
+<p>Prediction-linked pools declare how a forecast changes the price rule and reserves. The selected mechanism specifies signal bounds, fee treatment, reserve floors, and the aggregate trading budget. A bounded signal response alone does not establish truthful reporting.</p>
+
+<p>Two proposed profiles remain distinct. A reserve-reset profile changes the pricing parameter under a declared reserve rule. A funded-control profile makes an explicit sponsor transfer when the parameter changes.</p>
+
+<p>The funded profile shares sponsor cash reservations across pools. Each reservation binds the exact admissible pool revision and inventory. Commit both cash entries, the control, reservation consumption, and replay result together. A stale or unfunded control change refuses. Its conservation proof must include actual fees, withdrawals, deposits, and external flows.</p>
+
+<p>Budgets apply across all accounts using the pool, partial fills, and repeated signal updates. Each capacity record binds one pool and horizon. The incentive analysis includes outside trading exposure and sponsor interests. Order splitting cannot reset a pool-wide extraction limit.</p>
+
+<h3 id="135-joint-event-inference">13.5 Joint-event inference</h3>
+
+<p>An inference snapshot binds event definitions, aligned observations, quote provenance, sampling assumptions, drift evidence, confidence allocation, and numerical bounds. It also names the inferred quantity.</p>
+
+<p>Joint-event prices can identify effective pair dependence under stated conditions. They do not generally identify every direct interaction in a larger network. Unsupported identification claims return an explicit nonidentified result.</p>
+
+<p>Zero cells can produce boundary estimates with infinite endpoints. A globally infeasible probability specification requires a separate refusal. Preserve nonidentification and full-law drift bounds. Window selection follows a declared catalog and simultaneous confidence budget. Approximate numerical evaluation reports an enclosure or error bound rather than unsupported exactness.</p>
+
+<p>Risk offsets require additional physical calibration and stress evidence. A fitted pricing model does not independently authorize lower collateral or larger positions.</p>
+
+<h3 id="136-perpetual-positions-and-funding">13.6 Perpetual positions and funding</h3>
+
+<p>A position generation binds account, market, signed size, entry price, settlement asset, margin, funding index, accrued funding, realized claims, and lifecycle. One active generation can coexist with retained unsettled generations.</p>
+
+<p>Before changing size or side, crystallize funding at the old size. Add that amount to durable accrued funding. Reset the entry index in the same transition.</p>
+
+<p>Funding settlement reduces the accrued amount only through an actual committed settlement. Insufficient margin leaves a residual. Positive accrued funding denotes an amount owed by the position under the proposed convention.</p>
+
+<p>A zero-size generation persists while margin, funding, or another claim remains. Reopening creates a new generation. Account equity includes all unsettled generations, so changing an active pointer cannot hide debt or credit.</p>
+
+<p>The same rules apply to reductions, closes, liquidations, and automatic deleveraging. A profit haircut reduces an eligible claim. It does not independently debit posted margin or supply cash.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P08</code>, <code class="language-plaintext highlighter-rouge">P11</code>, <code class="language-plaintext highlighter-rouge">P12</code>, <code class="language-plaintext highlighter-rouge">P13</code>, <code class="language-plaintext highlighter-rouge">S02</code>, <code class="language-plaintext highlighter-rouge">S05</code>, <code class="language-plaintext highlighter-rouge">S06</code>.</p>
+
+<h2 id="14-moxie-clearing-collateral-and-liquidity">14. Moxie: clearing, collateral, and liquidity</h2>
+
+<h3 id="141-ordered-obligation-ledger">14.1 Ordered obligation ledger</h3>
+
+<p>The clearing ledger retains each original duty, its authority, terms, occurrence basis, and ordered quantity portions. A representation can aggregate adjacent portions without changing their order. Split, merge, or migration preserves original economic identity.</p>
+
+<p>An allocation binds the payment occurrence, source account, asset, quantity, destination duties, and excess partition. One shared record limits total attribution across claims. Repeated evidence or aliases cannot create additional supported payment.</p>
+
+<p>The proposed obligation command has three typed branches: Duty, Physical, and Authority. Each branch supplies its own admissibility rules and effect semantics. All branches use the same command identity, serialization, conservation, and receipt discipline.</p>
+
+<p>An unresolved payoff remains a continuing duty with its retained program and evidence. It is not converted into zero liability. A later resolution creates the payable amount under the original identity and history.</p>
+
+<h3 id="142-collateral-and-margin">14.2 Collateral and margin</h3>
+
+<p>A collateral lot records asset, owner, custodian, funded quantity, senior encumbrances, reservations, haircut, conversion route, and availability deadline. Eligibility and valuation remain separate from actual custody and liquid availability.</p>
+
+<p>The risk snapshot covers the complete portfolio and admitted legal netting set. It includes liquidity-provider exposure, unsettled funding, dependence stress, depegs, provider failure, and liquidation depth. A pairwise discount cannot replace that aggregate calculation.</p>
+
+<p>The margin requirement is the maximum of independently admitted floors, stress, and applicable model requirements. The exact components belong to the versioned policy. A margin call remains a receivable until actual payment supports it.</p>
+
+<h3 id="143-persistent-model-health">14.3 Persistent model health</h3>
+
+<p>Model health records one state: uninitialized, healthy, or degraded. It retains the previous valid requirement, model and evidence identities, portfolio root, numerical bounds, and recovery history.</p>
+
+<p>A degraded account retains the previous committed requirement and the current independent floor, stress, and physical-risk requirements. Each update takes their maximum. The retained requirement therefore cannot fall during degradation.</p>
+
+<p>The account refuses increased risk and withdrawals. Authorized settlement and exposure reduction remain subject to conservation and current authority.</p>
+
+<p>An uninitialized account cannot assume a zero historical requirement. Initialization requires a complete admitted evaluation of the current portfolio. Missing historical information remains identified.</p>
+
+<p>A fresh healthy evaluation does not establish an unknown prior collateral requirement. Legacy collateral remains unavailable for release until the risk owner reconstructs its required history. Current risk initialization and legacy release eligibility are separate states.</p>
+
+<p>Recovery requires complete recomputation, independent checks, and governing risk approval. One successful model call cannot clear the degraded state. The actual withdrawal route must enforce the same policy as the margin service.</p>
+
+<h3 id="144-liquidation-and-default">14.4 Liquidation and default</h3>
+
+<p>Liquidation fixes the affected positions, evidence snapshot, permitted routes, and executable depth. It records actual proceeds, fees, remaining margin, and residual claims. Estimates do not count as realized liquidation proceeds.</p>
+
+<p>The proposed waterfall applies available loss-bearing collateral, dedicated clearing capital, eligible funded insurance, capped survivor contributions, and eligible profit-claim reductions. Any remaining deficit stays explicit. This economic ordering requires separate governing selection.</p>
+
+<p>Simultaneous defaults use one snapshot and proceed level by level. The clearing ledger consumes each funded reserve once. Deterministic allocation preserves seniority, caps, and existing reservations.</p>
+
+<p>Automatic deleveraging reduces eligible unpaid profit claims. It supplies no immediate cash. A zero accounting deficit does not establish payment by a provider or receipt by a beneficiary.</p>
+
+<p>Collateral whose value depends on the same liquidity supporting clearing requires explicit coupled stress analysis. Forced withdrawals can damage that support. External collateral and withdrawal restrictions address specified mechanisms but do not eliminate all price or position losses.</p>
+
+<h3 id="145-funding-and-foreign-exchange">14.5 Funding and foreign exchange</h3>
+
+<p>A funding policy binds one feasible currency vector, deadlines, contingent actions, provider dependencies, quotes, inventory, expiry, and return rules. It reserves source cash and destination inventory under that same policy.</p>
+
+<p>Componentwise minima from different feasible policies do not define one executable plan. Funding admission selects and retains a complete policy. Competing commands share its resource reservations.</p>
+
+<p>Local Moxie inventory effects commit in the native state batch. Mass supplies authenticated requests and provider observations. A PostgreSQL observation cannot commit Moxie inventory.</p>
+
+<p>External foreign exchange uses durable preparation, truthful performance observations, and recovery. A provider timeout preserves the reservation and uncertainty. Returned payments retain original attribution and require fresh replacement funding.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P05</code>, <code class="language-plaintext highlighter-rouge">P08</code>, <code class="language-plaintext highlighter-rouge">P09</code>, <code class="language-plaintext highlighter-rouge">P12</code>, <code class="language-plaintext highlighter-rouge">P15</code>, <code class="language-plaintext highlighter-rouge">S05</code>, <code class="language-plaintext highlighter-rouge">S06</code>.</p>
+
+<h2 id="15-moxie-physical-assets-and-allocated-title">15. Moxie: physical assets and allocated title</h2>
+
+<h3 id="151-physical-title-records">15.1 Physical title records</h3>
+
+<p>Allocated title connects ownership to identified physical property. The record binds the governing instrument, original right, custodian, location, asset specification, quantity, unit, and restrictions. Physical custody and legal effect require the stated external evidence.</p>
+
+<p>The physical ledger distinguishes owned quantity, accepted delivery, reserved quantity, shortage, lien, sale, unpaid proceeds, and continuing delivery duties. Lending or pledging property records the resulting rights and obligations explicitly.</p>
+
+<p>A sale that transfers title while payment remains incomplete retains the unpaid proceeds obligation. A delivery shortage preserves the missing quantity. Software representation changes do not erase either duty.</p>
+
+<h3 id="152-physical-producer-contract">15.2 Physical producer contract</h3>
+
+<p>The proposed physical producer binds original issuance, contract, occurrence, cohort, position lot, local schedule, accepted-value source, and earned leg. Each cohort receives a fresh lot. All cohorts consume one original quantity allowance.</p>
+
+<p>Acceptance checks role evidence, disjoint occurrence intervals, exact unit conversion, remaining original quantity, and immutable price. It derives the earned amount and requires the admitted payoff evaluator to agree.</p>
+
+<p>The producer identity retains issuance, position lot, local height, and leg. Equal local heights in different cohorts remain distinct through their lots. A fresh lot does not authorize additional original quantity.</p>
+
+<p>Capacity exhaustion refuses without consuming the physical interval or creating a due. A separately admitted successor can accept the next interval if original capacity remains. Corrections preserve previously consumed physical quantity.</p>
+
+<h3 id="153-exchange-and-correction">15.3 Exchange and correction</h3>
+
+<p>A common final exchange requires governing instruments and execution arrangements that couple title and payment. Without those premises, the system records each completed leg and the outstanding delivery or recovery duty.</p>
+
+<p>Late corrections refer to the original target, its paid history, and the competent amendment. A reduction after payment creates a reverse obligation for the difference. It does not rewrite the earlier payment or recreate consumed credit.</p>
+
+<p>The corrected 130-cohort witness uses 128 acceptances per cohort. Its occurrence supports the entire interval [0, 20000), so capacity is the only failing predicate in each overflow request. One original right of 20,000 units yields 16,640 accepted units and 3,360 remaining units. At price 10, original earned amounts total 166,400 units of money.</p>
+
+<p>Those quantities specify an unexecuted acceptance witness. They provide no physical custody, provider, or runtime evidence. The exact cohort and correction tests appear in section 26.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P08</code>, <code class="language-plaintext highlighter-rouge">P09</code>, <code class="language-plaintext highlighter-rouge">P14</code>, <code class="language-plaintext highlighter-rouge">S05</code>.</p>
+
+<h2 id="16-recourse-sovereign-nodes-and-institutional-trust">16. Recourse: sovereign nodes and institutional trust</h2>
+
+<h3 id="161-three-components">16.1 Three components</h3>
+
+<p>Recourse Service administers the complete dispute lifecycle. Recourse Trust Infrastructure verifies and preserves authority, evidence, custody, conflicts, and restrictions. Recourse Execution Protocol carries outcomes and instructions to independently governed destinations.</p>
+
+<p>Each sovereign node owns its database, identity, institutions, rules, keys, and peer configuration. A node can operate independently. The common protocol connects discovery, referral, disclosure, adjudication, recognition, execution, and recovery.</p>
+
+<p>Anguilla, UAE, USA, and Botswana are candidate initial node configurations. This identifies planning scope. It establishes no operating institution, government approval, signed mandate, or live deployment.</p>
+
+<h3 id="162-node-configuration">16.2 Node configuration</h3>
+
+<p>The node manifest binds network, node, operator, jurisdiction, institutions, rule profiles, trusted signers, supported modules, peers, storage, and recovery policy. The database pins one sovereign identity. A request cannot install a new trust root.</p>
+
+<p>Node jurisdiction, institution, arbitration seat, governing law, party jurisdiction, Mass zone, and Moxie chain remain separate fields. Discovery exposes supported profiles and capabilities without revealing private cases.</p>
+
+<p>Peer configuration pins a peer identity, keys, permitted purposes, source rules, and fixed endpoint policy. Authentication of a peer does not imply recognition of its outcomes. The receiver makes a separate recognition decision.</p>
+
+<h3 id="163-principals-and-permissions">16.3 Principals and permissions</h3>
+
+<p>Distinct roles include party, representative, software agent, administrator, institution, tribunal member, reviewer, executor, beneficiary, and reconciler. Each role requires the relevant appointment, delegation, or mandate.</p>
+
+<p>Access grants bind tenant, actor, case or claim scope, operations, validity, and revocation. Case reads require the complete permitted read scope. A submit-only action returns a minimal receipt instead of a full case snapshot.</p>
+
+<p>An administrator can manage permitted records. That credential cannot create a human award or override an independent conflict decision. Several keys controlled by one principal do not satisfy a multiparty quorum.</p>
+
+<h3 id="164-signature-contract">16.4 Signature contract</h3>
+
+<p>The current builder’s signature scheme uses Ed25519 over a purpose-separated statement and canonical JSON. Its statement binds network, node, tenant, institution profile, case, purpose, exact payload digest, and validity.</p>
+
+<p>The target retains this exact-byte discipline and permits explicit future suite profiles. Signers approve the displayed action and complete prior-state commitment. The service holds no principal signing key by default.</p>
+
+<p>Every protocol action signs its expected revision and prior protocol-state digest. Outcome signatures also bind the selected evidence records in their declared order. The verifier rejects changes to that signed state or evidence context. A valid prefix still needs independent completeness and currentness evidence.</p>
+
+<h3 id="165-artifact-custody">16.5 Artifact custody</h3>
+
+<p>Artifact custody preserves exact bytes, algorithm, digest, media type, size, uploader, source, and receipt time. SHA-256 and BLAKE3 remain distinct. Protocol references require verified prior custody where their checks depend on the bytes.</p>
+
+<p>Custody does not prove authenticity, admissibility, or the truth of a document. Those findings identify their competent verifier and supporting evidence. A corrected submission appends a new record without modifying the original artifact.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P15</code>, <code class="language-plaintext highlighter-rouge">S01</code>, <code class="language-plaintext highlighter-rouge">S03</code>, <code class="language-plaintext highlighter-rouge">S04</code>.</p>
+
+<h2 id="17-recourse-complete-case-and-procedure-lifecycle">17. Recourse: complete case and procedure lifecycle</h2>
+
+<h3 id="171-filing-and-consent">17.1 Filing and consent</h3>
+
+<p>A case contains parties, representation, agreement, institution, seat, law, heads of claim, related native objects, and evidence references. Each head identifies its requested relief, affected subjects, amount or quantity, and dependencies.</p>
+
+<p>Filing records the submitter’s assertions. Consent separately binds the complete filing, parties, claims, agreement, rules, seat, law, and institution. It also identifies principals permitted to administer, review, execute, and reconcile.</p>
+
+<p>Each head records its parties and jurisdictional basis. A separate inquiry mandate can authorize examination of disputed consent or capacity. That mandate grants no merits authority.</p>
+
+<p>Jurisdiction findings identify the competent decision maker and exact scope. They preserve contested points and available review. Identity, filing acceptance, and matching with counsel cannot substitute for jurisdiction or consent.</p>
+
+<h3 id="172-service-notice-and-deadlines">17.2 Service, notice, and deadlines</h3>
+
+<p>Service records distinguish dispatch evidence, delivery observations, and a competent finding of sufficient service. The adopted rule profile determines which event starts each deadline. Receipt time and legally effective service time remain separate.</p>
+
+<p>Notices bind the affected claims, proposed procedure or decision, recipients, content, and response period. Objections and challenge windows are effective gates. A worker cannot advance a deadline merely because a notification job completed.</p>
+
+<p>Deadline corrections preserve the original calculation and the authority for the new result. Missing or contested service evidence produces a pending requirement or an adjudicative question.</p>
+
+<h3 id="173-procedure-selection">17.3 Procedure selection</h3>
+
+<p>The procedure engine distinguishes bounded record resolution, expedited tribunal proceedings, and full tribunal proceedings. A routing assessment proposes a procedure from the claim and adopted rules. A competent act adopts it after required notice and objections.</p>
+
+<p>Record queries answer bounded factual questions against identified records. An affected party can request upward routing without grounds or leave. The request preserves lower-tier records as evidence. Downward routing requires every affected party’s written agreement. Contested record integrity requires the full tribunal route.</p>
+
+<p>Different heads can require different procedures. The case retains their dependency graph, common evidence, and restrictions. A resolved head does not silently resolve every related head.</p>
+
+<h3 id="174-appointment-disclosure-and-conflicts">17.4 Appointment, disclosure, and conflicts</h3>
+
+<p>Appointment binds institution authority, selected person, role, claims, rule profile, and term. Acceptance is a separate signed act. Qualifications distinguish declared information from verified credentials.</p>
+
+<p>Neutrals disclose conflicts and relevant relationships. Challenges identify their basis and affected decisions. An independent authorized reviewer decides the challenge under the adopted rules.</p>
+
+<p>A dated conflict record preserves actual control, material relationships, source evidence, and affirmative coverage. Distinct identifiers do not prove independence. Missing relationship evidence creates an obstruction. The competent appointment or review process determines the remedy.</p>
+
+<p>A representative cannot become the same matter’s neutral through a directory role change. Institutional administration cannot waive a required independent decision. Replacement preserves prior proceedings and states which acts remain effective.</p>
+
+<h3 id="175-ai-assisted-case-work">17.5 AI-assisted case work</h3>
+
+<p>AI systems can organize evidence, prepare submissions, identify discrepancies, and draft analyses within a delegated scope. Each work record retains actor, mandate, inputs, model or tool provenance, output, and subsequent human decision where required.</p>
+
+<p>Automated analysis remains distinguishable from an institutional determination or human-signed award. The system retains cited evidence and material uncertainty. Retrieved documents cannot enlarge a software agent’s authority.</p>
+
+<h3 id="176-outcomes-and-restrictions">17.6 Outcomes and restrictions</h3>
+
+<p>Determinations, awards, and settlements use different record types. An award requires the valid accepted tribunal and its required human signatures. A settlement requires the parties’ applicable consent. An independently binding settlement uses its own contractual basis and need not depend on adopted arbitration procedure.</p>
+
+<p>An outcome binds claims, relief, reasoning or reasons artifact, evidence, effective terms, challenge route, and obligations. It distinguishes ordered performance from value already recovered. Later corrections create signed successors and explicit adjustment duties.</p>
+
+<p>Stays can impose, vary, or lift restrictions over specified claims, assets, acts, and periods. Each stay binds its predecessor and competent authority. Current effect eligibility evaluates all controlling restrictions and their precedence.</p>
+
+<p>Disposition can close, dismiss, supersede, or complete proceedings. <code class="language-plaintext highlighter-rouge">DispositionKind::Completed</code> means that proceedings are complete under the adopted procedure. It does not require economic recovery or discharge unpaid obligations.</p>
+
+<p>Every disposition preserves obligation identities, execution history, and unresolved recovery. Execution completion and recovered quantity remain separate derived facts. Their values require independently verified performance evidence.</p>
+
+<h3 id="177-fees">17.7 Fees</h3>
+
+<p>Fee records bind schedules, quotes, payer, beneficiary, accepted terms, node attribution, protocol attribution, and applicable provider instructions. The adopted instrument determines each entitlement. The design supplies no default commercial rate.</p>
+
+<p>A charge remains distinct from payment and provider receipt. Returned fees preserve original attribution and any refund obligation. Practitioner compensation and tribunal compensation remain separately authorized.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P15</code>, <code class="language-plaintext highlighter-rouge">S01</code>, <code class="language-plaintext highlighter-rouge">S03</code>, <code class="language-plaintext highlighter-rouge">S04</code>.</p>
+
+<h2 id="18-recourse-network-exchange-and-recognition">18. Recourse: network exchange and recognition</h2>
+
+<h3 id="181-discovery-and-referral">18.1 Discovery and referral</h3>
+
+<p>Signed discovery exposes node, institution, practitioner, and destination capabilities with exact profile versions. Matching identifies eligible choices and explains the relevant criteria. It does not appoint a tribunal or confer representation.</p>
+
+<p>A referral first discloses permitted metadata. It binds source, recipient, case reference, purpose, expiry, and exact content. Both parties authorize the disclosures required by the selected contract.</p>
+
+<p>Receiving acceptance is a signed local decision. A transport receipt only proves receipt of a message under its declared semantics. Opening a receiving case creates a new local identifier and immutable source mapping.</p>
+
+<p>The new case does not inherit source consent or jurisdiction automatically. Local adoption establishes its own authority and procedure. Source and receiving records remain independently auditable.</p>
+
+<h3 id="182-withdrawal-and-message-ordering">18.2 Withdrawal and message ordering</h3>
+
+<p>A withdrawal can arrive before its referral. The receiver authenticates it and stores a durable tombstone under the stable referral identity. A later referral cannot revive the withdrawn request.</p>
+
+<p>Attempt records retain exact bytes, endpoint, time, response, and uncertainty. Restart preserves withdrawals, accepted decisions, and pending delivery. A timeout cannot erase a receiving decision whose acknowledgement was lost.</p>
+
+<h3 id="183-portable-outcomes">18.3 Portable outcomes</h3>
+
+<p>A portable outcome includes the exact source record, required procedural history, evidence, rule snapshots, signatures, and disclosure authority. The source institution seals the disclosed snapshot. The receiver verifies it against independently configured trust.</p>
+
+<p>History verification replays signatures, derived signers, prior-state commitments, source context, and rule versions. It checks the completeness of required stays, challenges, appointments, and evidence. Unsupported historical rule migrations produce an explicit obstruction.</p>
+
+<p>The proposed <code class="language-plaintext highlighter-rouge">SourceCutEvidence</code> binds case revision, case digest, protocol head, assertion time, validity, and completeness authority. The source produces the case and head atomically. Historical profile versions remain available for verification.</p>
+
+<p>Recognition binds the exact disclosed snapshot, receiving policy, purposes, scope, and decision maker. It does not prove that the snapshot is the latest source state. It also does not itself authorize an economic effect.</p>
+
+<h3 id="184-current-source-and-revocation-checks">18.4 Current-source and revocation checks</h3>
+
+<p>Execution admission obtains the freshness evidence required by the destination policy. A source can supply a signed current head, restriction status, or narrowly scoped authority lease. The policy states the interval and failure behavior.</p>
+
+<p>A disconnected node cannot assert knowledge of unseen legal changes. It either uses an admitted bounded freshness contract or refuses the dependent action. Availability assumptions remain visible in the effect’s evidence.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P06</code>, <code class="language-plaintext highlighter-rouge">P07</code>, <code class="language-plaintext highlighter-rouge">P15</code>, <code class="language-plaintext highlighter-rouge">S03</code>, <code class="language-plaintext highlighter-rouge">S04</code>.</p>
+
+<h2 id="19-recourse-client-interfaces-and-lawyer-application">19. Recourse: client interfaces and lawyer application</h2>
+
+<h3 id="191-one-contract-across-clients">19.1 One contract across clients</h3>
+
+<p>The HTTP API provides versioned requests, bounded bodies, explicit revisions, stable mutation identities, and durable result retrieval. Generated OpenAPI describes mounted operations. Runtime discovery removes operations that lack a configured required module.</p>
+
+<p>The TypeScript SDK uses that exact schema and preserves native errors, identifiers, and amounts. It does not choose new economic identities after timeout. It exposes preparation separately from signed submission.</p>
+
+<p>The Model Context Protocol server provides real bounded tools over the same API. It declares read and write effects. Credentials remain outside tool arguments and logs.</p>
+
+<p>Mutations require explicit signed action content and idempotency keys. Client preparation does not sign or approve an action. A protocol replay returns a permitted original receipt without bypassing current disclosure restrictions.</p>
+
+<h3 id="192-lawyer-and-client-matching">19.2 Lawyer and client matching</h3>
+
+<p>Practitioner profiles contain jurisdiction, practice, language, qualifications, availability, fees, and conflicts disclosures. Verified qualifications identify their verifier and validity. Self-declared experience remains labeled.</p>
+
+<p>A client creates a private matter and reviews suitable practitioners with explanations. Selection authorizes disclosure only to the selected recipient and content scope. Representation begins through explicit acceptance and authority records.</p>
+
+<p>Representation, fee acceptance, conflicts review, case access, and tribunal appointment remain separate acts. A matching score creates none of those powers. Declining representation preserves the matter’s privacy and retained consent history.</p>
+
+<h3 id="193-case-workspace">19.3 Case workspace</h3>
+
+<p>The workspace displays case heads, evidence, procedure, deadlines, appointments, outcomes, restrictions, execution, and recovery. It identifies the next required action and its permitted signer. Pending external performance remains visible.</p>
+
+<p>Users can select independent signers or import externally signed actions. The interface displays the exact action and affected objects before signing. It prevents silent account or beneficiary substitution between preparation and submission.</p>
+
+<p>Empty, restricted, unavailable, and failed states have actionable explanations. Demonstration data remains identified. A local preview does not establish a hosted service or operating sovereign venue.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">S03</code>, <code class="language-plaintext highlighter-rouge">S04</code>, <code class="language-plaintext highlighter-rouge">P15</code>.</p>
+
+<h2 id="20-integrated-contract-outcome-to-exact-destination-effect">20. Integrated contract: outcome to exact destination effect</h2>
+
+<h3 id="201-three-execution-paths">20.1 Three execution paths</h3>
+
+<p>A voluntary native transfer uses the source account’s authority over exact native transaction bytes. Recourse additionally verifies its outcome, executor, obligor, beneficiary, mandate, and account mapping. The native transfer proves only its specified native effect.</p>
+
+<p>A certified event resolution uses the destination’s event authority, quorum certificate, oracle conditions, and current policy. An arbitration award cannot substitute for the required native certificate. Event resolution does not itself establish an award payment.</p>
+
+<p>A general award carrier is a proposed destination capability. The destination must recognize the adjudicating authority and grant the exact requested power. Recourse administration or a tribunal signature cannot supply a missing destination debit authority.</p>
+
+<h3 id="202-proposed-award-effect-record">20.2 Proposed award-effect record</h3>
+
+<p>The logical contract below has no allocated native wire identifier:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AwardEffect {
+  schema, effect_id, effect_digest,
+  case_id, head_ids, outcome_id, award_digest,
+  obligation_id, satisfaction_group_id, relief_id,
+  predecessor_or_supersession,
+  destination_domain, chain_or_zone, genesis_or_store,
+  destination_object, selected_contract_revision,
+  capability_profile_digest, native_schema_revision,
+  legal_policy, dispute_policy, finality_policy, recovery_policy,
+  recognition_or_execution_mandate,
+  tribunal_and_appointment_evidence,
+  executor, obligor, beneficiary,
+  identity_to_account_bindings,
+  action_kind, asset, exact_quantity, unit,
+  affected_property, prerequisites,
+  current_authority_generation, restriction_checkpoint,
+  validity_basis, effective_interval,
+  exact_instruction_bytes, native_digest, signing_context,
+  independently_expected_proof_coordinates,
+  required_recovery_evidence
+}
+</code></pre></div></div>
+
+<p>The effect digest commits to the complete economic meaning. Its identity remains stable across transport attempts, endpoint aliases, and adapter revisions. Changed meaning under the same identity is a conflict.</p>
+
+<p>The beneficiary signs or supplies an admitted mandate for the exact destination binding. This prevents substitution of a collector’s address or another asset. The destination verifies ownership, custody, encumbrances, and the requested power independently.</p>
+
+<p>An ordinary native transaction may lack a stable award-effect field. In that case, recovery retains its exact bytes and nonce while performance remains unresolved. A replacement transaction requires explicit linkage and new admission against the remaining obligation.</p>
+
+<h3 id="203-destination-acceptance">20.3 Destination acceptance</h3>
+
+<p>The destination verifies the selected contract, exact instruction, authority, restrictions, resources, replay identity, and current generation. A proposed native carrier repeats these checks at application. Sender-side preflight cannot establish destination admission.</p>
+
+<p>The acceptance transaction atomically records the stable effect identity, accepted intent, local effect, result, and receipt. It also creates any continuing duties or outbox instructions. A refusal changes none of the protected economic state.</p>
+
+<p>For Mass, the proof must expose the signed claim preimage and bind outcome, obligation, action, destination, authority, and actual allocation. The destination exports each generated commit identifier and its verification context when the caller cannot reconstruct them.</p>
+
+<p>For Moxie, the native batch commits the exact effect and its receipt. The finality proof then binds that receipt to the selected chain and committee context. A later proof can be pending without repeating an already committed effect.</p>
+
+<h3 id="204-dispatch-and-uncertainty">20.4 Dispatch and uncertainty</h3>
+
+<p>The sender commits intent, reservations, event, replay record, and outbox before dispatch. The worker commits an attempt before network submission. It retains the exact instruction and selected destination profile.</p>
+
+<p>Immediately before submission, the worker rechecks current authority, stays, expiry, and lease. Its local serialized barrier excludes competing local changes during bounded submission. It cannot exclude an unseen foreign legal change without an admitted freshness contract.</p>
+
+<p>A timeout or lost response enters <code class="language-plaintext highlighter-rouge">OutcomeUnknown</code>. The sender reconciles that exact instruction. It does not create a fresh economic identity or release possible exposure.</p>
+
+<p>A stay after dispatch cannot recall an ordinary already-sent transaction. The system preserves uncertainty and later performance evidence. Cancellation requires proof of no dispatch or effective prevention of the effect. A signed <code class="language-plaintext highlighter-rouge">delivered=false</code> statement alone records absence at its stated observation cut. It supplies no permanent closure.</p>
+
+<p>Replacement after uncertainty requires an authoritative complete source cut with no remaining original-command exposure. An effective fence rejects delayed and replayed original instructions. One protected transition binds closure to the sole admitted successor command.</p>
+
+<p>The closure receipt retains original identity, exact request, source cut, consumed capacity, fence evidence, successor binding, and resulting obligation state. Reopening remains <code class="language-plaintext highlighter-rouge">ReopenPending</code> until the original ledger and required current admissions commit.</p>
+
+<h3 id="205-native-finality-verification">20.5 Native finality verification</h3>
+
+<p>Verification retains exact native binary bytes, transaction hash, signing digest, nonce, epoch, and signature suite. Money preserves the native asset, raw integer, and scale. A human decimal representation is a separate projection.</p>
+
+<p>The verifier uses independently expected chain, genesis, block, state root, receipt root, transaction position, phase, and effect coordinates. It pins the applicable committee and trust profile. The response cannot choose its own trusted committee.</p>
+
+<p>Receipt inclusion and a consensus decision prove only their defined native statement. Advisory legal envelopes require separate reliance verification. A proof without an independently bound chain domain cannot establish that association by itself.</p>
+
+<p>The verifier also compares the selected SDK or adapter revision exactly. A nonempty revision string does not establish equality with the selected revision. Unsupported proof formats or missing signed fields leave finality unverified.</p>
+
+<h3 id="206-recovery-and-shared-satisfaction">20.6 Recovery and shared satisfaction</h3>
+
+<p>A satisfaction group joins all claims and collectors that can satisfy the same liability. It tracks current authorized quantity, confirmed recovery, recognized noncash satisfaction, and unresolved reserved exposure. All participants use one authoritative attribution model.</p>
+
+<p>New exposure cannot exceed the remaining quantity after those deductions. Timeout releases none. Partial performance moves only its authenticated portion from reserved exposure to recovered value.</p>
+
+<p>Every recovery record identifies the original occurrence, provider, posting, asset, unit, quantity slice, and reconciliation authority. Duplicate or contradictory evidence remains recorded. It cannot receive a second economic credit.</p>
+
+<p>An award reduction after recovery creates an explicit refund or adjustment duty. It does not rewrite the recovered history. Legal completion and financial recovery remain independently reported.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P05</code>, <code class="language-plaintext highlighter-rouge">P08</code>–<code class="language-plaintext highlighter-rouge">P10</code>, <code class="language-plaintext highlighter-rouge">P14</code>, <code class="language-plaintext highlighter-rouge">P15</code>, <code class="language-plaintext highlighter-rouge">S03</code>–<code class="language-plaintext highlighter-rouge">S05</code>.</p>
+
+<h2 id="21-integrated-contract-complete-custody-transfer">21. Integrated contract: complete custody transfer</h2>
+
+<h3 id="211-transfer-scope">21.1 Transfer scope</h3>
+
+<p>A transfer of live work preserves more than a case balance or output value. It includes every relevant namespace, pending computation, economic journal, reservation, undelivered message, authority requirement, and evidence route.</p>
+
+<p>The namespace registry identifies each authority that issues case, command, obligation, payment, and contribution-right identities. Each authority certifies its scope and complete retained prefix. An empty local list is not completeness evidence.</p>
+
+<h3 id="212-proposed-custody-cut-record">21.2 Proposed custody-cut record</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CustodyCut {
+  transfer_id, source_owner, successor_owner,
+  source_generation, successor_generation,
+  namespace_registry_revision, namespace_inventory,
+  authenticated_complete_prefixes,
+  live_machine_records, checked_continuations,
+  canonical_economic_journals,
+  funded_resources, owners, restrictions,
+  duty_reservations, cash_reservations,
+  pending_deliveries, received_deduplication_records,
+  future_action_authorities,
+  evidence_custody, disclosure_duties, notice_routes,
+  preparation_head, admitted_deltas, sealed_cut_digest,
+  decoder_acceptance, custody_acceptance,
+  effective_fence_evidence, external_freshness_anchor
+}
+</code></pre></div></div>
+
+<p>Duty identity retains issuer namespace, constituting act, and occurrence index. A new administrator, family name, or template does not create a replacement original. Economic amendments require separately admitted acts.</p>
+
+<p>Duty reservations prevent double satisfaction. Cash reservations secure possible spending. The successor receives both with their original identities, restrictions, and owners.</p>
+
+<p>An evaluator can finish before its duty-creation message reaches the obligation ledger. The cut must retain that message and its original delivery identity. Complete local prefixes alone cannot prove that no such message exists.</p>
+
+<h3 id="213-transfer-protocol">21.3 Transfer protocol</h3>
+
+<ol>
+  <li>Prepare the namespace inventory, source heads, transfer authority, and proposed successor.</li>
+  <li>Fence new predecessor initiation at the declared generation.</li>
+  <li>Continue observation and reconciliation of previously sent instructions.</li>
+  <li>Transfer the complete cut and verify the receiving decoder and custody commitments.</li>
+  <li>Collect every admitted delta since preparation.</li>
+  <li>Compare current source revisions with the sealed cut and included deltas.</li>
+  <li>Commit one durable ownership transition that activates the successor and preserves predecessor fences.</li>
+  <li>Require the new generation and action-specific authority for every subsequent initiation.</li>
+</ol>
+
+<p>The ownership transition compares the source generation, sealed cut, admitted delta frontier, and effective fences with the successor’s accepted transfer record. That comparison and successor activation share one protected commit boundary.</p>
+
+<p>Every reconciliation admitted before that boundary belongs to the accepted cut. Later observations route to the successor under their original identities. A changed revision requires an updated cut and renewed successor acceptance before activation.</p>
+
+<p>An acknowledgement loss leaves the transfer uncertain. It does not permit the predecessor to resume automatically. Recovery queries the authoritative ownership decision.</p>
+
+<p>Independently governed domains need an agreement and protocol that make the fences effective. A local database generation cannot stop an old message at an independent provider. Previously sent commands retain their original exposure until resolved.</p>
+
+<p>A provider fence requires durable installation at the provider and serialization with its acceptance boundary. Delayed requests must encounter that same fence. An unsupported provider fence leaves the corresponding exclusivity claim unavailable.</p>
+
+<h3 id="214-transfer-invariants">21.4 Transfer invariants</h3>
+
+<p>Transfer changes the execution custodian and generation. It does not itself change economic rights, funded resources, reservations, pending messages, or performed effects. Transfer replay returns the prior result without executing a continuation or dispatching an instruction.</p>
+
+<p>Two cloned stores can contain authentic state. Preventing both from acting requires an effective exclusive ownership boundary. Detecting coherent rollback requires a freshness anchor outside the rollback domain.</p>
+
+<p>Unsupported decoding or an incomplete namespace produces an explicit obstruction. An identified custodian retains the work until a valid receiving route exists. The protocol cannot declare wind-down complete by omitting difficult records.</p>
+
+<h3 id="215-worked-continuity-case">21.5 Worked continuity case</h3>
+
+<p>A duty is 125 units. The ledger records credit of 40 units. The original command can still deliver 85 units and retains an 85-unit reservation.</p>
+
+<p>The successor receives the outstanding right, command, and both reservation types. It cannot send another 85-unit instruction. A late credit of 60 leaves 25 units outstanding and potentially exposed.</p>
+
+<p>Only authoritative closure of the original command can release its unresolved exposure. A fresh admitted instruction may then address the residual 25. Closing the old command does not discharge that unpaid amount.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P05</code>, <code class="language-plaintext highlighter-rouge">P08</code>, <code class="language-plaintext highlighter-rouge">P09</code>, <code class="language-plaintext highlighter-rouge">P15</code>, <code class="language-plaintext highlighter-rouge">S05</code>.</p>
+
+<h2 id="22-integrated-journeys">22. Integrated journeys</h2>
+
+<h3 id="221-formation-finance-dispute-and-recovery">22.1 Formation, finance, dispute, and recovery</h3>
+
+<p>An organization forms or onboards through Mass with exact constituting evidence. It adopts ownership and governance records. A financing program creates a governed instrument and its continuing duties.</p>
+
+<p>Mass issues claim evidence under the required consent and current rules. Moxie admits the instrument, entitlement, custody, and funding. Trading changes positions while preserving the original terms and settlement obligations.</p>
+
+<p>An external payment remains incomplete. The original command, possible exposure, and reservation remain active. A party files a Recourse case that references the exact instrument, obligation, and occurrence evidence.</p>
+
+<p>Recourse verifies consent, procedure, service, appointment, and outcome authority. Its award identifies the remaining duty. The award-effect contract then binds the exact destination instruction and beneficiary.</p>
+
+<p>The destination admits its own effect and emits verifiable evidence. Recourse attributes actual performance to the shared satisfaction group. Partial recovery leaves the residual and any unresolved command exposure visible.</p>
+
+<h3 id="222-physical-delivery-correction-and-returned-payment">22.2 Physical delivery, correction, and returned payment</h3>
+
+<p>A physical claim identifies one original right, custody arrangement, and quantity allowance. An admitted occurrence supports a bounded acceptance. The physical producer creates the corresponding earned duty.</p>
+
+<p>A payment of 6 against a duty of 10 precedes a return of 2. The return retains its original attribution. An authorized reopening and fresh payment of 6 complete the original due under the selected contract.</p>
+
+<p>A successor later earns and independently pays another due of 10. A correction reduces the old target to 3. It creates a reverse due of 7, funded with fresh credit.</p>
+
+<p>The resulting economic net is 13. Original accepted physical quantity and consumed cash remain consumed. The trace distinguishes correction, return, reopening, and replacement funding.</p>
+
+<h3 id="223-cross-node-dispute-recognition">22.3 Cross-node dispute recognition</h3>
+
+<p>A source node proposes a referral with permitted metadata. Both parties authorize the exact disclosure. The receiver accepts and opens a separate local case under its own authority.</p>
+
+<p>The source completes its procedure and seals a portable outcome. The receiver verifies the disclosed history and applies its recognition policy. It requests current-source evidence before admitting any dependent execution.</p>
+
+<p>A withdrawal received before a delayed referral remains effective after restart. A controlling stay prevents eligible new execution. Already dispatched work remains subject to observation and recovery.</p>
+
+<h3 id="224-institutional-exit-during-live-execution">22.4 Institutional exit during live execution</h3>
+
+<p>An institution begins wind-down while programs, external commands, and cases remain open. It inventories every authoritative namespace and prepares the full custody cut. It identifies a successor with the required custody and action authorities.</p>
+
+<p>The predecessor fences new initiation while observing old commands. The successor verifies continuations, resources, and preparation deltas. One ownership transition activates the new generation.</p>
+
+<p>An old provider response arrives after transfer. The successor recognizes its original delivery and occurrence identity. It updates the original duty without a duplicate instruction or regenerated reservation.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P01</code>, <code class="language-plaintext highlighter-rouge">P03</code>, <code class="language-plaintext highlighter-rouge">P05</code>–<code class="language-plaintext highlighter-rouge">P10</code>, <code class="language-plaintext highlighter-rouge">P14</code>, <code class="language-plaintext highlighter-rouge">P15</code>, <code class="language-plaintext highlighter-rouge">S03</code>–<code class="language-plaintext highlighter-rouge">S05</code>. These journeys specify proposed acceptance scenarios. They report no deployments.</p>
+
+<h2 id="23-security-privacy-and-operational-control">23. Security, privacy, and operational control</h2>
+
+<h3 id="231-threat-model">23.1 Threat model</h3>
+
+<p>The design considers malicious callers, compromised keys, conflicting institutional statements, faulty validators, unavailable providers, stale replicas, and hostile evidence. It also considers process crashes, lost replies, reordered messages, concurrent writers, cloned stores, and coherent rollback.</p>
+
+<p>Each assurance claim names the faults it tolerates and the external premises it needs. Cryptographic authenticity does not establish substantive legal truth. A local test cannot verify provider honesty or institutional competence.</p>
+
+<h3 id="232-trust-and-secrets">23.2 Trust and secrets</h3>
+
+<p>Store signing keys under the operator’s selected custody controls. Separate service authentication, institutional decisions, validator consensus, provider access, and recovery powers. Administrative access must not collapse those roles.</p>
+
+<p>Rotate keys through authenticated versioned records. Retain historical verification material and compromise findings. Emergency access remains scoped, auditable, and subject to the required governing approvals.</p>
+
+<p>Keep credentials out of API bodies, model prompts, logs, and exported evidence. Artifact access checks apply before content retrieval and before disclosure. Backups and support exports receive the same classification rules as primary storage.</p>
+
+<h3 id="233-resource-and-denial-of-service-controls">23.3 Resource and denial-of-service controls</h3>
+
+<p>Bound bodies, collection sizes, nesting, execution work, proof verification, pagination, and network concurrency. Use exact errors for unsupported work and exhausted capacity. Limits must not silently truncate evidence used for a decision.</p>
+
+<p>Separate compute budgets from economic authority. A compute limit cannot erase an accepted duty. Reserve operational capacity for reconciliation, cancellation, mandatory notices, and evidence preservation.</p>
+
+<p>Admission failures consume no economic resource unless an explicit fee contract permits a separately recorded charge. Repeated invalid requests cannot advance continuation ordinals or exhaust another party’s funding reservation.</p>
+
+<h3 id="234-observability">23.4 Observability</h3>
+
+<p>Operational records join command, program, actor, authority, source revisions, effect, receipt, and external attempt. They distinguish measured events from inferred diagnoses. Redaction preserves identifiers needed for safe reconciliation without exposing unnecessary content.</p>
+
+<p>Metrics include oldest unresolved exposure, outbox age, projection lag, stale authority inputs, unverified finality, custody gaps, and residual obligations. A green process-health endpoint does not establish complete business readiness.</p>
+
+<p>Alerts identify an owner, affected state, evidence, and permitted next action. Incident recovery preserves original journals and committed receipts. It does not repair uncertainty by deleting inconvenient records.</p>
+
+<h3 id="235-backup-and-restore">23.5 Backup and restore</h3>
+
+<p>Backups bind application, schema, configuration, trust profiles, artifact inventory, journals, and their consistent snapshot coordinates. Restoration first disables new writers. It verifies the full retained state before admitting execution.</p>
+
+<p>Reconstruct pending inbox, outbox, reservations, continuation heads, emergency state, and ownership fences. Reconcile uncertain external instructions before new related effects. Restore tests include actual process interruption and independently read durable state.</p>
+
+<p>Backup integrity does not prove freshness. The operator identifies the independent anchor used to reject coherent rollback where required. A restored node cannot assume current authority from an old valid signature alone.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">P03</code>, <code class="language-plaintext highlighter-rouge">P05</code>, <code class="language-plaintext highlighter-rouge">P06</code>, <code class="language-plaintext highlighter-rouge">P09</code>, <code class="language-plaintext highlighter-rouge">P10</code>, <code class="language-plaintext highlighter-rouge">P15</code>, <code class="language-plaintext highlighter-rouge">S02</code>–<code class="language-plaintext highlighter-rouge">S05</code>.</p>
+
+<h2 id="24-versioning-deployment-and-adoption">24. Versioning, deployment, and adoption</h2>
+
+<h3 id="241-compatibility-registry">24.1 Compatibility registry</h3>
+
+<p>Each component publishes supported schemas, encodings, interpreter profiles, signature suites, proof formats, and historical verification ranges. A relying system authenticates discovery evidence. Selection binds the exact compatible set before signing.</p>
+
+<p>Unknown critical semantics fail closed. Adapters preserve native bytes and expose unsupported fields. They do not silently downgrade authority, precision, or proof strength.</p>
+
+<p>Keep product release labels separate from API versions, native discriminants, storage schemas, and proof profiles. A new product release does not require renaming compatible routes. A changed signed meaning requires an explicit version decision.</p>
+
+<h3 id="242-migration">24.2 Migration</h3>
+
+<p>A migration manifest binds the source state, destination schema, exact transformation, retained historical verifiers, authority, and activation boundary. It states how every obligation, reservation, receipt, continuation, and pending delivery survives.</p>
+
+<p>A checkpoint import verifies source completeness and exclusive writer transfer. New empty partitions do not authorize importing existing liabilities without their history. Missing funding or authority history blocks the affected migration.</p>
+
+<p>A fresh genesis creates a separate deployment boundary. It cannot erase existing obligations by relabeling their store as new. Existing deployments require their own exit, transfer, or continued operation procedure.</p>
+
+<h3 id="243-adoption-stages">24.3 Adoption stages</h3>
+
+<p>Discovery establishes the institution, mandate, target journeys, and provider dependencies. Sandbox operation exercises the exact selected contracts with synthetic records. Parallel operation compares evidence without confusing duplicate records with duplicate legal acts.</p>
+
+<p>Limited activation identifies the objects, institutions, users, providers, and authority actually admitted. Expanded activation adds scope only after its acceptance evidence. Performance, capacity, and availability claims use measured workloads and declared conditions.</p>
+
+<p>The operator assigns key custody, content adoption, incident command, recovery approval, and exit duties. Each deployment retains a current capability record and unsupported-operation list. A template configuration supplies no live institution or provider mandate.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">S02</code>–<code class="language-plaintext highlighter-rouge">S05</code>, <code class="language-plaintext highlighter-rouge">P06</code>, <code class="language-plaintext highlighter-rouge">P07</code>, <code class="language-plaintext highlighter-rouge">P10</code>, <code class="language-plaintext highlighter-rouge">P15</code>.</p>
+
+<h2 id="25-current-implementation-boundaries">25. Current implementation boundaries</h2>
+
+<p>This section distinguishes inspected records from the proposed target. Its evidence date is 6 September 2026. A source observation establishes behavior only within the inspected component and captured implementation.</p>
+
+<h3 id="251-mass-source-and-specification">25.1 Mass source and specification</h3>
+
+<p>The Mass Technical Specification supplies the product architecture and attributed implementation findings. <code class="language-plaintext highlighter-rouge">S02</code> identifies the chapters captured on 6 September 2026. Other chapter states require separate review.</p>
+
+<p>The captured specification identifies gaps between domain services and the target common admission path. These include effects before final admission, event publication after domain commit, and plans without durable continuation custody. The target requires explicit correspondence at each affected caller.</p>
+
+<p>An isolated Mass implementation candidate contains <code class="language-plaintext highlighter-rouge">CreateTarget</code> admission and a completion journal. Its service rejects financial events without their own source contract. This candidate differs from the separately inspected Mass implementation.</p>
+
+<p>The inspected service binds journal, audit, proof, and commit in one transaction. It checks current program and account admission before replay. It supplies no historical retrieval after those execution conditions expire. These observations establish neither provider settlement nor checked continuation recovery.</p>
+
+<p>The current host proposal specifies versioned command, effect, continuation, and commit records. It binds the canonical completion claim into the signed transition. That proposal does not install a general recognized-award carrier, native debit authority, permanent command closure, or reopening admission.</p>
+
+<p>The pure Op module models a closed external command from its gross paid amount and evidence reference. It does not authenticate that evidence. This type supplies neither a complete execution cut nor a permanent provider fence. The current Mass service rejects that observation.</p>
+
+<p>The principal candidate supplies a concrete detached grant and PostgreSQL allocation transaction. It remains a proposed implementation contract. The candidate does not establish deployment, current provider authority, or durable-effect validity beyond its declared logical-time boundary.</p>
+
+<p>Existing signing formats and interpreter profiles remain authoritative for their own historical bytes. The proposed continuation and grant records require explicit version selection and adapter evidence. Their names in this brief confer no accepted wire allocation.</p>
+
+<h3 id="252-moxie-source-and-research">25.2 Moxie source and research</h3>
+
+<p>Moxie contains a claim graph and compiler lowering interface. The target therefore extends an existing structure. Complete correspondence from source terms to recipients, financial types, occurrence dependencies, and admitted effects still needs bound evidence.</p>
+
+<p>The inspected payoff reduction averages available historical entries. The target scheduled reduction first fixes complete membership. Missing members retain a pending dependency. The source observation concerns that evaluator path, rather than every possible caller contract.</p>
+
+<p>The selected research corpus contains 15 source/PDF pairs and 839 rendered pages. The selection dated 6 September 2026 binds their exact hashes. Availability and rendering establish neither whole-paper mathematical acceptance nor production correspondence.</p>
+
+<p>The dated emergency-control audit found no direct conflict in the <code class="language-plaintext highlighter-rouge">P09</code>, <code class="language-plaintext highlighter-rouge">P10</code>, and <code class="language-plaintext highlighter-rouge">P15</code> texts it inspected. It also found no exact numbered Phase-2/Phase-3 wire contract. Runtime acceptance must bind the independently selected pause, resume, continuity, and restart interfaces.</p>
+
+<p>Implementation candidates require separate identities. A later candidate label or date does not establish that it contains every feature of an earlier inspected implementation. The release record must identify the actual integrated source and binary.</p>
+
+<h3 id="253-recourse-implementation">25.3 Recourse implementation</h3>
+
+<p>The Recourse owner retains the full product objective: a usable dispute-resolution protocol with sovereign nodes, complete procedure, network exchange, execution, clients, and operations. Its specification is an acceptance contract with unfinished obligations.</p>
+
+<p>The integrated core uses Rust, Axum, and SQLite. Its writer transaction precedes authorization, replay, and revision checks. Accepted core mutations retain the case state, event, and response together. The dated implementation manifest binds the source state covered by these local observations.</p>
+
+<p>The current protocol defines <code class="language-plaintext highlighter-rouge">Completed</code> as completion of proceedings. Every disposition preserves obligation identifiers. Actual delivery and recovery remain independent facts. No economic-recovery gate should change that meaning.</p>
+
+<p>The inspected procedure uses bilateral case-wide consent and a case-wide adopted tier. The target adds claim-specific parties, inquiry authority, and independent routing. It also separates competent substantive decisions from case administration.</p>
+
+<p>The committed implementation includes signed proceedings, matching, document custody, node exchange, execution, reconciliation, the SDK, MCP server, and lawyer workspace. The dated evidence records 94 service tests and a separate transport-crash test. It also records 11 native-verifier tests and one API-to-native-child test.</p>
+
+<p>Client evidence records 16 SDK/MCP tests and one actual-service journey. Workspace evidence records 36 unit tests and seven HTTP journeys against the rebuilt service. Formatting, lint, schema, peer-source, type, and build checks passed within their stated local scope. Browser interaction and visual layout remain unverified.</p>
+
+<p>The transport-crash test kills the API after the destination receives complete request bytes and before any HTTP response. Restart preserves uncertainty and sends no duplicate request. Independently signed synthetic delivery and authorized reconciliation then support recovery. Exact replay survives another restart.</p>
+
+<p>The native-child test exposed an input-pipe deadlock. The repair explicitly closes the extracted input pipe and retains the child’s trust-byte hash check. The initial failure and passing repair evidence remain preserved. Synthetic native finality verification establishes no authentic economic transfer.</p>
+
+<p>Restoration tests admit independently proved positive delivery against a retained intent from a pre-attempt database snapshot. They create no missing attempt. Negative statements remain uncertain. Recovery when the restored snapshot lacks the intent still requires a complete contract and predecessor controls.</p>
+
+<p>Historical intake and 89-test observations remain separate from the current results. General native award effects, permanent original-command closure, current destination authority, hosted operation, and sovereign operational acceptance remain open. Local implementation records do not close those obligations.</p>
+
+<h3 id="254-native-execution-evidence">25.4 Native execution evidence</h3>
+
+<p>The native verification record identifies the exact Moxie implementation tested on 6 September 2026. Its evidence records a clean production build, independently reconstructed genesis, signature verification, and durable acceptance of a signed synthetic submission.</p>
+
+<p>Two bounded 90-second runs produced no committed transfer receipt. The diagnostic retained height zero and unchanged balances. The inspected proposal-replay path returns before local admission when configuration disables peer-to-peer networking.</p>
+
+<p>These results establish the observed admission boundary and failure to reach the requested effect in those runs. They establish no transfer finality, durable economic proof replay, or compulsory award enforcement. All nodes in that lane stopped gracefully.</p>
+
+<p>The Moxie owner must select a supported isolated runtime contract or supply repair evidence. The Recourse owner retains its existing source ownership. Neither this brief nor the diagnostic authorizes another writer or network activation.</p>
+
+<p>A debtor-signed transfer demonstrates voluntary compliance when it actually commits. Generic human-award admission needs a separate native contract. The existing oracle-governed event-resolution route cannot supply that authority by relabeling an award.</p>
+
+<p>Sources: <code class="language-plaintext highlighter-rouge">S02</code>–<code class="language-plaintext highlighter-rouge">S07</code> and the exact corpus map in section 27.</p>
+
+<h2 id="26-decisions-and-acceptance-obligations">26. Decisions and acceptance obligations</h2>
+
+<h3 id="261-accountable-decisions">26.1 Accountable decisions</h3>
+
+<p>Each row identifies one accountable role. Contributor review does not transfer that role’s write or release authority. The proposed next-action date is 6 September 2026. This proposal records no new owner acceptance of these assignments or dates.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Decision</th>
+      <th>Accountable owner</th>
+      <th>Required outcome and evidence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Shared semantic contract</td>
+      <td>Architecture owner</td>
+      <td>Reconcile the brief, paper interfaces, and implementation candidates in one decision record</td>
+    </tr>
+    <tr>
+      <td>Native and persistence versions</td>
+      <td>Principal protocol decision owner</td>
+      <td>Select exact tags, schemas, activation method, and historical verification behavior</td>
+    </tr>
+    <tr>
+      <td>Mass admission transaction</td>
+      <td>Mass implementation owner</td>
+      <td>Demonstrate actual allocation, protected reads, authority coverage, final sample, receipt, and commit</td>
+    </tr>
+    <tr>
+      <td>Moxie isolated runtime</td>
+      <td>Existing Moxie coordinator</td>
+      <td>Name the supported runtime contract and provide committed-effect and restart evidence</td>
+    </tr>
+    <tr>
+      <td>Native award effect</td>
+      <td>Moxie integration owner</td>
+      <td>Define admission, exact economic effect, trust, finality proof, and duplicate prevention</td>
+    </tr>
+    <tr>
+      <td>Recourse integration</td>
+      <td>Recourse integration owner</td>
+      <td>Preserve the verified local revision. Close native award, uncertain-command recovery, and hosted operational evidence</td>
+    </tr>
+    <tr>
+      <td>Risk and waterfall policy</td>
+      <td>Governing risk authority</td>
+      <td>Select economic ordering, calibration, release conditions, caps, and loss attribution</td>
+    </tr>
+    <tr>
+      <td>Provider and institutional routes</td>
+      <td>Relevant deployment operator</td>
+      <td>Bind actual mandates, accepted evidence, fencing, cancellation, and recovery duties</td>
+    </tr>
+    <tr>
+      <td>Custody transfer</td>
+      <td>Current custody owner</td>
+      <td>Demonstrate a complete cut and effective predecessor exclusion at every claimed boundary</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="262-common-execution-evidence">26.2 Common execution evidence</h3>
+
+<p>Each executed witness retains the selected source, dependency versions, binary digest, configuration, trust profiles, and exact initial state. It preserves signed input bytes, commands, logs, durable readback, and resulting proof bytes.</p>
+
+<p>Record expected and observed state separately. A test name or green build cannot replace comparison with the required economic and authority invariants. A synthetic signature proves only the fixture’s declared trust relation.</p>
+
+<p>Independent implementations must agree on canonical bytes before signature or proof interoperability claims. Golden vectors include negative encodings, changed audiences, altered evidence context, duplicate keys, and unsupported critical semantics. Expected values come from an independently reviewed construction.</p>
+
+<p>Fault witnesses interrupt the process at the actual storage and dispatch boundaries. A mocked return value alone cannot prove restart behavior. Keep failed runs and the exact reason that a later run differs.</p>
+
+<h3 id="263-required-semantic-witnesses">26.3 Required semantic witnesses</h3>
+
+<p>These rows specify proposed acceptance requirements. Unless an accompanying receipt states otherwise, none is execution evidence.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Witness</th>
+      <th>Required result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Exact retry after lost response</td>
+      <td>Original result and proof return. No new economic effect or external instruction</td>
+    </tr>
+    <tr>
+      <td>Changed request under completed identity</td>
+      <td>Refusal preserves protected economic state and the original result</td>
+    </tr>
+    <tr>
+      <td>One-shot intent with another command identifier</td>
+      <td>Intent admission prevents a second authorized effect</td>
+    </tr>
+    <tr>
+      <td>Concurrent absent-read insertion</td>
+      <td>Shared predicate generation detects the new restriction before admission</td>
+    </tr>
+    <tr>
+      <td>Authority rotation during allocation</td>
+      <td>One protected snapshot supplies every required role, scope, and current key</td>
+    </tr>
+    <tr>
+      <td>Two keys from one principal</td>
+      <td>An independence threshold counts that principal once</td>
+    </tr>
+    <tr>
+      <td>Final logical-time expiry</td>
+      <td>Allocation and proof roll back when the final sample falls outside the admitted interval</td>
+    </tr>
+    <tr>
+      <td>Durable-effect or provider deadline</td>
+      <td>The selected enforcement mechanism proves that separate boundary. Sample-time evidence alone fails</td>
+    </tr>
+    <tr>
+      <td>Late-discovered lock requirement</td>
+      <td>Release the complete transaction and restart with the expanded deterministic lock set</td>
+    </tr>
+    <tr>
+      <td>Wrong creditor with valid digests</td>
+      <td>Source-to-effect verification refuses the substituted recipient</td>
+    </tr>
+    <tr>
+      <td>Missing scheduled observation</td>
+      <td>Preserve complete membership and return Pending. Do not average only available entries</td>
+    </tr>
+    <tr>
+      <td>Unresolved continuation recovery</td>
+      <td>Restore checked control state against the current ledger, including intervening payments</td>
+    </tr>
+    <tr>
+      <td>Program substitution on resume</td>
+      <td>Refuse a different program unless an independently admitted transformation proves correspondence</td>
+    </tr>
+    <tr>
+      <td>Same cash occurrence through two aliases</td>
+      <td>Aggregate attribution remains within one occurrence’s supported quantity</td>
+    </tr>
+    <tr>
+      <td>Payment return and restoration</td>
+      <td>Preserve allocation ownership and consumed cash. Reopen only through the governing disposition</td>
+    </tr>
+    <tr>
+      <td>New certificate over reserved depth</td>
+      <td>Ordinary and liquidation routes share the same physical capacity</td>
+    </tr>
+    <tr>
+      <td>Batch work exhaustion</td>
+      <td>Return Deferred with retained escrow. Claim no infeasibility without its certificate</td>
+    </tr>
+    <tr>
+      <td>Degraded risk sequence</td>
+      <td>Requirements 100, 120, and 140 retain the running committed maximum</td>
+    </tr>
+    <tr>
+      <td>Legacy risk initialization</td>
+      <td>Current healthy evaluation does not release collateral with unresolved historical requirements</td>
+    </tr>
+    <tr>
+      <td>Two pools sharing sponsor cash</td>
+      <td>Aggregate reservations prevent each pool from spending the same sponsor balance</td>
+    </tr>
+    <tr>
+      <td>Closed position with funding debt</td>
+      <td>Retain the unsettled generation and include it in account equity</td>
+    </tr>
+    <tr>
+      <td>Completed dispute with unpaid debt</td>
+      <td>Proceedings complete while the original duty, stay, and recovery history remain visible</td>
+    </tr>
+    <tr>
+      <td>Independent claim procedures</td>
+      <td>Escalation changes the affected head while preserving unrelated admitted procedures</td>
+    </tr>
+    <tr>
+      <td>Award evidence-context substitution</td>
+      <td>Original signed outcome rejects changed evidence descriptions under unchanged artifact bytes</td>
+    </tr>
+    <tr>
+      <td>Omitted later stay in portable history</td>
+      <td>Current-source completeness prevents execution from a valid but incomplete prefix</td>
+    </tr>
+    <tr>
+      <td>Partial destination performance</td>
+      <td>Attribute actual receipt once and retain every unresolved command remainder</td>
+    </tr>
+    <tr>
+      <td>Referral withdrawal before delivery</td>
+      <td>A durable withdrawal tombstone defeats delayed referral replay after restart</td>
+    </tr>
+    <tr>
+      <td>Emergency pause and resume</td>
+      <td>Resume binds the exact pause and authority state. Restart retains their controlling order</td>
+    </tr>
+    <tr>
+      <td>Custody transfer with late response</td>
+      <td>Successor reconciles the original command. Neither writer creates replacement exposure</td>
+    </tr>
+    <tr>
+      <td>Incomplete namespace or empty manifest</td>
+      <td>Explicit completeness checks reject omitted required state, including supposedly empty partitions</td>
+    </tr>
+    <tr>
+      <td>Coherent backup rollback</td>
+      <td>An independent freshness premise detects the older authentic state where the profile claims that protection</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The design corpus captured on 6 September 2026 contains ten packages and 90 fixture-family files. Each package retains its contract appendix or domain records, source index, and exact manifest. Its inputs and expected results remain synthetic and unexecuted.</p>
+
+<p>The design record identifies each package and its fixture families. Package namespaces distinguish fixture identities. Artifact validation checks syntax, references, and retained hashes. It does not execute the proposed acceptance requirements.</p>
+
+<h3 id="264-quantitative-physical-and-cash-witness">26.4 Quantitative physical and cash witness</h3>
+
+<p>Start with one original right of 20,000 physical quanta and one occurrence supporting [0, 20000). Fix the price at 10 monetary quanta per physical quantum. Create 130 separately admitted cohorts with 128 successful acceptances each.</p>
+
+<p>Each cohort uses a fresh lot and retains the original issuance. After its 128th acceptance, submit an otherwise valid overflow request. Refuse that request without consuming its physical interval or creating a duty.</p>
+
+<p>For the first 129 cohorts, admit the successor against the exact current predecessor. Its first acceptance can use the prior refused interval. The final refused interval [16640, 16641) remains unused.</p>
+
+<p>Required totals are 16,640 accepted quanta, 16,640 original dues, 166,400 earned monetary quanta, and 3,360 remaining physical quanta. There are 130 capacity refusals. Exact replay after restart changes none of these totals.</p>
+
+<p>A separate correction witness pays 6, returns 2, admits reopening, and pays 6 with fresh credit against an original due of 10. Another delivery earns and receives 10. Correcting the first target to 3 creates a separately funded reverse due of 7.</p>
+
+<p>The seller’s net receipt is 13. Permanent credit attribution totals 29 across four fresh occurrences: 6, 6, 10, and 7. The return of 2 remains a separate debit. Both physical portions remain consumed.</p>
+
+<h3 id="265-adoption-record">26.5 Adoption record</h3>
+
+<p>The architecture owner records each requirement as proposed, selected, implemented, verified locally, verified across systems, or admitted for a named deployment. Each advancement links its evidence and competent decision. Status never advances from elapsed time alone.</p>
+
+<p>A local proof or test retains its exact assumptions. Missing provider truth, legal authority, current-source completeness, exclusive custody, or cross-system correspondence remains an identified obligation. The complete product objective persists while these obligations remain open.</p>
+
+<h2 id="27-source-register">27. Source register</h2>
+
+<h3 id="271-evidence-classes">27.1 Evidence classes</h3>
+
+<p><strong>Confirmed</strong> means the stated inspection or retained execution record supports the bounded claim. <strong>Inferred</strong> means the conclusion follows from identified source behavior but lacks a matching executed witness. <strong>Proposed</strong> identifies the target contract.</p>
+
+<p><strong>Assumed</strong> identifies a premise supplied for design or a synthetic witness. <strong>Unknown</strong> identifies missing evidence. An owner handoff can confirm ownership or a stated design decision without proving running behavior.</p>
+
+<h3 id="272-implementation-and-design-records">27.2 Implementation and design records</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Source and evidence boundary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">S01</code></td>
+      <td>Maintained product register and product/deal doctrine. Product identity and responsibilities</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">S02</code></td>
+      <td>Mass Technical Specification chapters and native-effects design captured on 6 September 2026. Design and attributed implementation findings</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">S03</code></td>
+      <td>Recourse specification, interfaces, implementation manifest, and local test records captured on 6 September 2026. Scope and bounded local execution evidence</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">S04</code></td>
+      <td>Native verification procedure and results captured on 6 September 2026. Bounded build, admission, and no-finality observations described in section 25.4</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">S05</code></td>
+      <td>Protocol candidate and supporting design records captured on 6 September 2026. Proposed versions, PostgreSQL grant, physical cohorts, and risk decisions</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">S06</code></td>
+      <td>Mass and Moxie implementation inspections recorded on 6 September 2026. Function-level observations with the scope stated in section 25</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">S07</code></td>
+      <td><code class="language-plaintext highlighter-rouge">P09</code> continuation regression results recorded on 6 September 2026. Finite normal and optimized test evidence using unchanged dependencies</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The evidence descriptions above identify the captured records and their scope. Each observation retains its evidence date and class. Section 25 states the implementation behavior and limits that these records support.</p>
+
+<p>The captured Mass specification and native-effects design have distinct evidence records. The observed native-effects chapter agrees with its supporting evidence. Each observation applies to its captured bytes.</p>
+
+<p>Independent reproduction requires the selected implementation, dependencies, configuration, inputs, and execution record. The descriptions here do not establish production acceptance.</p>
+
+<h3 id="273-research-corpus">27.3 Research corpus</h3>
+
+<p>The research selection dated 6 September 2026 contains the 15 manuscripts below and 839 PDF pages. The selected source and PDF pairs define this reading set.</p>
+
+<p>Paper claims retain their own assumptions, proof scope, and open research requirements. Selection and rendered page counts establish neither whole-paper mathematical acceptance nor production correspondence.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Selected manuscript</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P01</code></td>
+      <td>One Entity in Many Jurisdictions</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P02</code></td>
+      <td>How Compliance Composes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P03</code></td>
+      <td>Programmable Institutions</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P04</code></td>
+      <td>Lex: A Logic for Jurisdictional Rules</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P05</code></td>
+      <td>Op: Compliance-Carrying Operations</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P06</code></td>
+      <td>The Sovereign Jurisdiction Network</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P07</code></td>
+      <td>Accession Networks</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P08</code></td>
+      <td>The Claim as Primitive</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P09</code></td>
+      <td>Admissible Obligation Transitions</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P10</code></td>
+      <td>Event-Collect BFT</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P11</code></td>
+      <td>One-Way Coupling of Prediction Markets to Automated Market Makers</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P12</code></td>
+      <td>Central Counterparty Risk in Automated Markets</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P13</code></td>
+      <td>Parlay Identification of Ising Couplings</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P14</code></td>
+      <td>Allocated Title</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P15</code></td>
+      <td>Recourse</td>
+    </tr>
+  </tbody>
+</table>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

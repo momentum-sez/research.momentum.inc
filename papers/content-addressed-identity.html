@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Content-Addressed Identity - Raeez Lorgat</title>
+<meta name="description" content="Institutional identifiers derived from content, with explicit records of change.">
+<meta name="author" content="Raeez Lorgat">
+<meta property="og:title" content="Content-Addressed Identity">
+<meta property="og:description" content="Institutional identifiers derived from content, with explicit records of change.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://research.momentum.inc/og-image.png">
+<meta property="og:url" content="https://research.momentum.inc/papers/content-addressed-identity.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+<link rel="canonical" href="https://research.momentum.inc/papers/content-addressed-identity.html">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Content-Addressed Identity",
+    "author": { "@type": "Person", "name": "Raeez Lorgat", "url": "https://research.momentum.inc" },
+    "datePublished": "2026-04-02",
+    "description": "Institutional identifiers derived from content, with explicit records of change."
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8T5J8M28"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JP8T5J8M28');
+</script>
+<link rel="stylesheet" href="https://use.typekit.net/zlu2quo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --font-text: 'garamond-premier-pro', 'EB Garamond', 'Hoefler Text', 'Baskerville', Garamond, serif;
+    --font-display: 'garamond-premier-pro-display', var(--font-text);
+    --font-caption: 'garamond-premier-pro-caption', var(--font-text);
+    --font-subhead: 'garamond-premier-pro-subhead', var(--font-text);
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    --text-base: clamp(18px, 1.125rem + 0.25vw, 21px);
+    --text-sm: calc(var(--text-base) / 1.333);
+    --text-xs: calc(var(--text-sm) / 1.333);
+    --text-lg: calc(var(--text-base) * 1.333);
+    --text-xl: calc(var(--text-lg) * 1.333);
+    --text-2xl: calc(var(--text-xl) * 1.333);
+    --baseline: 8px;
+    --leading-tight: 1.2;
+    --leading-snug: 1.35;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.618;
+    --leading-loose: 1.8;
+    --space-1: calc(var(--baseline) * 1);
+    --space-2: calc(var(--baseline) * 2);
+    --space-3: calc(var(--baseline) * 3);
+    --space-4: calc(var(--baseline) * 4);
+    --space-5: calc(var(--baseline) * 5);
+    --space-6: calc(var(--baseline) * 6);
+    --space-8: calc(var(--baseline) * 8);
+    --space-10: calc(var(--baseline) * 10);
+    --space-13: calc(var(--baseline) * 13);
+    --measure: 65ch;
+    --measure-narrow: 55ch;
+    --measure-wide: 75ch;
+    --gutter: clamp(16px, 4vw, 24px);
+    --ink: #1a1917;
+    --ink-muted: #4a4744;
+    --ink-subtle: #6a6662;
+    --ink-faint: #8a8580;
+    --ink-ghost: #b5b0ab;
+    --ink-whisper: #d4d0cc;
+    --ink-hint: #e8e5e2;
+    --paper: #fefdfb;
+    --paper-tint: #f5f3f0;
+    --kern-tight: -0.02em;
+    --kern-snug: -0.01em;
+    --kern-normal: 0;
+    --kern-loose: 0.015em;
+    --kern-wide: 0.04em;
+    --kern-caps: 0.08em;
+    --optical-margin: -0.03em;
+}
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    hanging-punctuation: first last;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body {
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-relaxed);
+    color: var(--ink);
+    background: var(--paper);
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1, "dlig" 1, "onum" 1, "pnum" 1;
+    font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    font-kerning: normal;
+}
+.container {
+    max-width: calc(var(--measure) + var(--space-8));
+    margin-inline: auto;
+    padding: var(--space-10) var(--gutter) var(--space-8);
+}
+.back-nav { margin-bottom: var(--space-8); }
+.back-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.back-nav a:hover { color: var(--ink); }
+.article-header {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--ink-hint);
+}
+.article-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-meta {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+    margin-top: var(--space-3);
+}
+.article-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+.article-meta a:hover {
+    color: var(--ink-muted);
+    text-decoration-color: var(--ink-ghost);
+}
+/* Companion open-source repository link — rendered when `repo` metadata is set.
+   Monochrome ink on warm paper to sit native to the typographic system;
+   the GitHub mark carries the recognition, the hairline frame the prominence. */
+.repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    max-width: 100%;
+    padding: 10px var(--space-3) 10px calc(var(--space-2) + 2px);
+    border: 1px solid var(--ink-whisper);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: border-color 200ms ease, color 200ms ease,
+                background 200ms ease, box-shadow 200ms ease;
+}
+.repo-link:hover {
+    border-color: var(--ink-faint);
+    color: var(--ink);
+    background: var(--paper-tint);
+    box-shadow: 0 2px 12px rgba(26, 25, 23, 0.07);
+}
+.repo-link:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; }
+.repo-link__mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    color: var(--ink);
+    transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.repo-link:hover .repo-link__mark { transform: rotate(-7deg) scale(1.06); }
+.repo-link__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; line-height: var(--leading-tight); }
+.repo-link__label {
+    font-family: var(--font-caption);
+    font-size: var(--text-xs);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    transition: color 200ms ease;
+}
+.repo-link:hover .repo-link__label { color: var(--ink-subtle); }
+.repo-link__url {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    letter-spacing: var(--kern-snug);
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.repo-link__arrow {
+    flex: none;
+    margin-left: var(--space-1);
+    color: var(--ink-ghost);
+    transition: transform 200ms ease, color 200ms ease;
+}
+.repo-link:hover .repo-link__arrow { transform: translateX(3px); color: var(--ink-faint); }
+@media (max-width: 400px) { .repo-link__arrow { display: none; } }
+/* TOC from pandoc */
+nav#TOC {
+    margin: 0 0 var(--space-8);
+    padding: var(--space-4) 0 var(--space-4) var(--space-4);
+    border-top: 1px solid var(--ink-hint);
+    border-bottom: 1px solid var(--ink-hint);
+}
+nav#TOC ul { list-style: none; padding: 0; }
+nav#TOC li { margin: 0.35rem 0; }
+nav#TOC a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-hint);
+    transition: border-color 0.2s;
+    font-size: var(--text-sm);
+}
+nav#TOC a:hover { border-color: var(--ink-muted); }
+.article-body { font-variant-ligatures: common-ligatures discretionary-ligatures contextual; }
+.article-body p {
+    margin-bottom: var(--space-3);
+    max-width: var(--measure);
+    line-height: var(--leading-loose);
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+    hyphenate-limit-lines: 2;
+}
+.article-body h1, .article-body .level1 > h2:first-child {
+    font-family: var(--font-subhead);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h2 {
+    font-family: var(--font-subhead);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: var(--kern-snug);
+    line-height: var(--leading-snug);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+}
+.article-body a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    text-decoration-skip-ink: auto;
+    transition: text-decoration-color 180ms ease;
+}
+.article-body a:hover { text-decoration-color: var(--ink-muted); }
+.article-body blockquote {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--ink-hint);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.article-body hr {
+    border: none;
+    height: 1px;
+    background: var(--ink-hint);
+    margin: var(--space-8) 0;
+    max-width: 4rem;
+}
+.article-body code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--paper-tint);
+    padding: 0.12em 0.35em;
+}
+.article-body pre {
+    background: #0d0d0c;
+    color: #c8c5b8;
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-4) 0;
+    font-size: var(--text-sm);
+}
+.article-body th {
+    text-align: left;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+    letter-spacing: var(--kern-loose);
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 2px solid var(--ink-hint);
+}
+.article-body td {
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 1px solid var(--ink-hint);
+    vertical-align: top;
+}
+.article-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.author-byline {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.author-byline strong { font-style: normal; font-weight: 600; }
+.footer-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.footer-nav a:hover { color: var(--ink); }
+.contact-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+}
+::selection { background: var(--ink); color: var(--paper); }
+a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; border-radius: 2px; }
+@media (max-width: 680px) {
+    :root { --text-base: clamp(17px, 1rem + 0.2vw, 19px); }
+    .container { padding: var(--space-6) var(--gutter) var(--space-5); }
+    .article-title { font-size: var(--text-xl); }
+    .article-body h1, .article-body .level1 > h2:first-child { font-size: var(--text-lg); }
+    .article-body h2 { font-size: calc(var(--text-base) * 1.1); }
+    .article-footer { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+@media (max-width: 400px) {
+    :root { --text-base: 16px; }
+    .container { padding: var(--space-5) var(--space-2) var(--space-4); }
+}
+@media (min-width: 1200px) { .container { padding-top: var(--space-13); } }
+@media print {
+    :root { --ink: #000; --paper: #fff; }
+    body { font-size: 11pt; line-height: 1.4; }
+    .container { max-width: 100%; padding: 0; }
+    .back-nav, .contact-footer { display: none; }
+    nav#TOC { display: none; }
+    a { text-decoration: none !important; color: var(--ink) !important; }
+    .article-body h1, .article-body h2 { page-break-after: avoid; }
+    p { orphans: 3; widows: 3; }
+}
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(var(--gutter), env(safe-area-inset-left));
+        padding-right: max(var(--gutter), env(safe-area-inset-right));
+    }
+}
+
+/* Wiring in a mathematics renderer made display equations set on one unwrappable
+   line, so a long equation pushed the page wider than the viewport and readers on
+   ordinary laptops lost the right-hand side. Let each equation scroll inside its own
+   box instead of widening the page. Wide tables get the same treatment. */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
+.katex-display::-webkit-scrollbar { height: 6px; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 600px) {
+  .paper-nav-title { display: none; }
+}
+</style>
+<link rel="stylesheet" href="/paper.css">
+</head>
+<body>
+<div class="container">
+    <nav class="back-nav">
+        <a href="/">← Research</a>
+    </nav>
+    <article>
+        <header class="article-header">
+            <h1 class="article-title">Content-Addressed Identity</h1>
+            <p class="article-meta">April 2026 · Raeez Lorgat</p>
+                    </header>
+
+        
+        <div class="article-body">
+        <section id="content-addressed-identity" class="level1">
+        <h1>Content-Addressed Identity</h1>
+        <p><strong>Raeez Lorgat</strong></p>
+        <p>Institutional identifiers fail the moment an institution moves across a jurisdictional boundary.</p>
+        <p>A corporation incorporated in Delaware has an entity number in the Delaware Division of Corporations database. The same corporation, foreign-qualified in Florida, has a different number in the Florida database. Its bank assigns it a customer ID, and the IRS assigns it an EIN. Each identifier points into the issuing authority’s database and resolves only there.</p>
+        <p>An institution operating in one place can rely on local references. Across jurisdictions, those references must be reconciled.</p>
+        <hr />
+        <section id="i." class="level2">
+        <h2>I.</h2>
+        <p>Content addressing solved the analogous problem for data. A URL identifies a location. If the server moves, the URL breaks. If two servers host the same file, the URLs differ. With content addressing, the name is the cryptographic hash of the content itself. Two parties holding the same bytes compute the same name, regardless of the source, storage location, or local identifier. The construction has been standard since Merkle’s authentication trees (1979). Git has named every revision this way since 2005, and IPFS (Benet, 2014) generalized it to arbitrary content.</p>
+        <p>Applying content addressing to a corporation requires a byte string to hash. A corporation is a legal fiction: a bundle of rights and obligations created by a sovereign act. The appropriate byte string is less obvious than for a file.</p>
+        </section>
+        <section id="ii." class="level2">
+        <h2>II.</h2>
+        <p>At creation, four facts are fixed: the incorporator, the jurisdiction, the instrument (articles of incorporation, certificate of formation, or equivalent), and the filing time. Directors, shareholders, addresses, and later names belong to the corporation’s subsequent history. The four facts describe the event that created the legal person. Their authoritative source is the registry that accepted the filing.</p>
+        <p>Define the <em>genesis record</em> as those four facts in canonical form (section III), and the <em>identifier</em> as an algorithm tag plus the hash of the record (section VII). The construction requires four assumptions.</p>
+        <p><em>One authoritative filing.</em> The registry fixes the accepted instrument as one byte string, holds and serves it unchanged, and fixes the filing time with it. Two systems recording the same incorporation compute the same identifier because both hold that string. The sovereign supplies the content but takes no part in deriving the name. A born-digital filing meets the assumption whenever the registry keeps the bytes it accepted. A paper filing does not: each scan or certification renders an image with different bytes. Until the registry fixes one string, the entity has no derivable identifier (section IX).</p>
+        <p><em>Injectivity.</em> Distinct incorporations yield distinct records. A formation agent may file dozens of entities in a day from one template. The instruments still differ because each states the entity’s name and the jurisdiction enforces name uniqueness at filing. Jurisdiction and filing time separate the rest.</p>
+        <p><em>A sound function.</em> Each tagged hash function (section VII) is collision-resistant and second-preimage-resistant. The first property carries the injectivity of records over to identifiers. The second supports tamper-evidence. If a function loses either property, migration follows section VII: re-hash the record under a sound function and bind the two names.</p>
+        <p><em>A fixed genesis.</em> The genesis is the instrument as first filed. Jurisdictions allow corrections with retroactive legal effect. A Delaware certificate of correction is effective as of the original filing date (Delaware General Corporation Law, section 103(f)). The chain records the correction as a later event in the entity’s history (section VI), leaving the genesis and identifier unchanged.</p>
+        <p>Under these assumptions the identifier is self-certifying: anyone holding the genesis record verifies it by recomputing the hash, without querying an authority. It is portable across systems implementing the same canonical form and hash function, whether in Delaware, Florida, or the Cayman Islands. It is also tamper-evident: altering the record breaks the match. These properties do not certify authenticity. The identifier binds a name to a claimed genesis. A sovereign attestation establishes that the genesis corresponds to a real incorporation (section V).</p>
+        </section>
+        <section id="iii." class="level2">
+        <h2>III.</h2>
+        <p>Hashing requires deterministic input: the same logical record must produce the same bytes on every machine. JSON does not fix key order, languages disagree on number formatting, and timestamps have dozens of valid representations. If one system serializes <code>{"creator":"alice","jurisdiction":"us-de"}</code> and another <code>{"jurisdiction":"us-de","creator":"alice"}</code>, identical content produces different hashes. The identifier then depends on the implementation.</p>
+        <p>Encoding rules must resolve more than key order. “Sort keys lexicographically” is ambiguous: UTF-8 byte order and UTF-16 code-unit order disagree on any string containing supplementary-plane characters. Composed and decomposed Unicode encode the same incorporator name with different bytes: “José” hashes differently in NFC and NFD. Converting a date-only filing date to a UTC instant misrepresents the registry’s record by adding precision it never asserted.</p>
+        <p>Adopt a complete published encoding and define a profile for it. RFC 8785, the JSON Canonicalization Scheme, fixes member order by UTF-16 code units and number serialization by the ECMAScript rules. Deterministic CBOR (RFC 8949, section 4.2) and DER (X.690) are the binary equivalents. The profile normalizes text to Unicode NFC and carries monetary amounts as integers or strings rather than floats. It preserves the registry’s recorded precision and time scale. The instrument enters as the opaque byte string the registry fixed, without re-encoding. The profile governs the surrounding fields and must preserve their meaning.</p>
+        <p>The canonical form is part of the identifier’s definition. Two implementations produce the same identifier exactly when they hash the same profile with the same function. The profile must therefore be a published, versioned standard. Revising it changes identifiers just as a new hash function does (section VII).</p>
+        </section>
+        <section id="iv." class="level2">
+        <h2>IV.</h2>
+        <p>Assigned namespaces already operate at global scale. The Legal Entity Identifier is an ISO standard (ISO 17442) endorsed by the G20 in 2012. The Global Legal Entity Identifier Foundation, established by the Financial Stability Board in 2014, oversees issuance through accredited local operating units. Millions of entities hold an LEI, and regulation makes it unavoidable in wholesale finance. Since January 2018, an EU investment firm cannot report a trade for a client that lacks one (MiFIR). Through BRIS, the European Union interconnects its member states’ business registers with those of Iceland, Liechtenstein, and Norway. Each company receives an EUID combining country code, register identifier, and local registration number (Directive (EU) 2017/1132; Implementing Regulation (EU) 2021/1042). Dun &amp; Bradstreet has assigned DUNS numbers privately since the 1960s.</p>
+        <p>A global namespace for legal entities therefore requires no treaty, and sovereignty does not rule one out. The LEI went from G20 endorsement to trading mandate in six years. Each assigned identifier requires an operator to create an index entry, and resolution depends on that index. An LEI is a key into GLEIF’s database, and a DUNS number into Dun &amp; Bradstreet’s. An EUID resolves through the register that issued its components, retaining the local pointer. The LEI also shows the costs beyond the index: application, payment, validation against the register, and annual renewal to prevent lapse. Entities acquire one where a mandate or counterparty demands it. The millions issued are fewer than the companies on the United Kingdom’s register alone.</p>
+        <p>Content addressing removes the operator, the index, and resolution through it. Anyone holding the genesis record derives the identifier. It requires no application or renewal, cannot lapse, and cannot be reassigned because it is a function of the record. Jurisdictions must coordinate once on a technical standard for the canonical form and hash function. After that, no operator runs the namespace and no authority owns it.</p>
+        </section>
+        <section id="v." class="level2">
+        <h2>V.</h2>
+        <p>A derived identifier carries no authority. The W3C specifications separate control of an identifier (DID Core, 2022) from claims about its subject. Issuers whom the verifier chooses to trust sign those claims as credentials (Verifiable Credentials, 2019). The value of self-assertion is debatable for a natural person. A corporation’s existence, however, depends on a state act: incorporation, registration, or charter. An identifier scheme leaves that sovereign authority unchanged.</p>
+        <p>The binding therefore needs an issuer. The registry that accepted the filing signs the statement “this genesis record corresponds to entity number N in our register.” The attestation points to the content-addressed identifier as a stable reference. The jurisdiction alone controls the binding to its register, while the identifier remains independently derivable. Several jurisdictions can attest independently to the same identifier: Delaware to the incorporation, Florida to the foreign qualification. Their sovereign attestations share one derivable name, coordinated by its hash.</p>
+        <p>This standard issuer-attestation pattern already runs for legal entities with assigned identifiers. GLEIF’s verifiable LEI, built on KERI, places issuer-signed credentials behind each LEI. In this note’s construction, the registry is the issuer. Section VIII states how the constructions differ.</p>
+        </section>
+        <section id="vi." class="level2">
+        <h2>VI.</h2>
+        <p>Identity includes history. Institutions issue shares, change directors, merge, dissolve, foreign-qualify, and acquire or lose sanctioned status. A genesis hash alone provides no means to verify those events. Linked timestamping (Haber and Stornetta, 1991) extends the construction: each event record carries its predecessor’s hash. The latest event’s hash, the chain head, commits to the entire history. A blockchain builds consensus over this structure. Here it operates without consensus, proof of work, or a shared ledger. Each attesting jurisdiction maintains one chain in the system holding its authoritative entity record, rooted in the same genesis identifier.</p>
+        <p>A signed chain head is a non-repudiable commitment by its maintainer to every preceding event. Altering, inserting, or deleting a committed event changes the recomputed head. Anyone who retained the old head can detect the change. When a regulator in jurisdiction A requests an entity’s history from jurisdiction B, it can check B’s answer against every head B committed to. This avoids trusting the integrity of a database export at query time.</p>
+        <p>Before a head leaves the maintainer, history can be rewritten without trace. A maintainer can also equivocate by showing different parties internally consistent chains that share a common prefix. Witnesses address these two gaps by countersigning observed heads, so comparison detects equivocation. Linked timestamping (Haber and Stornetta, 1991) and KERI’s witness receipts (Smith, 2019) use this construction. A further limit remains: the chain proves that committed records have not changed, not that events were recorded faithfully. Faithfulness depends on the sovereign’s signature described in section V.</p>
+        </section>
+        <section id="vii." class="level2">
+        <h2>VII.</h2>
+        <p>Privacy-preserving cross-jurisdictional compliance will require proofs about an entity’s identity or history without revealing either. SHA-256 is inefficient inside zero-knowledge proof circuits. These proofs need a hash designed for arithmetic circuits, such as Poseidon (Grassi et al., 2021), Rescue, or a successor.</p>
+        <p>The identifier of section II therefore carries an algorithm tag: a function code plus the digest, following the multihash construction (Benet, 2014). Under the same tag, the same canonical genesis record yields the same identifier everywhere. Tags support migration between functions. Identifiers derived from the same record under different functions remain distinct byte strings with no computable relation between them.</p>
+        <p>Migration requires re-derivation and binding. When circuits require Poseidon, anyone holding the canonical genesis record can derive the new identifier from it. An event on the entity’s chain or an attestation covering both identifiers binds the pair. The holder can check this binding without re-issuance by an authority or reallocation of a namespace. A canonical-form revision (section III) follows the same procedure because it changes identifiers just as a new function does.</p>
+        </section>
+        <section id="viii." class="level2">
+        <h2>VIII.</h2>
+        <p>The components are established. Content addressing is decades old (Merkle, 1979; Git, 2005; IPFS, 2014), and hash-chained event histories are Haber and Stornetta’s (1991). Algorithm-tagged digests are multihash, and issuer-signed bindings are W3C Verifiable Credentials. KERI (Smith, 2019) combines them: a self-addressing identifier derived from an inception event, extended by a hash-chained log, witnessed against equivocation, and bound by credentials. GLEIF’s verifiable LEI deploys this construction in production for legal entities.</p>
+        <p>This note uses the sovereign filing as the inception content. A KERI identifier derives from a key-management event and names a controller of cryptographic keys. The vLEI then binds that controller to an assigned LEI by credential. Derivation from the incorporation instrument makes the name a function of the sovereign act, independent of anyone’s keys. It exists for every entity whose filing the registry holds as a fixed byte string, without issuance, fee, or lapse. The registry attests the binding between its entry and a name that any counterparty can re-derive from the filing.</p>
+        </section>
+        <section id="ix." class="level2">
+        <h2>IX.</h2>
+        <p>Five problems remain open.</p>
+        <p>Retroactive correction: the law treats a corrected filing as effective from the original date, while the chain records when the correction happened. Fixing the genesis as the instrument first filed keeps the identifier stable. Jurisdictions would still need a shared convention relating legal effect to chain order.</p>
+        <p>Cross-algorithm identity: after migration, an entity has two bound names. Verifiers must treat identity as the closure of attested bindings, never as byte equality.</p>
+        <p>Conversion: redomestication or statutory conversion carries a legally continuing entity into a registry that accepts a formation-class instrument for it. A verifier therefore encounters two filings that each look like a genesis. Under the fixed-genesis convention, the original filing remains the genesis, and the destination filing is an event in the entity’s history. The destination registry attests a binding from its filing to the original identifier. A verifier holding only the destination filing derives a second name and learns of the first through that binding alone. The closure of attested bindings therefore crosses registries as well as algorithms. The registries must agree which filing counts as first, and the destination must attest a binding to another sovereign’s filing.</p>
+        <p>Legacy instruments: a paper filing, or one re-rendered at each certification, lacks a registry-fixed byte string, leaving the derivation of section II without input. The registry would have to fix an image or transcription certified as the instrument as filed. This requires a one-time act for every entity in the pre-digital register, restoring the issuance step that content addressing otherwise removes.</p>
+        <p>Witnessing: fork detection requires witnesses of chain growth. Who witnesses a sovereign registry, whether peer registries, regulators, or market infrastructure, remains an institutional question.</p>
+        <p>An opaque UUID is easier to mint and store. A content-addressed name requires canonical serialization, deterministic hashing, and algorithm tags, specified once in a standard. It supplies a verifiable reference for cross-border software. A program forming a Cayman subsidiary for a Delaware parent can identify the parent without requiring counterparties to query Delaware. No outage, lapse, or reassignment can break that reference.</p>
+        <p>A jurisdiction retains the sovereign authority to create a corporation. Distinguishing that corporation from every other entity is a computation on the record of the sovereign act and requires no authority. Authenticating the record requires exactly one: the sovereign whose act it was.</p>
+        </section>
+        </section>
+        </div>
+
+        <footer class="article-footer">
+            <span class="author-byline"><strong>Raeez Lorgat</strong> · Managing Partner, Momentum</span>
+            <nav class="footer-nav">
+                <a href="/">← All Papers</a>
+            </nav>
+        </footer>
+        <div class="contact-footer">
+            <span>&copy; 2026 Momentum</span>
+        </div>
+    </article>
+</div>
+<script src="/paper.js" defer></script>
+</body>
+</html>

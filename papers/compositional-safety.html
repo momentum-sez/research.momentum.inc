@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Aggregate Safety - Raeez Lorgat</title>
+<meta name="description" content="Detecting violations that emerge across a sequence of otherwise admissible transactions.">
+<meta name="author" content="Raeez Lorgat">
+<meta property="og:title" content="Aggregate Safety">
+<meta property="og:description" content="Detecting violations that emerge across a sequence of otherwise admissible transactions.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://research.momentum.inc/og-image.png">
+<meta property="og:url" content="https://research.momentum.inc/papers/compositional-safety.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+<link rel="canonical" href="https://research.momentum.inc/papers/compositional-safety.html">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Aggregate Safety",
+    "author": { "@type": "Person", "name": "Raeez Lorgat", "url": "https://research.momentum.inc" },
+    "datePublished": "2026-04-02",
+    "description": "Detecting violations that emerge across a sequence of otherwise admissible transactions."
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8T5J8M28"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JP8T5J8M28');
+</script>
+<link rel="stylesheet" href="https://use.typekit.net/zlu2quo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --font-text: 'garamond-premier-pro', 'EB Garamond', 'Hoefler Text', 'Baskerville', Garamond, serif;
+    --font-display: 'garamond-premier-pro-display', var(--font-text);
+    --font-caption: 'garamond-premier-pro-caption', var(--font-text);
+    --font-subhead: 'garamond-premier-pro-subhead', var(--font-text);
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    --text-base: clamp(18px, 1.125rem + 0.25vw, 21px);
+    --text-sm: calc(var(--text-base) / 1.333);
+    --text-xs: calc(var(--text-sm) / 1.333);
+    --text-lg: calc(var(--text-base) * 1.333);
+    --text-xl: calc(var(--text-lg) * 1.333);
+    --text-2xl: calc(var(--text-xl) * 1.333);
+    --baseline: 8px;
+    --leading-tight: 1.2;
+    --leading-snug: 1.35;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.618;
+    --leading-loose: 1.8;
+    --space-1: calc(var(--baseline) * 1);
+    --space-2: calc(var(--baseline) * 2);
+    --space-3: calc(var(--baseline) * 3);
+    --space-4: calc(var(--baseline) * 4);
+    --space-5: calc(var(--baseline) * 5);
+    --space-6: calc(var(--baseline) * 6);
+    --space-8: calc(var(--baseline) * 8);
+    --space-10: calc(var(--baseline) * 10);
+    --space-13: calc(var(--baseline) * 13);
+    --measure: 65ch;
+    --measure-narrow: 55ch;
+    --measure-wide: 75ch;
+    --gutter: clamp(16px, 4vw, 24px);
+    --ink: #1a1917;
+    --ink-muted: #4a4744;
+    --ink-subtle: #6a6662;
+    --ink-faint: #8a8580;
+    --ink-ghost: #b5b0ab;
+    --ink-whisper: #d4d0cc;
+    --ink-hint: #e8e5e2;
+    --paper: #fefdfb;
+    --paper-tint: #f5f3f0;
+    --kern-tight: -0.02em;
+    --kern-snug: -0.01em;
+    --kern-normal: 0;
+    --kern-loose: 0.015em;
+    --kern-wide: 0.04em;
+    --kern-caps: 0.08em;
+    --optical-margin: -0.03em;
+}
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    hanging-punctuation: first last;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body {
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-relaxed);
+    color: var(--ink);
+    background: var(--paper);
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1, "dlig" 1, "onum" 1, "pnum" 1;
+    font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    font-kerning: normal;
+}
+.container {
+    max-width: calc(var(--measure) + var(--space-8));
+    margin-inline: auto;
+    padding: var(--space-10) var(--gutter) var(--space-8);
+}
+.back-nav { margin-bottom: var(--space-8); }
+.back-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.back-nav a:hover { color: var(--ink); }
+.article-header {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--ink-hint);
+}
+.article-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-meta {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+    margin-top: var(--space-3);
+}
+.article-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+.article-meta a:hover {
+    color: var(--ink-muted);
+    text-decoration-color: var(--ink-ghost);
+}
+/* Companion open-source repository link — rendered when `repo` metadata is set.
+   Monochrome ink on warm paper to sit native to the typographic system;
+   the GitHub mark carries the recognition, the hairline frame the prominence. */
+.repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    max-width: 100%;
+    padding: 10px var(--space-3) 10px calc(var(--space-2) + 2px);
+    border: 1px solid var(--ink-whisper);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: border-color 200ms ease, color 200ms ease,
+                background 200ms ease, box-shadow 200ms ease;
+}
+.repo-link:hover {
+    border-color: var(--ink-faint);
+    color: var(--ink);
+    background: var(--paper-tint);
+    box-shadow: 0 2px 12px rgba(26, 25, 23, 0.07);
+}
+.repo-link:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; }
+.repo-link__mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    color: var(--ink);
+    transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.repo-link:hover .repo-link__mark { transform: rotate(-7deg) scale(1.06); }
+.repo-link__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; line-height: var(--leading-tight); }
+.repo-link__label {
+    font-family: var(--font-caption);
+    font-size: var(--text-xs);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    transition: color 200ms ease;
+}
+.repo-link:hover .repo-link__label { color: var(--ink-subtle); }
+.repo-link__url {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    letter-spacing: var(--kern-snug);
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.repo-link__arrow {
+    flex: none;
+    margin-left: var(--space-1);
+    color: var(--ink-ghost);
+    transition: transform 200ms ease, color 200ms ease;
+}
+.repo-link:hover .repo-link__arrow { transform: translateX(3px); color: var(--ink-faint); }
+@media (max-width: 400px) { .repo-link__arrow { display: none; } }
+/* TOC from pandoc */
+nav#TOC {
+    margin: 0 0 var(--space-8);
+    padding: var(--space-4) 0 var(--space-4) var(--space-4);
+    border-top: 1px solid var(--ink-hint);
+    border-bottom: 1px solid var(--ink-hint);
+}
+nav#TOC ul { list-style: none; padding: 0; }
+nav#TOC li { margin: 0.35rem 0; }
+nav#TOC a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-hint);
+    transition: border-color 0.2s;
+    font-size: var(--text-sm);
+}
+nav#TOC a:hover { border-color: var(--ink-muted); }
+.article-body { font-variant-ligatures: common-ligatures discretionary-ligatures contextual; }
+.article-body p {
+    margin-bottom: var(--space-3);
+    max-width: var(--measure);
+    line-height: var(--leading-loose);
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+    hyphenate-limit-lines: 2;
+}
+.article-body h1, .article-body .level1 > h2:first-child {
+    font-family: var(--font-subhead);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: var(--kern-tight);
+    line-height: var(--leading-tight);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h2 {
+    font-family: var(--font-subhead);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: var(--kern-snug);
+    line-height: var(--leading-snug);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    margin-left: var(--optical-margin);
+}
+.article-body h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+}
+.article-body a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-whisper);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    text-decoration-skip-ink: auto;
+    transition: text-decoration-color 180ms ease;
+}
+.article-body a:hover { text-decoration-color: var(--ink-muted); }
+.article-body blockquote {
+    margin: var(--space-5) 0;
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--ink-hint);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.article-body hr {
+    border: none;
+    height: 1px;
+    background: var(--ink-hint);
+    margin: var(--space-8) 0;
+    max-width: 4rem;
+}
+.article-body code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--paper-tint);
+    padding: 0.12em 0.35em;
+}
+.article-body pre {
+    background: #0d0d0c;
+    color: #c8c5b8;
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+.article-body pre code { background: none; padding: 0; color: inherit; }
+.article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-4) 0;
+    font-size: var(--text-sm);
+}
+.article-body th {
+    text-align: left;
+    font-weight: 600;
+    font-variant-caps: small-caps;
+    letter-spacing: var(--kern-loose);
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 2px solid var(--ink-hint);
+}
+.article-body td {
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 1px solid var(--ink-hint);
+    vertical-align: top;
+}
+.article-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.author-byline {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--ink-muted);
+}
+.author-byline strong { font-style: normal; font-weight: 600; }
+.footer-nav a {
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    font-variant-caps: small-caps;
+    font-feature-settings: "smcp" 1, "c2sc" 1, "kern" 1, "cpsp" 1;
+    letter-spacing: var(--kern-wide);
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+.footer-nav a:hover { color: var(--ink); }
+.contact-footer {
+    margin-top: var(--space-10);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ink-hint);
+    font-family: var(--font-caption);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+}
+::selection { background: var(--ink); color: var(--paper); }
+a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; border-radius: 2px; }
+@media (max-width: 680px) {
+    :root { --text-base: clamp(17px, 1rem + 0.2vw, 19px); }
+    .container { padding: var(--space-6) var(--gutter) var(--space-5); }
+    .article-title { font-size: var(--text-xl); }
+    .article-body h1, .article-body .level1 > h2:first-child { font-size: var(--text-lg); }
+    .article-body h2 { font-size: calc(var(--text-base) * 1.1); }
+    .article-footer { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}
+@media (max-width: 400px) {
+    :root { --text-base: 16px; }
+    .container { padding: var(--space-5) var(--space-2) var(--space-4); }
+}
+@media (min-width: 1200px) { .container { padding-top: var(--space-13); } }
+@media print {
+    :root { --ink: #000; --paper: #fff; }
+    body { font-size: 11pt; line-height: 1.4; }
+    .container { max-width: 100%; padding: 0; }
+    .back-nav, .contact-footer { display: none; }
+    nav#TOC { display: none; }
+    a { text-decoration: none !important; color: var(--ink) !important; }
+    .article-body h1, .article-body h2 { page-break-after: avoid; }
+    p { orphans: 3; widows: 3; }
+}
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(var(--gutter), env(safe-area-inset-left));
+        padding-right: max(var(--gutter), env(safe-area-inset-right));
+    }
+}
+
+/* Wiring in a mathematics renderer made display equations set on one unwrappable
+   line, so a long equation pushed the page wider than the viewport and readers on
+   ordinary laptops lost the right-hand side. Let each equation scroll inside its own
+   box instead of widening the page. Wide tables get the same treatment. */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
+.katex-display::-webkit-scrollbar { height: 6px; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 600px) {
+  .paper-nav-title { display: none; }
+}
+</style>
+<link rel="stylesheet" href="/paper.css">
+</head>
+<body>
+<div class="container">
+    <nav class="back-nav">
+        <a href="/">← Research</a>
+    </nav>
+    <article>
+        <header class="article-header">
+            <h1 class="article-title">Aggregate Safety</h1>
+            <p class="article-meta">April 2026 · Raeez Lorgat</p>
+                    </header>
+
+        
+        <div class="article-body">
+        <section id="aggregate-safety" class="level1">
+        <h1>Aggregate Safety</h1>
+        <p><strong>Raeez Lorgat, 2026</strong></p>
+        <hr />
+        <p>A person deposits $9,000 in cash at a bank. The Bank Secrecy Act of 1970 requires a report for currency transactions over $10,000. The person deposits another $9,000 the next day and a third deposit the day after. Each is lawful on its own. Executing the sequence to evade reporting is the federal crime of structuring, 31 U.S.C. § 5324. The relevant facts relate the deposits: the same depositor, similar amounts, proximity in time, and an aggregate over the threshold.</p>
+        <p>Compliance systems distinguish <em>screening</em> from <em>transaction monitoring</em>, as the Wolfsberg Group’s guidance describes. Screening is stateless: it matches each payment against sanctions and watch lists as it passes. Transaction monitoring maintains state, applying scenarios such as structuring and velocity checks to rolling windows of account history.</p>
+        <p>Reporting rules themselves require aggregation. A United States institution must aggregate currency transactions within one business day for the $10,000 report if it knows they concern one person (31 CFR 1010.313). That includes transactions by the person or on their behalf. For every party of record, a register that executes the transactions holds this knowledge directly. The party is a field of the committed operation, so the conditional duty always applies to those parties. Regulators have required defenses against aggregate patterns for decades.</p>
+        <p>Existing monitoring has three limits. It analyzes after settlement, producing alerts and investigations once the write has occurred. Its view is institution-specific: a chain crossing five banks may appear to each as a single unremarkable hop. It also reconstructs relations such as common control and common beneficiary from account records and filings made for other purposes, where those relations are visible.</p>
+        <p>A register that also executes transfers can check aggregates before commitment. Share transfers, payments, and corporate actions pass through one gate, the mutation firewall, and each committed operation enters a common audit log. Checks can therefore use the register’s complete history, with thresholds supplied by the jurisdiction whose rule applies. The companion paper <em>The Mutation Firewall</em> specifies that gate.</p>
+        <p>This paper specifies the state needed for sequence-level checks, the algorithms that use it, and the evidentiary value of their findings. The checks run when a write is proposed or a list changes, using state accumulated from committed writes. Rejecting a whole proposed <em>program</em> before any operation runs is a separate static question. The companion papers on the rule and operation layers address it.</p>
+        <section id="five-patterns-of-aggregate-violation" class="level2">
+        <h2>Five patterns of aggregate violation</h2>
+        <p>This paper treats five recurring patterns, including structuring. Each depends on a different relation that per-element review cannot observe. The inventory defines the paper’s scope rather than a taxonomy of all violations.</p>
+        <p><strong>Threshold fragmentation</strong> is the structuring pattern: a large transaction split into sub-threshold pieces within a window of time. The defining features are a common beneficiary, amounts individually below a reporting threshold, temporal proximity, and an aggregate above the threshold. The $10,000 currency report is the canonical instance, but any regime with a transaction-level reporting threshold admits the pattern.</p>
+        <p><strong>Ownership accumulation</strong> is the equity analogue. Disclosure attaches when a person’s interest crosses a threshold: 25 percent under the European anti-money-laundering directives and United States customer-due-diligence rule (31 CFR 1010.230). Banking law can presume control at 10 percent, as under the United States Change in Bank Control Act. Securities accumulation disclosure begins at 5 percent (Exchange Act § 13(d)).</p>
+        <p>An actor buying 10 percent, then 8 percent from another seller, then another 8 percent holds 26 percent. No purchase alone crossed the 25 percent threshold. Under § 13(d)(3), holders acting as a group are also aggregated and treated as one person. Evasion avoids computing the aggregate to which the obligation attaches. Purchases from different sellers, at different times, through different instruments make this harder to detect than fragmentation.</p>
+        <p><strong>Chained control</strong> requires attribution through ownership relations. Suppose A holds 60 percent of B, B holds 60 percent of C, and C holds 60 percent of D. Every direct holding is truthfully filed and fully visible, while each filing shows only an ordinary majority stake. The aggregate fact that reveals the violation is A’s control of D.</p>
+        <p>Economic interest and control compose differently. Economic interests multiply along a path: 60 percent of 60 percent of 60 percent gives A a 21.6 percent look-through stake in D. Products add across parallel paths. A direct 20 percent stake plus 40 percent of an intermediary holding 30 percent gives a 32 percent interest absent from any single filing. Control is transitive: majority control of a majority controller confers control, not a 36 percent interest. A contractual edge may instead confer only a veto over named acts.</p>
+        <p>The ownership graph therefore needs typed edges with a composition rule for each kind. Multiplying control edges understates control, while treating equity edges as transitive overstates it. The companion paper <em>Lex: A Logic for Jurisdictional Rules</em> develops these rules and their limits. Detection produces an attribution, such as A’s indirect control of D or A’s 32 percent look-through interest. Reviewing individual links cannot produce it.</p>
+        <p><strong>Sanctions hop-chains</strong> route funds to a sanctioned party through unsanctioned intermediaries. Every direct counterparty visible to the screen passes, while the ultimate beneficiary remains outside its view. Sanctions regimes reach indirect dealings. OFAC treats entities owned 50 percent or more in aggregate by blocked persons, directly or through ownership chains, as blocked. Evasion through intermediaries is itself a violation.</p>
+        <p>A direct-counterparty screen misses the chain when the sanctioned party appears only at its last hop, outside the screen’s view. Another institution may execute that hop. Alternatively, funds may stop at an unlisted entity the sanctioned party owns, without a further hop. Using intermediaries provides no defense.</p>
+        <p><strong>Circular flows</strong> move funds from A to B to C and back to A. Round-tripping creates apparent revenue, and cycling funds through accounts is a common form of layering. Layering separates funds from their origin in the middle stage of the placement-layering-integration sequence.</p>
+        <p>One operation can create edges A to B and B to C, with a later operation closing the cycle through C to A. No single operation then creates a cycle. An untimed payment graph also contains ordinary refunds, so a cycle alone says little. Evidence requires a flow: edges in time order within a window, with each hop forwarding most of its receipts. Amounts and timestamps distinguish that pattern from ordinary bilateral commerce.</p>
+        </section>
+        <section id="violations-as-properties-of-sequences" class="level2">
+        <h2>Violations as properties of sequences</h2>
+        <p>Write <span class="math inline">V</span> for a per-transaction predicate that passes or fails one transaction. A property of finite sequences is <em>elementwise</em> if some <span class="math inline">V</span> decides it: the sequence has it exactly when every element passes <span class="math inline">V</span>. Neither violation under the five patterns nor its complement, compliance, is elementwise. The opening example proves both claims.</p>
+        <p>Suppose <span class="math inline">V</span> decides violation. Each deposit alone is a lawful one-element sequence, so <span class="math inline">V</span> must fail it. The triple then contains an element failing <span class="math inline">V</span> and cannot count as a violation, contrary to the example. Suppose instead that <span class="math inline">V</span> decides compliance. Every deposit alone is compliant and must pass <span class="math inline">V</span>. Every element of the violating triple therefore passes <span class="math inline">V</span>, making the triple compliant.</p>
+        <p>For each pattern, every element of a violating sequence can occur innocently on its own. This singleton argument excludes a per-element decision rule for either violation or compliance.</p>
+        <p>Stateful monitoring already responds to this elementary constraint. A detector must consume relations between transactions: shared beneficiaries, time gaps, aggregates, and graph positions. It therefore needs state that persists across transactions. The design questions concern which views of history it maintains, when it is consulted, and the evidentiary standing of its inputs and outputs.</p>
+        </section>
+        <section id="the-views-the-checker-maintains" class="level2">
+        <h2>The views the checker maintains</h2>
+        <p>The checker’s state consists of views derived from the firewall’s event log, one for each relation used by the patterns. It requires no second ledger.</p>
+        <p>For fragmentation, the checker maintains a rolling payment window with beneficiary, amount, and timestamp for each entry. A proposed sub-threshold payment triggers aggregation of entries with the same beneficiary. A multi-entry total above the reporting threshold yields a threshold-aggregation finding. This is evidence of possible structuring. § 5324 also requires a purpose of evading the report, which aggregation cannot establish. The people receiving the finding must determine that purpose.</p>
+        <p>For accumulation, the checker maintains each beneficial owner’s current holdings by netting acquisitions against disposals as it replays the log. Gross acquisitions would give the wrong result: buy 10 percent, sell 10 percent, then buy 8 percent leaves 8 percent held, not 18. Disclosure therefore depends on what the person currently holds. Purchases of 10 percent today, 8 percent next month, and 8 percent the following month trigger at 26 percent. No purchase crossed the 25 percent threshold, and any intervening sale reduces the position that counts.</p>
+        <p>For attribution, the checker maintains a typed ownership graph. Equity edges carry current fractions, control edges compose transitively, and contractual rights have their own edge kind. A proposed transfer triggers recomputation through the changed region. Products along equity paths, summed across parallel paths, are tested against the acting jurisdiction’s look-through threshold. The transitive closure of control edges is tested against that jurisdiction’s definition of control.</p>
+        <p>On an acyclic graph, depth-first search enumerates paths and sums their products. Cross-holdings introduce cycles, where a simple-path sum gives the wrong quantity. Suppose A and B each hold 50 percent of the other, and B holds 40 percent of C. The single simple path gives A a 20 percent interest in C. Accounting for the repeated distributions through the loop gives A 26.7 percent of each distribution from C.</p>
+        <p>That value is the fixed point defining look-through interest: direct stake plus, for each intermediary held, the fraction held times the intermediary’s own interest. On a cyclic component, the checker solves this recursion as a linear system. It sums over all walks and converges for every component with an outside owner.</p>
+        <p>A depth bound limits search resources. Dropping paths can only reduce the sum, so reaching the bound yields a stated lower bound on interest, never clearance. The criterion remains the composed quantity for the edge kind.</p>
+        <p>For hop-chains, the checker maintains a flow graph whose payment edges carry amounts and timestamps, together with the sanctions lists in force. Before commitment, breadth-first search follows incoming flows backward in time from each proposed transfer’s source, up to a configured horizon. Every candidate path ends at the proposed edge. A path beginning at a listed party is reported in full because the proposed transfer would carry that party’s funds onward.</p>
+        <p>The search cannot examine future transfers, and the direct screen already identifies a listed party at either end of the proposed edge. Backward search identifies an earlier party whose hop was permitted. That party may have been listed later, or listed by the acting jurisdiction but not the jurisdiction that screened the earlier hop. Its earlier hop may also have matched a list and been licensed without permission extending to the onward transfer. Funds have since passed along the chain to the proposing party.</p>
+        <p>When a list changes, forward breadth-first search follows committed outgoing flows from each newly listed party in time order. It reports every path in full. This finds property moved while its owner was unlisted and supplies evidence of where that party’s interest may persist. The evidence enters the same determination as a pre-commit candidate.</p>
+        <p>Hop-chain detection also joins the flow and attribution views. A regime that blocks entities owned in aggregate by blocked persons reaches entities absent from its lists. Under OFAC’s rule, the threshold is 50 percent or more, directly or indirectly. This rule uses threshold closure rather than multiplication of equity fractions. Once an entity is blocked, its holdings count in full. Before that, they do not count.</p>
+        <p>Starting with listed parties, add any entity whose direct holders already in the set together meet the regime’s ownership threshold. Its holdings then count in full in later rounds. Repeat until no entity joins, requiring at most as many rounds as there are entities. Each added, unlisted entity is a derived blocked party. Recompute through the changed region when holdings move and from new entries when a list changes.</p>
+        <p>The direct screen and both flow searches use the listed and derived sets together. Derived status enters the applicability determination with its supporting list entries and ownership edges.</p>
+        <p>For cycles, the checker searches the same flow graph within a time window, following edges in time order with approximately conserved amounts. Unrestricted back-edge detection in the untimed graph would also flag every refund.</p>
+        <p>These views suffice for the five specified patterns. They are an adequate choice without a claim of minimality, and the same log can support other views.</p>
+        </section>
+        <section id="the-log-is-the-defense" class="level2">
+        <h2>The log is the defense</h2>
+        <p>The event log is append-only, while its views change with current state. Selling shares lowers the holdings view, and expired payments leave a rolling window. A mistaken transfer is corrected by a compensating transfer, a new event in the opposite direction. The original remains. A rescission likewise adds an event to the legal record while preserving the event it rescinds.</p>
+        <p>Every cross-operation check depends on earlier operations remaining visible. An adversary who could clear the graph, erase holding history, or empty a window could defeat all five checks. The system provides no such interface. Views are deterministic functions of the log, which uses the same gate and audit records as the operations it records. The register’s receipt mechanisms expose tampering with that log. An adversary unable to rewrite history can only add events, which the checker reads.</p>
+        </section>
+        <section id="jurisdictional-parameterization" class="level2">
+        <h2>Jurisdictional parameterization</h2>
+        <p>Jurisdictions share the algorithms while supplying their own thresholds and definitions.</p>
+        <p>Beneficial-ownership thresholds are 25 percent under the European directives and United States customer-due-diligence rule, 10 percent for banking control presumptions, and 5 percent for securities accumulation disclosure. The United States currency-reporting threshold is $10,000, with other figures elsewhere. The required United States reporting aggregation covers one business day (31 CFR 1010.313). Longer detection windows are policy choices. Maximum sanctions hop depth is also a policy choice balancing detection against false positives.</p>
+        <p>Definitions vary too. Jurisdictions define control through different thresholds and treatment of de facto control. Those definitions belong in the jurisdiction’s rule pack alongside its thresholds.</p>
+        <p>A jurisdiction supplies thresholds, windows, horizons, and definitions to instantiate the checker. Graph search, temporal aggregation, netting, and cycle detection remain unchanged. Detection is nevertheless parameter-relative: the same three deposits may fall within one regime’s window and outside another’s. The algorithm answers “what does this sequence aggregate to.” The jurisdiction’s parameters determine the legal meaning of that aggregate.</p>
+        </section>
+        <section id="the-integration-point" class="level2">
+        <h2>The integration point</h2>
+        <p>Before a financial write commits, the gate evaluates its transfers against these views. Findings enter the compliance evaluation that decides admission. Their effect depends on the kind of legal fact they support.</p>
+        <p>Most findings raise reporting or disclosure obligations. Threshold aggregation supports the report required by the regime. Crossing an accumulation or attribution threshold raises the jurisdiction’s disclosure obligation. The jurisdiction supplies these responses along with the thresholds.</p>
+        <p>A sanctions candidate is a time-ordered path through committed transfers to the proposed transfer. Its source is resolved against a sanctions list or the set derived from that list. The candidate enters the sanctions applicability determination as evidence. That determination resolves identity, names the list and version, fixes the as-of date, and represents lawful licenses, humanitarian carveouts, and sovereign exemptions.</p>
+        <p>If the determination asserts non-compliance, the gate refuses the write. No ordinary finding, discretionary approval, or approval recognized from another jurisdiction lifts that terminal refusal. The refusal records the asserting authority, list and version, as-of date, and procedure for contesting the determination. Terminal force therefore attaches to the authority’s asserted determination, not to the detector’s candidate alone.</p>
+        </section>
+        <section id="what-a-finding-is-worth" class="level2">
+        <h2>What a finding is worth</h2>
+        <p>A single-entity verdict rests on attested inputs: a registrar’s signed filing, a bank’s confirmed balance, or an officer’s certified position. Each assertion has an accountable authority.</p>
+        <p>Execution attests the edges of an aggregate finding: every transfer committed through the gate and left an audit record. The register holds those edges directly, while a bank reconstructs them from its partial view. Execution does not attest every relation needed by the patterns. Whether two nodes are one person, holders act in concert, or a structure was designed for evasion requires inference. Interests passing through holdings outside the register also require inference.</p>
+        <p>A finding that depends on inference is a classification with an error rate, not a proof. Sparse relations can make an unusual but legitimate structure appear evasive. Such findings can support obligations to disclose, report, and review. Terminal refusal requires an authority to assert the determined fact and provide a means of contesting it.</p>
+        </section>
+        <section id="why-this-matters-now" class="level2">
+        <h2>Why this matters now</h2>
+        <p>Aggregate violations have been a concern since the Bank Secrecy Act. Delegated execution and cross-jurisdictional structures make missed aggregates more costly and leave less time for detection.</p>
+        <p>Programs with delegated authority can rebalance portfolios, sweep cash, and issue dividends faster than people can execute transactions. A person structuring deposits makes a few transactions over days. A program can compose thousands of individually lawful operations in minutes. Monitoring after settlement can therefore begin after the violating sequence is complete. Detection must occur in the write path to intervene before commitment.</p>
+        <p>An institution operating in twenty jurisdictions through subsidiaries, joint ventures, and special-purpose vehicles can have hundreds of typed ownership edges. Every acquisition changes composed quantities absent from individual filings. Denser graphs add paths, parallel holdings, and composed interests near thresholds. Detecting these aggregate facts is necessary for both evasive and innocent structures.</p>
+        <p>The checker therefore maintains its views at the write path and evaluates each proposed write before commitment. Jurisdictional parameters give the findings their legal context. Evidence that would otherwise arise in a later investigation can enter the admission decision, with terminal force reserved for facts asserted by an authority.</p>
+        </section>
+        </section>
+        </div>
+
+        <footer class="article-footer">
+            <span class="author-byline"><strong>Raeez Lorgat</strong> · Managing Partner, Momentum</span>
+            <nav class="footer-nav">
+                <a href="/">← All Papers</a>
+            </nav>
+        </footer>
+        <div class="contact-footer">
+            <span>&copy; 2026 Momentum</span>
+        </div>
+    </article>
+</div>
+<script src="/paper.js" defer></script>
+</body>
+</html>
