@@ -4273,19 +4273,19 @@
       "title": "The Claim as Primitive",
       "source": {
         "path": "papers/moxie/claim-as-primitive.tex",
-        "sha256": "9d93c0520d5d2e8dc04c5bd3a0c5bee521a81fc2e4913f3386e2caa55050908d"
+        "sha256": "165585ec6ab91596bfa0e50b3208d9b4c575a20cfc58187ea751fa07047f29e5"
       },
       "markdown": {
         "path": "papers/moxie/claim-as-primitive.md",
-        "sha256": "0fb633ab239182c0c034bede71afb4baf7675a6b7ffc3e7d11e71956b20293a2"
+        "sha256": "d425c1822980d1aa304cafe53b5a10a5e8c160b87200e15351d61b5c07fb1a06"
       },
       "html": {
         "path": "papers/moxie/claim-as-primitive.html",
-        "sha256": "b4e73fea9c425b551884038ebd0e5b5ad63d27fdfeb351a5fa4d877ef7d57e05"
+        "sha256": "2786a2eccbdb35c5c7a2f70a0b491495839b982081b070d78c4ebde3ca9fed7c"
       },
       "pdf": {
         "path": "papers/moxie/claim-as-primitive.pdf",
-        "sha256": "50c22c5161dc5720f15a729bb4ca51fb49f5a4ee8c8d5045b4bec9ef62f258a3",
+        "sha256": "e88f031619b1155c73ce706ab6baef1bbb995c778a16f89153fad1c3d52847b1",
         "pages": 63
       },
       "references": {
