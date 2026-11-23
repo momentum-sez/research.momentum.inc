@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>The institutional world model - Raeez Lorgat</title>
-<meta name="description" content="A short essay on governed learning across sovereign virtual machines.">
+<title>Continual learning across sovereign institutions - Raeez Lorgat</title>
+<meta name="description" content="A short essay on continual learning across sovereign institutions.">
 <meta name="author" content="Raeez Lorgat">
-<meta property="og:title" content="The institutional world model">
-<meta property="og:description" content="A short essay on governed learning across sovereign virtual machines.">
+<meta property="og:title" content="Continual learning across sovereign institutions">
+<meta property="og:description" content="A short essay on continual learning across sovereign institutions.">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://research.momentum.inc/og-image.png">
 <meta property="og:url" content="https://research.momentum.inc/institutional-world-model-web.html">
@@ -18,10 +18,10 @@
 {
     "@context": "https://schema.org",
     "@type": "ScholarlyArticle",
-    "headline": "The institutional world model",
+    "headline": "Continual learning across sovereign institutions",
     "author": { "@type": "Person", "name": "Raeez Lorgat", "url": "https://research.momentum.inc" },
     "datePublished": "2025-09-21",
-    "description": "A short essay on governed learning across sovereign virtual machines."
+    "description": "A short essay on continual learning across sovereign institutions."
 }
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8T5J8M28"></script>
@@ -432,6 +432,11 @@ a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; bord
 .katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
 .katex-display::-webkit-scrollbar { height: 6px; }
 table { display: block; overflow-x: auto; max-width: 100%; }
+/* Paper figures: one column wide, scaled to the reading measure, never wider than the viewport. */
+.paper-figure { margin: var(--space-4) 0; max-width: var(--measure); }
+.paper-figure a { display: block; }
+.paper-figure img { display: block; width: 100%; height: auto; }
+@media print { .paper-figure { break-inside: avoid; } }
 @media (max-width: 600px) {
   .paper-nav-title { display: none; }
 }
@@ -445,29 +450,36 @@ table { display: block; overflow-x: auto; max-width: 100%; }
     </nav>
     <article>
         <header class="article-header">
-            <h1 class="article-title">The institutional world model</h1>
-                        <p class="article-subtitle">Continual learning across sovereign virtual machines</p>
+            <h1 class="article-title">Continual learning across sovereign institutions</h1>
+                        <p class="article-subtitle">An essay on the institutional world model</p>
                         <p class="article-meta">21 September 2025 · Raeez Lorgat</p>
                     </header>
 
         
         <div class="article-body">
-        <p>AI agents that conduct business need institutions to give their actions effect. A payment uses an account, and an ownership transfer changes a register. Before either proceeds, the execution environment must determine how law, regulation and policy apply to the request. The agent’s authority alone does not resolve questions about hidden fraud or rights it has no power to change.</p>
-        <p>Consider an agent asking a registrar to change a company’s owner. Earlier competent rulings give examples of when additional consent is required. Investigations can reveal attempts to evade that requirement or legitimate activity obstructed by a check. An unchanged procedure may continue missing a newly identified pattern or obstructing legitimate activity. A later correction may arrive while the request is suspended or after registration, with payment still outstanding.</p>
-        <p>Mass is a decentralized network of sovereign execution environments for AI agents. Each environment learns the correct, safe interpretation of its sovereign law, policy and regulation, so it keeps up with fraud and bad actors on its own. We introduce an <strong>institutional world model</strong> to represent rule application and institutional outcomes within that environment. Governing material supplies the requirements, rulings teach their application, and investigations supply evidence about behavior and consequences.</p>
-        <p>A standing mandate can authorize qualifying updates automatically. Institutions can share learned interpretations with zero-knowledge proofs of their calculation without transmitting raw case values. Outputs can still reveal those values. Each receiver determines the result’s meaning and permitted local use. This learning cycle must also reach mistaken decisions and preserve the consequences of earlier acts. Updating a model cannot erase a transfer, restart a case clock or cancel a bank command that can still pay.</p>
-        <section id="evidence-and-its-limits" class="level2">
-        <h2>Evidence and its limits</h2>
-        <p>The ownership task learns from normative rulings. A fraud detector learns from empirical findings. Suspicion, referral, investigation, judgment, reversal and missing evidence record different things. Predicting an official’s approval confers no official power. Predicting fraud establishes no finding.</p>
-        <p>The institution’s decisions shape the evidence available for learning. Admission determines which actions occur, and investigation determines which outcomes receive labels. Refusal supplies no finding about what the proposal would have caused.</p>
-        <p>Suppose a gate refuses 100 of 1,000 proposals. Nine of the 900 permitted proposals receive confirmed fraud findings. Even if findings are complete for those admitted cases, the refused outcomes remain unknown. Under fixed potential outcomes and no interference, permitting every proposal could yield a fraud rate between 0.9% and 10.9%. Both extremes agree with the observed record. Provenance cannot supply the missing outcomes.</p>
-        <p>Even observed information can be lost in a summary. Two histories may have identical transfer counts and compliance grades while only one contains a cycle. That cycle supplies a feature to investigate, not a fraud finding. The representation must preserve the relationships needed for the institution’s questions.</p>
-        <p>That may require records about people or entities. Exporting a model without raw rows does not prevent it from retaining information about those records. Access and retention must follow the actual task. Erasing evidence can retire future questions while leaving earlier disclosures and their consequences in place.</p>
+        <p><strong>Abstract.</strong> An institution often needs what another has already learned. It may not see the other’s cases. The lesson can prove wrong after requests have been decided under it. A later change of model can also stop a payment the institution already owes. We introduce Mass, a decentralized network of sovereign execution environments for AI agents. Each environment learns the correct, safe interpretation of its sovereign law, policy and regulation, and so keeps pace with fraud and bad actors on its own. Where its cases are too few, an environment can take what another has learned, its institutional world model, with a zero-knowledge proof that the model was computed as declared from cases the receiver never sees. The receiver decides how far to rely on the model and stops relying on it as soon as it records a correction to a case behind it. We give conditions under which a payment already owed is still completed as models change. In a worked example, checking a model from elsewhere against the receiver’s cases removes the harm of using it unchanged and leaves the receiver’s own result. For a receiver with no finding of its own, a second example shows what the model catches where a fraud scheme carries over and what it costs where it does not.</p>
+        <section id="what-an-institution-has-to-learn" class="level2">
+        <h2>What an institution has to learn</h2>
+        <p>Institutions learn slowly how their rules apply to new cases, usually after something has gone wrong. With AI agents sending requests without pause, they have to learn fast. Often one institution has already learned what another needs to know, since a scheme that works against one will be tried on the next. But the first institution’s case files are private. The second answers under its own law for every decision and cannot take a conclusion on trust, because what marks fraud in one place can be ordinary business in another. Institutions already share what they learn. They circulate descriptions of fraud methods and pool records, and some train a model jointly while each keeps its data. What arrives by any of these routes is information or a model. The receiver must trust that the cases behind it were as described and that the conclusion follows from them.</p>
+        <p>We introduce Mass, a decentralized network of sovereign execution environments for AI agents. Each institution runs one, a sovereign virtual machine, which holds its records and carries out the requests agents send it. The machine changes a record only by the institution’s rules and checks each requested change against them before making it. It is governed by the institution alone, under its law. Each environment learns the correct, safe interpretation of its sovereign law, policy and regulation, and so keeps pace with fraud and bad actors on its own. An interpretation is correct when it stays within the rule as those entitled to rule on it have read it, and safe to act on when the evidence and authority behind it are current and every other check on the act has passed. Where its cases are too few, an environment can also take what another has learned, with a proof that it follows from cases it never sees.</p>
+        <p>What an environment has learned is held in its institutional world model, a model of the institution’s rules, its procedures and the behavior they allow. The machine fits the model to its record of each request and refits it as the record grows. The record holds what was decided, under which rule and procedure, and what came of it.</p>
         </section>
-        <section id="a-finite-consent-interpretation" class="level2">
-        <h2>A finite consent interpretation</h2>
-        <p>We use a finite consent task to connect learning to a permitted action. Its 24 synthetic rulings cover ordinary transfers, common control, and nominee or custody arrangements, with eight rulings in each category. A positive label means the stipulated source authority required additional consent. These are competent determinations under a synthetic rule, not rulings by a real registrar.</p>
-        <p>For each category, the learner divides positive rulings plus one by available rulings plus two. The added units define the estimator. They establish no accuracy guarantee for a new case.</p>
+        <section id="a-purchase-of-a-company" class="level2">
+        <h2>A purchase of a company</h2>
+        <p>Take one example. Carol is buying a company from Alice, its majority shareholder, for 100 units of currency. A registrar, the public office that keeps the register of who owns each company, must enter Carol in place of Alice. Carol’s bank, where she has placed the 100 in escrow, must pay Alice from it. Carol has authorized an AI agent to complete the purchase.</p>
+        <p>The agent sends its request to the registrar’s sovereign virtual machine. Before the machine changes the register, it checks that the agent holds Carol’s current authority, that the change requested is exactly the entry of Carol in place of Alice, and that every condition the registrar’s rules attach to a transfer is met. Most of these checks compare the request with a record. One depends on how a rule has been read. A transfer between related parties can be an ordinary reorganization, or it can be made at the expense of the company’s other shareholders. The registrar’s rule therefore says that such a transfer may need the consent of the minority shareholders. It does not say which relationships between buyer and seller call for it. That is settled in rulings. A ruling is the decision of one of a registrar’s officers on how its rule applies to one transfer, and it stands unless a court overturns it on appeal. The authority that records who controls companies has found that one investor, having financed both Carol and Alice, controls what each buys and sells. Buyer and seller are under common control. The registrar has never ruled on such a transfer, so its rulings cannot say whether consent is needed (Figure 1).</p>
+        <figure id="figure-1" class="paper-figure">
+        <img src="/figures/institutional-world-model-web-figure-1.svg" alt="Figure 1: Carol&#x27;s request at the registrar" style="width:100%;height:auto" />
+        <figcaption>
+        <p><strong>Figure 1. Carol’s request at the registrar.</strong> The machine checks the request before it changes the register.</p>
+        </figcaption>
+        </figure>
+        </section>
+        <section id="a-model-from-another-registrar" class="level2">
+        <h2>A model from another registrar</h2>
+        <p>A registrar in another jurisdiction, the source of the model in this example, applies a rule of the same kind and has ruled on twenty-four transfers under it. The source sorts transfers by how buyer and seller are related. They are unrelated in an ordinary transfer. One party stands behind both in a transfer under common control, as with Carol and Alice. In a nominee or custody transfer one of them holds the shares on another’s behalf. The source has ruled on eight transfers of each kind.</p>
+        <p>For each kind the source computes a score by a counting rule. It adds one to the number of rulings that required consent and two to the number of rulings, then divides the first by the second. Seven of its eight rulings on common control required consent, which gives that kind a score of <span class="math inline">(7+1)/(8+2) = 4/5</span>.</p>
+        <p>The procedure of Carol’s registrar requires the minority’s consent at a score of <span class="math inline">3/4</span> or more and nothing further at <span class="math inline">1/4</span> or less. In between, the rulings have left the question open and the case goes to an officer. So does any kind with no rulings at all, since the counting rule scores it at exactly <span class="math inline">1/2</span>.</p>
         <table>
         <colgroup>
         <col style="width: 21%" />
@@ -477,129 +489,96 @@ table { display: block; overflow-x: auto; max-width: 100%; }
         </colgroup>
         <thead>
         <tr>
-        <th>Category</th>
-        <th style="text-align: right;">Consent required in the eight rulings</th>
-        <th style="text-align: right;">Learned score</th>
-        <th>Adopted response</th>
+        <th>Kind of transfer</th>
+        <th style="text-align: right;">Rulings requiring consent, of eight</th>
+        <th style="text-align: right;">Score</th>
+        <th>Under the registrar’s procedure</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-        <td>Ordinary transfer</td>
+        <td>Ordinary</td>
         <td style="text-align: right;">0</td>
         <td style="text-align: right;"><span class="math inline">1/10</span></td>
-        <td>No additional consent</td>
+        <td>No consent needed</td>
         </tr>
         <tr>
         <td>Common control</td>
         <td style="text-align: right;">7</td>
         <td style="text-align: right;"><span class="math inline">4/5</span></td>
-        <td>Obtain additional consent</td>
+        <td>Consent required</td>
         </tr>
         <tr>
         <td>Nominee or custody</td>
         <td style="text-align: right;">4</td>
         <td style="text-align: right;"><span class="math inline">1/2</span></td>
-        <td>Refer for a determination</td>
+        <td>An officer decides</td>
         </tr>
         </tbody>
         </table>
-        <p>The adopted procedure requires consent at scores of at least <span class="math inline">3/4</span>. Scores of at most <span class="math inline">1/4</span> satisfy this additional requirement. Between those bounds, the procedure requires a reserved determination. A category with no available rulings also returns <span class="math inline">1/2</span> and is referred.</p>
-        <p>Suppose six common-control rulings are reversed. The positive count falls from seven to one, giving a score of <span class="math inline">1/5</span>. The learned consent conclusion changes. A suspended request still needs current reassessment and reconciliation before it can proceed.</p>
-        <p>The registrar must also check the actor’s power, the exact ownership change and every other applicable condition. If execution changes its authoritative register, that transition performs the adopted institutional act. A related bank instruction may remain unpaid.</p>
-        <p>The institution must adopt more than the weights. A changed feature extractor can put the same request into another category. The adopted bundle therefore includes features, calibration, policy, inference implementation, permitted uses and provenance as well as weights. Before the effect, the environment checks the actual complete bundle and inputs against the assessment. A changed bundle requires a fresh assessment or checked evidence that the earlier result remains valid for the exact present use.</p>
+        <p>These three scores are an institutional world model at its smallest. They hold one thing learned about one rule, how it applies to three kinds of case. On these scores Carol’s purchase would have to wait until the minority shareholders consent, but the rulings behind the scores are the source’s private case files. Carol’s registrar may not see them, and it is being asked to delay her on the strength of three numbers it cannot check.</p>
         </section>
-        <section id="learning-across-institutions" class="level2">
-        <h2>Learning across institutions</h2>
-        <p>An interpretation that serves one institution may be useful elsewhere. The receiver must first distinguish a warning, a finding in one case, a detector and a whole decision procedure. Accepting a finding does not automatically adopt a general model.</p>
-        <p>Receiving use needs corresponding representations, evidence about the receiving population and local authority for the consequence. A common legal tradition may help identify a promising source for investigation. It establishes neither statistical transportability nor recognition under the receiver’s law.</p>
-        <p>Even unchanged classifier rates can produce different consequences. With sensitivity 90% and false-positive rate 1%, a positive flag has predictive value about 90.9% at prevalence 10%. At prevalence 0.1%, that value is about 8.26%. These calculations hold the classifier rates fixed. They are not measured rates for any jurisdiction.</p>
-        <p>The receiver can request evidence, recalibrate, adopt a different consequence or decline the model. A prior mandate can authorize that process automatically. Importing the artifact grants no power to impose the source’s consequences, so shared learning remains subject to local control.</p>
-        <p>Institutions already exchange financial-crime knowledge. Project Aurora and Project Mandala provide close precedents for collaborative detection and programmable compliance. The construction here connects learned interpretation to the environment that governs AI-agent execution.</p>
+        <section id="a-proof-in-place-of-the-cases" class="level2">
+        <h2>A proof in place of the cases</h2>
+        <p>Cryptography lets the source show how the numbers were computed without showing the cases. The source publishes a signed list of its twenty-four cases. For each case the list gives an identifier and whether and when a ruling was recorded. It carries commitments to the two things it hides, the kind of transfer and the ruling. A commitment is a value computed from data that hides the data and fixes it, so that its author cannot later claim it stood for anything else.</p>
+        <p>The source then publishes the three scores with a zero-knowledge proof that they are exactly what the counting rule gives on the committed cases. A proof of this kind shows that a stated calculation was carried out correctly on hidden inputs. It reveals nothing about the inputs beyond what the result itself reveals. This one covers the whole list, so the source cannot count some of its listed cases and pass over others.</p>
+        <p>The registrar’s machine verifies the proof. If signatures cannot be forged, commitments cannot be reopened to other data and the proof system is sound, the scores follow from the committed cases by the counting rule.</p>
+        <p>In this example anyone who has the three scores and the length of the list can work out how many transfers of each kind the source ruled on and how many required consent. What stays hidden is which case is which. So two registrars can make this exchange even where neither has a duty to report to the other. Each still sends the facts that the law requires to the regulator it names.</p>
+        <p>The source needs the right to release a model, from its powers or from the agreement of those the cases concern. In the example it has that right. For everything else about the cases the registrar has the source’s word, that the source was entitled to rule, that its list is complete and that each case was sorted and recorded faithfully.</p>
         </section>
-        <section id="verification-over-private-cases" class="level2">
-        <h2>Verification over private cases</h2>
-        <p>The receiver also needs evidence of how the source fitted the model. A zero-knowledge proof establishes a specified calculation without transmitting private case values. It must cover the collection promised by the source.</p>
-        <p>A commitment binds a concealed value so that the proof can refer to that same value. The source signs a complete inventory of case revisions and commitments to their categories and labels. The inventory identifies present labels, censored records and records available by the training cutoff. The receiver checks the calculation over every eligible row.</p>
-        <p>The proof binds the normative task, category definitions, calculation and resulting model, together with the intended receiver and permitted use. For a new request, the source signs a commitment to the case category. A separate inference proof establishes the model’s decision from that commitment. The receiving system compares its statement with the exact request and proposed operation.</p>
-        <p>The source remains responsible for competence, faithful encoding and completeness of its promised collection. The receiver remains responsible for authority to adopt. A verified calculation resolves neither question.</p>
-        <p>The public statement also limits what privacy can mean. Zero knowledge limits additional proof disclosure beyond that statement, while published weights and decisions remain observable.</p>
-        <p>With one eligible ruling, the selected category has score <span class="math inline">1/3</span> or <span class="math inline">2/3</span>, depending on the label. Other categories have score <span class="math inline">1/2</span>. Those weights identify both category and label. An inference outcome can also identify a category when each category has a different response.</p>
-        <p>A larger aggregate can have the same problem. An exact average over 500 binary records reveals the last value to someone who knows the other 499. Weights, scores, selection and correction releases all belong in the disclosure account. A statistical privacy guarantee requires an explicit mechanism covering the complete transcript and cumulative releases. The exact-weight construction makes no differential-privacy claim.</p>
+        <section id="the-registrars-own-decision" class="level2">
+        <h2>The registrar’s own decision</h2>
+        <p>Before it acts on scores that rest on another registrar’s word, the registrar can look at what the source has published (Figure 2). The source publishes its rule and its definitions of the three kinds with the model, and the registrar compares them with its own. In the example they are the same. Even with matching rules, another institution’s result has effect in a jurisdiction only if the institution there gives it effect, for a purpose, under its rules or a treaty. The network paper, <em>Sovereign economies on a decentralized network</em>, calls this selective recognition. The registrar’s rules let it rely on the source’s rulings as grounds for requiring a consent.</p>
+        <figure id="figure-2" class="paper-figure">
+        <img src="/figures/institutional-world-model-web-figure-2.svg" alt="Figure 2: What crosses from the source, and what the registrar decides" style="width:100%;height:auto" />
+        <figcaption>
+        <p><strong>Figure 2. What crosses from the source, and what the registrar decides.</strong> The case files stay with the source (grey). A signed list, three scores and a proof cross to the registrar, which verifies the proof and then decides how far to rely on the scores.</p>
+        </figcaption>
+        </figure>
+        <p>The registrar still does not know whether the model holds for its cases. An institution with enough cases checks the model against them and, where the two disagree, uses the scores its cases give. The registrar has no ruling of its own on common control to set against the source’s score. It is in the position of an institution with no cases of the kind, which most needs the model and has the least to check it against. Such an institution can still try the model on the business it does know and reject one that would flag much of what it knows to be legitimate. Beyond that it can only limit what the model may do.</p>
+        <p>The registrar’s limit is set in an authorization that its director gives in advance. It says what a model may do and which models the machine may adopt without a new decision. In this case the director puts the source’s model on trial. A score may only hold a transfer while a consent is sought, and each such hold has a deadline. The machine may adopt one model, because many small revisions can add up to a change nobody authorized. On these terms the machine adopts the source’s model, assesses Carol’s request at <span class="math inline">4/5</span> and holds it. Her agent sets about obtaining the minority’s consent.</p>
         </section>
-        <section id="updates-and-unfinished-duties" class="level2">
-        <h2>Updates and unfinished duties</h2>
-        <p>Adoption changes the procedure used for subsequent requests. It can also change the actions available for work the institution already owes.</p>
-        <p>A sequence of individually small changes can have a large effect. Threshold adjustments accumulate, and changes affecting different groups can eventually burden everyone. A fresh model name cannot restart an old hold or replenish a spent privacy allowance.</p>
-        <p>A standing mandate must retain limits across updates. It may permit automatic changes to evidence routing while reserving final refusal for another authority. Training produces a candidate, and adoption checks it against the authority and limits already in force.</p>
-        <p>Renewal must preserve the same continuity. Under predecessor authority, a successor mandate can authorize additional future activity while retaining earlier expenditure and current cases. Each existing duty keeps its original deadline and remaining allowance for model updates affecting its continuation. Ordinary service steps and mandate renewal cannot replenish that allowance. Otherwise repeated renewals could postpone the duty indefinitely.</p>
-        <p>A stricter detector can remove the only permitted refund route while leaving the ledger balanced. The refund then remains unpaid. Our finite construction searches for a permitted action with at least one specified response. Every response must remain safe and advance the original performance goal.</p>
-        <p>Even that check must survive model changes. One model may permit a route from state A to B and then payment. Another permits B to A and then payment. Alternating after the first step prevents payment forever, although each fixed model permits completion. The duty needs a common progress condition, persistent deadlines and limits on interference.</p>
-        <p>The progress result assumes that promised service steps actually occur. Accounting alone supplies no wall-clock guarantee. Once admitted as effective, a binding revocation immediately prevents affected new use, even if no replacement route exists. The institution records the failed assurance and surviving claim. The unpaid duty remains incomplete.</p>
-        <p>Meanwhile, the controls change the evidence for the next update. Fraudsters may change methods after detection, applicants may adapt to avoid delay, and attackers may manipulate training inputs. Investigation and correction must inform learning about that changed behavior.</p>
+        <section id="a-wrong-model" class="level2">
+        <h2>A wrong model</h2>
+        <p>Then a court in the source’s jurisdiction, on appeal, reverses six of the seven rulings that had required consent under common control.</p>
+        <p>The registrar’s machine has been relying on the reversed rulings. Each reversal reaches the registrar as a signed correction naming the case it corrects. Until that notice arrives, nothing the registrar can check will show the reversal, unless the source has undertaken to confirm on request that a ruling still stands. The machine checks the signature and records the correction. From that moment nothing that rested on the corrected rulings may be used in a further decision. The machine can find all of it in the record from which it learns, because with each assessment it kept the model that was used, and with the model the list it was fitted to.</p>
+        <p>The evidence behind the source’s model is out of date and acting on it is no longer safe. Carol’s hold loses its ground, because the registrar may not require the consent on the old score, and it may not register her transfer either until her request has been assessed again. No corrected model exists yet.</p>
+        <p>The source refits its model. With one ruling in eight requiring consent, common control scores <span class="math inline">(1+1)/(8+2) = 1/5</span>. The source publishes the new scores with a new proof, which the machine verifies (Figure 3). The director’s authorization allowed one adoption and the first model used it, so the director has to renew it. Carol’s request waits for that decision under its original deadline. The machine then adopts the corrected model and assesses her request again. At <span class="math inline">1/5</span> no consent is needed.</p>
+        <figure id="figure-3" class="paper-figure">
+        <img src="/figures/institutional-world-model-web-figure-3.svg" alt="Figure 3: Six reversals move a score across both thresholds" style="width:100%;height:auto" />
+        <figcaption>
+        <p><strong>Figure 3. Six reversals move a score across both thresholds.</strong> The three scores before the correction, with the registrar’s thresholds at <span class="math inline">1/4</span> and <span class="math inline">3/4</span>. Six reversed rulings move common control from <span class="math inline">4/5</span> to <span class="math inline">1/5</span>.</p>
+        </figcaption>
+        </figure>
+        <p>Carol has waited for a consent she did not need. The correction does not undo that, and who compensates her is for a court. The machine keeps what a court would need to decide it, a record of who ruled, who relied on the ruling and how long she was held.</p>
         </section>
-        <section id="correction-and-continuing-consequences" class="level2">
-        <h2>Correction and continuing consequences</h2>
-        <p>A source ruling can influence a receiving model and suspend an ownership request that never names that ruling. Correcting direct references alone would miss the request. Correction must follow dependencies through training, calibration, adoption and assessment.</p>
-        <p>The receiver marks affected current reliance for reassessment, checked reuse or competent disposition. Future candidates derived from the invalidated source inherit the same problem. Renaming the candidate does not remove its basis.</p>
-        <p>Source corrections and case corrections have separate paths. A newly admitted signed case record can invalidate an assessment before a replacement inference proof is available. A newly trained model needs receiving adoption. Neither adoption nor proof acceptance automatically clears the affected case.</p>
-        <p>These guarantees begin after the receiver admits the relevant change. Unchanged inputs cannot reveal an undelivered reversal. A stronger currentness claim requires a notification arrangement, validity lease or current-use service with specified terms.</p>
-        <p>A revised interpretation leaves earlier acts attributable. Reversing a transfer or changing its consequences needs a competent act of its own. A disclosure cannot be recalled, and a bank command remains possible until its contract supports exclusion. Correction must reach the current decision while accounting for what the institution has already done.</p>
-        <p>The same requirement applies when an agent or operator leaves. Its replacement needs usable models, inference software, evidence access, licenses and the full continuing case state. A transferred database confers no registrar or provider powers. Every promised service needs an actual post-transfer authority path, including reconciliation of old commands.</p>
-        <p>The synthetic consent lifecycle exercises this path with actual proofs. After six reversals, the receiver verifies and adopts the replacement interpretation, then explicitly reconciles the case before registration. A further correction arrives while the original payment is pending. The replacement operator receives the command and learned state, then records subsequent synthetic provider performance. The receiving record contains proofs and outcomes without the source’s private inputs.</p>
+        <section id="a-payment-still-owed" class="level2">
+        <h2>A payment still owed</h2>
+        <p>The registrar and the bank now decide the purchase together, each checking its part under its rules, by the protocol that the network paper calls polycentric consensus. Either Carol is entered in place of Alice and the bank is instructed to pay Alice from the escrow, or neither happens. When the two commit, Carol is on the register and the machine holds on its record an instruction to the bank to pay Alice 100. Alice has given up her shares and holds only a right to be paid her 100 until the bank pays. The machine has still to release the instruction to the bank and, when the bank reports that it has paid, to match the report to the instruction and record the payment as made. Before the bank pays, one more correction arrives from the source, a seventh.</p>
+        <p>The machine records it. After the first six, Carol’s request could not go forward until it had been assessed again. This one finds the purchase decided and leaves the instruction to pay Alice untouched. But the registrar’s models go on changing, and a payment already owed can be stopped by a stricter check adopted after it was promised. A check on payments between parties financed by one investor would stop this one. The instruction would stay on the books and Alice would never be paid.</p>
+        <p>So before the machine adopts any model, it checks every duty still owed, Alice’s payment among them. A next step must remain that the new model permits. Whatever the bank replies to that step, the payment must be made or still able to be made, and never made twice. A model that fails this for Alice’s payment is not adopted while her payment is owed.</p>
+        <p>That check takes one model at a time. A series of models, each leaving a way forward, could still keep sending a payment back to an earlier step. Every duty therefore carries a count of the steps remaining, fixed when the duty is created. Alice’s payment counts two at the commit, one once the instruction is with the bank and zero when the payment is recorded. A completed step lowers the count and no model may raise it. A court can still order the payment stopped, on the record, but a stricter model that would add a step to a payment already owed, such as a review before release, is refused.</p>
+        <p>If at least one step is completed in every <span class="math inline">b</span> changes the machine makes to its records, a duty with <span class="math inline">r</span> steps remaining is complete within <span class="math inline">b \times r</span> changes, and Alice’s within <span class="math inline">2b</span> (Figure 4). If the bank never acts, the payment stays on the record, owed and unpaid. In the example the bank pays. The machine matches the bank’s report to the instruction and records the payment as made in full.</p>
+        <figure id="figure-4" class="paper-figure">
+        <img src="/figures/institutional-world-model-web-figure-4.svg" alt="Figure 4: Alice&#x27;s payment and later models" style="width:100%;height:auto" />
+        <figcaption>
+        <p><strong>Figure 4. Alice’s payment and later models.</strong> The payment has two steps remaining at the commit. Each completed step lowers the count, and no later model may raise it or remove the next step.</p>
+        </figcaption>
+        </figure>
         </section>
-        <section id="the-fraud-comparison" class="level2">
-        <h2>The fraud comparison</h2>
-        <p>A separate task tests whether the receiver benefits from shared learning. It uses a synthetic Indonesian financial-integrity office and a synthetic receiving office, representing no actual institution or fraud observation. We compare local rules, local learning, direct source transfer and transfer with receiving validation.</p>
-        <p>All four face the same 320 proposals, outcomes, duties, deadlines and provider behavior. Trained rational weights drive the learned decisions. Local learning and receiving-validated transfer have identical calibration capacity.</p>
-        <table>
-        <colgroup>
-        <col style="width: 20%" />
-        <col style="width: 26%" />
-        <col style="width: 26%" />
-        <col style="width: 26%" />
-        </colgroup>
-        <thead>
-        <tr>
-        <th>Arm</th>
-        <th style="text-align: right;">Fraud detected, of 26</th>
-        <th style="text-align: right;">False holds, of 294</th>
-        <th style="text-align: right;">Duties on time, of 294</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-        <td>Local rules</td>
-        <td style="text-align: right;">0</td>
-        <td style="text-align: right;">0</td>
-        <td style="text-align: right;">294</td>
-        </tr>
-        <tr>
-        <td>Local learning</td>
-        <td style="text-align: right;">24</td>
-        <td style="text-align: right;">16</td>
-        <td style="text-align: right;">290</td>
-        </tr>
-        <tr>
-        <td>Direct source transfer</td>
-        <td style="text-align: right;">24</td>
-        <td style="text-align: right;">96</td>
-        <td style="text-align: right;">274</td>
-        </tr>
-        <tr>
-        <td>Receiving-validated transfer</td>
-        <td style="text-align: right;">24</td>
-        <td style="text-align: right;">16</td>
-        <td style="text-align: right;">290</td>
-        </tr>
-        </tbody>
-        </table>
-        <p>Direct transfer detects the same fraudulent cases as the calibrated arms, but imposes more false holds and delays more existing duties. All benign duties complete within the common horizon. That result depends on the stipulated investigation service revealing truth perfectly.</p>
-        <p>Receiving validation replaces every source weight with receiving-validation weights. It reaches the same final policy as local learning. There is no additional transfer benefit in this fixture. The receiving procedure rejects unhelpful source influence. The result does not establish that sharing necessarily improves a model.</p>
-        <p>The public correction lifecycle reverses seventy erroneous positive findings. Refitting changes a pattern assessment from Hold to Permit. Receiving adoption and case reconciliation remain necessary before new use. These seventy fraud-label reversals are distinct from the six normative reversals in the consent task.</p>
-        <p>The reference program checks learned admission before recording an ownership change. It retains the original payment command through correction and operator replacement, then records subsequent provider performance. The additional lifecycle correction changes none of the comparative data. No general correspondence between this implementation and the formal model has been proved.</p>
-        <p>The constructions connect learned interpretation to executable decisions and their continuing consequences. Their practical value still requires measurement of useful completion, prevented harm, unnecessary exclusion and correction costs over repeated updates. The evaluation must follow changing behavior and continue after independent operator replacement.</p>
-        <p>The <a href="https://research.momentum.inc/institutional-world-model.html">full paper</a> gives the assumptions, proofs, cited precedents and fixed comparison. Its companion network paper and technical supplement develop the execution, recognition, remedy and succession relations.</p>
+        <section id="what-has-been-shown" class="level2">
+        <h2>What has been shown</h2>
+        <p>The purchase proceeds in order from Carol’s request to the bank’s payment (Figure 5).</p>
+        <figure id="figure-5" class="paper-figure">
+        <img src="/figures/institutional-world-model-web-figure-5.svg" alt="Figure 5: Carol&#x27;s purchase, from request to payment" style="width:100%;height:auto" />
+        <figcaption>
+        <p><strong>Figure 5. Carol’s purchase, from request to payment.</strong> Carol’s hold lasts from the first assessment to the second, under its original deadline. The payment is owed to Alice from the commit until the bank pays.</p>
+        </figcaption>
+        </figure>
+        <p>The results the story relied on are proved in the paper this essay accompanies, <a href="https://research.momentum.inc/institutional-world-model.html"><em>The institutional world model: Continual learning across sovereign virtual machines</em></a>. The construction that proves the scores covers three kinds of case and lists of up to 256. A duty that passes the check before adoption can be completed under the new model and, with a count of steps, within the bound above. Nothing that rested on a corrected ruling supports a further decision until it has a new ground, and no model removes from the record an instruction that can still be carried out. The results suppose that every change to the records passes the machine’s checks and is made whole or not at all, and that sources and the bank keep to what they have declared.</p>
+        <p>Whether another’s model is worth having is a separate question. The first example takes a receiver with cases of its own and asks what checking the model against them is worth. Here the scores are open and carry no proofs. At a source, 16 of the 20 cases that followed one commercial practice were fraud, a score of <span class="math inline">17/22</span>. At the receiver the practice is ordinary business. None of the 40 cases it kept for checking was fraud, a score of <span class="math inline">1/42</span>. The receiver faces 320 new requests, 26 fraudulent and 294 legitimate, and holds for investigation any that scores <span class="math inline">1/2</span> or more. A model learned from the receiver’s cases holds 24 of the 26 frauds and 16 legitimate requests. The source’s model used unchanged holds the same 24 frauds and 96 legitimate requests. The extra 80 all follow the practice. Checked against the receiver’s cases, the source’s model ends with the receiver’s scores and the receiver’s result, so the check removes the harm of using it as it came.</p>
+        <p>The second example takes the case in which another’s model is needed most, a receiver with no finding of its own. A source learns a fraud scheme from its findings, as a rule of six conditions on twelve yes-or-no facts about a request. It releases the model, with how often each pattern of the twelve facts occurs with each finding, and a proof of correct fitting over 6,000 cases. The receiver verifies the proof, checks the model against its cases and the authorization it gave in advance, and uses the model on trial from the first day. The check rejects a model fitted to wrong findings and one that would sweep in legitimate local business, because each would flag much of what the receiver knows to be legitimate. A model poisoned on purpose passes, since the receiver has no finding of the scheme to test it against. If the model is correct and the scheme works the same way at the receiver, the receiver holds every instance of the scheme in the week before its first finding. It also holds about one legitimate request in 64, which it would have passed with no model. If the scheme never arrives or works differently, the receiver holds the same one in 64 and catches nothing beyond chance.</p>
+        <p>The consent scores are learned from the outcomes of rulings. An officer’s decision is a new ruling, and the next fitting counts its outcome: a ninth nominee ruling that required consent would move the nominee score from <span class="math inline">1/2</span> to <span class="math inline">6/11</span>.</p>
         </section>
         </div>
 

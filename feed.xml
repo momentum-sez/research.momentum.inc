@@ -5,7 +5,7 @@
   <id>https://research.momentum.inc/</id>
   <link href="https://research.momentum.inc/"/>
   <link rel="self" href="https://research.momentum.inc/feed.xml"/>
-  <updated>2026-11-04T00:00:00Z</updated>
+  <updated>2026-11-23T00:00:00Z</updated>
   <author><name>Raeez Lorgat</name></author>
 
   <entry>
@@ -13,7 +13,7 @@
     <id>https://research.momentum.inc/sovereign-economies-on-a-network.html</id>
     <link href="https://research.momentum.inc/sovereign-economies-on-a-network.html"/>
     <published>2025-09-21T00:00:00Z</published>
-    <updated>2026-10-27T00:00:00Z</updated>
+    <updated>2026-11-23T00:00:00Z</updated>
     <author><name>Raeez Lorgat</name></author>
     <summary>A decentralized network of sovereign execution environments for AI agents: typed execution, zero-knowledge proofs, polycentric consensus and selective recognition.</summary>
   </entry>
@@ -22,7 +22,7 @@
     <id>https://research.momentum.inc/institutional-world-model.html</id>
     <link href="https://research.momentum.inc/institutional-world-model.html"/>
     <published>2025-09-21T00:00:00Z</published>
-    <updated>2026-10-30T00:00:00Z</updated>
+    <updated>2026-11-23T00:00:00Z</updated>
     <author><name>Raeez Lorgat</name></author>
     <summary>How sovereign execution environments for AI agents learn, adopt and correct interpretations of law, regulation and policy while preserving authority and unfinished work.</summary>
   </entry>
@@ -86,7 +86,7 @@
     <title>The Claim as Primitive</title>
     <id>https://research.momentum.inc/papers/moxie/claim-as-primitive.html</id>
     <link href="https://research.momentum.inc/papers/moxie/claim-as-primitive.html"/>
-    <updated>2026-10-22T00:00:00Z</updated>
+    <updated>2026-11-23T00:00:00Z</updated>
     <author><name>Raeez Lorgat</name></author>
     <summary>A common language for financial claims: what determines the payoff, when it is evaluated, and what must be paid.</summary>
   </entry>
@@ -147,13 +147,13 @@
     <summary>Dispute resolution from the claim and evidence through the award, execution, and recovery record.</summary>
   </entry>
   <entry>
-    <title>Recourse: Preserving Authority from Legal Claim to Execution</title>
+    <title>Recourse: A Decentralized Network of AI Courts</title>
     <id>https://research.momentum.inc/papers/recourse-authority.html</id>
     <link href="https://research.momentum.inc/papers/recourse-authority.html"/>
     <published>2026-11-04T00:00:00Z</published>
-    <updated>2026-11-04T00:00:00Z</updated>
+    <updated>2026-11-23T00:00:00Z</updated>
     <author><name>Raeez Lorgat</name></author>
-    <summary>Practitioner engagement, court and arbitration routes, evidence, payment and execution records, with their guarantees and implementation limits.</summary>
+    <summary>A decentralized network of AI courts that runs dispute resolution and carries outcomes into execution.</summary>
   </entry>
 
   <entry>

@@ -417,6 +417,11 @@ a:focus-visible { outline: 2px solid var(--ink-muted); outline-offset: 3px; bord
 .katex-display { overflow-x: auto; overflow-y: hidden; padding-top: 0.2em; padding-bottom: 0.2em; }
 .katex-display::-webkit-scrollbar { height: 6px; }
 table { display: block; overflow-x: auto; max-width: 100%; }
+/* Paper figures: one column wide, scaled to the reading measure, never wider than the viewport. */
+.paper-figure { margin: var(--space-4) 0; max-width: var(--measure); }
+.paper-figure a { display: block; }
+.paper-figure img { display: block; width: 100%; height: auto; }
+@media print { .paper-figure { break-inside: avoid; } }
 @media (max-width: 600px) {
   .paper-nav-title { display: none; }
 }
@@ -475,7 +480,7 @@ table { display: block; overflow-x: auto; max-width: 100%; }
         </section>
         <section id="companion-essay" class="level2">
         <h2>Companion essay</h2>
-        <p><a href="/institutional-world-model-web.html">The Institutional World Model</a> is a short essay on governed learning across sovereign virtual machines. The <a href="/institutional-world-model.html">full paper</a> gives the assumptions, proofs and fixed comparison.</p>
+        <p><a href="/institutional-world-model-web.html">Continual learning across sovereign institutions</a> is a short essay on the institutional world model. The <a href="/institutional-world-model.html">full paper</a> gives the definitions, results and proofs.</p>
         <p>Return to <a href="/">the research catalogue</a> or <a href="/programme.html">the programme overview</a>.</p>
         </section>
         </div>
