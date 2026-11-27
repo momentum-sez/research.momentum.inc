@@ -2,10 +2,10 @@
   {
     "id": "use-expanded-introduction-c9b8d96f162b",
     "scope": "expanded-introduction",
-    "quote": "difference changes sign, so the exchange",
+    "quote": "eigenvalues of the exchange operator",
     "phrase": "the exchange",
     "target": "ch01-definition-exchange-at-energy-two",
-    "preview": "On the level-one energy-two space, the exchange S interchanges the two unit occupations. Its eigenvalues on their normalized sum and difference are +1 and −1."
+    "preview": "On the level-one energy-two space, the exchange S interchanges the two unit occupations. Its eigenvalues on their normalised sum and difference are +1 and −1."
   },
   {
     "id": "use-expanded-introduction-a27ec86e2325",
@@ -117,7 +117,7 @@
     "quote": "is measured. Here the exchange",
     "phrase": "the exchange",
     "target": "ch01-definition-exchange-at-energy-two",
-    "preview": "On the level-one energy-two space, the exchange S interchanges the two unit occupations. Its eigenvalues on their normalized sum and difference are +1 and −1."
+    "preview": "On the level-one energy-two space, the exchange S interchanges the two unit occupations. Its eigenvalues on their normalised sum and difference are +1 and −1."
   },
   {
     "id": "use-opening-6d36edc01a4a",
@@ -3322,7 +3322,7 @@
   {
     "id": "use-expanded-introduction-consistent-twist",
     "scope": "expanded-introduction",
-    "quote": "a twisting cochain is a degree-one map",
+    "quote": "is called a twisting cochain",
     "phrase": "twisting cochain",
     "target": "ch05-definition-twisting-cochain",
     "preview": "A reduced twisting cochain vanishes on the coaugmentation. Its differential cancels the product obtained by cutting its input into two parts."
